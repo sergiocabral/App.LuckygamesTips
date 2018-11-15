@@ -1,0 +1,25 @@
+{
+  "name": "luckygames-tips",
+  "version": "8.0.0",
+  "description": "Do more in Luckygames with Tips",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && javascript-obfuscator ../webserver/script --output ./ --compact true --rename-globals false --unicode-escape-sequence true",
+    "build-dev": "tsc -p tsconfig.json"
+  },
+  "author": "contact@luckygames.tips",
+  "license": "ISC",
+  "include": [
+    "src/**"
+  ],
+  "exclude": [
+    "../webserver/**"
+  ],
+  "devDependencies": {
+    "@types/node": "^10.12.7",
+    "@types/react": "^16.7.6",
+    "@types/react-dom": "^16.0.9",
+    "javascript-obfuscator": "^0.18.1",
+    "typescript": "^3.1.6"
+  },
+  "dependencies": {}
+}

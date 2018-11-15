@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "outDir": "../webserver/script",
+        "target": "es5",
+        "module": "none",
+        "lib": ["es2017", "dom"],        
+        "jsx": "react",
+        "moduleResolution": "node",
+        "sourceMap": false,
+        "strict": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictPropertyInitialization": true,
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": false,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true
+    },
+    "files": [
+        "./src/_index.ts"
+    ]
+}
