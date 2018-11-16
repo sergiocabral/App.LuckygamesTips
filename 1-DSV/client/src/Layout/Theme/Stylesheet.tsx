@@ -12,14 +12,14 @@ namespace Layout.Theme {
         public constructor(colors: Colors) {
             this.colors = colors;
             this.zIndex = 1000;
-            this.colorLight = "#DEE1E6";
-            this.colorDark = "#6E6E6E";
+            this.colorLight = Util.Drawing.LightenDarken(colors.shapes, 80);
+            this.colorDark = Util.Drawing.LightenDarken(colors.shapes, -80);
             this.generalTextFont = "'Hind Siliguri', sans-serif";
-            this.generalTextColor = "#777777";
-            this.generalBackground = "#FFFFFF";
+            this.generalTextColor = colors.generalTextColor;
+            this.generalBackground = colors.generalBackground;
             this.dialogTextFont = "'Concert One', cursive";
-            this.dialogTitleTextColor = "#747678";
-            this.dialogTitleBackground = "#FAFAFA";
+            this.dialogTitleTextColor = colors.dialogTitleTextColor;
+            this.dialogTitleBackground = colors.dialogTitleBackground;
         }
 
         /**

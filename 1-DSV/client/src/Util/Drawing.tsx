@@ -28,7 +28,7 @@ namespace Util {
          * @param {string} hexColor Cor hexadecimal.
          * @param {number} intensity Valor positivo clareia, negativo escurece.
          */
-        public LightenDarken(hexColor: string, intensity: number): string {
+        public static LightenDarken(hexColor: string, intensity: number): string {
             let hex = hexColor.replace('#', '');
             hex = hex.length !== 6 ? hex : hex[0].repeat(2) + hex[1].repeat(2) + hex[2].repeat(2);
          

@@ -2,33 +2,33 @@ namespace Layout.Theme {
 
     /**
      * Tema para customização de cores do layout.
-     * Baseado em https://color.adobe.com/
+     * Para ter ideias visite https://color.adobe.com/
      */
     export type Colors = {
+        
+        /**
+         * Cor de texto em geral.
+         */
+        generalTextColor: string;
 
         /**
-         * Primeira cor
+         * Fundo em geral.
          */
-        first: string;
+        generalBackground: string;
 
         /**
-         * Segunda cor
+         * Cor do texto do título das janelas de diálogo.
          */
-        second: string;
+        dialogTitleTextColor: string;
 
         /**
-         * Terceira cor
+         * Fundo do título das janelas de diálogo.
          */
-        third: string;
+        dialogTitleBackground: string;
 
         /**
-         * Quarta cor
+         * Cor usada para compor o layout com linhas, formas, etc.
          */
-        fourth: string;
-
-        /**
-         * Quinta cor
-         */
-        fifth: string;        
+        shapes: string;        
     }
 }

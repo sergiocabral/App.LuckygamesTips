@@ -1,7 +1,7 @@
 {
-    "first": "11",
-    "second": "22",
-    "third": "33",
-    "fourth": "44",
-    "fifth": "55"
+    "generalTextColor": "#777777",
+    "generalBackground": "#FFFFFF",
+    "dialogTitleTextColor": "#747678",
+    "dialogTitleBackground": "#FAFAFA",
+    "shapes": "#3E4E59"
 }
