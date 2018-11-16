@@ -20,7 +20,7 @@ namespace Locale {
             if (this.instance) throw new Error(Locale.Translates.getInstance().get("Está é uma instância global de {name} e não pode ser redefinida.", { name: "Translates" }));
             this.instance = instance;
 
-            Core.Log.History.getInstance().post("Definido idioma padrão: {languageDefault}.", Core.Log.Level.Debug, this);
+            Core.Log.History.getInstance().post("Definido idioma padrão: {languageDefault}", instance, Core.Log.Level.Debug);
         }
 
         /**

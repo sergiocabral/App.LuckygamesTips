@@ -19,7 +19,7 @@ namespace Core.Log {
         public static setInstance(instance: History): void {
             if (this.instance) throw new Error(Locale.Translates.getInstance().get("Está é uma instância global de {name} e não pode ser redefinida.", { name: "History" }));
             this.instance = instance;
-            instance.post(`Log iniciado.`, Core.Log.Level.Debug);
+            instance.post("Log iniciado.", null, Core.Log.Level.Debug);
         }
         
         /**
@@ -54,27 +54,30 @@ namespace Core.Log {
         /**
          * Registra uma mensagem de log
          * @param {string} message Mensagem.
-         * @param {Level} level Nível da mensagem.
          * @param {any} values Opcional. Conjunto de valores para substituição na string.
+         * @param {Level} level Nível da mensagem.
+         * @param {any} toConsoleLog Qualquer coisas para ser passado como parâmetro para console.log();
          */
-        public post(text: string, level: Level, values: any = { }): void {
+        public post(text: string, values: any = { }, level: Level, toConsoleLog: any = undefined): void {
             const message: Message = {
                 time: new Date(),
                 level: level,
                 text: text.querystring(values)
             };            
             this.messages.push(message);
-            this.console(message);
+            this.console(message, toConsoleLog);
         }
 
         /**
          * Exibe a mensagem no console.
          * @param {Message} message Mensagem de log.
+         * @param {any} toConsoleLog Qualquer coisas para ser passado como parâmetro para console.log();
          */
-        private console(message: Message): void {
+        private console(message: Message, toConsoleLog: any = undefined): void {
             if (!this.isDebug) return;
 
-            console.log(`[${Level[message.level]}]`, message.text);
+            if (toConsoleLog !== undefined) console.log(`[${Level[message.level]}]`, message.text, toConsoleLog);
+            else console.log(`[${Level[message.level]}]`, message.text);
         }
     }
 }

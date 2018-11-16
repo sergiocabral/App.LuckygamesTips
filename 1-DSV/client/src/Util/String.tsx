@@ -23,9 +23,13 @@ namespace Util {
          */
         public static querystring(text: string, values: any = { }): string {
             let result = text;
-            if (typeof(values) === "object") {
+            if (Array.isArray(values)) {
+                for (let i = 0; i < values.length; i++) {
+                    result = result.replaceAll(`{${i}}`, values[i]);
+                }
+            } else if (typeof(values) === "object") {
                 for (const value in values) {
-                    result = value.replaceAll(`{${value}}`, values[value]);
+                    result = result.replaceAll(`{${value}}`, values[value]);
                 }
             }
             return result;

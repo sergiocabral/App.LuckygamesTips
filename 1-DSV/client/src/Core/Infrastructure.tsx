@@ -26,7 +26,6 @@ namespace Core {
                         { type: Api.DataType.Translate, name: Locale.Translates.getInstance().languageDefault, data: "" },
                         { type: Api.DataType.Locale, name: Locale.Translates.getInstance().languageDefault, data: "" }
                     ]).then((data) => {
-                        console.log(data);
                         new Main(this, {
                             colors: Layout.Theme.Stylesheet.parse(data[0].data),
                             translates: Locale.Translates.parse(data[1].data),

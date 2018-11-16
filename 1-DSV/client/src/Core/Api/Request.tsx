@@ -81,7 +81,7 @@ namespace Core.Api {
             const urls: string[] = data.map(i => this.getUrl("data", DataType[i.type], i.name));
             return new Promise(resolve => {
                 const load = (index: number) => {
-                    Core.Log.History.getInstance().post(`Chamando API: ${urls[index]}`, Core.Log.Level.Debug);
+                    Core.Log.History.getInstance().post("Chamando API: {0}", [urls[index]], Core.Log.Level.Debug);
 
                     const request = new XMLHttpRequest();
                     request.open("GET", urls[index]);
@@ -91,7 +91,7 @@ namespace Core.Api {
                         if (++index < urls.length) load(index);
                         else resolve(data);
                         if (ev.currentTarget.status !== 200) {
-                            Core.Log.History.getInstance().post(`Erro HTTP ${ev.currentTarget.status} ao obter dados da chamada de API ${ev.currentTarget.responseURL}.`, Core.Log.Level.Debug);
+                            Core.Log.History.getInstance().post("Erro HTTP {status} ao obter dados da chamada de API {responseURL}.", ev.currentTarget, Core.Log.Level.Debug);
                         }
                     };
                 }
