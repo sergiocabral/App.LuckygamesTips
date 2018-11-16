@@ -39,12 +39,12 @@ namespace Layout.Component {
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                width: 60%;
-                height: 60%;
+                min-width: 200px;
+                min-height: 100px;
             }
             ${base} .header {
                 background-color: ${theme.dialogTitleBackground};
-                border-bottom: 1px solid ${theme.colorLight};
+                border-bottom: 1px solid ${Util.Drawing.blend(0.8, theme.dialogTitleTextColor)};
                 border-radius: 7px 7px 0 0;
                 padding: 9px 0 8px 0;
                 cursor: pointer;
@@ -64,11 +64,11 @@ namespace Layout.Component {
                 color: ${theme.dialogTitleTextColor};
                 font-size: 20px;
                 float: left;
-                margin: -3px 10px 0 13px;
+                margin: -3px 9px 0 11px;
                 opacity: 1;
             }
             ${base} .header a.close {
-                color: ${theme.dialogTitleTextColor};
+                color: ${Util.Drawing.blend(0.3, theme.dialogTitleTextColor)};
                 position: absolute;
                 right: 13px;
                 top: 12px;
@@ -77,16 +77,22 @@ namespace Layout.Component {
             ${base} .header a.close:hover {
                 color: ${theme.dialogTitleTextColor};
             }
-            ${base} .content {
+            ${base} .content * {
                 margin: 5px 10px;
+            }
+            ${base} .content * {
                 font-family: ${theme.generalTextFont};
                 font-size: 14px;              
             }
+            ${base} .content > * {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
             ${base} .content > *:first-child {
-                margin-top: 0;
+                margin-top: 5px;
             }  
             ${base} .content > *:last-child {
-                margin-bottom: 0;
+                margin-bottom: 5px;
             }            
             `);
         }

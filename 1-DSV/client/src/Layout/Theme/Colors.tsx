@@ -6,29 +6,12 @@ namespace Layout.Theme {
      */
     export type Colors = {
         
-        /**
-         * Cor de texto em geral.
-         */
-        generalTextColor: string;
+        primary: string;
 
-        /**
-         * Fundo em geral.
-         */
-        generalBackground: string;
+        secondary: string;
 
-        /**
-         * Cor do texto do título das janelas de diálogo.
-         */
-        dialogTitleTextColor: string;
+        positive: string;
 
-        /**
-         * Fundo do título das janelas de diálogo.
-         */
-        dialogTitleBackground: string;
-
-        /**
-         * Cor usada para compor o layout com linhas, formas, etc.
-         */
-        shapes: string;        
+        negative: string;   
     }
 }

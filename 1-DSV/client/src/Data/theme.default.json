@@ -1,7 +1,6 @@
 {
-    "generalTextColor": "#777777",
-    "generalBackground": "#FFFFFF",
-    "dialogTitleTextColor": "#747678",
-    "dialogTitleBackground": "#FAFAFA",
-    "shapes": "#3E4E59"
+    "primary": "#007bff",
+    "secondary": "#6c757d",
+    "positive": "#28a745",
+    "negative": "#dc3545"
 }

@@ -12,14 +12,12 @@ namespace Layout.Theme {
         public constructor(colors: Colors) {
             this.colors = colors;
             this.zIndex = 1000;
-            this.colorLight = Util.Drawing.LightenDarken(colors.shapes, 80);
-            this.colorDark = Util.Drawing.LightenDarken(colors.shapes, -80);
             this.generalTextFont = "'Hind Siliguri', sans-serif";
-            this.generalTextColor = colors.generalTextColor;
-            this.generalBackground = colors.generalBackground;
-            this.dialogTextFont = "'Concert One', cursive";
-            this.dialogTitleTextColor = colors.dialogTitleTextColor;
-            this.dialogTitleBackground = colors.dialogTitleBackground;
+            this.generalTextColor = Util.Drawing.blend(-0.8, colors.primary);
+            this.generalBackground = "#ffffff";
+            this.dialogTextFont = "'Raleway', sans-serif";
+            this.dialogTitleTextColor = Util.Drawing.blend(-0.8, colors.secondary);
+            this.dialogTitleBackground = Util.Drawing.blend(0.8, colors.secondary);
         }
 
         /**
@@ -33,18 +31,6 @@ namespace Layout.Theme {
          * @type {number}
          */
         public zIndex: number;
-
-        /**
-         * Cor geral para claros.
-         * @type {string}
-         */
-        public colorLight: string;
-
-        /**
-         * Cor geral para escuros.
-         * @type {string}
-         */
-        public colorDark: string;
 
         /**
          * Fonte de texto em geral.

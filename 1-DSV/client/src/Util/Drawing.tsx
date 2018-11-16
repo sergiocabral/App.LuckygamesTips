@@ -22,32 +22,42 @@ namespace Util {
             
             return brightness > 155;
         }
-
+        
         /**
-         * Aumenta ou diminui a claridade de uma cor.
-         * @param {string} hexColor Cor hexadecimal.
-         * @param {number} intensity Valor positivo clareia, negativo escurece.
+         * Clareia, escurece ou mistura cores.
+         * @param {number} percent Percentual de 0 a 1 para intensidade.
+         * @param {string} color Cor em hexadecimal # ou rgb().
+         * @param {string} colorToBlend Opcional. Cor para fazer uma mistura.
          */
-        public static LightenDarken(hexColor: string, intensity: number): string {
-            let hex = hexColor.replace('#', '');
-            hex = hex.length !== 6 ? hex : hex[0].repeat(2) + hex[1].repeat(2) + hex[2].repeat(2);
-         
-            var num = parseInt(hex, 16);         
-            
-            var r = (num >> 16) + intensity;         
-            if (r > 255) r = 255;
-            else if  (r < 0) r = 0;
-         
-            var b = ((num >> 8) & 0x00FF) + intensity;         
-            if (b > 255) b = 255;
-            else if  (b < 0) b = 0;
-         
-            var g = (num & 0x0000FF) + intensity;         
-            if (g > 255) g = 255;
-            else if (g < 0) g = 0;
-         
-            hex = (hexColor.indexOf("#") >= 0 ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16);
-            return hex;
+        public static blend(percent: number, color: string, colorToBlend: string = ""): string {
+            const n = percent < 0 ? percent * -1 : percent
+            const u = Math.round
+            const w = parseInt;
+
+            if (color.length > 7) {
+                const f = color.split(",");
+                const t = (colorToBlend ? colorToBlend : percent < 0 ? "rgb(0,0,0)" : "rgb(255,255,255)").split(",");
+                const R = w(f[0].slice(4));
+                const G = w(f[1]);
+                const B = w(f[2]);
+
+                return "rgb(" + 
+                    (u((w(t[0].slice(4)) - R) * n) + R) + "," +
+                    (u((w(t[1]) - G) * n) + G) + "," +
+                    (u((w(t[2]) - B) * n) + B) + ")";
+            } else {
+                const f = w(color.slice(1), 16);
+                const t = w((colorToBlend ? colorToBlend : percent < 0 ? "#000000" : "#FFFFFF").slice(1), 16);
+                const R1 = f >> 16;
+                const G1 = f >> 8 & 0x00FF;
+                const B1 = f & 0x0000FF;
+                
+                return "#" +
+                    (0x1000000 + (u(((t >> 16) - R1) * n) + R1) * 
+                    0x10000 + (u(((t >> 8 & 0x00FF) - G1) * n) + G1) * 
+                    0x100 + (u(((t & 0x0000FF) - B1) * n) + B1))
+                    .toString(16).slice(1);
+            }
         }
     }
 }

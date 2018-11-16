@@ -43,7 +43,7 @@ namespace Core {
                     libs.push("https://unpkg.com/react-dom@16/umd/react-dom.production.min.js");
                 }
                 libs.push("https://use.fontawesome.com/releases/v5.5.0/css/all.css");
-                libs.push("https://fonts.googleapis.com/css?family=Concert+One|Hind+Siliguri");
+                libs.push("https://fonts.googleapis.com/css?family=Raleway|Hind+Siliguri");
 
                 Util.LoadReferences.libraries(libs).then(resolve);
             })
