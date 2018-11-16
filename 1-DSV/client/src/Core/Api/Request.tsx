@@ -86,11 +86,14 @@ namespace Core.Api {
                     const request = new XMLHttpRequest();
                     request.open("GET", urls[index]);
                     request.send();
-                    request.onload = () => {
+                    request.onloadend = (ev: any) => {
                         data[index].data = request.responseText;
                         if (++index < urls.length) load(index);
                         else resolve(data);
-                    }
+                        if (ev.currentTarget.status !== 200) {
+                            Core.Log.History.getInstance().post(`Erro HTTP ${ev.currentTarget.status} ao obter dados da chamada de API ${ev.currentTarget.responseURL}.`, Core.Log.Level.Debug);
+                        }
+                    };
                 }
                 load(0);
             });

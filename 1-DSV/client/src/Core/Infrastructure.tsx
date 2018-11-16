@@ -27,7 +27,7 @@ namespace Core {
                     ]).then((data) => {
                         new Main(this, {
                             colors: JSON.parse(data[0].data) as Layout.Theme.Colors,
-                            translates: (JSON.parse(data[1].data) as []).map(i => { return { 
+                            translates: !data[1].data ? [] : (JSON.parse(data[1].data) as []).map(i => { return { 
                                 language: Core.Translate.Translates.getInstance().languageDefault,
                                 id: Object.keys(i)[0] as string,
                                 translated: i[Object.keys(i)[0]] as string
