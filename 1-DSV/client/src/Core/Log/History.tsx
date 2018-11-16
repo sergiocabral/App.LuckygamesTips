@@ -17,7 +17,7 @@ namespace Core.Log {
          * @param {History} instance Instância global.
          */
         public static setInstance(instance: History): void {
-            if (this.instance) throw new Error(Core.Locale.Translates.getInstance().get("Está é uma instância global de {name} e não pode ser redefinida.", { name: "History" }));
+            if (this.instance) throw new Error(Locale.Translates.getInstance().get("Está é uma instância global de {name} e não pode ser redefinida.", { name: "History" }));
             this.instance = instance;
             instance.post(`Log iniciado.`, Core.Log.Level.Debug);
         }
@@ -27,7 +27,7 @@ namespace Core.Log {
          * @returns {History} Instância global.
          */
         public static getInstance(): History {
-            if (!this.instance) throw new Error(Core.Locale.Translates.getInstance().get("Está instância global de {name} ainda não foi definida.", { name: "History" }));
+            if (!this.instance) throw new Error(Locale.Translates.getInstance().get("Está instância global de {name} ainda não foi definida.", { name: "History" }));
             return this.instance;
         }
 
@@ -55,12 +55,13 @@ namespace Core.Log {
          * Registra uma mensagem de log
          * @param {string} message Mensagem.
          * @param {Level} level Nível da mensagem.
+         * @param {any} values Opcional. Conjunto de valores para substituição na string.
          */
-        public post(text: string, level: Level): void {
+        public post(text: string, level: Level, values: any = { }): void {
             const message: Message = {
                 time: new Date(),
                 level: level,
-                text: text
+                text: text.querystring(values)
             };            
             this.messages.push(message);
             this.console(message);

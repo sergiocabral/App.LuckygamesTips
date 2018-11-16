@@ -10,10 +10,22 @@
 /// <reference path="Core/Environment/Number.tsx" />
 /// script: initialize
 
-/// <reference path="Core/Locale/Translate.tsx" />
+/// <reference path="Locale/Format/Number.tsx" />
 /// script: initialize
 
-/// <reference path="Core/Locale/Translates.tsx" />
+/// <reference path="Locale/Format/Date.tsx" />
+/// script: initialize
+
+/// <reference path="Locale/FormatSet.tsx" />
+/// script: initialize
+
+/// <reference path="Locale/Formats.tsx" />
+/// script: initialize
+
+/// <reference path="Locale/Translate.tsx" />
+/// script: initialize
+
+/// <reference path="Locale/Translates.tsx" />
 /// script: initialize
 
 /// <reference path="Core/Log/Level.tsx" />
@@ -29,6 +41,12 @@
 /// script: initialize
 
 /// <reference path="Core/ConfigurationLazy.tsx" />
+/// script: initialize
+
+/// <reference path="Util/Number.tsx" />
+/// script: initialize
+
+/// <reference path="Util/DateTime.tsx" />
 /// script: initialize
 
 /// <reference path="Util/String.tsx" />

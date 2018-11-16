@@ -11,7 +11,7 @@ namespace Util {
          * @param {string} code Código CSS.
          */
         public static stylesheetCode(code: string): void {
-            const hash: number = Util.String.hash(code);
+            const hash: number = code.hash();
             const id = `style_${hash}`;
             
             if (document.getElementById(id)) return;

@@ -16,10 +16,9 @@ namespace Core {
             this.infrastructure = infrastructure;
             this.configurationLazy = configurationLazy;
             
-            Core.Locale.Translates.getInstance().load(configurationLazy.translates);
+            Locale.Translates.getInstance().load(configurationLazy.translates);
             this.presentation = new Layout.Presentation(configurationLazy.colors);
-
-            Core.Locale.Translates.setInstance(new Core.Locale.Translates("pt"));
+            console.log(configurationLazy.locale);
 
             this.presentation.createDialog(infrastructure.configuration.name);
         }

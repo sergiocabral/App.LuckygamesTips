@@ -13,6 +13,11 @@ namespace Core.Api {
         /**
          * Traduções de textos.
          */
-        Translate
+        Translate,
+        
+        /**
+         * Informações de localização e região.
+         */
+        Locale
     }
 }

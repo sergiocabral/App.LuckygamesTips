@@ -1,12 +1,12 @@
 {
-    "defaultNumberFormat": {
+    "number": {
         "digits": 8,
         "decimal": ",",
         "showPositive": false,
         "prefix": "",
         "sufix": ""
     },
-    "defaultDateFormat": {
+    "date": {
         "mask": "d/M/y h:m:s",
         "day": "dia",
         "days": "dias"

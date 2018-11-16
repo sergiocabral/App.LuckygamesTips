@@ -1,4 +1,4 @@
-namespace Core.Locale {
+namespace Locale {
 
     /**
      * Unidade de tradução. Texto original e tradução.

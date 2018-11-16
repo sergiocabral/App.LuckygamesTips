@@ -35,7 +35,7 @@ namespace Util {
          * @returns {Promise<void>} Retorna void quando o arquivo é carregado.
          */
         public static javaScript(src: string): Promise<void> {
-            const hash: number = Util.String.hash(src);
+            const hash: number = src.hash();
             const id = `script_${hash}`;
 
             if (document.getElementById(id)) return new Promise(resolve => resolve());
@@ -59,7 +59,7 @@ namespace Util {
          * @returns {Promise<void>} Retorna void quando o arquivo é carregado.
          */
         public static stylesheet(href: string): Promise<void> {
-            const hash: number = Util.String.hash(href);
+            const hash: number = href.hash();
             const id = `link_${hash}`;
 
             if (document.getElementById(id)) return new Promise(resolve => resolve());

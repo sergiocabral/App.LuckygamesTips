@@ -1,4 +1,4 @@
-namespace Core.Locale {
+namespace Locale {
 
     /**
      * Manipulador de traduções
@@ -17,8 +17,10 @@ namespace Core.Locale {
          * @param {Translates} instance Instância global.
          */
         public static setInstance(instance: Translates): void {
-            if (this.instance) throw new Error(Core.Locale.Translates.getInstance().get("Está é uma instância global de {name} e não pode ser redefinida.", { name: "Translates" }));
+            if (this.instance) throw new Error(Locale.Translates.getInstance().get("Está é uma instância global de {name} e não pode ser redefinida.", { name: "Translates" }));
             this.instance = instance;
+
+            Core.Log.History.getInstance().post("Definido idioma padrão: {languageDefault}.", Core.Log.Level.Debug, this);
         }
 
         /**
@@ -26,7 +28,7 @@ namespace Core.Locale {
          * @returns {Translates} Instância global.
          */
         public static getInstance(): Translates {
-            if (!this.instance) throw new Error(Core.Locale.Translates.getInstance().get("Está instância global de {name} ainda não foi definida.", { name: "Translates" }));
+            if (!this.instance) throw new Error(Locale.Translates.getInstance().get("Está instância global de {name} ainda não foi definida.", { name: "Translates" }));
             return this.instance;
         }
 
@@ -61,7 +63,7 @@ namespace Core.Locale {
         /**
          * Retorna a tradução de um texto em um determinado idioma.
          * @param {string} id Identificador do texto.
-         * @param {any} values Opcional. Conjunto de valores para uso na string de tradução.
+         * @param {any} values Opcional. Conjunto de valores para substituição na string.
          * @param {string} language Opcional. Idioma.
          * @returns {string} Texto traduzido.
          */
@@ -81,6 +83,21 @@ namespace Core.Locale {
             }
 
             return translated;
+        }
+
+        /**
+         * Valida uma string para retorna como objeto.
+         * @param {string} json Dados do json como string.
+         * @returns {Translate[]} Objeto.
+         */
+        public static parse(json: string): Translate[] {
+            return !json ? [] : (JSON.parse(json) as []).map(i => { 
+                return { 
+                    language: Locale.Translates.getInstance().languageDefault,
+                    id: Object.keys(i)[0] as string,
+                    translated: i[Object.keys(i)[0]] as string
+                }
+            });
         }
     }
 }

@@ -14,6 +14,11 @@ namespace Core {
         /**
          * Traduções do sistema.
          */
-        translates: Locale.Translate[]
+        translates: Locale.Translate[],
+        
+        /**
+         * Informações de localização e região.
+         */
+        locale: Locale.Formats
     }
 }

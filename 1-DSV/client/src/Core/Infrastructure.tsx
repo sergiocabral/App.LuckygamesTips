@@ -15,7 +15,7 @@ namespace Core {
 
             Core.Log.History.setInstance(new Log.History(configuration.debug));
             Core.Api.Request.setInstance(new Api.Request(configuration.server));
-            Core.Locale.Translates.setInstance(new Core.Locale.Translates("pt"));
+            Locale.Translates.setInstance(new Locale.Translates("pt"));
 
             this.configuration = configuration;
 
@@ -23,15 +23,14 @@ namespace Core {
                 Core.Api.Request.getInstance().loadScript([Api.ScriptContext.React]).then(() => {
                     Core.Api.Request.getInstance().loadData([
                         { type: Api.DataType.Theme, name: "default", data: "" },
-                        { type: Api.DataType.Translate, name: Core.Locale.Translates.getInstance().languageDefault, data: "" }
+                        { type: Api.DataType.Translate, name: Locale.Translates.getInstance().languageDefault, data: "" },
+                        { type: Api.DataType.Locale, name: Locale.Translates.getInstance().languageDefault, data: "" }
                     ]).then((data) => {
+                        console.log(data);
                         new Main(this, {
-                            colors: JSON.parse(data[0].data) as Layout.Theme.Colors,
-                            translates: !data[1].data ? [] : (JSON.parse(data[1].data) as []).map(i => { return { 
-                                language: Core.Locale.Translates.getInstance().languageDefault,
-                                id: Object.keys(i)[0] as string,
-                                translated: i[Object.keys(i)[0]] as string
-                            }})
+                            colors: Layout.Theme.Stylesheet.parse(data[0].data),
+                            translates: Locale.Translates.parse(data[1].data),
+                            locale: Locale.Formats.parse(data[2].data)
                         });
                     });
                 });

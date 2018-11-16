@@ -67,5 +67,14 @@ namespace Layout.Theme {
          * @type {string}
          */
         public dialogTitleBackground: string;
+
+        /**
+         * Valida uma string para retorna como objeto.
+         * @param {string} json Dados do json como string.
+         * @returns {Translate[]} Objeto.
+         */
+        public static parse(json: string): Colors {
+            return JSON.parse(json) as Colors;
+        }
     }
 }
