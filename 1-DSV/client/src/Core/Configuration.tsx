@@ -18,6 +18,12 @@ namespace Core {
         debug: boolean,
 
         /**
+         * Indica se deve exibir a mensagem de boas vindas ao usuário.
+         * @type {boolean}
+         */
+        welcome: boolean,
+
+        /**
          * Url da api no servidor.
          * @type {string}
          */

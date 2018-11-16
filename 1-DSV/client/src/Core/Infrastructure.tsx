@@ -13,11 +13,19 @@ namespace Core {
         public constructor(configuration: Configuration) {
             window.anything = { };
 
+            this.configuration = configuration;
+
+            const language = "pt";
+
+            if (configuration.welcome) {
+                Log.History.welcome(configuration.name, language.toString() === "pt" ? 
+                    "Uma maneira de fazer muito mais. Obrigado pelo apoio." :
+                    "A way to do much more. Thanks for the support.");
+            }
+
             Core.Log.History.setInstance(new Log.History(configuration.debug));
             Core.Api.Request.setInstance(new Api.Request(configuration.server));
-            Locale.Translates.setInstance(new Locale.Translates("pt"));
-
-            this.configuration = configuration;
+            Locale.Translates.setInstance(new Locale.Translates(language));
 
             this.loadReferences(configuration.debug).then(() => {
                 Core.Api.Request.getInstance().loadScript([Api.ScriptContext.React]).then(() => {
