@@ -143,9 +143,13 @@ namespace Layout.Component {
         private onBarMouseDown(ev: any): void {
             this.controlMoviment.elementToMove = this.elContainer.current as HTMLDivElement;
             this.controlMoviment.isDown = true;
+
+            const clientX = ev.changedTouches !== undefined ? ev.changedTouches[0].clientX : ev.clientX;
+            const clientY = ev.changedTouches !== undefined ? ev.changedTouches[0].clientY : ev.clientY;
+
             this.controlMoviment.offset = [
-                this.controlMoviment.elementToMove.offsetLeft - ev.clientX,
-                this.controlMoviment.elementToMove.offsetTop - ev.clientY
+                this.controlMoviment.elementToMove.offsetLeft - clientX,
+                this.controlMoviment.elementToMove.offsetTop - clientY
             ];
 
             window.cancelAnimationFrame(window.requestAnimationFrame(this.onBarFrameAnimation)); //Linha sem efeito. Necessária para suprimir warning 'declared but never read'.
@@ -153,6 +157,8 @@ namespace Layout.Component {
 
             window.addEventListener('mouseup', this.onBarMouseUp);
             window.addEventListener('mousemove', this.onBarMouseMove);
+            this.controlMoviment.elementToMove.addEventListener('touchend', this.onBarMouseUp);
+            this.controlMoviment.elementToMove.addEventListener('touchmove', this.onBarMouseMove);
         }
 
         /**
@@ -162,8 +168,11 @@ namespace Layout.Component {
             if (!window.anything.componentDialogControlMoviment) return;
             const _this = window.anything.componentDialogControlMoviment._this;
 
-            window.removeEventListener('mousemove', _this.controlMoviment.onBarMouseMove);
-            window.removeEventListener('mouseup', _this.controlMoviment.onBarMouseUp);
+            window.removeEventListener('mouseup', _this.onBarMouseUp);
+            window.removeEventListener('mousemove', _this.onBarMouseMove);
+            _this.controlMoviment.elementToMove.removeEventListener('touchend', _this.onBarMouseUp);
+            _this.controlMoviment.elementToMove.removeEventListener('touchmove', _this.onBarMouseMove);
+
             window.cancelAnimationFrame(_this.idFrameAnimation);
             _this.controlMoviment.isDown = false;
             _this.controlMoviment.wasMoving = false;
@@ -176,15 +185,18 @@ namespace Layout.Component {
          * @param {any} ev 
          */
         private onBarMouseMove(ev: any): void {
+            ev.preventDefault();
+
             if (!window.anything.componentDialogControlMoviment) return;
             const _this = window.anything.componentDialogControlMoviment._this;
 
-            ev.preventDefault();
+            const clientX = ev.changedTouches !== undefined ? ev.changedTouches[0].clientX : ev.clientX;
+            const clientY = ev.changedTouches !== undefined ? ev.changedTouches[0].clientY : ev.clientY;
 
             if (_this.controlMoviment.isDown) {
                 _this.controlMoviment.mousePosition = {        
-                    x: ev.clientX,
-                    y: ev.clientY        
+                    x: clientX,
+                    y: clientY        
                 };
 
                 if (!_this.controlMoviment.wasMoving) {
@@ -220,7 +232,7 @@ namespace Layout.Component {
 
             const jsx = (
                 <div id={id} className={className} ref={this.elContainer as any}>
-                    <div className="header" onMouseDown={this.onBarMouseDown}>
+                    <div className="header" onMouseDown={this.onBarMouseDown} onTouchStart={this.onBarMouseDown}>
                         <span className="icon"><i className="fas fa-robot"></i></span>
                         <h1 ref={this.elTitle as any}>{this.props.title}</h1>
                         <a href="#" className="close"><i className="fas fa-times"></i></a>
