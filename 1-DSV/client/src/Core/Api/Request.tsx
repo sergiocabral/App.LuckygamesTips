@@ -17,7 +17,7 @@ namespace Core.Api {
          * @param {Request} instance Instância global.
          */
         public static setInstance(instance: Request): void {
-            if (this.instance) throw new Error("A instância global de api não pode ser redefinida.");
+            if (this.instance) throw new Error(Core.Translate.Translates.getInstance().get("Está é uma instância global de {name} e não pode ser redefinida.", { name: "Request" }));
             this.instance = instance;
         }
 
@@ -26,7 +26,7 @@ namespace Core.Api {
          * @returns {Request} Instância global.
          */
         public static getInstance(): Request {
-            if (!this.instance) throw new Error("A instância global de api ainda não foi definida.");
+            if (!this.instance) throw new Error(Core.Translate.Translates.getInstance().get("Está instância global de {name} ainda não foi definida.", { name: "Request" }));
             return this.instance;
         }
 

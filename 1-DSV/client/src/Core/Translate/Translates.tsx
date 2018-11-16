@@ -17,7 +17,7 @@ namespace Core.Translate {
          * @param {Translates} instance Instância global.
          */
         public static setInstance(instance: Translates): void {
-            if (this.instance) throw new Error("A instância global de tradução não pode ser redefinida.");
+            if (this.instance) throw new Error(Core.Translate.Translates.getInstance().get("Está é uma instância global de {name} e não pode ser redefinida.", { name: "Translates" }));
             this.instance = instance;
         }
 
@@ -26,7 +26,7 @@ namespace Core.Translate {
          * @returns {Translates} Instância global.
          */
         public static getInstance(): Translates {
-            if (!this.instance) throw new Error("A instância global de tradução ainda não foi definida.");
+            if (!this.instance) throw new Error(Core.Translate.Translates.getInstance().get("Está instância global de {name} ainda não foi definida.", { name: "Translates" }));
             return this.instance;
         }
 
@@ -61,16 +61,26 @@ namespace Core.Translate {
         /**
          * Retorna a tradução de um texto em um determinado idioma.
          * @param {string} id Identificador do texto.
+         * @param {any} values Opcional. Conjunto de valores para uso na string de tradução.
          * @param {string} language Opcional. Idioma.
          * @returns {string} Texto traduzido.
          */
-        public get(id: string, language: string = this.languageDefault): string {            
+        public get(id: string, values: any = { }, language: string = this.languageDefault): string {            
+            let translated = id;
             for (let i = 0; i < this.translates.length; i++) {
                 if (this.translates[i].id === id && this.translates[i].language === language) {
-                    return this.translates[i].translated;
-                } 
+                    translated = this.translates[i].translated;
+                    break;
+                }
             }
-            return id;
+
+            if (typeof(values) === "object") {
+                for (const value in values) {
+                    translated = translated.replaceAll(`{${value}}`, values[value]);
+                }
+            }
+
+            return translated;
         }
     }
 }

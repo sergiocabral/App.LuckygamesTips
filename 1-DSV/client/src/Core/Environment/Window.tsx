@@ -1,5 +1,5 @@
 /**
- * Interface para extender propriedades de window.
+ * Interface para extender propriedades de Window.
  */
 interface Window {
     

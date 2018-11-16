@@ -19,6 +19,8 @@ namespace Core {
             Core.Translate.Translates.getInstance().load(configurationLazy.translates);
             this.presentation = new Layout.Presentation(configurationLazy.colors);
 
+            Core.Translate.Translates.setInstance(new Core.Translate.Translates("pt"));
+
             this.presentation.createDialog(infrastructure.configuration.name);
         }
 

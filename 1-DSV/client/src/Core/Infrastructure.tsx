@@ -15,7 +15,7 @@ namespace Core {
 
             Core.Log.History.setInstance(new Log.History(configuration.debug));
             Core.Api.Request.setInstance(new Api.Request(configuration.server));
-            Core.Translate.Translates.setInstance(new Core.Translate.Translates("en"));
+            Core.Translate.Translates.setInstance(new Core.Translate.Translates("pt"));
 
             this.configuration = configuration;
 

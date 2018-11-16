@@ -1,6 +1,15 @@
 /// <reference path="Core/Environment/Window.tsx" />
 /// script: initialize
 
+/// <reference path="Core/Environment/String.tsx" />
+/// script: initialize
+
+/// <reference path="Core/Environment/Date.tsx" />
+/// script: initialize
+
+/// <reference path="Core/Environment/Number.tsx" />
+/// script: initialize
+
 /// <reference path="Core/Translate/Unit.tsx" />
 /// script: initialize
 
