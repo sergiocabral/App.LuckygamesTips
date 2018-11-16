@@ -22,7 +22,7 @@ namespace Layout {
 
             document.body.appendChild(container);
 
-            Core.Log.History.getInstance().post("Criado container do sistema com id=\"{id}\"", container, Core.Log.Level.Debug, container);
+            Core.Log.History.getInstance().post("Criado container do sistema.", null, Core.Log.Level.Debug, container);
 
             this.container = container;
             this.colors = colors;
