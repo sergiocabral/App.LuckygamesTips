@@ -25,6 +25,9 @@
 /// <reference path="Util/DOM.tsx" />
 /// script: initialize
 
+/// <reference path="Util/Drawing.tsx" />
+/// script: initialize
+
 /// <reference path="Util/LoadReferences.tsx" />
 /// script: initialize
 
