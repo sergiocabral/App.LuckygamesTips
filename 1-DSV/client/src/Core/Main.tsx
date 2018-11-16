@@ -16,10 +16,10 @@ namespace Core {
             this.infrastructure = infrastructure;
             this.configurationLazy = configurationLazy;
             
-            Core.Translate.Translates.getInstance().load(configurationLazy.translates);
+            Core.Locale.Translates.getInstance().load(configurationLazy.translates);
             this.presentation = new Layout.Presentation(configurationLazy.colors);
 
-            Core.Translate.Translates.setInstance(new Core.Translate.Translates("pt"));
+            Core.Locale.Translates.setInstance(new Core.Locale.Translates("pt"));
 
             this.presentation.createDialog(infrastructure.configuration.name);
         }

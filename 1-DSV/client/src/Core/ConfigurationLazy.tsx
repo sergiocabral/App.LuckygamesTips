@@ -14,6 +14,6 @@ namespace Core {
         /**
          * Traduções do sistema.
          */
-        translates: Translate.Unit[]
+        translates: Locale.Translate[]
     }
 }

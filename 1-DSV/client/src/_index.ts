@@ -10,10 +10,10 @@
 /// <reference path="Core/Environment/Number.tsx" />
 /// script: initialize
 
-/// <reference path="Core/Translate/Unit.tsx" />
+/// <reference path="Core/Locale/Translate.tsx" />
 /// script: initialize
 
-/// <reference path="Core/Translate/Translates.tsx" />
+/// <reference path="Core/Locale/Translates.tsx" />
 /// script: initialize
 
 /// <reference path="Core/Log/Level.tsx" />

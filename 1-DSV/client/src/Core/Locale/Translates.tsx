@@ -1,4 +1,4 @@
-namespace Core.Translate {
+namespace Core.Locale {
 
     /**
      * Manipulador de traduções
@@ -17,7 +17,7 @@ namespace Core.Translate {
          * @param {Translates} instance Instância global.
          */
         public static setInstance(instance: Translates): void {
-            if (this.instance) throw new Error(Core.Translate.Translates.getInstance().get("Está é uma instância global de {name} e não pode ser redefinida.", { name: "Translates" }));
+            if (this.instance) throw new Error(Core.Locale.Translates.getInstance().get("Está é uma instância global de {name} e não pode ser redefinida.", { name: "Translates" }));
             this.instance = instance;
         }
 
@@ -26,7 +26,7 @@ namespace Core.Translate {
          * @returns {Translates} Instância global.
          */
         public static getInstance(): Translates {
-            if (!this.instance) throw new Error(Core.Translate.Translates.getInstance().get("Está instância global de {name} ainda não foi definida.", { name: "Translates" }));
+            if (!this.instance) throw new Error(Core.Locale.Translates.getInstance().get("Está instância global de {name} ainda não foi definida.", { name: "Translates" }));
             return this.instance;
         }
 
@@ -46,15 +46,15 @@ namespace Core.Translate {
 
         /**
          * Lista de traduções.
-         * @type {Unit[]}
+         * @type {Translate[]}
          */
-        public translates: Unit[] = [];
+        public translates: Translate[] = [];
 
         /**
          * Carrega uma lista de traduções.
-         * @param {Unit[]} translates Lista de idiomas.
+         * @param {Translate[]} translates Lista de idiomas.
          */
-        public load(translates: Unit[]): void {
+        public load(translates: Translate[]): void {
             this.translates = this.translates.concat(translates);
         }
         

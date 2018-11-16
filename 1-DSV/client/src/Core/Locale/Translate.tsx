@@ -1,9 +1,9 @@
-namespace Core.Translate {
+namespace Core.Locale {
 
     /**
      * Unidade de tradução. Texto original e tradução.
      */
-    export type Unit = { 
+    export type Translate = { 
 
         /**
          * Idioma.

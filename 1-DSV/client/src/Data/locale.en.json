@@ -1,0 +1,14 @@
+{
+    "defaultNumberFormat": {
+        "digits": 8,
+        "decimal": ".",
+        "showPositive": false,
+        "prefix": "",
+        "sufix": ""
+    },
+    "defaultDateFormat": {
+        "mask": "M/d/y h:m:s",
+        "day": "day",
+        "days": "days"
+    }
+}
