@@ -15,9 +15,11 @@ namespace Core {
             this.id = id;
             this.infrastructure = infrastructure;
             this.configurationLazy = configurationLazy;
+            
+            Core.Translate.Translates.getInstance().load(configurationLazy.translates);
             this.presentation = new Layout.Presentation(configurationLazy.colors);
 
-            this.presentation.createDialog("Luckygames Tips");
+            this.presentation.createDialog(infrastructure.configuration.name);
         }
 
         /**

@@ -10,5 +10,10 @@ namespace Core {
          * Tema para customização de cores do layout.
          */
         colors: Layout.Theme.Colors
+
+        /**
+         * Traduções do sistema.
+         */
+        translates: Translate.Unit[]
     }
 }

@@ -3,11 +3,16 @@ namespace Core.Api {
     /**
      * Tipos de dados para carregamento do servidor.
      */
-    export enum DataType { 
+    export enum DataType {
         
         /**
-         * Temas para layout
+         * Temas para layout.
          */
-        Theme
+        Theme,
+        
+        /**
+         * Traduções de textos.
+         */
+        Translate
     }
 }

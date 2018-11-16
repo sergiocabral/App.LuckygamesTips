@@ -13,30 +13,30 @@ namespace Core {
         public constructor(configuration: Configuration) {
             window.anything = { };
 
-            Log.History.setInstance(new Log.History(configuration.debug));
-            Core.Log.History.getInstance().post(`Iniciando sistema.`, Core.Log.Level.Debug);
-            
-            this.configuration = configuration;            
-            this.api = new Api.Request(configuration.server);            
+            Core.Log.History.setInstance(new Log.History(configuration.debug));
+            Core.Api.Request.setInstance(new Api.Request(configuration.server));
+            Core.Translate.Translates.setInstance(new Core.Translate.Translates("en"));
+
+            this.configuration = configuration;
 
             this.loadReferences(configuration.debug).then(() => {
-                this.api.loadScript([Api.ScriptContext.React]).then(() => {
-                    this.api.loadData([
-                        { type: Api.DataType.Theme, name: "default", data: "" }
+                Core.Api.Request.getInstance().loadScript([Api.ScriptContext.React]).then(() => {
+                    Core.Api.Request.getInstance().loadData([
+                        { type: Api.DataType.Theme, name: "default", data: "" },
+                        { type: Api.DataType.Translate, name: Core.Translate.Translates.getInstance().languageDefault, data: "" }
                     ]).then((data) => {
                         new Main(this, {
-                            colors: JSON.parse(data[0].data) as Layout.Theme.Colors
+                            colors: JSON.parse(data[0].data) as Layout.Theme.Colors,
+                            translates: (JSON.parse(data[1].data) as []).map(i => { return { 
+                                language: Core.Translate.Translates.getInstance().languageDefault,
+                                id: Object.keys(i)[0] as string,
+                                translated: i[Object.keys(i)[0]] as string
+                            }})
                         });
                     });
                 });
             });
         }
-
-        /**
-         * Manipulador de chamadas api.
-         * @type {Api.Request}
-         */
-        public api: Api.Request;
 
         /**
          * Conjunto de propriedades que configuram o sistema.

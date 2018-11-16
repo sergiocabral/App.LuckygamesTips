@@ -6,6 +6,12 @@ namespace Core {
     export type Configuration = {
 
         /**
+         * Nome do sistema
+         * @type {string}
+         */
+        name: string
+
+        /**
          * Indica se a execução está em modo DEBUG.
          * @type {boolean}
          */

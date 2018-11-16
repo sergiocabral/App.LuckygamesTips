@@ -1,10 +1,10 @@
 /// <reference path="Core/Environment/Window.tsx" />
 /// script: initialize
 
-/// <reference path="Core/Translate/Phrase.tsx" />
+/// <reference path="Core/Translate/Unit.tsx" />
 /// script: initialize
 
-/// <reference path="Core/Translate/Phrases.tsx" />
+/// <reference path="Core/Translate/Translates.tsx" />
 /// script: initialize
 
 /// <reference path="Core/Log/Level.tsx" />
@@ -64,7 +64,8 @@
 /// <reference path="Core/Infrastructure.tsx" />
 /// script: initialize
 
-new Core.Infrastructure({ 
+new Core.Infrastructure({
+    name: "Luckygames Tips",
     debug: true,
     server: "https://dsv.luckygames.tips/"
 });

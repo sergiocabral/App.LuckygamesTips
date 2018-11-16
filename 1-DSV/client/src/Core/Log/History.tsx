@@ -12,18 +12,19 @@ namespace Core.Log {
         private static instance: History|undefined;
 
         /**
-         * Define uma instância de log para uso global no sistema.
+         * Define uma instância para uso global no sistema.
          * Só pode ser definido uma vez.
-         * @param instance Instância global.
+         * @param {History} instance Instância global.
          */
-        public  static setInstance(instance: History): void {
+        public static setInstance(instance: History): void {
             if (this.instance) throw new Error("A instância global de log não pode ser redefinida.");
             this.instance = instance;
+            instance.post(`Log iniciado.`, Core.Log.Level.Debug);
         }
 
         /**
-         * Retorna a instância de uso global para log.
-         * @returns {History} Instância para log.
+         * Retorna a instância de uso global.
+         * @returns {History} Instância global.
          */
         public static getInstance(): History {
             if (!this.instance) throw new Error("A instância global de log ainda não foi definida.");

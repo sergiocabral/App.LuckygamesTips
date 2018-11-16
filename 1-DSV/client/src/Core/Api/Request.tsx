@@ -6,6 +6,31 @@ namespace Core.Api {
     export class Request {
 
         /**
+         * Instância para uso global no sistema.
+         * @type {Request}
+         */
+        private static instance: Request|undefined;
+
+        /**
+         * Define uma instância para uso global no sistema.
+         * Só pode ser definido uma vez.
+         * @param {Request} instance Instância global.
+         */
+        public static setInstance(instance: Request): void {
+            if (this.instance) throw new Error("A instância global de api não pode ser redefinida.");
+            this.instance = instance;
+        }
+
+        /**
+         * Retorna a instância de uso global.
+         * @returns {Request} Instância global.
+         */
+        public static getInstance(): Request {
+            if (!this.instance) throw new Error("A instância global de api ainda não foi definida.");
+            return this.instance;
+        }
+
+        /**
          * Construtor.
          * @param {string} server Url do servidor da api.
          */
