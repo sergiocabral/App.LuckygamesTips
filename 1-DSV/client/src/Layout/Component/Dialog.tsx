@@ -108,8 +108,6 @@ namespace Layout.Component {
             this.elTitle = React.createRef();
             
             this.onBarMouseDown = this.onBarMouseDown.bind(this);
-            this.onBarMouseUp = this.onBarMouseUp.bind(this);
-            //this.onBarMouseMove = this.onBarMouseMove.bind(this);
         }
 
         /**
@@ -130,9 +128,14 @@ namespace Layout.Component {
          */
         private controlMoviment: any = {
             isDown: false,
+            startMoving: false,
             offset: [0, 0],
             mousePosition: { x: 0, y: 0 },
-            container: null
+            container: undefined,            
+            onBarMouseUp: this.onBarMouseUp,
+            onBarMouseMove: this.onBarMouseMove,
+            idBarFrameAnimation: undefined,
+            onBarFrameAnimation: this.onBarFrameAnimation
         };
 
         /**
@@ -140,24 +143,34 @@ namespace Layout.Component {
          * @param {any} ev 
          */
         private onBarMouseDown(ev: any): void {
-            this.controlMoviment.container = this.elContainer.current as HTMLDivElement;
-            this.controlMoviment.isDown = true;
-            this.controlMoviment.offset = [
-                this.controlMoviment.container.offsetLeft - ev.clientX,
-                this.controlMoviment.container.offsetTop - ev.clientY
+            const controlMoviment = this.controlMoviment;
+
+            controlMoviment.container = this.elContainer.current as HTMLDivElement;
+            controlMoviment.isDown = true;
+            controlMoviment.offset = [
+                controlMoviment.container.offsetLeft - ev.clientX,
+                controlMoviment.container.offsetTop - ev.clientY
             ];
-            window.anything.componentDialogControlMoviment = this.controlMoviment;
-            window.addEventListener('mousemove', this.onBarMouseMove);
-        };
+
+            window.anything.componentDialogControlMoviment = controlMoviment;
+            window.addEventListener('mouseup', controlMoviment.onBarMouseUp);
+            window.addEventListener('mousemove', controlMoviment.onBarMouseMove);
+        }
 
         /**
          * Handler para quando o mouse é liberado e para de arrastar.
          */
         private onBarMouseUp(): void {
-            window.removeEventListener('mousemove', this.onBarMouseMove);
+            const controlMoviment = window.anything.componentDialogControlMoviment;
+            if (!controlMoviment) return;
+
+            window.cancelAnimationFrame(controlMoviment.idBarFrameAnimation);
+            window.removeEventListener('mousemove', controlMoviment.onBarMouseMove);
+            window.removeEventListener('mouseup', controlMoviment.onBarMouseUp);
             delete window.anything.componentDialogControlMoviment;
-            this.controlMoviment.isDown = false;
-        };
+            controlMoviment.isDown = false;
+            controlMoviment.startMoving = false;
+        }
 
         /**
          * Handler para movimento do mouse pela janela (window).
@@ -167,18 +180,35 @@ namespace Layout.Component {
             ev.preventDefault();
 
             const controlMoviment = window.anything.componentDialogControlMoviment;
+            if (!controlMoviment) return;
 
             if (controlMoviment.isDown) {
                 controlMoviment.mousePosition = {        
                     x: ev.clientX,
                     y: ev.clientY        
                 };
-                controlMoviment.container.style.left = 
-                    (controlMoviment.mousePosition.x + controlMoviment.offset[0]) + 'px';
-                controlMoviment.container.style.top = 
-                    (controlMoviment.mousePosition.y + controlMoviment.offset[1]) + 'px';
+
+                if (!controlMoviment.startMoving) {
+                    controlMoviment.startMoving = true;
+                    controlMoviment.idBarFrameAnimation = window.requestAnimationFrame(controlMoviment.onBarFrameAnimation);
+                }
             }
-        };
+        }
+
+        /**
+         * Função usada para animar o movimento da janela.
+         */
+        private onBarFrameAnimation(): void {
+            const controlMoviment = window.anything.componentDialogControlMoviment;
+            if (!controlMoviment) return;
+
+            controlMoviment.container.style.left = 
+                (controlMoviment.mousePosition.x + controlMoviment.offset[0]) + 'px';
+            controlMoviment.container.style.top = 
+                (controlMoviment.mousePosition.y + controlMoviment.offset[1]) + 'px';
+
+            controlMoviment.idBarFrameAnimation = window.requestAnimationFrame(controlMoviment.onBarFrameAnimation);
+        }
 
         /**
          * Renderizador do React.
@@ -191,7 +221,7 @@ namespace Layout.Component {
 
             const jsx = (
                 <div id={id} className={className} ref={this.elContainer as any}>
-                    <div className="header" onMouseDown={this.onBarMouseDown} onMouseUp={this.onBarMouseUp}>
+                    <div className="header" onMouseDown={this.onBarMouseDown}>
                         <span className="icon"><i className="fas fa-robot"></i></span>
                         <h1 ref={this.elTitle as any}>{this.props.title}</h1>
                         <a href="#" className="close"><i className="fas fa-times"></i></a>
