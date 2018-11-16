@@ -158,7 +158,8 @@ namespace Layout.Component {
         /**
          * Handler para quando o mouse é liberado e para de arrastar.
          */
-        private onBarMouseUp(): void {            
+        private onBarMouseUp(): void {
+            if (!window.anything.componentDialogControlMoviment) return;
             const _this = window.anything.componentDialogControlMoviment._this;
 
             window.removeEventListener('mousemove', _this.controlMoviment.onBarMouseMove);
