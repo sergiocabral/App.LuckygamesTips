@@ -40,9 +40,6 @@
 /// <reference path="Layout/Theme/Stylesheet.tsx" />
 /// script: initialize
 
-/// <reference path="Layout/Theme/Loader.tsx" />
-/// script: initialize
-
 /// <reference path="Layout/Component/Dialog.tsx" />
 /// script: react
 

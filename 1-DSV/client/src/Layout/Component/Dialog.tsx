@@ -35,7 +35,7 @@ namespace Layout.Component {
                 background: ${theme.generalBackground};
                 box-shadow: 0 0 20px black;
                 border-radius: 7px;
-                position: absolute;
+                position: fixed;
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);

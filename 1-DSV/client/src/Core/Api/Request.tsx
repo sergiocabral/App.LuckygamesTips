@@ -11,7 +11,7 @@ namespace Core.Api {
          */
         public constructor(server: string) {
             this.server = server;
-            this.url = `${server}/api/`;
+            this.url = `${server}/api/`.replace("://", "$").replace("//", "/").replace("$", "://");
         }
 
         /**
@@ -56,6 +56,8 @@ namespace Core.Api {
             const urls: string[] = data.map(i => this.getUrl("data", DataType[i.type], i.name));
             return new Promise(resolve => {
                 const load = (index: number) => {
+                    Core.Log.History.getInstance().post(`Chamando API: ${urls[index]}`, Core.Log.Level.Debug);
+
                     const request = new XMLHttpRequest();
                     request.open("GET", urls[index]);
                     request.send();

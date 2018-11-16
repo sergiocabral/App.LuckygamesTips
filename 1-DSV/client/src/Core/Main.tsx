@@ -7,19 +7,14 @@ namespace Core {
 
         /**
          * Construtor.
-         * @param {Configuration} configuration Configuração para inicialização do sistema.
+         * @param {Infrastructure} infrastructure Instância da infraestrutura.
          * @param {ConfigurationLazy} configurationLazy Configuração para inicialização do sistema carregada tardiamente.
          * @param {string} id Opcional. Identificador para uso geral.
          */
-        public constructor(
-            configuration: Configuration, 
-            configurationLazy: ConfigurationLazy, 
-            id: string = Util.String.random()) {
-
+        public constructor(infrastructure: Infrastructure, configurationLazy: ConfigurationLazy, id: string = Util.String.random()) {
             this.id = id;
-            this.configuration = configuration;
+            this.infrastructure = infrastructure;
             this.configurationLazy = configurationLazy;
-            this.api = new Api.Request(configuration.server);
             this.presentation = new Layout.Presentation(configurationLazy.colors);
 
             this.presentation.createDialog("Luckygames Tips");
@@ -33,18 +28,13 @@ namespace Core {
         /**
          * Configuração de inicialização do sistema.
          */
-        public configuration: Configuration;
-
+        public infrastructure: Infrastructure;
 
         /**
          * Configuração para inicialização do sistema carregada tardiamente.
+         * @type {ConfigurationLazy}
          */
         public configurationLazy: ConfigurationLazy;
-        
-        /**
-         * Manipulador de chamadas api.
-         */
-        public api: Api.Request;
 
         /**
          * Organiza e manipula o layout.

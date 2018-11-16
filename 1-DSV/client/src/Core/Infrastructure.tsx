@@ -12,22 +12,37 @@ namespace Core {
          */
         public constructor(configuration: Configuration) {
             window.anything = { };
+
+            Log.History.setInstance(new Log.History(configuration.debug));
+            Core.Log.History.getInstance().post(`Iniciando sistema.`, Core.Log.Level.Debug);
             
-            const api = new Api.Request(configuration.server);
+            this.configuration = configuration;            
+            this.api = new Api.Request(configuration.server);            
 
             this.loadReferences(configuration.debug).then(() => {
-                api.loadScript([Api.ScriptContext.React]).then(() => {
-                    api.loadData([
+                this.api.loadScript([Api.ScriptContext.React]).then(() => {
+                    this.api.loadData([
                         { type: Api.DataType.Theme, name: "default", data: "" }
                     ]).then((data) => {
-                        const configurationLazy: ConfigurationLazy = {
+                        new Main(this, {
                             colors: JSON.parse(data[0].data) as Layout.Theme.Colors
-                        };
-                        new Main(configuration, configurationLazy);
+                        });
                     });
                 });
             });
         }
+
+        /**
+         * Manipulador de chamadas api.
+         * @type {Api.Request}
+         */
+        public api: Api.Request;
+
+        /**
+         * Conjunto de propriedades que configuram o sistema.
+         * @type {Configuration}
+         */
+        public configuration: Configuration;
 
         /**
          * Carrega as bibliotecas de terceitos.

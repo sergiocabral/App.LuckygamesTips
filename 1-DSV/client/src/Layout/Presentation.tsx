@@ -16,13 +16,15 @@ namespace Layout {
          * @param {Colors} colors Tema de cores para configurar o layout.
          */
         public constructor(colors: Theme.Colors) {
-            const div: HTMLDivElement = document.createElement('div') as HTMLDivElement;
-            div.id = `${Presentation.className}_${Util.String.random()}`;
-            div.className = Presentation.className;
+            const container: HTMLDivElement = document.createElement('div') as HTMLDivElement;
+            container.id = `${Presentation.className}_${Util.String.random()}`;
+            container.className = Presentation.className;
 
-            document.body.appendChild(div);
+            document.body.appendChild(container);
 
-            this.container = div;
+            Core.Log.History.getInstance().post(`Criado container do sistema: <${container.tagName.toLowerCase()} id="${container.id}" />`, Core.Log.Level.Debug);
+
+            this.container = container;
             this.colors = colors;
         }
 

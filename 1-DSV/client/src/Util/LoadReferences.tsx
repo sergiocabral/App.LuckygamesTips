@@ -40,6 +40,8 @@ namespace Util {
 
             if (document.getElementById(id)) return new Promise(resolve => resolve());
 
+            Core.Log.History.getInstance().post(`Carregando javascript: ${src}`, Core.Log.Level.Debug);
+
             return new Promise(resolve => {
                 const element: HTMLScriptElement = document.createElement("SCRIPT") as HTMLScriptElement;
                 element.id = id;
@@ -61,6 +63,8 @@ namespace Util {
             const id = `link_${hash}`;
 
             if (document.getElementById(id)) return new Promise(resolve => resolve());
+
+            Core.Log.History.getInstance().post(`Carregando stylesheet: ${href}`, Core.Log.Level.Debug);
 
             return new Promise(resolve => {
                 const element: HTMLLinkElement = document.createElement("link") as HTMLLinkElement;
