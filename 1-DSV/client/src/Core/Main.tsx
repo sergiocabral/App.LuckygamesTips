@@ -19,7 +19,8 @@ namespace Core {
             Locale.Translates.getInstance().load(configurationLazy.translates);
             this.presentation = new Layout.Presentation(configurationLazy.colors);
 
-            console.log('TODO:', configurationLazy.locale);
+            Util.DateTime.defaultDateFormat = configurationLazy.locale.date;
+            Util.Number.defaultNumberFormat = configurationLazy.locale.number;
 
             this.presentation.createDialog(infrastructure.configuration.name);
         }

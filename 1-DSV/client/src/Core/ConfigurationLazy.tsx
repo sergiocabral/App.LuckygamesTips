@@ -19,6 +19,6 @@ namespace Core {
         /**
          * Informações de localização e região.
          */
-        locale: Locale.Formats
+        locale: Locale.FormatSet
     }
 }
