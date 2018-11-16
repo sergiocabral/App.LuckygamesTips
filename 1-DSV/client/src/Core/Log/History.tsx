@@ -72,7 +72,7 @@ namespace Core.Log {
         private console(message: Message): void {
             if (!this.isDebug) return;
 
-            console.log(Level[message.level], message.text);
+            console.log(`[${Level[message.level]}]`, message.text);
         }
     }
 }
