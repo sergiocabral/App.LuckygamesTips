@@ -127,15 +127,13 @@ namespace Layout.Component {
          * @type {any}
          */
         private controlMoviment: any = {
+            _this: this,
             isDown: false,
-            startMoving: false,
+            wasMoving: false,
             offset: [0, 0],
             mousePosition: { x: 0, y: 0 },
-            container: undefined,            
-            onBarMouseUp: this.onBarMouseUp,
-            onBarMouseMove: this.onBarMouseMove,
-            idBarFrameAnimation: undefined,
-            onBarFrameAnimation: this.onBarFrameAnimation
+            elementToMove: undefined,            
+            idFrameAnimation: undefined,
         };
 
         /**
@@ -143,33 +141,33 @@ namespace Layout.Component {
          * @param {any} ev 
          */
         private onBarMouseDown(ev: any): void {
-            const controlMoviment = this.controlMoviment;
-
-            controlMoviment.container = this.elContainer.current as HTMLDivElement;
-            controlMoviment.isDown = true;
-            controlMoviment.offset = [
-                controlMoviment.container.offsetLeft - ev.clientX,
-                controlMoviment.container.offsetTop - ev.clientY
+            this.controlMoviment.elementToMove = this.elContainer.current as HTMLDivElement;
+            this.controlMoviment.isDown = true;
+            this.controlMoviment.offset = [
+                this.controlMoviment.elementToMove.offsetLeft - ev.clientX,
+                this.controlMoviment.elementToMove.offsetTop - ev.clientY
             ];
 
-            window.anything.componentDialogControlMoviment = controlMoviment;
-            window.addEventListener('mouseup', controlMoviment.onBarMouseUp);
-            window.addEventListener('mousemove', controlMoviment.onBarMouseMove);
+            window.cancelAnimationFrame(window.requestAnimationFrame(this.onBarFrameAnimation)); //Linha sem efeito. Necessária para suprimir warning 'declared but never read'.
+            window.anything.componentDialogControlMoviment = this.controlMoviment;
+
+            window.addEventListener('mouseup', this.onBarMouseUp);
+            window.addEventListener('mousemove', this.onBarMouseMove);
         }
 
         /**
          * Handler para quando o mouse é liberado e para de arrastar.
          */
-        private onBarMouseUp(): void {
-            const controlMoviment = window.anything.componentDialogControlMoviment;
-            if (!controlMoviment) return;
+        private onBarMouseUp(): void {            
+            const _this = window.anything.componentDialogControlMoviment._this;
 
-            window.cancelAnimationFrame(controlMoviment.idBarFrameAnimation);
-            window.removeEventListener('mousemove', controlMoviment.onBarMouseMove);
-            window.removeEventListener('mouseup', controlMoviment.onBarMouseUp);
+            window.removeEventListener('mousemove', _this.controlMoviment.onBarMouseMove);
+            window.removeEventListener('mouseup', _this.controlMoviment.onBarMouseUp);
+            window.cancelAnimationFrame(_this.idFrameAnimation);
+            _this.controlMoviment.isDown = false;
+            _this.controlMoviment.wasMoving = false;
+
             delete window.anything.componentDialogControlMoviment;
-            controlMoviment.isDown = false;
-            controlMoviment.startMoving = false;
         }
 
         /**
@@ -177,20 +175,20 @@ namespace Layout.Component {
          * @param {any} ev 
          */
         private onBarMouseMove(ev: any): void {
+            if (!window.anything.componentDialogControlMoviment) return;
+            const _this = window.anything.componentDialogControlMoviment._this;
+
             ev.preventDefault();
 
-            const controlMoviment = window.anything.componentDialogControlMoviment;
-            if (!controlMoviment) return;
-
-            if (controlMoviment.isDown) {
-                controlMoviment.mousePosition = {        
+            if (_this.controlMoviment.isDown) {
+                _this.controlMoviment.mousePosition = {        
                     x: ev.clientX,
                     y: ev.clientY        
                 };
 
-                if (!controlMoviment.startMoving) {
-                    controlMoviment.startMoving = true;
-                    controlMoviment.idBarFrameAnimation = window.requestAnimationFrame(controlMoviment.onBarFrameAnimation);
+                if (!_this.controlMoviment.wasMoving) {
+                    _this.controlMoviment.wasMoving = true;
+                    _this.controlMoviment.idFrameAnimation = window.requestAnimationFrame(_this.onBarFrameAnimation);
                 }
             }
         }
@@ -199,15 +197,15 @@ namespace Layout.Component {
          * Função usada para animar o movimento da janela.
          */
         private onBarFrameAnimation(): void {
-            const controlMoviment = window.anything.componentDialogControlMoviment;
-            if (!controlMoviment) return;
+            if (!window.anything.componentDialogControlMoviment) return;
+            const _this = window.anything.componentDialogControlMoviment._this;
 
-            controlMoviment.container.style.left = 
-                (controlMoviment.mousePosition.x + controlMoviment.offset[0]) + 'px';
-            controlMoviment.container.style.top = 
-                (controlMoviment.mousePosition.y + controlMoviment.offset[1]) + 'px';
+            _this.controlMoviment.elementToMove.style.left = 
+                (_this.controlMoviment.mousePosition.x + _this.controlMoviment.offset[0]) + 'px';
+                _this.controlMoviment.elementToMove.style.top = 
+                (_this.controlMoviment.mousePosition.y + _this.controlMoviment.offset[1]) + 'px';
 
-            controlMoviment.idBarFrameAnimation = window.requestAnimationFrame(controlMoviment.onBarFrameAnimation);
+            _this.controlMoviment.idFrameAnimation = window.requestAnimationFrame(_this.onBarFrameAnimation);
         }
 
         /**
