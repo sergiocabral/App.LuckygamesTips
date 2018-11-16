@@ -40,8 +40,6 @@ namespace Util {
 
             if (document.getElementById(id)) return new Promise(resolve => resolve());
 
-            Core.Log.History.getInstance().post("Carregando javascript: {0}", [src], Core.Log.Level.Debug);
-
             return new Promise(resolve => {
                 const element: HTMLScriptElement = document.createElement("SCRIPT") as HTMLScriptElement;
                 element.id = id;
@@ -49,6 +47,8 @@ namespace Util {
                 element.src = src;
                 element.onload = () => resolve();
                 document.body.prepend(element);
+
+                Core.Log.History.getInstance().post("Carregando javascript.", null, Core.Log.Level.Debug, element);
             });
         }
 
@@ -64,8 +64,6 @@ namespace Util {
 
             if (document.getElementById(id)) return new Promise(resolve => resolve());
 
-            Core.Log.History.getInstance().post("Carregando stylesheet: {0}", [href], Core.Log.Level.Debug);
-
             return new Promise(resolve => {
                 const element: HTMLLinkElement = document.createElement("link") as HTMLLinkElement;
                 element.id  = id;
@@ -75,6 +73,8 @@ namespace Util {
                 element.media = "all";
                 element.onload = () => resolve();
                 document.body.prepend(element);
+
+                Core.Log.History.getInstance().post("Carregando stylesheet.", null, Core.Log.Level.Debug, element);
             });
         }
     }
