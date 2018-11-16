@@ -21,6 +21,17 @@ namespace Layout.Component {
      */
     export class Dialog extends React.Component<DialogProps> {
 
+        public constructor(props: DialogProps) {
+            super(props);
+            
+            this.elContainer = React.createRef();
+            this.elTitle = React.createRef();
+        }
+
+        private elContainer: React.RefObject<{}>;
+        
+        private elTitle: React.RefObject<{}>;
+
         /**
          * Registra o código CSS para este componente.
          * @param {string} className Nome da classe para este componente.
@@ -107,10 +118,10 @@ namespace Layout.Component {
             this.loadStylesheetCode(className);
 
             const jsx = (
-                <div id={id} className={className}>
+                <div id={id} className={className} ref={this.elContainer as any}>
                     <div className="header">
                         <span className="icon"><i className="fas fa-robot"></i></span>
-                        <h1>{this.props.title}</h1>
+                        <h1 ref={this.elTitle as any}>{this.props.title}</h1>
                         <a href="#" className="close"><i className="fas fa-times"></i></a>
                     </div>
                     <div className="content">
@@ -118,8 +129,14 @@ namespace Layout.Component {
                     </div>                    
                 </div>
             );
-            
+
             return jsx;
+        }
+        
+        public componentDidMount() {          
+            const elContainer = this.elContainer.current as HTMLDivElement;
+            const elTitle = this.elTitle.current as HTMLHeadElement;
+            elTitle.style.width = (elContainer.clientWidth - 80) + "px";
         }
 
     }
