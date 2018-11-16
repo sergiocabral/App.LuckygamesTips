@@ -1,3 +1,6 @@
+/// <reference path="Core/Environment/Window.tsx" />
+/// script: initialize
+
 /// <reference path="Core/Translate/Phrase.tsx" />
 /// script: initialize
 

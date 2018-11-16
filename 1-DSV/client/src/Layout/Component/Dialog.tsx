@@ -21,17 +21,6 @@ namespace Layout.Component {
      */
     export class Dialog extends React.Component<DialogProps> {
 
-        public constructor(props: DialogProps) {
-            super(props);
-            
-            this.elContainer = React.createRef();
-            this.elTitle = React.createRef();
-        }
-
-        private elContainer: React.RefObject<{}>;
-        
-        private elTitle: React.RefObject<{}>;
-
         /**
          * Registra o código CSS para este componente.
          * @param {string} className Nome da classe para este componente.
@@ -109,6 +98,89 @@ namespace Layout.Component {
         }
 
         /**
+         * Construtor.
+         * @param {DialogProps} props Propriedades.
+         */
+        public constructor(props: DialogProps) {
+            super(props);
+            
+            this.elContainer = React.createRef();
+            this.elTitle = React.createRef();
+            
+            this.onBarMouseDown = this.onBarMouseDown.bind(this);
+            this.onBarMouseUp = this.onBarMouseUp.bind(this);
+            //this.onBarMouseMove = this.onBarMouseMove.bind(this);
+        }
+
+        /**
+         * Referência ao container pai de todos.
+         * @type {React.RefObject<{}>}
+         */
+        private elContainer: React.RefObject<{}>;
+
+        /**
+         * Referência para o título na barra.
+         * @type {React.RefObject<{}>}
+         */
+        private elTitle: React.RefObject<{}>;
+        
+        /**
+         * Coleção de informações sobre a movimentação da janela de diálogo.
+         * @type {any}
+         */
+        private controlMoviment: any = {
+            isDown: false,
+            offset: [0, 0],
+            mousePosition: { x: 0, y: 0 },
+            container: null
+        };
+
+        /**
+         * Handler para clique do mouse para começar a arrastar
+         * @param {any} ev 
+         */
+        private onBarMouseDown(ev: any): void {
+            this.controlMoviment.container = this.elContainer.current as HTMLDivElement;
+            this.controlMoviment.isDown = true;
+            this.controlMoviment.offset = [
+                this.controlMoviment.container.offsetLeft - ev.clientX,
+                this.controlMoviment.container.offsetTop - ev.clientY
+            ];
+            window.anything.componentDialogControlMoviment = this.controlMoviment;
+            window.addEventListener('mousemove', this.onBarMouseMove);
+        };
+
+        /**
+         * Handler para quando o mouse é liberado e para de arrastar.
+         */
+        private onBarMouseUp(): void {
+            window.removeEventListener('mousemove', this.onBarMouseMove);
+            delete window.anything.componentDialogControlMoviment;
+            this.controlMoviment.isDown = false;
+        };
+
+        /**
+         * Handler para movimento do mouse pela janela (window).
+         * @param {any} ev 
+         */
+        private onBarMouseMove(ev: any): void {
+            ev.preventDefault();
+
+            const controlMoviment = window.anything.componentDialogControlMoviment;
+
+            if (controlMoviment.isDown) {
+                controlMoviment.mousePosition = {        
+                    x: ev.clientX,
+                    y: ev.clientY        
+                };
+                controlMoviment.container.style.left = 
+                    (controlMoviment.mousePosition.x + controlMoviment.offset[0]) + 'px';
+                controlMoviment.container.style.top = 
+                    (controlMoviment.mousePosition.y + controlMoviment.offset[1]) + 'px';
+            }
+        };
+
+        /**
          * Renderizador do React.
          * @returns {JSX.Element}
          */
@@ -119,7 +191,7 @@ namespace Layout.Component {
 
             const jsx = (
                 <div id={id} className={className} ref={this.elContainer as any}>
-                    <div className="header">
+                    <div className="header" onMouseDown={this.onBarMouseDown} onMouseUp={this.onBarMouseUp}>
                         <span className="icon"><i className="fas fa-robot"></i></span>
                         <h1 ref={this.elTitle as any}>{this.props.title}</h1>
                         <a href="#" className="close"><i className="fas fa-times"></i></a>
@@ -133,7 +205,11 @@ namespace Layout.Component {
             return jsx;
         }
         
-        public componentDidMount() {          
+        /**
+         * Após montagem do componente.
+         */
+        public componentDidMount(): void {
+            //Ajusta o título para sempre caber ma barra.
             const elContainer = this.elContainer.current as HTMLDivElement;
             const elTitle = this.elTitle.current as HTMLHeadElement;
             elTitle.style.width = (elContainer.clientWidth - 80) + "px";

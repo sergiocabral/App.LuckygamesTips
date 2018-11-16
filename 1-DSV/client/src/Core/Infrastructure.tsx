@@ -11,6 +11,8 @@ namespace Core {
          * @param {Configuration} configuration Configuração para inicialização do sistema.
          */
         public constructor(configuration: Configuration) {
+            window.anything = { };
+            
             const api = new Api.Request(configuration.server);
 
             this.loadReferences(configuration.debug).then(() => {
