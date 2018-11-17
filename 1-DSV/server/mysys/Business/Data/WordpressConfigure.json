@@ -44,26 +44,26 @@
   },
   "main_menu": [
     {
-      "menu-item-title": "Apresentação",
+      "menu-item-title": "Home",
       "menu-item-url": "/",
       "_submenus": null
     },
     {
-      "menu-item-title": "Skript",
-      "menu-item-url": "/skript",
+      "menu-item-title": "Current Version",
+      "menu-item-url": "/current",
       "_submenus": null
     }
   ],
   "posts": [
     {
-      "post_title": "Apresentação",
+      "post_title": "Home",
       "post_name": "home",
       "post_type": "page",
       "_frontpage": true
     },
     {
-      "post_title": "Skript",
-      "post_name": "skript",
+      "post_title": "Current Version",
+      "post_name": "current",
       "post_type": "page",
       "_frontpage": false
     }

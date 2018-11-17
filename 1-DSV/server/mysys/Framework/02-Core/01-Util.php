@@ -72,7 +72,7 @@ abstract class Util {
      * @param string $file Caminho do arquivo.
      * @return boolean Retorna true em sucesso, false em falha, na remoção.
      */
-    public static function DeleteFile(string $file): boolean {
+    public static function DeleteFile($file) {
         if (file_exists($file)) {
             return unlink($file);
         }

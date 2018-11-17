@@ -17,7 +17,7 @@ class Page extends \Mysys\Website\WebsiteBase {
     function Init() {
         foreach ([
             'page_script',
-            'page_skript0'
+            'page_current'
         ] as $page) { \Mysys\Core\Event::Instance()->Bind($page, array($this, $page)); }
     }
 
@@ -37,13 +37,8 @@ class Page extends \Mysys\Website\WebsiteBase {
      * @param array $params
      * @return mixed
      */
-    public function page_skript0($params) {
-        if (!is_user_logged_in()) {
-            wp_redirect(home_url(\Mysys\Data\Routes::Instance()->data['login']));
-            return true;
-        } else {
-            return 'page.skript';
-        }
+    public function page_current($params) {
+        return 'page.current';
     }
 
 }
