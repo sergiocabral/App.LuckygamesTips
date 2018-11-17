@@ -76,13 +76,19 @@
 /// <reference path="Layout/Component/Dialog.tsx" />
 /// script: react
 
-/// <reference path="Core/Events/Type.tsx" />
+/// <reference path="Core/Bus/Command.tsx" />
 /// script: initialize
 
-/// <reference path="Core/Events/Event.tsx" />
+/// <reference path="Core/Bus/CommandHandler.tsx" />
 /// script: initialize
 
-/// <reference path="Layout/Events/DemandCreateDialog.tsx" />
+/// <reference path="Core/Bus/Router.tsx" />
+/// script: initialize
+
+/// <reference path="Layout/Command/CreateDialog.tsx" />
+/// script: initialize
+
+/// <reference path="Layout/PresentationRouter.tsx" />
 /// script: initialize
 
 /// <reference path="Layout/Presentation.tsx" />

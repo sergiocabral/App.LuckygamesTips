@@ -22,9 +22,9 @@ namespace Core {
 
             all.translate.load(configurationLazy.translates);
             
-            all.presentation = new Layout.Presentation(configurationLazy.colors);
+            all.presentation = new Layout.Presentation();
 
-            all.presentation.createDialog(all.configuration.name);
+            Core.Bus.Router.Send(new Layout.Command.CreateDialog(all.configuration.name));
         }
     }
 }

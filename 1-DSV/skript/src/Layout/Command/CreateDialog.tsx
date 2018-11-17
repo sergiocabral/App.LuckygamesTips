@@ -1,16 +1,16 @@
-namespace Layout.Events {
+namespace Layout.Command {
 
     /**
      * Evento ao criar uma nova janela de diálogo.
      */
-    export class DemandCreateDialog extends Core.Events.Event {
+    export class CreateDialog extends Core.Bus.Command {
 
         /**
          * Construtor.
          * @param {string} title Título na barra.
          */
         public constructor(title: string) { 
-            super(Core.Events.Type.Demand); 
+            super();
             this.title = title;
         }
 

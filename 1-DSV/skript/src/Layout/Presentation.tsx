@@ -18,35 +18,23 @@ namespace Layout {
 
         /**
          * Construtor.
-         * @param {Colors} colors Tema de cores para configurar o layout.
          */
-        public constructor(colors: Theme.Colors) {
+        public constructor() {
+            new PresentationRouter(this);
+
             const container: HTMLDivElement = document.createElement('div') as HTMLDivElement;
             container.id = `${Presentation.className}_${Util.String.random()}`;
             container.className = Presentation.className;
-
             document.body.appendChild(container);
-            ReactDOM.render(React.createElement(Layout.Component.Master, { colors: colors }, null), container);
+
+            this.react = ReactDOM.render(React.createElement(Component.Master), container);
 
             all.log.post("Criado container do sistema.", null, Core.Log.Level.Debug, container);
-
-            this.container = container;
         }
 
         /**
-         * Elemento HTML que contém todos os itens do layout.
-         * @type {Element}
+         * Component master do react.
          */
-        public container: Element;
-
-        /**
-         * Cria um janela de diálogo.
-         * @param {string} title Título
-         */
-        public createDialog(title: string): void {
-            window.dispatchEvent(
-                new CustomEvent('onDemandCreateDialog',
-                    { detail: new Layout.Events.DemandCreateDialog(title) }));
-        }
+        public react: Component.Master;
     }
 }

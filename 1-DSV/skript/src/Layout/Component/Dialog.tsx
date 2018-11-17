@@ -1,14 +1,14 @@
 namespace Layout.Component {
+    
+    /**
+     * Repositório de todas as instâncias principais do sistema.
+     */
+    declare const all: Core.All;
 
     /**
      * Tipo para props do React deste componente.
      */
     type Props = {
-
-        /**
-         * Tema de cores para configurar o layout.
-         */
-        colors: Theme.Colors,
 
         /**
          * Título da janela de diálogo.
@@ -32,8 +32,8 @@ namespace Layout.Component {
          * @param {string} className Nome da classe para este componente.
          */
         private loadStylesheetCode(className: string): void {
-            const base = `.${Presentation.className} > .${className}`;
-            const theme = new Theme.Stylesheet(this.props.colors);
+            const base = `.${Presentation.className} .${className}`;
+            const theme = new Theme.Stylesheet(all.configurationLazy.colors);
 
             const defaults: any = {
                 width: 400,

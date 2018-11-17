@@ -4,11 +4,6 @@ namespace Layout.Component {
      * Tipo para props do React deste componente.
      */
     type Props = {
-
-        /**
-         * Tema de cores para configurar o layout.
-         */
-        colors: Layout.Theme.Colors
     }
 
     /**
@@ -30,16 +25,14 @@ namespace Layout.Component {
         public constructor(props: Props) {
             super(props);
             this.state = { dialogs: [] };
-            window.addEventListener('onDemandCreateDialog', this.onDemandCreateDialog);
         }
         
         /**
-         * Demanda: Criar nova janela de dialogo.
+         * Commando: Criar nova janela de dialogo.
          */
-        private onDemandCreateDialog(evt: any): void {
-            const demand = evt.detail as Layout.Events.DemandCreateDialog;
-            console.log("hahahahaha", evt, demand, this);
-            //this.setState({ dialogs: this.state && this.state.dialogs ? this.state.dialogs.concat([demand.title]) : [demand.title] });
+        public commandCreateDialog(command: Layout.Command.CreateDialog): Layout.Command.CreateDialog {
+            this.setState({ dialogs: (this.state.dialogs as string[]).concat([command.title]) });
+            return command;
         }
 
         /**
@@ -52,8 +45,8 @@ namespace Layout.Component {
 
             const jsx = (
                 <div id={id} className={className}>
-                    {!this.state || !this.state.dialogs ? "" : this.state.dialogs.map(text => (
-                        <Layout.Component.Dialog title={text} colors={this.props.colors}></Layout.Component.Dialog>
+                    {(this.state.dialogs as string[]).map(text => (
+                        <Layout.Component.Dialog key={Util.String.random()} title={text}></Layout.Component.Dialog>
                     ))}
                 </div>
             );
