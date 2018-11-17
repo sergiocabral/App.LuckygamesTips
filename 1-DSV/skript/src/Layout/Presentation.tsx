@@ -45,8 +45,8 @@ namespace Layout {
          */
         public createDialog(title: string): void {
             window.dispatchEvent(
-                new CustomEvent('onCreateDialogDemand',
-                    { detail: new Events.Demand.CreateDialogDemand(title) }));
+                new CustomEvent('onDemandCreateDialog',
+                    { detail: new Layout.Events.DemandCreateDialog(title) }));
         }
     }
 }

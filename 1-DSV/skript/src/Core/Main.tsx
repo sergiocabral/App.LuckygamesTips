@@ -12,39 +12,19 @@ namespace Core {
 
         /**
          * Construtor.
-         * @param {Infrastructure} infrastructure Instância da infraestrutura.
          * @param {ConfigurationLazy} configurationLazy Configuração para inicialização do sistema carregada tardiamente.
          */
-        public constructor(infrastructure: Infrastructure, configurationLazy: ConfigurationLazy) {
-            Events.Event.main = this;
-
-            this.configuration = infrastructure.configuration;
-            this.configurationLazy = configurationLazy;
+        public constructor(configurationLazy: ConfigurationLazy) {
+            all.configurationLazy = configurationLazy;
             
             Util.DateTime.defaultDateFormat = configurationLazy.locale.date;
             Util.Number.defaultNumberFormat = configurationLazy.locale.number;
 
             all.translate.load(configurationLazy.translates);
-            this.presentation = new Layout.Presentation(configurationLazy.colors);
+            
+            all.presentation = new Layout.Presentation(configurationLazy.colors);
 
-            this.presentation.createDialog(infrastructure.configuration.name);
+            all.presentation.createDialog(all.configuration.name);
         }
-
-        /**
-         * Conjunto de propriedades que configuram o sistema.
-         * @type {Configuration}
-         */
-        public configuration: Configuration;
-
-        /**
-         * Configuração para inicialização do sistema carregada tardiamente.
-         * @type {ConfigurationLazy}
-         */
-        public configurationLazy: ConfigurationLazy;
-
-        /**
-         * Organiza e manipula o layout.
-         */
-        public presentation: Layout.Presentation;        
     }
 }

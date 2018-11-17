@@ -18,19 +18,18 @@ namespace Core {
         public constructor(configuration: Configuration) {
             window.anything = { };
 
-            this.configuration = configuration;
-
             const language = "en";
 
+            all.configuration = configuration;
+            all.log = new Log.History();
+            all.api = new Api.Request(configuration.server);
+            all.translate = new Locale.Translates(language);
+
             if (configuration.welcome) {
-                Log.History.welcome(configuration.name, language.toString() === "pt" ? 
+                Log.ConsoleLog.welcome(configuration.name, language.toString() === "pt" ? 
                     "Uma maneira de fazer muito mais. Obrigado pelo apoio." :
                     "A way to do much more. Thanks for the support.");
             }
-
-            all.log = new Log.History(configuration.debug);
-            all.api = new Api.Request(configuration.server);
-            all.translate = new Locale.Translates(language);
 
             this.loadReferences(configuration.debug).then(() => {
                 all.api.loadScript([Api.ScriptContext.React]).then(() => {
@@ -66,17 +65,11 @@ namespace Core {
                             }
                         }
 
-                        new Main(this, { colors: colors, translates: translates, locale: locale });
+                        all.main = new Main({ colors: colors, translates: translates, locale: locale });
                     });
                 });
             });
         }
-
-        /**
-         * Conjunto de propriedades que configuram o sistema.
-         * @type {Configuration}
-         */
-        public configuration: Configuration;
 
         /**
          * Carrega as bibliotecas de terceitos.

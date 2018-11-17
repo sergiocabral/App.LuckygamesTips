@@ -34,6 +34,9 @@
 /// <reference path="Core/Log/Message.tsx" />
 /// script: initialize
 
+/// <reference path="Core/Log/ConsoleLog.tsx" />
+/// script: initialize
+
 /// <reference path="Core/Log/History.tsx" />
 /// script: initialize
 
@@ -73,13 +76,13 @@
 /// <reference path="Layout/Component/Dialog.tsx" />
 /// script: react
 
-/// <reference path="Events/Type.tsx" />
+/// <reference path="Core/Events/Type.tsx" />
 /// script: initialize
 
-/// <reference path="Events/Event.tsx" />
+/// <reference path="Core/Events/Event.tsx" />
 /// script: initialize
 
-/// <reference path="Events/Demand/CreateDialogDemand.tsx" />
+/// <reference path="Layout/Events/DemandCreateDialog.tsx" />
 /// script: initialize
 
 /// <reference path="Layout/Presentation.tsx" />

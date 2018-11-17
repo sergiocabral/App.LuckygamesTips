@@ -1,4 +1,4 @@
-namespace Events {
+namespace Core.Events {
 
     /**
      * Tipos de evento.

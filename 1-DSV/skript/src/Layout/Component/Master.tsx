@@ -30,16 +30,16 @@ namespace Layout.Component {
         public constructor(props: Props) {
             super(props);
             this.state = { dialogs: [] };
-            window.addEventListener('onCreateDialogDemand', this.onCreateDialogDemand);
+            window.addEventListener('onDemandCreateDialog', this.onDemandCreateDialog);
         }
         
         /**
          * Demanda: Criar nova janela de dialogo.
          */
-        private onCreateDialogDemand(evt: any): void {
-            const demand = evt.detail as Events.Demand.CreateDialogDemand;
-            console.log(this);
-            this.setState({ dialogs: this.state && this.state.dialogs ? this.state.dialogs.concat([demand.title]) : [demand.title] });
+        private onDemandCreateDialog(evt: any): void {
+            const demand = evt.detail as Layout.Events.DemandCreateDialog;
+            console.log("hahahahaha", evt, demand, this);
+            //this.setState({ dialogs: this.state && this.state.dialogs ? this.state.dialogs.concat([demand.title]) : [demand.title] });
         }
 
         /**
