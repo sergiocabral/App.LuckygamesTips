@@ -69,13 +69,18 @@ namespace Core.Log {
          * @param {any} toConsoleLog Qualquer coisas para ser passado como parâmetro para console.log();
          */
         public post(text: string, values: any = { }, level: Level, toConsoleLog: any = undefined): void {
+            try {
+                text = Locale.Translates.getInstance().get(text, values);
+            } catch (e) {
+                text = text.querystring(values)
+            }
             const message: Message = {
                 time: new Date(),
                 level: level,
-                text: text.querystring(values)
+                text: text
             };            
             this.messages.push(message);
-            this.console(message, toConsoleLog);
+            this.console(message, level, toConsoleLog);
         }
 
         /**
@@ -83,11 +88,17 @@ namespace Core.Log {
          * @param {Message} message Mensagem de log.
          * @param {any} toConsoleLog Qualquer coisas para ser passado como parâmetro para console.log();
          */
-        private console(message: Message, toConsoleLog: any = undefined): void {
+        private console(message: Message, level: Level, toConsoleLog: any = undefined): void {
             if (!this.isDebug) return;
 
-            if (toConsoleLog !== undefined) console.log(`[${Level[message.level]}]`, message.text, toConsoleLog);
-            else console.log(`[${Level[message.level]}]`, message.text);
+            const style = 
+                level === Level.Debug ? "color: #6c757d;" :
+                level === Level.Warning ? "color: #ffc107; font-weight: bold;" :
+                level === Level.Error ? "color: #dc3545; font-weight: bold;" :
+                "color: #007bff;";
+
+            if (toConsoleLog !== undefined) console.log(`%c[${Level[message.level]}] ${message.text}`, style, toConsoleLog);
+            else console.log(`%c[${Level[message.level]}] ${message.text}`, style);
         }
     }
 }

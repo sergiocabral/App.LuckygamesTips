@@ -15,7 +15,7 @@ namespace Core {
 
             this.configuration = configuration;
 
-            const language = "pt";
+            const language = "en";
 
             if (configuration.welcome) {
                 Log.History.welcome(configuration.name, language.toString() === "pt" ? 
@@ -34,11 +34,34 @@ namespace Core {
                         { type: Api.DataType.Translate, name: Locale.Translates.getInstance().languageDefault, data: "" },
                         { type: Api.DataType.Locale, name: Locale.Translates.getInstance().languageDefault, data: "" }
                     ]).then((data) => {
-                        new Main(this, {
-                            colors: Layout.Theme.Stylesheet.parse(data[0].data),
-                            translates: Locale.Translates.parse(data[1].data),
-                            locale: Locale.Formats.parse(data[2].data)
-                        });
+                        let translates: Locale.Translate[];
+                        try {
+                            translates = Locale.Translates.parse(data[1].data);
+                        } catch (ex) {
+                            Core.Log.History.getInstance().post("Não foi possível carregar as traduções de idioma.", null, Log.Level.Error, ex);
+                            translates = [];
+                        }
+                        
+                        let colors: Layout.Theme.Colors;
+                        try {
+                            colors = Layout.Theme.Stylesheet.parse(data[0].data);
+                        } catch (ex) {
+                            Core.Log.History.getInstance().post("Não foi possível carregar o tema de cores do layout.", null, Log.Level.Error, ex);
+                            colors = Layout.Theme.Stylesheet.getColorsDefault();
+                        }
+
+                        let locale: Locale.FormatSet;
+                        try {
+                            locale = Locale.Formats.parse(data[2].data);
+                        } catch (ex) {
+                            Core.Log.History.getInstance().post("Não foi possível carregar as informações de localização e região.", null, Log.Level.Error, ex);
+                            locale = {
+                                date: Util.DateTime.defaultDateFormat,
+                                number: Util.Number.defaultNumberFormat,
+                            }
+                        }
+
+                        new Main(this, { colors: colors, translates: translates, locale: locale });
                     });
                 });
             });

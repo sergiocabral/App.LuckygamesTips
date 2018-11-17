@@ -69,6 +69,18 @@ namespace Layout.Theme {
         public dialogTitleBackground: string;
 
         /**
+         * Cores padrão para o tema.
+         */
+        public static getColorsDefault(): Colors {
+            return {
+                primary: "#007bff",
+                secondary: "#6c757d",
+                positive: "#28a745",
+                negative: "#dc3545"
+            };
+        }
+
+        /**
          * Valida uma string para retorna como objeto.
          * @param {string} json Dados do json como string.
          * @returns {Translate[]} Objeto.

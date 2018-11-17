@@ -5,6 +5,7 @@ namespace Mysys\Core;
  * Quando herdado implementa singleton na classe filha.
  */
 abstract class Singleton extends Base {
+    
     /**
      * Construtor privado.
      */

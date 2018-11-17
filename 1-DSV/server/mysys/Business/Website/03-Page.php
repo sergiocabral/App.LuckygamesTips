@@ -16,8 +16,20 @@ class Page extends \Mysys\Website\WebsiteBase {
      */
     function Init() {
         foreach ([
+            'page_script',
             'page_skript0'
         ] as $page) { \Mysys\Core\Event::Instance()->Bind($page, array($this, $page)); }
+    }
+
+    /**
+     * Skript
+     * @param array $params
+     * @return mixed
+     */
+    public function page_script($params) {
+        header("Access-Control-Allow-Origin: *");
+        echo (new \Website\Loader\Script())->GetScript(count($params) ? $params[0] : "");
+        return true;
     }
 
     /**

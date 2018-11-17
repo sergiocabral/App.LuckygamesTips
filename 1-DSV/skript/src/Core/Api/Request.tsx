@@ -88,7 +88,9 @@ namespace Core.Api {
                         data[index].data = request.responseText;
                         if (++index < urls.length) load(index);
                         else resolve(data);
-                        Core.Log.History.getInstance().post("API. Status {status}. Url: {responseURL}", ev.currentTarget, Core.Log.Level.Debug, ev.currentTarget);
+                        
+                        const result = ev.currentTarget.status === 200 ? "Sucesso" : "Falha";
+                        Core.Log.History.getInstance().post(`API. ${result}. Status {status}. Url: {responseURL}`, ev.currentTarget, ev.currentTarget.status === 200 ? Core.Log.Level.Debug : Core.Log.Level.Warning, ev.currentTarget);
                     };
                 }
                 load(0);

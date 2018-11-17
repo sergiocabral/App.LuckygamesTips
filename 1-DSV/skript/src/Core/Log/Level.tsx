@@ -8,6 +8,16 @@ namespace Core.Log {
         /**
          * Informações de depuração.
          */
-        Debug 
+        Debug,
+
+        /**
+         * Pontos de atenção.
+         */
+        Warning,
+
+        /**
+         * Erro de sistema.
+         */
+        Error
     }
 }

@@ -75,14 +75,7 @@ namespace Locale {
                     break;
                 }
             }
-
-            if (typeof(values) === "object") {
-                for (const value in values) {
-                    translated = translated.replaceAll(`{${value}}`, values[value]);
-                }
-            }
-
-            return translated;
+            return translated.querystring(values);
         }
 
         /**

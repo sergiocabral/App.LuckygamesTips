@@ -2,5 +2,11 @@
     { "Está é uma instância global de {name} e não pode ser redefinida.": 
         "This is a global instance of {name} and can not be redefined." },
     { "Está instância global de {name} ainda não foi definida.": 
-        "This global instance of {name} has not yet been defined." }
+        "This global instance of {name} has not yet been defined." },
+    { "Não foi possível carregar as traduções de idioma.":
+        "Could not load language translations." },
+    { "Não foi possível carregar o tema de cores do layout.":
+        "The layout color theme could not be loaded." },
+    { "Não foi possível carregar as informações de localização e região.":
+        "Unable to load location and region information." }
 ]

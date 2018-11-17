@@ -93,7 +93,14 @@ class WordpressVars extends LoadData {
         $this->Define('WP_DEBUG_DISPLAY', WP_DEBUG);
         $this->Define('SCRIPT_DEBUG', WP_DEBUG);
         $this->Define('STYLE_DEBUG', WP_DEBUG);
-        @ini_set('display_errors', 0);
+        
+        if (WP_DEBUG) {
+            error_reporting(E_ALL);
+            @ini_set('display_errors', 1);
+        }
+        else {
+            @ini_set('display_errors', 0);
+        }
     }
 
     /**

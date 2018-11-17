@@ -72,13 +72,47 @@ abstract class Util {
      * @param string $file Caminho do arquivo.
      * @return boolean Retorna true em sucesso, false em falha, na remoção.
      */
-    public static function DeleteFile($file) {
+    public static function DeleteFile(string $file): boolean {
         if (file_exists($file)) {
             return unlink($file);
         }
         return false;
     }
 
+    /**
+     * Retorna o caminho para o diretório solicitado.
+     * Caso não seja encontrado retorna false.
+     *
+     * @param string $dirname Nome do diretório
+     * @param string $path Caminho interno ao diretório
+     * @return string Caminho do diretório.
+     */
+    public static function UpDirectory(string $dirname, string $path): string {
+        $last = "";
+        while (strtolower(basename($path)) !== strtolower($dirname)) {
+            if ($last === $path) return false;
+            $path = dirname($last = $path);
+        }
+        return $path;
+    }
+
+    /**
+     * Retorna o caminho para o diretório anterior que contenha o arquivo informado.
+     * Caso não seja encontrado retorna false.
+     *
+     * @param string $filename Nome do arquivo ou diretório
+     * @param string $path Caminho interno ao diretório
+     * @return string Caminho do diretório.
+     */
+    public static function UpDirectoryWithFile(string $filename, string $path): string {
+        $last = "";
+        while (!file_exists("$path\\$filename")) {
+            if ($last === $path) return false;
+            $path = dirname($last = $path);
+        }
+        return $path;
+    }
+    
     /**
      * Envia para um arquivo o conteúdo de uma variável.
      * @param mixed $var Variáve a ser registrada em arquivo.
