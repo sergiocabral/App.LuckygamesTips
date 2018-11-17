@@ -33,7 +33,7 @@ namespace Layout.Component {
          */
         private loadStylesheetCode(className: string): void {
             const base = `.${Presentation.className} .${className}`;
-            const theme = new Theme.Stylesheet(all.configurationLazy.colors);
+            const theme = new Theme.Stylesheet(all.data.colors);
 
             const defaults: any = {
                 width: 400,

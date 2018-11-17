@@ -21,9 +21,9 @@ namespace Core {
         public configuration: Core.Configuration = { } as Core.Configuration;
 
         /**
-         * Conjunto de propriedades que configuram o sistema.
+         * Conjunto de dados que configuram o sistema.
          */
-        public configurationLazy: Core.ConfigurationLazy = { } as Core.ConfigurationLazy;
+        public data: Core.Data = { } as Core.Data;
 
         /**
          * Manipulador de chamadas api.

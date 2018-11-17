@@ -43,7 +43,7 @@
 /// <reference path="Core/Configuration.tsx" />
 /// script: initialize
 
-/// <reference path="Core/ConfigurationLazy.tsx" />
+/// <reference path="Core/Data.tsx" />
 /// script: initialize
 
 /// <reference path="Util/Number.tsx" />

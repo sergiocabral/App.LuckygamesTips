@@ -1,10 +1,9 @@
 namespace Core {
 
     /**
-     * Conjunto de propriedades que configuram o sistema.
-     * Porém são carregadas tardiamente via requisição ao servidor.
+     * Conjunto de dados que configuram o sistema.
      */
-    export type ConfigurationLazy = {
+    export type Data = {
 
         /**
          * Tema para customização de cores do layout.

@@ -65,7 +65,12 @@ namespace Core {
                             }
                         }
 
-                        all.main = new Main({ colors: colors, translates: translates, locale: locale });
+                        all.data = { 
+                            colors: colors,
+                            translates: translates, 
+                            locale: locale 
+                        };
+                        all.main = new Main();
                     });
                 });
             });
