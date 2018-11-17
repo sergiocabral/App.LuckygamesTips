@@ -17,9 +17,16 @@ namespace Layout.Component {
     }
 
     /**
+     * Tipo para states do React deste componente.
+     */
+    type DialogState = {
+        inicialized: boolean
+    }
+
+    /**
      * Janela base que contem outros componentes.
      */
-    export class Dialog extends React.Component<DialogProps> {
+    export class Dialog extends React.Component<DialogProps, Partial<DialogState>> {
 
         /**
          * Registra o código CSS para este componente.
@@ -29,6 +36,11 @@ namespace Layout.Component {
             const base = `.${Presentation.className} > .${className}`;
             const theme = new Theme.Stylesheet(this.props.colors);
 
+            const defaults: any = {
+                width: 400,
+                height: 200
+            };
+
             Util.DOM.stylesheetCode(`
             ${base} {
                 z-index: ${theme.zIndex};
@@ -36,11 +48,12 @@ namespace Layout.Component {
                 box-shadow: 0 0 20px black;
                 border-radius: 7px;
                 position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
+                left: calc(50% - ${defaults.width / 2}px);
+                top: calc(50% - ${defaults.height / 2}px);
                 min-width: 200px;
                 min-height: 100px;
+                width: ${defaults.width}px;
+                height: ${defaults.height}px;
             }
             ${base} .header {
                 background-color: ${theme.dialogTitleBackground};
@@ -93,7 +106,25 @@ namespace Layout.Component {
             }  
             ${base} .content > *:last-child {
                 margin-bottom: 5px;
-            }            
+            }
+            ${base} .resize {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 15px;
+                overflow: hidden;
+            }
+            ${base} .resize div {
+                width: 20px;
+                height: 20px;
+                background-color: ${Util.Drawing.blend(0.7, theme.generalTextColor)};
+                float: right;
+                transform: rotate(45deg);
+                position: relative;
+                top: 10px;
+                left: 10px;
+                cursor: nw-resize;
+            }          
             `);
         }
 
@@ -103,9 +134,12 @@ namespace Layout.Component {
          */
         public constructor(props: DialogProps) {
             super(props);
+
+            this.state = { inicialized: false };
             
             this.elContainer = React.createRef();
             this.elTitle = React.createRef();
+            this.elResize = React.createRef();
             
             this.onBarMouseDown = this.onBarMouseDown.bind(this);
         }
@@ -121,7 +155,22 @@ namespace Layout.Component {
          * @type {React.RefObject<{}>}
          */
         private elTitle: React.RefObject<{}>;
-        
+
+        /**
+         * Referência para o botão de resize.
+         * @type {React.RefObject<{}>}
+         */
+        private elResize: React.RefObject<{}>;
+
+        /**
+         * Ajusta o título para sempre caber ma barra.
+         */
+        private adjustTitleWidth(): void {
+            const elContainer = this.elContainer.current as HTMLDivElement;
+            const elTitle = this.elTitle.current as HTMLHeadElement;
+            elTitle.style.width = (elContainer.clientWidth - 80) + "px";
+        }
+
         /**
          * Coleção de informações sobre a movimentação da janela de diálogo.
          * @type {any}
@@ -132,8 +181,9 @@ namespace Layout.Component {
             wasMoving: false,
             offset: [0, 0],
             mousePosition: { x: 0, y: 0 },
+            isResize: false,
             elementToMove: undefined,            
-            idFrameAnimation: undefined,
+            idFrameAnimation: undefined,            
         };
 
         /**
@@ -143,6 +193,8 @@ namespace Layout.Component {
         private onBarMouseDown(ev: any): void {
             this.controlMoviment.elementToMove = this.elContainer.current as HTMLDivElement;
             this.controlMoviment.isDown = true;
+
+            this.controlMoviment.isResize = ev.target.parentNode.className.indexOf("resize") >= 0;
 
             const clientX = ev.changedTouches !== undefined ? ev.changedTouches[0].clientX : ev.clientX;
             const clientY = ev.changedTouches !== undefined ? ev.changedTouches[0].clientY : ev.clientY;
@@ -213,10 +265,19 @@ namespace Layout.Component {
             if (!window.anything.componentDialogControlMoviment) return;
             const _this = window.anything.componentDialogControlMoviment._this;
 
-            _this.controlMoviment.elementToMove.style.left = 
-                (_this.controlMoviment.mousePosition.x + _this.controlMoviment.offset[0]) + 'px';
+            if (!_this.controlMoviment.isResize) {
+                _this.controlMoviment.elementToMove.style.left = 
+                    (_this.controlMoviment.mousePosition.x + _this.controlMoviment.offset[0]) + 'px';
                 _this.controlMoviment.elementToMove.style.top = 
-                (_this.controlMoviment.mousePosition.y + _this.controlMoviment.offset[1]) + 'px';
+                    (_this.controlMoviment.mousePosition.y + _this.controlMoviment.offset[1]) + 'px';
+            } else {
+                const diff = 4;
+                _this.controlMoviment.elementToMove.style.width = diff +
+                    (_this.controlMoviment.mousePosition.x - _this.controlMoviment.elementToMove.offsetLeft) + 'px';
+                _this.controlMoviment.elementToMove.style.height = diff +
+                    (_this.controlMoviment.mousePosition.y - _this.controlMoviment.elementToMove.offsetTop) + 'px';
+                _this.adjustTitleWidth();
+            }
 
             _this.controlMoviment.idFrameAnimation = window.requestAnimationFrame(_this.onBarFrameAnimation);
         }
@@ -239,7 +300,8 @@ namespace Layout.Component {
                     </div>
                     <div className="content">
                         <p>Dialog...</p>
-                    </div>                    
+                    </div>  
+                    <div className="resize"><div ref={this.elResize as any} onMouseDown={this.onBarMouseDown} onTouchStart={this.onBarMouseDown}>&nbsp;</div></div>
                 </div>
             );
 
@@ -250,10 +312,7 @@ namespace Layout.Component {
          * Após montagem do componente.
          */
         public componentDidMount(): void {
-            //Ajusta o título para sempre caber ma barra.
-            const elContainer = this.elContainer.current as HTMLDivElement;
-            const elTitle = this.elTitle.current as HTMLHeadElement;
-            elTitle.style.width = (elContainer.clientWidth - 80) + "px";
+            this.adjustTitleWidth();
         }
 
     }
