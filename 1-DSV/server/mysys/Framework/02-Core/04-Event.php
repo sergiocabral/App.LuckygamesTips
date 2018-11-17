@@ -1,0 +1,44 @@
+<?php
+namespace Mysys\Core;
+
+/**
+ * Gerencia criação e chamadas de eventos pelo código.
+ */
+class Event extends Singleton {
+
+    /**
+     * @return Event
+     */
+    public static function Instance () { return parent::Instance(); }
+
+    /**
+     * Lista de eventos cadastrados
+     * @var array
+     */
+    private $_events = [];
+
+    /**
+     * Registra um evento
+     * @param string $name Nome do evento.
+     * @param callable|array $func Função a se chamada no evento.
+     */
+    public function Bind($name, $func) {
+        $this->_events[$name][] = $func;
+    }
+
+    /**
+     * Chama um evento.
+     * @param string $name Nome do evento.
+     * @param mixed $args Parâmetros para o evento.
+     * @return array Retorna a lista de resultados das funções.
+     */
+    public function Trigger($name, $args = null) {
+        $result = [];
+        if (isset($this->_events[$name])) {
+            foreach($this->_events[$name] as $func) {
+                $result[] = call_user_func($func, $args);
+            }
+        }
+        return $result;
+    }
+}

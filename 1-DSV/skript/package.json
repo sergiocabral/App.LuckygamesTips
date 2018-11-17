@@ -3,7 +3,7 @@
   "version": "8.0.0",
   "description": "Do more in Luckygames with Tips",
   "scripts": {
-    "build": "tsc -p tsconfig.json && javascript-obfuscator ../server/client --output ./ --compact true --rename-globals false --unicode-escape-sequence true",
+    "build": "tsc -p tsconfig.json && javascript-obfuscator ../server/skript --output ./ --compact true --rename-globals false --unicode-escape-sequence true",
     "build-dev": "tsc -p tsconfig.json"
   },
   "author": "contact@luckygames.tips",

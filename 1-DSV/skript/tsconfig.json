@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "baseUrl": "./src",
-        "outDir": "../server/client",
+        "outDir": "../server/skript",
         "target": "es5",
         "module": "none",
         "lib": ["es2017", "dom"],        

@@ -1,0 +1,25 @@
+{
+    "globals": {
+        "table_prefix": "wp_"
+    },
+    "salts": {
+        "AUTH_KEY": "bB8yS+Ruv-=IDa8;cWH1j?fzm$wg>*9d2}yD62LS,Dc-m}N#IYeZ-p4w#`&.9&z/",
+        "SECURE_AUTH_KEY": "h?b5Dc:M@81c]gRZKT^7tVaUN &e!$pj@2wX0k5r$.N+XfRB&N#o&@R~p=fcH.ri",
+        "LOGGED_IN_KEY": "J=n0vE/E($Up@aF|OH?#J3tC|W8HyPi/lwyJPSL!I%fx2Cb={qu<%LQv0=y|<%Hp",
+        "NONCE_KEY": "kB>Pc$9 w/-jiT~`J1Q5k]AjO0QEz9j)w/`;M`>:fR;7;dU7n6y>#I?|P.>?*t7^",
+        "AUTH_SALT": "wxj0k&CI80P0=HF- +qQJ2fMrd~xw<m@._;-!FK-{c~pa*=2p^ZN_>viP+|+)JT*",
+        "SECURE_AUTH_SALT": "lex*@i}AD!|yjTSO7oX~+eUj[WS~=0;zcp)aSA{=B=Wj;2G4}*9&kw&zSmHexOA,",
+        "LOGGED_IN_SALT": "oc0  ^.}H880eoD*SYrL97| 6a4uPSJv[Cdv;q[;D(!0Y4Epily.uB|6/@VM{vwM",
+        "NONCE_SALT": "A|DYR.&{p:Xm xLK4oiryA4O5,rO/:;3:8(;Sy;Q?m9>uiC[W ||f!Fz3,Z[E_>X"
+    },
+    "database": {
+        "dsv": {
+            "DB_HOST": "dsv.luckygames.tips",
+            "DB_NAME": "luckygames-dsv",
+            "DB_USER": "luckygames-dsv",
+            "DB_PASSWORD": "xHIE0847ZhvozhAF",
+            "DB_CHARSET": "'utf8mb4');",
+            "DB_COLLATE": ""
+        }
+    }
+}

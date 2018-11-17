@@ -1,6 +1,6 @@
 node_modules
 package-lock.json
-*/server/client
+*/server/skript
 
 wp-admin
 wp-content

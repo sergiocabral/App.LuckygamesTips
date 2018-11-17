@@ -5,7 +5,7 @@ ini_set("display_errors", 1);
 header("Access-Control-Allow-Origin: *");
 
 define("DIRNAME_SERVER", "server");
-define("DIRNAME_CLIENT", "client");
+define("DIRNAME_CLIENT", "skript");
 
 include "../3rd/JSMin/jsmin.php";
 

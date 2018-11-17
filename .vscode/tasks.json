@@ -6,7 +6,7 @@
         {
             "type": "npm",
             "script": "build",
-            "path": "1-DSV/client/",
+            "path": "1-DSV/skript/",
             "problemMatcher": [
                 "$tsc"
             ]
@@ -14,7 +14,7 @@
         {
             "type": "npm",
             "script": "build-dev",
-            "path": "1-DSV/client/",
+            "path": "1-DSV/skript/",
             "problemMatcher": [
                 "$tsc"
             ]
