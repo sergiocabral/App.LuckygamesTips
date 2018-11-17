@@ -1,6 +1,11 @@
 namespace Core {
 
     /**
+     * Repositório de todas as instâncias principais do sistema.
+     */
+    declare const all: Core.All;
+
+    /**
      * Classe principal responsável por rodar o sistema.
      * Aqui ficam definições de infraestrutura.
      */
@@ -23,22 +28,22 @@ namespace Core {
                     "A way to do much more. Thanks for the support.");
             }
 
-            Core.Log.History.setInstance(new Log.History(configuration.debug));
-            Core.Api.Request.setInstance(new Api.Request(configuration.server));
-            Locale.Translates.setInstance(new Locale.Translates(language));
+            all.log = new Log.History(configuration.debug);
+            all.api = new Api.Request(configuration.server);
+            all.translate = new Locale.Translates(language);
 
             this.loadReferences(configuration.debug).then(() => {
-                Core.Api.Request.getInstance().loadScript([Api.ScriptContext.React]).then(() => {
-                    Core.Api.Request.getInstance().loadData([
+                all.api.loadScript([Api.ScriptContext.React]).then(() => {
+                    all.api.loadData([
                         { type: Api.DataType.Theme, name: "default", data: "" },
-                        { type: Api.DataType.Translate, name: Locale.Translates.getInstance().languageDefault, data: "" },
-                        { type: Api.DataType.Locale, name: Locale.Translates.getInstance().languageDefault, data: "" }
+                        { type: Api.DataType.Translate, name: all.translate.languageDefault, data: "" },
+                        { type: Api.DataType.Locale, name: all.translate.languageDefault, data: "" }
                     ]).then((data) => {
                         let translates: Locale.Translate[];
                         try {
                             translates = Locale.Translates.parse(data[1].data);
                         } catch (ex) {
-                            Core.Log.History.getInstance().post("Não foi possível carregar as traduções de idioma.", null, Log.Level.Error, ex);
+                            all.log.post("Não foi possível carregar as traduções de idioma.", null, Log.Level.Error, ex);
                             translates = [];
                         }
                         
@@ -46,7 +51,7 @@ namespace Core {
                         try {
                             colors = Layout.Theme.Stylesheet.parse(data[0].data);
                         } catch (ex) {
-                            Core.Log.History.getInstance().post("Não foi possível carregar o tema de cores do layout.", null, Log.Level.Error, ex);
+                            all.log.post("Não foi possível carregar o tema de cores do layout.", null, Log.Level.Error, ex);
                             colors = Layout.Theme.Stylesheet.getColorsDefault();
                         }
 
@@ -54,7 +59,7 @@ namespace Core {
                         try {
                             locale = Locale.Formats.parse(data[2].data);
                         } catch (ex) {
-                            Core.Log.History.getInstance().post("Não foi possível carregar as informações de localização e região.", null, Log.Level.Error, ex);
+                            all.log.post("Não foi possível carregar as informações de localização e região.", null, Log.Level.Error, ex);
                             locale = {
                                 date: Util.DateTime.defaultDateFormat,
                                 number: Util.Number.defaultNumberFormat,

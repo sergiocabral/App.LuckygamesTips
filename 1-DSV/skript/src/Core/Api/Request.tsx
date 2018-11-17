@@ -1,34 +1,14 @@
 namespace Core.Api {
+    
+    /**
+     * Repositório de todas as instâncias principais do sistema.
+     */
+    declare const all: Core.All;
 
     /**
      * Manipulador de chamadas api.
      */
     export class Request {
-
-        /**
-         * Instância para uso global no sistema.
-         * @type {Request}
-         */
-        private static instance: Request|undefined;
-
-        /**
-         * Define uma instância para uso global no sistema.
-         * Só pode ser definido uma vez.
-         * @param {Request} instance Instância global.
-         */
-        public static setInstance(instance: Request): void {
-            if (this.instance) throw new Error(Locale.Translates.getInstance().get("Está é uma instância global de {name} e não pode ser redefinida.", { name: "Request" }));
-            this.instance = instance;
-        }
-
-        /**
-         * Retorna a instância de uso global.
-         * @returns {Request} Instância global.
-         */
-        public static getInstance(): Request {
-            if (!this.instance) throw new Error(Locale.Translates.getInstance().get("Está instância global de {name} ainda não foi definida.", { name: "Request" }));
-            return this.instance;
-        }
 
         /**
          * Construtor.
@@ -90,7 +70,7 @@ namespace Core.Api {
                         else resolve(data);
                         
                         const result = ev.currentTarget.status === 200 ? "Sucesso" : "Falha";
-                        Core.Log.History.getInstance().post(`API. ${result}. Status {status}. Url: {responseURL}`, ev.currentTarget, ev.currentTarget.status === 200 ? Core.Log.Level.Debug : Core.Log.Level.Warning, ev.currentTarget);
+                        all.log.post(`API. ${result}. Status {status}. Url: {responseURL}`, ev.currentTarget, ev.currentTarget.status === 200 ? Core.Log.Level.Debug : Core.Log.Level.Warning, ev.currentTarget);
                     };
                 }
                 load(0);

@@ -1,4 +1,9 @@
 namespace Layout {
+    
+    /**
+     * Repositório de todas as instâncias principais do sistema.
+     */
+    declare const all: Core.All;
 
     /**
      * Organiza e manipula o layout.
@@ -21,36 +26,27 @@ namespace Layout {
             container.className = Presentation.className;
 
             document.body.appendChild(container);
+            ReactDOM.render(React.createElement(Layout.Component.Master, { colors: colors }, null), container);
 
-            Core.Log.History.getInstance().post("Criado container do sistema.", null, Core.Log.Level.Debug, container);
+            all.log.post("Criado container do sistema.", null, Core.Log.Level.Debug, container);
 
             this.container = container;
-            this.colors = colors;
         }
 
         /**
          * Elemento HTML que contém todos os itens do layout.
          * @type {Element}
          */
-        private container: Element;
-
-        /**
-         * Tema de cores para configurar o layout.
-         * @type {Element}
-         */
-        private colors: Theme.Colors;
+        public container: Element;
 
         /**
          * Cria um janela de diálogo.
          * @param {string} title Título
          */
         public createDialog(title: string): void {
-            ReactDOM.render(
-                React.createElement(Layout.Component.Dialog, { 
-                    colors: this.colors, 
-                    title: title 
-                }, null),
-                this.container);
+            window.dispatchEvent(
+                new CustomEvent('onCreateDialogDemand',
+                    { detail: new Events.Demand.CreateDialogDemand(title) }));
         }
     }
 }

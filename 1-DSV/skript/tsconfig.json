@@ -23,6 +23,6 @@
         "noFallthroughCasesInSwitch": true
     },
     "files": [
-        "./src/_index.ts"
+        "./src/index.ts"
     ]
 }

@@ -1,36 +1,14 @@
 namespace Locale {
+    
+    /**
+     * Repositório de todas as instâncias principais do sistema.
+     */
+    declare const all: Core.All;
 
     /**
-     * Manipulador de traduções
+     * Manipulador de traduções.
      */
     export class Translates {
-
-        /**
-         * Instância para uso global no sistema.
-         * @type {Translates}
-         */
-        private static instance: Translates|undefined;
-
-        /**
-         * Define uma instância para uso global no sistema.
-         * Só pode ser definido uma vez.
-         * @param {Translates} instance Instância global.
-         */
-        public static setInstance(instance: Translates): void {
-            if (this.instance) throw new Error(Locale.Translates.getInstance().get("Está é uma instância global de {name} e não pode ser redefinida.", { name: "Translates" }));
-            this.instance = instance;
-
-            Core.Log.History.getInstance().post("Definido idioma padrão: {languageDefault}", instance, Core.Log.Level.Debug);
-        }
-
-        /**
-         * Retorna a instância de uso global.
-         * @returns {Translates} Instância global.
-         */
-        public static getInstance(): Translates {
-            if (!this.instance) throw new Error(Locale.Translates.getInstance().get("Está instância global de {name} ainda não foi definida.", { name: "Translates" }));
-            return this.instance;
-        }
 
         /**
          * Construtor.
@@ -86,7 +64,7 @@ namespace Locale {
         public static parse(json: string): Translate[] {
             return !json ? [] : (JSON.parse(json) as []).map(i => { 
                 return { 
-                    language: Locale.Translates.getInstance().languageDefault,
+                    language: all.translate.languageDefault,
                     id: Object.keys(i)[0] as string,
                     translated: i[Object.keys(i)[0]] as string
                 }

@@ -67,8 +67,20 @@
 /// <reference path="Layout/Theme/Stylesheet.tsx" />
 /// script: initialize
 
+/// <reference path="Layout/Component/Master.tsx" />
+/// script: react
+
 /// <reference path="Layout/Component/Dialog.tsx" />
 /// script: react
+
+/// <reference path="Events/Type.tsx" />
+/// script: initialize
+
+/// <reference path="Events/Event.tsx" />
+/// script: initialize
+
+/// <reference path="Events/Demand/CreateDialogDemand.tsx" />
+/// script: initialize
 
 /// <reference path="Layout/Presentation.tsx" />
 /// script: initialize
@@ -91,7 +103,11 @@
 /// <reference path="Core/Infrastructure.tsx" />
 /// script: initialize
 
-new Core.Infrastructure({
+/// <reference path="Core/All.tsx" />
+/// script: initialize
+
+const all: Core.All = new Core.All();
+all.infrastructure = new Core.Infrastructure({
     name: "Luckygames Tips",
     debug: true,
     welcome: true,

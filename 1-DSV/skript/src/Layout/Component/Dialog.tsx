@@ -3,7 +3,7 @@ namespace Layout.Component {
     /**
      * Tipo para props do React deste componente.
      */
-    type DialogProps = {
+    type Props = {
 
         /**
          * Tema de cores para configurar o layout.
@@ -19,14 +19,13 @@ namespace Layout.Component {
     /**
      * Tipo para states do React deste componente.
      */
-    type DialogState = {
-        inicialized: boolean
+    type State = {
     }
 
     /**
      * Janela base que contem outros componentes.
      */
-    export class Dialog extends React.Component<DialogProps, Partial<DialogState>> {
+    export class Dialog extends React.Component<Props, Partial<State>> {
 
         /**
          * Registra o código CSS para este componente.
@@ -132,11 +131,11 @@ namespace Layout.Component {
          * Construtor.
          * @param {DialogProps} props Propriedades.
          */
-        public constructor(props: DialogProps) {
+        public constructor(props: Props) {
             super(props);
 
-            this.state = { inicialized: false };
-            
+            this.state = { };
+
             this.elContainer = React.createRef();
             this.elTitle = React.createRef();
             this.elResize = React.createRef();
@@ -287,7 +286,7 @@ namespace Layout.Component {
          * @returns {JSX.Element}
          */
         public render(): JSX.Element {
-            const id = "_" + btoa(String(Math.random())).substr(5, 5);
+            const id = Util.String.random();
             const className = "dialog";
             this.loadStylesheetCode(className);
 

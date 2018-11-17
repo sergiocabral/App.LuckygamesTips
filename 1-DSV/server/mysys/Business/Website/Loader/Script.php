@@ -56,7 +56,7 @@ class Script extends \Mysys\Core\Base {
     public function GetFiles(): array {
         $result = [];
 
-        $mainFile = "_index";
+        $mainFile = "index";
 
         $basedir = self::UpDirectoryWithFile("wp-config.php", dirname(__FILE__));
         $content = file_get_contents("$basedir/../" . DIRNAME_JAVASCRIPT . "/src/{$mainFile}.ts");

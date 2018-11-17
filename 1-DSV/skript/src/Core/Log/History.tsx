@@ -1,35 +1,14 @@
 namespace Core.Log {
+    
+    /**
+     * Repositório de todas as instâncias principais do sistema.
+     */
+    declare const all: Core.All;
 
     /**
      * Manipula e registra mensagens de log.
      */
     export class History {
-
-        /**
-         * Instância para uso global no sistema.
-         * @type {History}
-         */
-        private static instance: History|undefined;
-
-        /**
-         * Define uma instância para uso global no sistema.
-         * Só pode ser definido uma vez.
-         * @param {History} instance Instância global.
-         */
-        public static setInstance(instance: History): void {
-            if (this.instance) throw new Error(Locale.Translates.getInstance().get("Está é uma instância global de {name} e não pode ser redefinida.", { name: "History" }));
-            this.instance = instance;
-            instance.post("Log iniciado.", null, Core.Log.Level.Debug);
-        }
-        
-        /**
-         * Retorna a instância de uso global.
-         * @returns {History} Instância global.
-         */
-        public static getInstance(): History {
-            if (!this.instance) throw new Error(Locale.Translates.getInstance().get("Está instância global de {name} ainda não foi definida.", { name: "History" }));
-            return this.instance;
-        }
 
         /**
          * Exibe no console.log() uma mensagem de boas vondas ao usuário.
@@ -70,7 +49,7 @@ namespace Core.Log {
          */
         public post(text: string, values: any = { }, level: Level, toConsoleLog: any = undefined): void {
             try {
-                text = Locale.Translates.getInstance().get(text, values);
+                text = all.translate.get(text, values);
             } catch (e) {
                 text = text.querystring(values)
             }

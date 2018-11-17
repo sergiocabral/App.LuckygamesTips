@@ -1,4 +1,9 @@
 namespace Core {
+    
+    /**
+     * Repositório de todas as instâncias principais do sistema.
+     */
+    declare const all: Core.All;
 
     /**
      * O sistema funciona a partir desta classe.
@@ -9,31 +14,27 @@ namespace Core {
          * Construtor.
          * @param {Infrastructure} infrastructure Instância da infraestrutura.
          * @param {ConfigurationLazy} configurationLazy Configuração para inicialização do sistema carregada tardiamente.
-         * @param {string} id Opcional. Identificador para uso geral.
          */
-        public constructor(infrastructure: Infrastructure, configurationLazy: ConfigurationLazy, id: string = Util.String.random()) {
-            this.id = id;
-            this.infrastructure = infrastructure;
+        public constructor(infrastructure: Infrastructure, configurationLazy: ConfigurationLazy) {
+            Events.Event.main = this;
+
+            this.configuration = infrastructure.configuration;
             this.configurationLazy = configurationLazy;
             
-            Locale.Translates.getInstance().load(configurationLazy.translates);
-            this.presentation = new Layout.Presentation(configurationLazy.colors);
-
             Util.DateTime.defaultDateFormat = configurationLazy.locale.date;
             Util.Number.defaultNumberFormat = configurationLazy.locale.number;
+
+            all.translate.load(configurationLazy.translates);
+            this.presentation = new Layout.Presentation(configurationLazy.colors);
 
             this.presentation.createDialog(infrastructure.configuration.name);
         }
 
         /**
-         * Identificador para uso geral.
+         * Conjunto de propriedades que configuram o sistema.
+         * @type {Configuration}
          */
-        public id: string;
-
-        /**
-         * Configuração de inicialização do sistema.
-         */
-        public infrastructure: Infrastructure;
+        public configuration: Configuration;
 
         /**
          * Configuração para inicialização do sistema carregada tardiamente.
