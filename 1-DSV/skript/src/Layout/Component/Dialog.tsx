@@ -20,6 +20,11 @@ namespace Layout.Component {
      * Tipo para states do React deste componente.
      */
     type State = {
+
+        /**
+         * Identificador do elemento.
+         */
+        id: string
     }
 
     /**
@@ -134,7 +139,7 @@ namespace Layout.Component {
         public constructor(props: Props) {
             super(props);
 
-            this.state = { };
+            this.state = { id: Util.String.random() };
 
             this.elContainer = React.createRef();
             this.elTitle = React.createRef();
@@ -145,29 +150,42 @@ namespace Layout.Component {
 
         /**
          * Referência ao container pai de todos.
-         * @type {React.RefObject<{}>}
+         * @type {React.RefObject<HTMLElement>}
          */
-        private elContainer: React.RefObject<{}>;
+        private elContainer: React.RefObject<HTMLElement>;
 
         /**
          * Referência para o título na barra.
-         * @type {React.RefObject<{}>}
+         * @type {React.RefObject<HTMLElement>}
          */
-        private elTitle: React.RefObject<{}>;
+        private elTitle: React.RefObject<HTMLElement>;
 
         /**
          * Referência para o botão de resize.
-         * @type {React.RefObject<{}>}
+         * @type {React.RefObject<HTMLElement>}
          */
-        private elResize: React.RefObject<{}>;
+        private elResize: React.RefObject<HTMLElement>;
 
         /**
          * Ajusta o título para sempre caber ma barra.
          */
         private adjustTitleWidth(): void {
-            const elContainer = this.elContainer.current as HTMLDivElement;
-            const elTitle = this.elTitle.current as HTMLHeadElement;
+            const elContainer = this.elContainer.current as HTMLElement;
+            const elTitle = this.elTitle.current as HTMLElement;
             elTitle.style.width = (elContainer.clientWidth - 80) + "px";
+        }
+
+        /**
+         * Sobre o container pra frente de todos os componentes.
+         */
+        private bringToFront(): void {
+            const component = this.elContainer.current as HTMLElement;
+            const container = component.parentNode as HTMLElement;
+            const parent = container.parentNode as HTMLElement;
+
+            if (parent.children[parent.children.length - 1] != container) {
+                parent.append(container);
+            }
         }
 
         /**
@@ -190,6 +208,8 @@ namespace Layout.Component {
          * @param {any} ev 
          */
         private onBarMouseDown(ev: any): void {
+            this.bringToFront();
+
             this.controlMoviment.elementToMove = this.elContainer.current as HTMLDivElement;
             this.controlMoviment.isDown = true;
 
@@ -286,12 +306,11 @@ namespace Layout.Component {
          * @returns {JSX.Element}
          */
         public render(): JSX.Element {
-            const id = Util.String.random();
             const className = "dialog";
             this.loadStylesheetCode(className);
 
             const jsx = (
-                <div id={id} className={className} ref={this.elContainer as any}>
+                <div id={this.state.id} className={className} ref={this.elContainer as any}>
                     <div className="header" onMouseDown={this.onBarMouseDown} onTouchStart={this.onBarMouseDown}>
                         <span className="icon"><i className="fas fa-robot"></i></span>
                         <h1 ref={this.elTitle as any}>{this.props.title}</h1>

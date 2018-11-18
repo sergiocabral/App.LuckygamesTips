@@ -68,9 +68,6 @@
 /// script: initialize
 
 /// <reference path="Layout/Theme/Stylesheet.tsx" />
-/// script: initialize
-
-/// <reference path="Layout/Component/Master.tsx" />
 /// script: react
 
 /// <reference path="Layout/Component/Dialog.tsx" />

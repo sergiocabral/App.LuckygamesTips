@@ -1,4 +1,9 @@
 namespace Layout {
+    
+    /**
+     * Repositório de todas as instâncias principais do sistema.
+     */
+    declare const all: Core.All;
 
     /**
      * Despachador de mensagens.
@@ -12,7 +17,13 @@ namespace Layout {
             {                
                 message: Message.CreateDialog.name,
                 handler: (command: Message.CreateDialog) => {
-                    return this.sponsor.react.commandCreateDialog(command);
+                    const container: HTMLDivElement = document.createElement('div') as HTMLDivElement;
+                    container.id = Util.String.random();
+                    all.presentation.container.appendChild(container);
+
+                    command.result = ReactDOM.render(React.createElement(Component.Dialog, { title: command.title }, null), container);
+
+                    return command;
                 }
             }
         ];

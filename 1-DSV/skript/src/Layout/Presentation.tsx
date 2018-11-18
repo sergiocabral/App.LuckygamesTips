@@ -23,18 +23,17 @@ namespace Layout {
             new PresentationDispatcher(this);
 
             const container: HTMLDivElement = document.createElement('div') as HTMLDivElement;
-            container.id = `${Presentation.className}_${Util.String.random()}`;
+            container.id = Util.String.random();
             container.className = Presentation.className;
             document.body.appendChild(container);
-
-            this.react = ReactDOM.render(React.createElement(Component.Master), container);
+            this.container = container;
 
             all.log.post("Criado container do sistema.", null, Core.Log.Level.Debug, container);
         }
 
         /**
-         * Component master do react.
+         * Container para todo HTML do sistema.
          */
-        public react: Component.Master;
+        public container: HTMLElement;
     }
 }
