@@ -24,6 +24,8 @@ namespace Layout {
 
             new PresentationDispatcher(this);
 
+            new Theme.Stylesheet();
+
             const container: HTMLDivElement = document.createElement('div') as HTMLDivElement;
             container.id = Util.String.random();
             container.className = Presentation.className;

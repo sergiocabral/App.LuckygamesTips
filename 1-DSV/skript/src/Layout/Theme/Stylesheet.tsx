@@ -1,4 +1,9 @@
 namespace Layout.Theme {
+    
+    /**
+     * Repositório de todas as instâncias principais do sistema.
+     */
+    declare const tips: Core.All;
 
     /**
      * Conjuntos de propriedades de stylesheet que configuram o layout.
@@ -9,7 +14,9 @@ namespace Layout.Theme {
          * Construtor.
          * @param {Colors} colors Tema de cores para configurar o layout.
          */
-        public constructor(colors: Colors) {
+        public constructor(colors: Colors = tips.data.colors) {
+            tips.stylesheet = this;
+
             this.colors = colors;
             this.zIndex = 1000;
             this.generalTextFont = "'Hind Siliguri', sans-serif";
