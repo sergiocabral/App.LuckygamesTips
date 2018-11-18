@@ -19,7 +19,7 @@ namespace Layout {
                 handler: (command: Message.CreateDialog) => {
                     command.result = 
                         ReactDOM.render(
-                            React.createElement(Component.Dialog, { title: command.title }, null), 
+                            React.createElement(ReactJs.Component.Dialog, { title: command.title }, null), 
                             tips.presentation.createContainer());
 
                     return command;

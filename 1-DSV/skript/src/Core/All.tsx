@@ -9,7 +9,7 @@ namespace Core {
          * Armazena qualquer coisa.
          * Para quando houver necessidade de ter um valor global.
          */
-        public any: any = { }
+        public any: {[index: string]: any} = { };
 
         /**
          * Classe principal responsável por rodar o sistema.

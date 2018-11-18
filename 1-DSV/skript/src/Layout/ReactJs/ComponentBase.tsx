@@ -1,4 +1,4 @@
-namespace Layout {
+namespace Layout.ReactJs {
     
     /**
      * Repositório de todas as instâncias principais do sistema.

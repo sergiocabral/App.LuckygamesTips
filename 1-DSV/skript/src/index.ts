@@ -67,13 +67,16 @@
 /// <reference path="Layout/Theme/Stylesheet.tsx" />
 /// script: react
 
-/// <reference path="Layout/ComponentBase.tsx" />
+/// <reference path="Layout/ReactJs/MoveAndResize.tsx" />
 /// script: react
 
-/// <reference path="Layout/Component/Dialog.tsx" />
+/// <reference path="Layout/ReactJs/ComponentBase.tsx" />
 /// script: react
 
-/// <reference path="Layout/Component/ButtonActivator.tsx" />
+/// <reference path="Layout/ReactJs/Component/Dialog.tsx" />
+/// script: react
+
+/// <reference path="Layout/ReactJs/Component/ButtonActivator.tsx" />
 /// script: react
 
 /// <reference path="Core/Bus/Message.tsx" />

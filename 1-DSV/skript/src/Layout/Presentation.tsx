@@ -35,7 +35,11 @@ namespace Layout {
             tips.log.post("Criado container do sistema.", null, Core.Log.Level.Debug, container);
 
             ReactDOM.render(
-                React.createElement(Component.ButtonActivator, null, null), 
+                React.createElement(ReactJs.Component.ButtonActivator, null, null), 
+                this.createContainer());
+                
+            ReactDOM.render(
+                React.createElement(ReactJs.Component.ButtonActivator, null, null), 
                 this.createContainer());
         }
 
