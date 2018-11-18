@@ -1,12 +1,12 @@
 namespace Core.Bus {
 
     /**
-     * Class abstrata para implementação de comandos.
+     * Class abstrata para implementação de uma mensagem.
      */
-    export abstract class Command {
+    export abstract class Message {
 
         /**
-         * Indica que pelo menos um handler processou este comando.
+         * Indica que pelo menos um handler processou.
          * @type {boolean}
          */
         public handled: boolean = false;

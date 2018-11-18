@@ -1,9 +1,9 @@
-namespace Layout.Command {
+namespace Layout.Message {
 
     /**
-     * Evento ao criar uma nova janela de diálogo.
+     * Mensagem para criar uma nova janela de diálogo.
      */
-    export class CreateDialog extends Core.Bus.Command {
+    export class CreateDialog extends Core.Bus.Message {
 
         /**
          * Construtor.

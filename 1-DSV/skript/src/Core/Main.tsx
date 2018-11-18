@@ -22,7 +22,7 @@ namespace Core {
             
             all.presentation = new Layout.Presentation();
 
-            Core.Bus.Router.Send(new Layout.Command.CreateDialog(all.configuration.name));
+            Core.Bus.MessageDispatcher.Send(new Layout.Message.CreateDialog(all.configuration.name));
         }
     }
 }

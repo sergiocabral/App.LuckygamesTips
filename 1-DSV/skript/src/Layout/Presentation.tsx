@@ -20,7 +20,7 @@ namespace Layout {
          * Construtor.
          */
         public constructor() {
-            new PresentationRouter(this);
+            new PresentationDispatcher(this);
 
             const container: HTMLDivElement = document.createElement('div') as HTMLDivElement;
             container.id = `${Presentation.className}_${Util.String.random()}`;

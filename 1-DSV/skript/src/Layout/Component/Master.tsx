@@ -30,7 +30,7 @@ namespace Layout.Component {
         /**
          * Commando: Criar nova janela de dialogo.
          */
-        public commandCreateDialog(command: Layout.Command.CreateDialog): Layout.Command.CreateDialog {
+        public commandCreateDialog(command: Layout.Message.CreateDialog): Layout.Message.CreateDialog {
             this.setState({ dialogs: (this.state.dialogs as string[]).concat([command.title]) });
             return command;
         }
