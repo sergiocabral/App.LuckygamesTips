@@ -117,18 +117,24 @@ namespace Layout.Component {
                 right: 0;
                 width: 15px;
                 overflow: hidden;
+                background: ${theme.generalBackground};
             }
             ${base} .resize div {
                 width: 20px;
                 height: 20px;
-                background-color: ${Util.Drawing.blend(0.7, theme.generalTextColor)};
+                background-color: ${Util.Drawing.blend(0.5, theme.generalTextColor)};
                 float: right;
                 transform: rotate(45deg);
                 position: relative;
                 top: 10px;
                 left: 10px;
                 cursor: nw-resize;
+                transition: opacity 0.5s linear;
+                opacity: 0.5;
             }          
+            ${base} .resize div:hover {
+                opacity: 1;
+            }
             `);
         }
 
