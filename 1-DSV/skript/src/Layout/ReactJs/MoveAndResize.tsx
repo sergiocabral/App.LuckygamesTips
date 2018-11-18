@@ -22,6 +22,7 @@ namespace Layout.ReactJs {
     }
 
     export type MoveAndResizeConfig = { 
+        owner: React.Component,
         elContainer: HTMLElement,
         elMove: HTMLElement[]
         elResize: HTMLElement[]
@@ -30,19 +31,20 @@ namespace Layout.ReactJs {
 
     /**
      * Implementa o arrastar e redimensionar em elementos.
+     * O container deve ter position: fixed ou absolute.
      */
     export class MoveAndResize {
 
         private static instances: MoveAndResize[] = [];        
 
         private static determineAction(instance: MoveAndResize, targets: HTMLElement[]): Action {
-            for (const j in instance.elResize) {
-                if (targets.indexOf(instance.elResize[j]) >= 0) {
+            for (const j in instance.config.elResize) {
+                if (targets.indexOf(instance.config.elResize[j]) >= 0) {
                     return Action.Resize;
                 }
             }
-            for (const j in instance.elMove) {
-                if (targets.indexOf(instance.elMove[j]) >= 0) {
+            for (const j in instance.config.elMove) {
+                if (targets.indexOf(instance.config.elMove[j]) >= 0) {
                     return Action.Move;
                 }
             }
@@ -50,11 +52,7 @@ namespace Layout.ReactJs {
         }
         
         public constructor(config: MoveAndResizeConfig) {
-
-            this.elContainer = config.elContainer;
-            this.elMove = config.elMove;
-            this.elResize = config.elResize;
-
+            this.config = config;
             this.controlInfo = {
                 action: Action.Move,
                 clicked: false,
@@ -74,11 +72,7 @@ namespace Layout.ReactJs {
             this.addEventListener();
         }
 
-        private elContainer: HTMLElement;
-
-        private elMove: HTMLElement[];
-        
-        private elResize: HTMLElement[];
+        private config: MoveAndResizeConfig;
 
         private controlInfo: ControlInfo;
 
@@ -98,14 +92,14 @@ namespace Layout.ReactJs {
             for (const i in MoveAndResize.instances) {
                 const instance = MoveAndResize.instances[i];
 
-                if (targets.indexOf(instance.elContainer) >= 0) {
+                if (targets.indexOf(instance.config.elContainer) >= 0) {
                     instance.onContainerMouseDown();
                 }
 
                 instance.controlInfo.action = MoveAndResize.determineAction(instance, targets);
                 instance.controlInfo.clicked = instance.controlInfo.action !== Action.None;
 
-                const elements = instance.elMove.concat(instance.elResize);
+                const elements = instance.config.elMove.concat(instance.config.elResize);
                 for (const j in elements) {
                     if (targets.indexOf(elements[j]) >= 0) {
                         instance.onElementsMouseDown(ev);
@@ -149,7 +143,7 @@ namespace Layout.ReactJs {
         }
 
         private onContainerMouseDown(): void {
-            Util.DOM.bring(this.elContainer.parentElement as HTMLElement, Util.BringTo.Front);
+            Util.DOM.bring(this.config.elContainer.parentElement as HTMLElement, Util.BringTo.Front);
         }
 
         private onElementsMouseDown(ev: any): void {
@@ -157,8 +151,8 @@ namespace Layout.ReactJs {
             const clientY = ev.changedTouches !== undefined ? ev.changedTouches[0].clientY : ev.clientY;
 
             this.controlInfo.offset = {
-                horizontal: this.elContainer.offsetLeft - clientX,
-                vertical: this.elContainer.offsetTop - clientY
+                horizontal: this.config.elContainer.offsetLeft - clientX,
+                vertical: this.config.elContainer.offsetTop - clientY
             };
         }
 
@@ -170,13 +164,16 @@ namespace Layout.ReactJs {
 
                 switch (instance.controlInfo.action) {
                     case Action.Move:
-                        instance.elContainer.style.left = (instance.controlInfo.mouse.x + instance.controlInfo.offset.horizontal) + 'px';
-                        instance.elContainer.style.top = (instance.controlInfo.mouse.y + instance.controlInfo.offset.vertical) + 'px';
+                        instance.config.elContainer.style.left = (instance.controlInfo.mouse.x + instance.controlInfo.offset.horizontal) + 'px';
+                        instance.config.elContainer.style.top = (instance.controlInfo.mouse.y + instance.controlInfo.offset.vertical) + 'px';
                         break;
                     case Action.Resize:
                         const diff = 4;
-                        instance.elContainer.style.width = diff + (instance.controlInfo.mouse.x - instance.elContainer.offsetLeft) + 'px';
-                        instance.elContainer.style.height = diff + (instance.controlInfo.mouse.y - instance.elContainer.offsetTop) + 'px';
+                        instance.config.elContainer.style.width = diff + (instance.controlInfo.mouse.x - instance.config.elContainer.offsetLeft) + 'px';
+                        instance.config.elContainer.style.height = diff + (instance.controlInfo.mouse.y - instance.config.elContainer.offsetTop) + 'px';
+                        if (instance.config.onResize instanceof Function) {
+                            instance.config.onResize.bind(instance.config.owner)();
+                        }
                         break;
                     default:
                         return;

@@ -81,17 +81,11 @@ namespace Layout.ReactJs.Component {
         }
 
         /**
-         * Lógica para arrasta e redimensiona elementos.
-         */
-        private moveAndResize: MoveAndResize|undefined = undefined;
-
-        /**
          * Quando o componente é montado.
          */
         public componentDidMount(): void {
-            if (this.moveAndResize !== undefined) throw new Error("TODO: Quero saber se este código roda duas vezes. Não pode. Aplicar verificador se esse erro disparar");
-
-            this.moveAndResize = new MoveAndResize({ 
+            new MoveAndResize({ 
+                owner: this,
                 elContainer: this.elButton.current as HTMLElement,
                 elMove: [this.elButton.current as HTMLElement],
                 elResize: [this.elResize.current as HTMLElement]

@@ -1,11 +1,6 @@
 namespace Layout.ReactJs.Component {
     
     /**
-     * Repositório de todas as instâncias principais do sistema.
-     */
-    declare const tips: Core.All;
-
-    /**
      * Tipo para props do React deste componente.
      */
     type Props = {
@@ -27,7 +22,7 @@ namespace Layout.ReactJs.Component {
         public className: string = 'dialog';
 
         private defaults: { width: number, height: number } = { 
-            width: 400,
+            width: 50,
             height: 200
         };
 
@@ -133,12 +128,10 @@ namespace Layout.ReactJs.Component {
         public constructor(props: Props) {
             super(props);
 
-            this.elComponent = React.createRef();
+            this.elContainer = React.createRef();
             this.elTitle = React.createRef();
             this.elResize = React.createRef();
-            
-            this.onComponentMouseDown = this.onComponentMouseDown.bind(this);
-            this.onTitleBarMouseDown = this.onTitleBarMouseDown.bind(this);
+
             this.onCloseClick = this.onCloseClick.bind(this);
         }
 
@@ -146,7 +139,7 @@ namespace Layout.ReactJs.Component {
          * Referência ao container pai de todos.
          * @type {React.RefObject<HTMLElement>}
          */
-        private elComponent: React.RefObject<HTMLElement>;
+        private elContainer: React.RefObject<HTMLElement>;
 
         /**
          * Referência para o título na barra.
@@ -164,160 +157,19 @@ namespace Layout.ReactJs.Component {
          * Ajusta o título para sempre caber ma barra.
          */
         private adjustTitleWidth(): void {
-            const elComponent = this.elComponent.current as HTMLElement;
+            const elContainer = this.elContainer.current as HTMLElement;
             const elTitle = this.elTitle.current as HTMLElement;
-            elTitle.style.width = (elComponent.clientWidth - 80) + "px";
-        }
-
-        /**
-         * Sobre o container pra frente de todos os componentes.
-         */
-        private bringToFront(): void {
-            const component = this.elComponent.current as HTMLElement;
-            const container = component.parentNode as HTMLElement;
-            const parent = container.parentNode as HTMLElement;
-
-            if (parent.children[parent.children.length - 1] != container) {
-                parent.append(container);
-            }
-        }
-
-        /**
-         * Handler para clique do mouse no componente.
-         * @param {any} ev 
-         */
-        private onComponentMouseDown(ev: any): void {
-            if (ev.target.className !== "close" && ev.target.parentNode.className !== "close") {
-                this.bringToFront();
-            }
+            elTitle.style.width = (elContainer.clientWidth - 80) + "px";
         }
 
         /**
          * Quando o botão de fecha é clicado.
          */
         private onCloseClick(): void {
-            const component = this.elComponent.current as HTMLElement;
+            const component = this.elContainer.current as HTMLElement;
             const container = component.parentNode as HTMLElement;
             ReactDOM.unmountComponentAtNode(container);
             container.remove();
-        }
-
-        /**
-         * Coleção de informações sobre a movimentação da janela de diálogo.
-         * @type {any}
-         */
-        private controlMoviment: any = {
-            _this: this,
-            isDown: false,
-            wasMoving: false,
-            offset: [0, 0],
-            mousePosition: { x: 0, y: 0 },
-            isResize: false,
-            elementToMove: undefined,            
-            idFrameAnimation: undefined,            
-        };
-
-        /**
-         * Handler para clique do mouse para começar a arrastar
-         * @param {any} ev 
-         */
-        private onTitleBarMouseDown(ev: any): void {
-            this.controlMoviment.elementToMove = this.elComponent.current as HTMLDivElement;
-            this.controlMoviment.isDown = true;
-
-            this.controlMoviment.isResize = ev.target.parentNode.className.indexOf("resize") >= 0;
-
-            const clientX = ev.changedTouches !== undefined ? ev.changedTouches[0].clientX : ev.clientX;
-            const clientY = ev.changedTouches !== undefined ? ev.changedTouches[0].clientY : ev.clientY;
-
-            this.controlMoviment.offset = [
-                this.controlMoviment.elementToMove.offsetLeft - clientX,
-                this.controlMoviment.elementToMove.offsetTop - clientY
-            ];
-
-            window.cancelAnimationFrame(window.requestAnimationFrame(this.onTitleBarFrameAnimation)); //Linha sem efeito. Necessária para suprimir warning 'declared but never read'.
-            tips.any.componentDialogControlMoviment = this.controlMoviment;
-
-            window.addEventListener('mouseup', this.onTitleBarMouseUp);
-            window.addEventListener('mousemove', this.onTitleBarMouseMove);
-            this.controlMoviment.elementToMove.addEventListener('touchend', this.onTitleBarMouseUp);
-            this.controlMoviment.elementToMove.addEventListener('touchmove', this.onTitleBarMouseMove);
-        }
-
-        /**
-         * Handler para quando o mouse é liberado e para de arrastar.
-         */
-        private onTitleBarMouseUp(): void {
-            if (!tips.any.componentDialogControlMoviment) return;
-            const _this = tips.any.componentDialogControlMoviment._this;
-
-            window.removeEventListener('mouseup', _this.onTitleBarMouseUp);
-            window.removeEventListener('mousemove', _this.onTitleBarMouseMove);
-            _this.controlMoviment.elementToMove.removeEventListener('touchend', _this.onTitleBarMouseUp);
-            _this.controlMoviment.elementToMove.removeEventListener('touchmove', _this.onTitleBarMouseMove);
-
-            window.cancelAnimationFrame(_this.idFrameAnimation);
-            _this.controlMoviment.isDown = false;
-            _this.controlMoviment.wasMoving = false;
-
-            delete tips.any.componentDialogControlMoviment;
-        }
-
-        /**
-         * Handler para movimento do mouse pela janela (window).
-         * @param {any} ev 
-         */
-        private onTitleBarMouseMove(ev: any): void {
-            ev.preventDefault();
-
-            if (!tips.any.componentDialogControlMoviment) return;
-            const _this = tips.any.componentDialogControlMoviment._this;
-
-            const clientX = ev.changedTouches !== undefined ? ev.changedTouches[0].clientX : ev.clientX;
-            const clientY = ev.changedTouches !== undefined ? ev.changedTouches[0].clientY : ev.clientY;
-
-            if (_this.controlMoviment.isDown) {
-                _this.controlMoviment.mousePosition = {        
-                    x: clientX,
-                    y: clientY        
-                };
-
-                if (!_this.controlMoviment.wasMoving) {
-                    _this.controlMoviment.wasMoving = true;
-                    _this.controlMoviment.idFrameAnimation = window.requestAnimationFrame(_this.onTitleBarFrameAnimation);
-                }
-            }
-        }
-
-        /**
-         * Função usada para animar o movimento da janela.
-         */
-        private onTitleBarFrameAnimation(): void {
-            if (!tips.any.componentDialogControlMoviment) return;
-            const _this = tips.any.componentDialogControlMoviment._this;
-
-            if (!_this.controlMoviment.isResize) {
-                _this.controlMoviment.elementToMove.style.left = 
-                    (_this.controlMoviment.mousePosition.x + _this.controlMoviment.offset[0]) + 'px';
-                _this.controlMoviment.elementToMove.style.top = 
-                    (_this.controlMoviment.mousePosition.y + _this.controlMoviment.offset[1]) + 'px';
-            } else {
-                const diff = 4;
-                _this.controlMoviment.elementToMove.style.width = diff +
-                    (_this.controlMoviment.mousePosition.x - _this.controlMoviment.elementToMove.offsetLeft) + 'px';
-                _this.controlMoviment.elementToMove.style.height = diff +
-                    (_this.controlMoviment.mousePosition.y - _this.controlMoviment.elementToMove.offsetTop) + 'px';
-                _this.adjustTitleWidth();
-            }
-
-            _this.controlMoviment.idFrameAnimation = window.requestAnimationFrame(_this.onTitleBarFrameAnimation);
-        }
-        
-        /**
-         * Após renderização do componente.
-         */
-        public componentDidUpdate(): void {
-            this.adjustTitleWidth();
         }
 
         /**
@@ -326,8 +178,8 @@ namespace Layout.ReactJs.Component {
          */
         public render(): JSX.Element {
             return (
-                <div id={Util.String.random()} className={this.className} ref={this.elComponent as any} onMouseDown={this.onComponentMouseDown} onTouchStart={this.onComponentMouseDown}>
-                    <div className="header" onMouseDown={this.onTitleBarMouseDown} onTouchStart={this.onTitleBarMouseDown}>
+                <div id={Util.String.random()} className={this.className} ref={this.elContainer as any}>
+                    <div className="header">
                         <span className="icon"><i className="fas fa-robot"></i></span>
                         <h1 ref={this.elTitle as any}>{this.props.title}</h1>
                         <a href="#" className="close" onClick={this.onCloseClick}><i className="fas fa-times"></i></a>
@@ -335,9 +187,30 @@ namespace Layout.ReactJs.Component {
                     <div className="content">
                         <p>Dialog...</p>
                     </div>  
-                    <div className="resize"><div ref={this.elResize as any} onMouseDown={this.onTitleBarMouseDown} onTouchStart={this.onTitleBarMouseDown}>&nbsp;</div></div>
+                    <div className="resize"><div ref={this.elResize as any}>&nbsp;</div></div>
                 </div>
             );
+        }
+
+        /**
+         * Quando o componente é montado.
+         */
+        public componentDidMount(): void {
+            new MoveAndResize({ 
+                owner: this,
+                elContainer: this.elContainer.current as HTMLElement,
+                elMove: [this.elTitle.current as HTMLElement],
+                elResize: [this.elResize.current as HTMLElement],
+                onResize: this.onResize
+            });
+            setTimeout(() => this.adjustTitleWidth(), 1);
+        }
+
+        /**
+         * Quando o componente é redimensionado.
+         */
+        public onResize() {
+            this.adjustTitleWidth();
         }
     }
 }
