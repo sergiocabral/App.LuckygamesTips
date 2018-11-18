@@ -1,6 +1,22 @@
 namespace Util {
 
     /**
+     * Opções para move um elemento.
+     */
+    export enum BringTo {
+
+        /**
+         * Enviar para o fim do DOM e para cima dos outros elementos.
+         */
+        Front,
+
+        /**
+         * Enviar para o início do DOM e para baixo dos outros elementos.
+         */
+        Back
+    }
+
+    /**
      * Utilitários para manipulação do DOM.
      */
     export class DOM {
@@ -23,5 +39,22 @@ namespace Util {
             element.innerHTML = code;
             document.body.prepend(element);
         }
+
+        /**
+         * Move um elemento dentro do seu parent.
+         * @param {HTMLElement} element Elemento
+         * @param {BringTo} to Direção
+         */
+        public static bring(element: HTMLElement, to: BringTo): void {
+            if (!element.parentElement || 
+                element.parentElement.children[element.parentElement.childNodes.length - 1] === element) return;
+            
+            switch (to) {
+                case BringTo.Back: element.parentElement.prepend(element); break;
+                case BringTo.Front: element.parentElement.append(element); break;
+                default: throw new Error("Invalid BringTo.");
+            }
+        }
+
     }
 }

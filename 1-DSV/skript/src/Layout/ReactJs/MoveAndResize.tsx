@@ -1,14 +1,26 @@
 namespace Layout.ReactJs {
     
-    /**
-     * Repositório de todas as instâncias principais do sistema.
-     */
-    declare const tips: Core.All;
+    type ControlInfo = {
+        clicked: boolean,
+        moving: boolean,
+        resizing: boolean,
+        offset: { 
+            horizontal: number,
+            vertical: number
+        },
+        mouse: { 
+            x: number, 
+            y: number
+        },        
+        idFrameAnimation: number
+    }
 
     /**
      * Implementa o arrastar e redimensionar em elementos.
      */
-    export class MoveAndResize {    
+    export class MoveAndResize {
+
+        private static instances: MoveAndResize[] = [];
         
         public constructor(
             config: { 
@@ -21,11 +33,23 @@ namespace Layout.ReactJs {
             this.elMove = config.elMove;
             this.elResize = config.elResize;
 
-            if (!tips.any["MoveAndResize"]) {
-                tips.any["MoveAndResize"] = [];
-                this.addEventListener();
+            this.controlInfo = {
+                clicked: false,
+                moving: false,
+                resizing: false,
+                offset: { 
+                    horizontal: 0,
+                    vertical: 0
+                },
+                mouse: { 
+                    x: 0, 
+                    y: 0
+                },        
+                idFrameAnimation: 0
             }
-            tips.any["MoveAndResize"].push(this);
+
+            MoveAndResize.instances.push(this);
+            this.addEventListener();
         }
 
         private elContainer: HTMLElement;
@@ -34,39 +58,68 @@ namespace Layout.ReactJs {
         
         private elResize: HTMLElement[];
 
+        private controlInfo: ControlInfo;
+
         private addEventListener() {
-            window.addEventListener("mousedown", this.onMouseDown);
-            window.addEventListener("touchstart", this.onMouseDown);
+            window.addEventListener("mousedown", this.onWindowMouseDown);
+            window.addEventListener("touchstart", this.onWindowMouseDown);
 
-            window.addEventListener("mouseup", this.onMouseUp);
-            window.addEventListener("touchend", this.onMouseUp);
+            window.addEventListener("mouseup", this.onWindowMouseUp);
+            window.addEventListener("touchend", this.onWindowMouseUp);
 
-            window.addEventListener("mousemove", this.onMouseMove);
-            window.addEventListener("touchmove", this.onMouseMove);
+            window.addEventListener("mousemove", this.onWindowMouseMove);
+            window.addEventListener("touchmove", this.onWindowMouseMove);
         }
 
-        /**
-         * Clique do mouse para ativar, arrastar ou redimensionar.
-         * @param {any} ev 
-         */
-        private onMouseDown(ev: Event): void {
-            console.log("onMouseDown", ev, this); 
-            this.elContainer || this.elMove || this.elResize;
+        private onWindowMouseDown(ev: any): void {
+            const targets: any[] = Array.isArray(ev.path) ? ev.path : [ev.target];
+            for (const i in MoveAndResize.instances) {
+                const instance = MoveAndResize.instances[i];
+
+                if (targets.indexOf(instance.elContainer) >= 0) {
+                    instance.onContainerMouseDown();
+                }
+
+                const elements = instance.elMove.concat(instance.elResize);
+                for (const j in elements) {
+                    if (targets.indexOf(elements[j]) >= 0) {
+                        instance.onElementsMouseDown(ev);
+                        break;
+                    }
+                }
+            }
         }
         
-        /**
-         * Quando o mouse é liberado e para tudo que estava sendo feito.
-         */
-        private onMouseUp(ev: any): void {
-            console.log("onMouseUp", ev);
+        private onWindowMouseUp(ev: any): void {
+            for (const i in MoveAndResize.instances) {
+                MoveAndResize.instances[i].onMouseUp(ev);
+            }
         }
 
-        /**
-         * Movimento do mouse.
-         * @param {any} ev 
-         */
-        private onMouseMove(ev: any): void {
-            ev || ev; //console.log("onMouseMove", ev);
+        private onWindowMouseMove(ev: any): void {
+            for (const i in MoveAndResize.instances) {
+                MoveAndResize.instances[i].onMouseMove(ev);
+            }
         }
+
+        private onContainerMouseDown(): void {
+            Util.DOM.bring(this.elContainer.parentElement as HTMLElement, Util.BringTo.Front);
+        }
+
+        private onElementsMouseDown(ev: Event): void {
+            this.controlInfo=this.controlInfo;
+            console.log("onElementsMouseDown", ev, this); 
+        }
+        
+        private onMouseUp(ev: any): void {
+            console.log("onMouseUp", ev, this);
+        }
+
+        private onMouseMove(ev: any): void {
+            this.elContainer || this.elMove || this.elResize;
+
+            ev || ev; //console.log("onWindowMouseMove", ev);
+        }
+
     }
 }
