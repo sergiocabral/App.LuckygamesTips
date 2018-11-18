@@ -15,6 +15,8 @@ namespace Core {
          * @param {ConfigurationLazy} configurationLazy Configuração para inicialização do sistema carregada tardiamente.
          */
         public constructor() {
+            all.main = this;
+
             Util.DateTime.defaultDateFormat = all.data.locale.date;
             Util.Number.defaultNumberFormat = all.data.locale.number;
 

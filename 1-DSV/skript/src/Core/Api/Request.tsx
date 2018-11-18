@@ -15,6 +15,8 @@ namespace Core.Api {
          * @param {string} server Url do servidor da api.
          */
         public constructor(server: string) {
+            all.api = this;
+            
             this.server = server;
             this.url = `${server}/api/`.replace("://", "$").replace("//", "/").replace("$", "://");
         }

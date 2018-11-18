@@ -6,6 +6,12 @@ namespace Core {
     export class All {
 
         /**
+         * Armazena qualquer coisa.
+         * Para quando houver necessidade de ter um valor global.
+         */
+        public any: any = { }
+
+        /**
          * Classe principal responsável por rodar o sistema.
          */
         public infrastructure: Core.Infrastructure = { } as Core.Infrastructure;

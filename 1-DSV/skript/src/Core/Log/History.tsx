@@ -11,6 +11,13 @@ namespace Core.Log {
     export class History {
 
         /**
+         * Construtor.
+         */
+        public constructor() {
+            all.log = this;
+        }
+
+        /**
          * Lista de mensagens de log.
          * @type {Message[]}
          */

@@ -119,7 +119,7 @@
 /// script: initialize
 
 const all: Core.All = new Core.All();
-all.infrastructure = new Core.Infrastructure({
+new Core.Infrastructure({
     name: "Luckygames Tips",
     debug: true,
     welcome: true,

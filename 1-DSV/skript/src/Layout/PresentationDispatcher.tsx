@@ -17,11 +17,10 @@ namespace Layout {
             {                
                 message: Message.CreateDialog.name,
                 handler: (command: Message.CreateDialog) => {
-                    const container: HTMLDivElement = document.createElement('div') as HTMLDivElement;
-                    container.id = Util.String.random();
-                    all.presentation.container.appendChild(container);
-
-                    command.result = ReactDOM.render(React.createElement(Component.Dialog, { title: command.title }, null), container);
+                    command.result = 
+                        ReactDOM.render(
+                            React.createElement(Component.Dialog, { title: command.title }, null), 
+                            all.presentation.createContainer());
 
                     return command;
                 }

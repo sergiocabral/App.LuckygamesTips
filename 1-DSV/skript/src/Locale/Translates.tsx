@@ -15,6 +15,8 @@ namespace Locale {
          * @param {string} phrases Idioma padrão.
          */
         public constructor(languageDefault: string) {
+            all.translate = this;
+            
             this.languageDefault = languageDefault;
         }
 

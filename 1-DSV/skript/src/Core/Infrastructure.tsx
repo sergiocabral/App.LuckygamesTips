@@ -16,14 +16,16 @@ namespace Core {
          * @param {Configuration} configuration Configuração para inicialização do sistema.
          */
         public constructor(configuration: Configuration) {
+            all.infrastructure = this;
+            
             window.anything = { };
 
             const language = "en";
 
             all.configuration = configuration;
-            all.log = new Log.History();
-            all.api = new Api.Request(configuration.server);
-            all.translate = new Locale.Translates(language);
+            new Log.History();
+            new Api.Request(configuration.server);
+            new Locale.Translates(language);
 
             if (configuration.welcome) {
                 Log.ConsoleLog.welcome(configuration.name, language.toString() === "pt" ? 
@@ -70,7 +72,7 @@ namespace Core {
                             translates: translates, 
                             locale: locale 
                         };
-                        all.main = new Main();
+                        new Main();
                     });
                 });
             });

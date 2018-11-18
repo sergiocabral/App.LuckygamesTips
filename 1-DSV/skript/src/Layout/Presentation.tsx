@@ -20,20 +20,37 @@ namespace Layout {
          * Construtor.
          */
         public constructor() {
+            all.presentation = this;
+
             new PresentationDispatcher(this);
 
             const container: HTMLDivElement = document.createElement('div') as HTMLDivElement;
             container.id = Util.String.random();
             container.className = Presentation.className;
             document.body.appendChild(container);
-            this.container = container;
+            this.parentContainer = container;
 
             all.log.post("Criado container do sistema.", null, Core.Log.Level.Debug, container);
+
+            ReactDOM.render(
+                React.createElement(Component.ButtonActivator, null, null), 
+                this.createContainer());
         }
 
         /**
          * Container para todo HTML do sistema.
          */
-        public container: HTMLElement;
+        public parentContainer: HTMLElement;
+
+        /**
+         * Cria um container para receber um componente independente.
+         * @returns {HTMLElement} Container criado.
+         */
+        public createContainer(): HTMLElement {
+            const container: HTMLDivElement = document.createElement('div') as HTMLDivElement;
+            container.id = Util.String.random();
+            all.presentation.parentContainer.appendChild(container);
+            return container;
+        }
     }
 }
