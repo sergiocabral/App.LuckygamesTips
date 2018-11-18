@@ -231,7 +231,7 @@ namespace Layout.Component {
             ];
 
             window.cancelAnimationFrame(window.requestAnimationFrame(this.onTitleBarFrameAnimation)); //Linha sem efeito. Necessária para suprimir warning 'declared but never read'.
-            window.anything.componentDialogControlMoviment = this.controlMoviment;
+            all.any.componentDialogControlMoviment = this.controlMoviment;
 
             window.addEventListener('mouseup', this.onTitleBarMouseUp);
             window.addEventListener('mousemove', this.onTitleBarMouseMove);
@@ -243,8 +243,8 @@ namespace Layout.Component {
          * Handler para quando o mouse é liberado e para de arrastar.
          */
         private onTitleBarMouseUp(): void {
-            if (!window.anything.componentDialogControlMoviment) return;
-            const _this = window.anything.componentDialogControlMoviment._this;
+            if (!all.any.componentDialogControlMoviment) return;
+            const _this = all.any.componentDialogControlMoviment._this;
 
             window.removeEventListener('mouseup', _this.onTitleBarMouseUp);
             window.removeEventListener('mousemove', _this.onTitleBarMouseMove);
@@ -255,7 +255,7 @@ namespace Layout.Component {
             _this.controlMoviment.isDown = false;
             _this.controlMoviment.wasMoving = false;
 
-            delete window.anything.componentDialogControlMoviment;
+            delete all.any.componentDialogControlMoviment;
         }
 
         /**
@@ -265,8 +265,8 @@ namespace Layout.Component {
         private onTitleBarMouseMove(ev: any): void {
             ev.preventDefault();
 
-            if (!window.anything.componentDialogControlMoviment) return;
-            const _this = window.anything.componentDialogControlMoviment._this;
+            if (!all.any.componentDialogControlMoviment) return;
+            const _this = all.any.componentDialogControlMoviment._this;
 
             const clientX = ev.changedTouches !== undefined ? ev.changedTouches[0].clientX : ev.clientX;
             const clientY = ev.changedTouches !== undefined ? ev.changedTouches[0].clientY : ev.clientY;
@@ -288,8 +288,8 @@ namespace Layout.Component {
          * Função usada para animar o movimento da janela.
          */
         private onTitleBarFrameAnimation(): void {
-            if (!window.anything.componentDialogControlMoviment) return;
-            const _this = window.anything.componentDialogControlMoviment._this;
+            if (!all.any.componentDialogControlMoviment) return;
+            const _this = all.any.componentDialogControlMoviment._this;
 
             if (!_this.controlMoviment.isResize) {
                 _this.controlMoviment.elementToMove.style.left = 

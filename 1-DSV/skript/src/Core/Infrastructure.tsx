@@ -17,8 +17,6 @@ namespace Core {
          */
         public constructor(configuration: Configuration) {
             all.infrastructure = this;
-            
-            window.anything = { };
 
             const language = "en";
 

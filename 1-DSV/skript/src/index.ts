@@ -1,6 +1,3 @@
-/// <reference path="Core/Environment/Window.tsx" />
-/// script: initialize
-
 /// <reference path="Core/Environment/String.tsx" />
 /// script: initialize
 
