@@ -70,7 +70,13 @@
 /// <reference path="Layout/Theme/Stylesheet.tsx" />
 /// script: react
 
+/// <reference path="Layout/ComponentBase.tsx" />
+/// script: react
+
 /// <reference path="Layout/Component/Dialog.tsx" />
+/// script: react
+
+/// <reference path="Layout/Component/ButtonActivator.tsx" />
 /// script: react
 
 /// <reference path="Core/Bus/Message.tsx" />

@@ -1,9 +1,4 @@
 namespace Layout.Component {
-    
-    /**
-     * Repositório de todas as instâncias principais do sistema.
-     */
-    declare const all: Core.All;
 
     /**
      * Tipo para props do React deste componente.
@@ -17,59 +12,48 @@ namespace Layout.Component {
     }
 
     /**
-     * Tipo para states do React deste componente.
-     */
-    type State = {
-
-        /**
-         * Identificador do elemento.
-         */
-        id: string
-    }
-
-    /**
      * Janela base que contem outros componentes.
      */
-    export class Dialog extends React.Component<Props, Partial<State>> {
+    export class Dialog extends ComponentBase<Props, Partial<EmptyState>> {
 
         /**
-         * Registra o código CSS para este componente.
-         * @param {string} className Nome da classe para este componente.
+         * Nome da classe CSS deste componente.
          */
-        private loadStylesheetCode(className: string): void {
-            const base = `.${Presentation.className} .${className}`;
-            const theme = new Theme.Stylesheet(all.data.colors);
+        public className: string = 'dialog';
 
-            const defaults: any = {
-                width: 400,
-                height: 200
-            };
+        private defaults: { width: number, height: number } = { 
+            width: 400,
+            height: 200
+        };
 
-            Util.DOM.stylesheetCode(`
-            ${base} {
-                z-index: ${theme.zIndex};
-                background: ${theme.generalBackground};
+        /**
+         * Código CSS para este componente.
+         */
+        public stylesheet: string = `
+            ${this.selector()} {
+                z-index: ${this.theme.zIndex};
+                background: ${this.theme.generalBackground};
                 box-shadow: 0 0 20px black;
                 border-radius: 7px;
                 position: fixed;
-                left: calc(50% - ${defaults.width / 2}px);
-                top: calc(50% - ${defaults.height / 2}px);
+                left: calc(50% - ${this.defaults.width / 2}px);
+                top: calc(50% - ${this.defaults.height / 2}px);
                 min-width: 200px;
                 min-height: 100px;
-                width: ${defaults.width}px;
-                height: ${defaults.height}px;
+                width: ${this.defaults.width}px;
+                height: ${this.defaults.height}px;
             }
-            ${base} .header {
-                background-color: ${theme.dialogTitleBackground};
-                border-bottom: 1px solid ${Util.Drawing.blend(0.8, theme.dialogTitleTextColor)};
+            ${this.selector()} .header {
+                background-color: ${this.theme.dialogTitleBackground};
+                border-bottom: 1px solid ${Util.Drawing.blend(0.8, this.theme.dialogTitleTextColor)};
                 border-radius: 7px 7px 0 0;
                 padding: 9px 0 8px 0;
                 cursor: pointer;
                 position: relative;
             }
-            ${base} .header h1 {
-                color: ${theme.dialogTitleTextColor};
-                font-family: ${theme.dialogTextFont};
+            ${this.selector()} .header h1 {
+                color: ${this.theme.dialogTitleTextColor};
+                font-family: ${this.theme.dialogTextFont};
                 white-space: nowrap;
                 margin: 0 10px;                
                 font-size: 18px;
@@ -77,52 +61,52 @@ namespace Layout.Component {
                 text-overflow: ellipsis;
                 width: 85%;
             }
-            ${base} .header .icon {
-                color: ${theme.dialogTitleTextColor};
+            ${this.selector()} .header .icon {
+                color: ${this.theme.dialogTitleTextColor};
                 font-size: 20px;
                 float: left;
                 margin: -3px 9px 0 11px;
                 opacity: 1;
             }
-            ${base} .header a.close {
-                color: ${Util.Drawing.blend(0.3, theme.dialogTitleTextColor)};
+            ${this.selector()} .header a.close {
+                color: ${Util.Drawing.blend(0.3, this.theme.dialogTitleTextColor)};
                 position: absolute;
                 right: 13px;
                 top: 12px;
                 font-size: 13px;
             }
-            ${base} .header a.close:hover {
-                color: ${theme.dialogTitleTextColor};
+            ${this.selector()} .header a.close:hover {
+                color: ${this.theme.dialogTitleTextColor};
             }
-            ${base} .content * {
+            ${this.selector()} .content * {
                 margin: 5px 10px;
             }
-            ${base} .content * {
-                font-family: ${theme.generalTextFont};
+            ${this.selector()} .content * {
+                font-family: ${this.theme.generalTextFont};
                 font-size: 14px;              
             }
-            ${base} .content > * {
+            ${this.selector()} .content > * {
                 margin-left: 10px;
                 margin-right: 10px;
             }
-            ${base} .content > *:first-child {
+            ${this.selector()} .content > *:first-child {
                 margin-top: 5px;
             }  
-            ${base} .content > *:last-child {
+            ${this.selector()} .content > *:last-child {
                 margin-bottom: 5px;
             }
-            ${base} .resize {
+            ${this.selector()} .resize {
                 position: absolute;
                 bottom: 0;
                 right: 0;
                 width: 15px;
                 overflow: hidden;
-                background: ${theme.generalBackground};
+                background: ${this.theme.generalBackground};
             }
-            ${base} .resize div {
+            ${this.selector()} .resize div {
                 width: 20px;
                 height: 20px;
-                background-color: ${Util.Drawing.blend(0.5, theme.generalTextColor)};
+                background-color: ${Util.Drawing.blend(0.5, this.theme.generalTextColor)};
                 float: right;
                 transform: rotate(45deg);
                 position: relative;
@@ -132,11 +116,10 @@ namespace Layout.Component {
                 transition: opacity 0.5s linear;
                 opacity: 0.5;
             }          
-            ${base} .resize div:hover {
+            ${this.selector()} .resize div:hover {
                 opacity: 1;
             }
-            `);
-        }
+        `;
 
         /**
          * Construtor.
@@ -144,8 +127,6 @@ namespace Layout.Component {
          */
         public constructor(props: Props) {
             super(props);
-
-            this.state = { id: Util.String.random() };
 
             this.elComponent = React.createRef();
             this.elTitle = React.createRef();
@@ -326,17 +307,21 @@ namespace Layout.Component {
 
             _this.controlMoviment.idFrameAnimation = window.requestAnimationFrame(_this.onTitleBarFrameAnimation);
         }
+        
+        /**
+         * Após renderização do componente.
+         */
+        public componentDidUpdate(): void {
+            this.adjustTitleWidth();
+        }
 
         /**
          * Renderizador do React.
          * @returns {JSX.Element}
          */
         public render(): JSX.Element {
-            const className = "dialog";
-            this.loadStylesheetCode(className);
-
-            const jsx = (
-                <div id={this.state.id} className={className} ref={this.elComponent as any} onMouseDown={this.onComponentMouseDown} onTouchStart={this.onComponentMouseDown}>
+            return (
+                <div id={Util.String.random()} className={this.className} ref={this.elComponent as any} onMouseDown={this.onComponentMouseDown} onTouchStart={this.onComponentMouseDown}>
                     <div className="header" onMouseDown={this.onTitleBarMouseDown} onTouchStart={this.onTitleBarMouseDown}>
                         <span className="icon"><i className="fas fa-robot"></i></span>
                         <h1 ref={this.elTitle as any}>{this.props.title}</h1>
@@ -348,16 +333,6 @@ namespace Layout.Component {
                     <div className="resize"><div ref={this.elResize as any} onMouseDown={this.onTitleBarMouseDown} onTouchStart={this.onTitleBarMouseDown}>&nbsp;</div></div>
                 </div>
             );
-
-            return jsx;
         }
-        
-        /**
-         * Após montagem do componente.
-         */
-        public componentDidMount(): void {
-            this.adjustTitleWidth();
-        }
-
     }
 }

@@ -11,6 +11,8 @@ namespace Util {
          * @param {string} code Código CSS.
          */
         public static stylesheetCode(code: string): void {
+            if (typeof(code) !== "string" || !code.length) return;
+            
             const hash: number = code.hash();
             const id = `style_${hash}`;
             
