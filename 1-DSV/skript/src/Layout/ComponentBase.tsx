@@ -3,7 +3,7 @@ namespace Layout {
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const all: Core.All;
+    declare const tips: Core.All;
 
     /**
      * Tipo para props vazio do React deste componente.
@@ -49,7 +49,7 @@ namespace Layout {
         /**
          * Tema de cores para configurar o layout
          */
-        protected theme: Theme.Stylesheet = new Theme.Stylesheet(all.data.colors);
+        protected theme: Theme.Stylesheet = new Theme.Stylesheet(tips.data.colors);
 
         /**
          * Seletor CSS mais alto que engloba o componente.

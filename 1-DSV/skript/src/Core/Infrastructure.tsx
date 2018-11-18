@@ -3,7 +3,7 @@ namespace Core {
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const all: Core.All;
+    declare const tips: Core.All;
 
     /**
      * Classe principal responsável por rodar o sistema.
@@ -16,11 +16,11 @@ namespace Core {
          * @param {Configuration} configuration Configuração para inicialização do sistema.
          */
         public constructor(configuration: Configuration) {
-            all.infrastructure = this;
+            tips.infrastructure = this;
 
             const language = "en";
 
-            all.configuration = configuration;
+            tips.configuration = configuration;
             new Log.History();
             new Api.Request(configuration.server);
             new Locale.Translates(language);
@@ -32,17 +32,17 @@ namespace Core {
             }
 
             this.loadReferences(configuration.debug).then(() => {
-                all.api.loadScript([Api.ScriptContext.React]).then(() => {
-                    all.api.loadData([
+                tips.api.loadScript([Api.ScriptContext.React]).then(() => {
+                    tips.api.loadData([
                         { type: Api.DataType.Theme, name: "default", data: "" },
-                        { type: Api.DataType.Translate, name: all.translate.languageDefault, data: "" },
-                        { type: Api.DataType.Locale, name: all.translate.languageDefault, data: "" }
+                        { type: Api.DataType.Translate, name: tips.translate.languageDefault, data: "" },
+                        { type: Api.DataType.Locale, name: tips.translate.languageDefault, data: "" }
                     ]).then((data) => {
                         let translates: Locale.Translate[];
                         try {
                             translates = Locale.Translates.parse(data[1].data);
                         } catch (ex) {
-                            all.log.post("Não foi possível carregar as traduções de idioma.", null, Log.Level.Error, ex);
+                            tips.log.post("Não foi possível carregar as traduções de idioma.", null, Log.Level.Error, ex);
                             translates = [];
                         }
                         
@@ -50,7 +50,7 @@ namespace Core {
                         try {
                             colors = Layout.Theme.Stylesheet.parse(data[0].data);
                         } catch (ex) {
-                            all.log.post("Não foi possível carregar o tema de cores do layout.", null, Log.Level.Error, ex);
+                            tips.log.post("Não foi possível carregar o tema de cores do layout.", null, Log.Level.Error, ex);
                             colors = Layout.Theme.Stylesheet.getColorsDefault();
                         }
 
@@ -58,14 +58,14 @@ namespace Core {
                         try {
                             locale = Locale.Formats.parse(data[2].data);
                         } catch (ex) {
-                            all.log.post("Não foi possível carregar as informações de localização e região.", null, Log.Level.Error, ex);
+                            tips.log.post("Não foi possível carregar as informações de localização e região.", null, Log.Level.Error, ex);
                             locale = {
                                 date: Util.DateTime.defaultDateFormat,
                                 number: Util.Number.defaultNumberFormat,
                             }
                         }
 
-                        all.data = { 
+                        tips.data = { 
                             colors: colors,
                             translates: translates, 
                             locale: locale 

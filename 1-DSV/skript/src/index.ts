@@ -115,7 +115,8 @@
 /// <reference path="Core/All.tsx" />
 /// script: initialize
 
-const all: Core.All = new Core.All();
+const tips: Core.All = new Core.All();
+
 new Core.Infrastructure({
     name: "Luckygames Tips",
     debug: true,

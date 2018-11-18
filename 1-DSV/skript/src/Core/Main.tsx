@@ -3,7 +3,7 @@ namespace Core {
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const all: Core.All;
+    declare const tips: Core.All;
 
     /**
      * O sistema funciona a partir desta classe.
@@ -15,16 +15,16 @@ namespace Core {
          * @param {ConfigurationLazy} configurationLazy Configuração para inicialização do sistema carregada tardiamente.
          */
         public constructor() {
-            all.main = this;
+            tips.main = this;
 
-            Util.DateTime.defaultDateFormat = all.data.locale.date;
-            Util.Number.defaultNumberFormat = all.data.locale.number;
+            Util.DateTime.defaultDateFormat = tips.data.locale.date;
+            Util.Number.defaultNumberFormat = tips.data.locale.number;
 
-            all.translate.load(all.data.translates);
+            tips.translate.load(tips.data.translates);
             
-            all.presentation = new Layout.Presentation();
+            tips.presentation = new Layout.Presentation();
 
-            Core.Bus.MessageDispatcher.Send(new Layout.Message.CreateDialog(all.configuration.name));
+            Core.Bus.MessageDispatcher.Send(new Layout.Message.CreateDialog(tips.configuration.name));
         }
     }
 }

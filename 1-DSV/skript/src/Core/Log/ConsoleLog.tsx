@@ -3,7 +3,7 @@ namespace Core.Log {
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const all: Core.All;
+    declare const tips: Core.All;
     
     /**
      * Manipula e registra mensagens de log.
@@ -26,7 +26,7 @@ namespace Core.Log {
          * @param {any} toConsoleLog Qualquer coisas para ser passado como parâmetro para console.log();
          */
         public static write(message: Message, level: Level, toConsoleLog: any = undefined): void {
-            if (!all.configuration.debug) return;
+            if (!tips.configuration.debug) return;
 
             const style = this.getStyle(level);
 

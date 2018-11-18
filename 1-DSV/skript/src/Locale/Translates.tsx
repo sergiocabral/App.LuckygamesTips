@@ -3,7 +3,7 @@ namespace Locale {
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const all: Core.All;
+    declare const tips: Core.All;
 
     /**
      * Manipulador de traduções.
@@ -15,7 +15,7 @@ namespace Locale {
          * @param {string} phrases Idioma padrão.
          */
         public constructor(languageDefault: string) {
-            all.translate = this;
+            tips.translate = this;
             
             this.languageDefault = languageDefault;
         }
@@ -66,7 +66,7 @@ namespace Locale {
         public static parse(json: string): Translate[] {
             return !json ? [] : (JSON.parse(json) as []).map(i => { 
                 return { 
-                    language: all.translate.languageDefault,
+                    language: tips.translate.languageDefault,
                     id: Object.keys(i)[0] as string,
                     translated: i[Object.keys(i)[0]] as string
                 }

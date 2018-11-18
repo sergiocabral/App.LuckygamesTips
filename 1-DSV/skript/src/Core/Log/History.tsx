@@ -3,7 +3,7 @@ namespace Core.Log {
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const all: Core.All;
+    declare const tips: Core.All;
 
     /**
      * Manipula e registra mensagens de log.
@@ -14,7 +14,7 @@ namespace Core.Log {
          * Construtor.
          */
         public constructor() {
-            all.log = this;
+            tips.log = this;
         }
 
         /**
@@ -32,7 +32,7 @@ namespace Core.Log {
          */
         public post(text: string, values: any = { }, level: Level, toConsoleLog: any = undefined): void {
             try {
-                text = all.translate.get(text, values);
+                text = tips.translate.get(text, values);
             } catch (e) {
                 text = text.querystring(values)
             }

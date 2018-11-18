@@ -3,7 +3,7 @@ namespace Layout {
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const all: Core.All;
+    declare const tips: Core.All;
 
     /**
      * Despachador de mensagens.
@@ -20,7 +20,7 @@ namespace Layout {
                     command.result = 
                         ReactDOM.render(
                             React.createElement(Component.Dialog, { title: command.title }, null), 
-                            all.presentation.createContainer());
+                            tips.presentation.createContainer());
 
                     return command;
                 }

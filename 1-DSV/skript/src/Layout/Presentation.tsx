@@ -3,7 +3,7 @@ namespace Layout {
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const all: Core.All;
+    declare const tips: Core.All;
 
     /**
      * Organiza e manipula o layout.
@@ -20,7 +20,7 @@ namespace Layout {
          * Construtor.
          */
         public constructor() {
-            all.presentation = this;
+            tips.presentation = this;
 
             new PresentationDispatcher(this);
 
@@ -30,7 +30,7 @@ namespace Layout {
             document.body.appendChild(container);
             this.parentContainer = container;
 
-            all.log.post("Criado container do sistema.", null, Core.Log.Level.Debug, container);
+            tips.log.post("Criado container do sistema.", null, Core.Log.Level.Debug, container);
 
             ReactDOM.render(
                 React.createElement(Component.ButtonActivator, null, null), 
@@ -49,7 +49,7 @@ namespace Layout {
         public createContainer(): HTMLElement {
             const container: HTMLDivElement = document.createElement('div') as HTMLDivElement;
             container.id = Util.String.random();
-            all.presentation.parentContainer.appendChild(container);
+            tips.presentation.parentContainer.appendChild(container);
             return container;
         }
     }

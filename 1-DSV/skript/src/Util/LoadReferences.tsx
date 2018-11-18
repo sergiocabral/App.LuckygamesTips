@@ -3,7 +3,7 @@ namespace Util {
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const all: Core.All;
+    declare const tips: Core.All;
 
     /**
      * Utilitários para carregamento de dados.
@@ -53,7 +53,7 @@ namespace Util {
                 element.onload = () => resolve();
                 document.body.prepend(element);
 
-                all.log.post("Carregando javascript.", null, Core.Log.Level.Debug, element);
+                tips.log.post("Carregando javascript.", null, Core.Log.Level.Debug, element);
             });
         }
 
@@ -79,7 +79,7 @@ namespace Util {
                 element.onload = () => resolve();
                 document.body.prepend(element);
 
-                all.log.post("Carregando stylesheet.", null, Core.Log.Level.Debug, element);
+                tips.log.post("Carregando stylesheet.", null, Core.Log.Level.Debug, element);
             });
         }
     }
