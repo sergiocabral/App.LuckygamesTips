@@ -64,7 +64,7 @@ namespace Locale {
          * @returns {Translate[]} Objeto.
          */
         public static parse(json: string): Translate[] {
-            return !json ? [] : (JSON.parse(json) as []).map(i => { 
+            return (JSON.parse(json) as []).map(i => { 
                 return { 
                     language: tips.translate.languageDefault,
                     id: Object.keys(i)[0] as string,

@@ -17,7 +17,7 @@ namespace Util {
          * @returns {Promise<void>} Retorna void após o carregamento de todos as bibliotecas.
          */
         public static libraries(urls: string[]): Promise<void> {
-            return new Promise(resolve => {
+            return new Promise((resolve, reject) => {
                 const load = (urls: string[], index: number) => {
                     if (index < urls.length) {
                         const loadUrl = 
@@ -25,7 +25,7 @@ namespace Util {
                             LoadReferences.javaScript : 
                             LoadReferences.stylesheet;
 
-                        loadUrl(urls[index]).then(() => load(urls, ++index));
+                        loadUrl(urls[index]).then(() => load(urls, ++index)).catch(reject);
                     }
                     else resolve();
                 }
@@ -45,15 +45,20 @@ namespace Util {
 
             if (document.getElementById(id)) return new Promise(resolve => resolve());
 
-            return new Promise(resolve => {
+            return new Promise((resolve, reject) => {
                 const element: HTMLScriptElement = document.createElement("SCRIPT") as HTMLScriptElement;
                 element.id = id;
                 element.type = "text/javascript";
                 element.src = src;
-                element.onload = () => resolve();
+                element.onload = () => {
+                    tips.log.post("Carregado javascript.", null, Core.Log.Level.Debug, element);
+                    resolve();
+                }
+                element.onerror = (e) => {
+                    tips.log.post("Falha ao carregar javascript.", null, Core.Log.Level.Error, [e, element]);
+                    reject({ error: e, url: src });
+                };
                 document.body.prepend(element);
-
-                tips.log.post("Carregando javascript.", null, Core.Log.Level.Debug, element);
             });
         }
 
@@ -69,17 +74,22 @@ namespace Util {
 
             if (document.getElementById(id)) return new Promise(resolve => resolve());
 
-            return new Promise(resolve => {
+            return new Promise((resolve, reject) => {
                 const element: HTMLLinkElement = document.createElement("link") as HTMLLinkElement;
                 element.id  = id;
                 element.rel  = "stylesheet";
                 element.type = "text/css";
                 element.href = href;
                 element.media = "all";
-                element.onload = () => resolve();
+                element.onload = () => {
+                    tips.log.post("Carregado stylesheet.", null, Core.Log.Level.Debug, element);
+                    resolve();
+                }
+                element.onerror = (e) => {
+                    tips.log.post("Falha ao carregar stylesheet.", null, Core.Log.Level.Error, [e, element]);
+                    reject({ error: e, url: href });
+                };
                 document.body.prepend(element);
-
-                tips.log.post("Carregando stylesheet.", null, Core.Log.Level.Debug, element);
             });
         }
     }

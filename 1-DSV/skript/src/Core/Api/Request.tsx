@@ -49,8 +49,8 @@ namespace Core.Api {
          */
         public loadScript(contexts: ScriptContext[]): Promise<void> {
             const urls: string[] = contexts.map(i => this.getUrl("script", ScriptContext[i]));
-            return new Promise(resolve => {
-                Util.LoadReferences.libraries(urls).then(resolve);
+            return new Promise((resolve, reject) => {
+                Util.LoadReferences.libraries(urls).then(resolve).catch(reject);
             });
         }
 
@@ -65,7 +65,7 @@ namespace Core.Api {
                 const load = (index: number) => {
                     const request = new XMLHttpRequest();
                     request.open("GET", urls[index]);
-                    request.send();
+                    request.send();                    
                     request.onloadend = (ev: any) => {
                         data[index].data = request.responseText;
                         if (++index < urls.length) load(index);
