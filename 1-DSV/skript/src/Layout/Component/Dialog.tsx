@@ -141,18 +141,20 @@ namespace Layout.Component {
 
             this.state = { id: Util.String.random() };
 
-            this.elContainer = React.createRef();
+            this.elComponent = React.createRef();
             this.elTitle = React.createRef();
             this.elResize = React.createRef();
             
-            this.onBarMouseDown = this.onBarMouseDown.bind(this);
+            this.onComponentMouseDown = this.onComponentMouseDown.bind(this);
+            this.onTitleBarMouseDown = this.onTitleBarMouseDown.bind(this);
+            this.onCloseClick = this.onCloseClick.bind(this);
         }
 
         /**
          * Referência ao container pai de todos.
          * @type {React.RefObject<HTMLElement>}
          */
-        private elContainer: React.RefObject<HTMLElement>;
+        private elComponent: React.RefObject<HTMLElement>;
 
         /**
          * Referência para o título na barra.
@@ -170,22 +172,44 @@ namespace Layout.Component {
          * Ajusta o título para sempre caber ma barra.
          */
         private adjustTitleWidth(): void {
-            const elContainer = this.elContainer.current as HTMLElement;
+            const elComponent = this.elComponent.current as HTMLElement;
             const elTitle = this.elTitle.current as HTMLElement;
-            elTitle.style.width = (elContainer.clientWidth - 80) + "px";
+            elTitle.style.width = (elComponent.clientWidth - 80) + "px";
         }
 
         /**
          * Sobre o container pra frente de todos os componentes.
          */
         private bringToFront(): void {
-            const component = this.elContainer.current as HTMLElement;
+            const component = this.elComponent.current as HTMLElement;
             const container = component.parentNode as HTMLElement;
             const parent = container.parentNode as HTMLElement;
 
             if (parent.children[parent.children.length - 1] != container) {
                 parent.append(container);
+                console.log('bringToFront');
             }
+        }
+
+        /**
+         * Handler para clique do mouse no componente.
+         * @param {any} ev 
+         */
+        private onComponentMouseDown(ev: any): void {
+            if (ev.target.className !== "close" && ev.target.parentNode.className !== "close") {
+                this.bringToFront();
+            }
+        }
+
+        /**
+         * Quando o botão de fecha é clicado.
+         */
+        private onCloseClick(): void {
+            console.log("onCloseClick");
+            const component = this.elComponent.current as HTMLElement;
+            const container = component.parentNode as HTMLElement;
+            ReactDOM.unmountComponentAtNode(container);
+            container.remove();
         }
 
         /**
@@ -207,10 +231,8 @@ namespace Layout.Component {
          * Handler para clique do mouse para começar a arrastar
          * @param {any} ev 
          */
-        private onBarMouseDown(ev: any): void {
-            this.bringToFront();
-
-            this.controlMoviment.elementToMove = this.elContainer.current as HTMLDivElement;
+        private onTitleBarMouseDown(ev: any): void {
+            this.controlMoviment.elementToMove = this.elComponent.current as HTMLDivElement;
             this.controlMoviment.isDown = true;
 
             this.controlMoviment.isResize = ev.target.parentNode.className.indexOf("resize") >= 0;
@@ -223,26 +245,26 @@ namespace Layout.Component {
                 this.controlMoviment.elementToMove.offsetTop - clientY
             ];
 
-            window.cancelAnimationFrame(window.requestAnimationFrame(this.onBarFrameAnimation)); //Linha sem efeito. Necessária para suprimir warning 'declared but never read'.
+            window.cancelAnimationFrame(window.requestAnimationFrame(this.onTitleBarFrameAnimation)); //Linha sem efeito. Necessária para suprimir warning 'declared but never read'.
             window.anything.componentDialogControlMoviment = this.controlMoviment;
 
-            window.addEventListener('mouseup', this.onBarMouseUp);
-            window.addEventListener('mousemove', this.onBarMouseMove);
-            this.controlMoviment.elementToMove.addEventListener('touchend', this.onBarMouseUp);
-            this.controlMoviment.elementToMove.addEventListener('touchmove', this.onBarMouseMove);
+            window.addEventListener('mouseup', this.onTitleBarMouseUp);
+            window.addEventListener('mousemove', this.onTitleBarMouseMove);
+            this.controlMoviment.elementToMove.addEventListener('touchend', this.onTitleBarMouseUp);
+            this.controlMoviment.elementToMove.addEventListener('touchmove', this.onTitleBarMouseMove);
         }
 
         /**
          * Handler para quando o mouse é liberado e para de arrastar.
          */
-        private onBarMouseUp(): void {
+        private onTitleBarMouseUp(): void {
             if (!window.anything.componentDialogControlMoviment) return;
             const _this = window.anything.componentDialogControlMoviment._this;
 
-            window.removeEventListener('mouseup', _this.onBarMouseUp);
-            window.removeEventListener('mousemove', _this.onBarMouseMove);
-            _this.controlMoviment.elementToMove.removeEventListener('touchend', _this.onBarMouseUp);
-            _this.controlMoviment.elementToMove.removeEventListener('touchmove', _this.onBarMouseMove);
+            window.removeEventListener('mouseup', _this.onTitleBarMouseUp);
+            window.removeEventListener('mousemove', _this.onTitleBarMouseMove);
+            _this.controlMoviment.elementToMove.removeEventListener('touchend', _this.onTitleBarMouseUp);
+            _this.controlMoviment.elementToMove.removeEventListener('touchmove', _this.onTitleBarMouseMove);
 
             window.cancelAnimationFrame(_this.idFrameAnimation);
             _this.controlMoviment.isDown = false;
@@ -255,7 +277,7 @@ namespace Layout.Component {
          * Handler para movimento do mouse pela janela (window).
          * @param {any} ev 
          */
-        private onBarMouseMove(ev: any): void {
+        private onTitleBarMouseMove(ev: any): void {
             ev.preventDefault();
 
             if (!window.anything.componentDialogControlMoviment) return;
@@ -272,7 +294,7 @@ namespace Layout.Component {
 
                 if (!_this.controlMoviment.wasMoving) {
                     _this.controlMoviment.wasMoving = true;
-                    _this.controlMoviment.idFrameAnimation = window.requestAnimationFrame(_this.onBarFrameAnimation);
+                    _this.controlMoviment.idFrameAnimation = window.requestAnimationFrame(_this.onTitleBarFrameAnimation);
                 }
             }
         }
@@ -280,7 +302,7 @@ namespace Layout.Component {
         /**
          * Função usada para animar o movimento da janela.
          */
-        private onBarFrameAnimation(): void {
+        private onTitleBarFrameAnimation(): void {
             if (!window.anything.componentDialogControlMoviment) return;
             const _this = window.anything.componentDialogControlMoviment._this;
 
@@ -298,7 +320,7 @@ namespace Layout.Component {
                 _this.adjustTitleWidth();
             }
 
-            _this.controlMoviment.idFrameAnimation = window.requestAnimationFrame(_this.onBarFrameAnimation);
+            _this.controlMoviment.idFrameAnimation = window.requestAnimationFrame(_this.onTitleBarFrameAnimation);
         }
 
         /**
@@ -310,16 +332,16 @@ namespace Layout.Component {
             this.loadStylesheetCode(className);
 
             const jsx = (
-                <div id={this.state.id} className={className} ref={this.elContainer as any}>
-                    <div className="header" onMouseDown={this.onBarMouseDown} onTouchStart={this.onBarMouseDown}>
+                <div id={this.state.id} className={className} ref={this.elComponent as any} onMouseDown={this.onComponentMouseDown} onTouchStart={this.onComponentMouseDown}>
+                    <div className="header" onMouseDown={this.onTitleBarMouseDown} onTouchStart={this.onTitleBarMouseDown}>
                         <span className="icon"><i className="fas fa-robot"></i></span>
                         <h1 ref={this.elTitle as any}>{this.props.title}</h1>
-                        <a href="#" className="close"><i className="fas fa-times"></i></a>
+                        <a href="#" className="close" onClick={this.onCloseClick}><i className="fas fa-times"></i></a>
                     </div>
                     <div className="content">
                         <p>Dialog...</p>
                     </div>  
-                    <div className="resize"><div ref={this.elResize as any} onMouseDown={this.onBarMouseDown} onTouchStart={this.onBarMouseDown}>&nbsp;</div></div>
+                    <div className="resize"><div ref={this.elResize as any} onMouseDown={this.onTitleBarMouseDown} onTouchStart={this.onTitleBarMouseDown}>&nbsp;</div></div>
                 </div>
             );
 
