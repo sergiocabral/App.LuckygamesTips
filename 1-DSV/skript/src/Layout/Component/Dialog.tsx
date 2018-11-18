@@ -187,7 +187,6 @@ namespace Layout.Component {
 
             if (parent.children[parent.children.length - 1] != container) {
                 parent.append(container);
-                console.log('bringToFront');
             }
         }
 
@@ -205,7 +204,6 @@ namespace Layout.Component {
          * Quando o botão de fecha é clicado.
          */
         private onCloseClick(): void {
-            console.log("onCloseClick");
             const component = this.elComponent.current as HTMLElement;
             const container = component.parentNode as HTMLElement;
             ReactDOM.unmountComponentAtNode(container);
