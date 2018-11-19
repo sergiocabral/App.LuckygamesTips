@@ -1,5 +1,21 @@
 namespace Skript.Layout.ReactJs.Component {
-    
+
+    /**
+     * Modos de fechamento da janela.
+     */
+    export enum DialogCloseMode {
+
+        /**
+         * Usa CSS para esconder.
+         */
+        Hide,
+
+        /**
+         * Remove do DOM.
+         */
+        Remove
+    }
+
     /**
      * Tipo para props do React deste componente.
      */
@@ -7,8 +23,15 @@ namespace Skript.Layout.ReactJs.Component {
 
         /**
          * Título da janela de diálogo.
+         * @type {string}
          */
-        title: string
+        title: string,
+
+        /**
+         * Modo de fechamento da janela.
+         * @type {DialogCloseMode}
+         */
+        closeMode: DialogCloseMode
     }
 
     /**
@@ -168,8 +191,32 @@ namespace Skript.Layout.ReactJs.Component {
         private onCloseClick(): void {
             const component = this.elContainer.current as HTMLElement;
             const container = component.parentNode as HTMLElement;
-            ReactDOM.unmountComponentAtNode(container);
-            container.remove();
+
+            switch (this.props.closeMode) {
+                case DialogCloseMode.Hide:
+                    this.visible(false);
+                    break;
+                case DialogCloseMode.Remove:
+                    ReactDOM.unmountComponentAtNode(container);
+                    container.remove();
+                    break;
+            }
+        }
+
+        /**
+         * Define a exibição da janela.
+         * Quando nenhum parâmetro é informado apenas retorna a informação.
+         * @param {boolean} mode Opcional. Exibe ou esconde.
+         * @returns {boolean} Retorna o estado de exibição da janela.
+         */
+        public visible(mode?: boolean): boolean {
+            const component = this.elContainer.current as HTMLElement;
+            if (mode === true) {
+                component.style.display = "";
+            } else if (mode === false) {
+                component.style.display = "none";
+            }
+            return component.style.display !== "none";
         }
 
         /**

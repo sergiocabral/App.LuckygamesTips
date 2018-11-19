@@ -8,11 +8,13 @@ namespace Skript.Layout.Message {
         /**
          * Construtor.
          * @param {string} title Título na barra.
+         * @param {ReactJs.Component.DialogCloseMode} closeMode Modos de fechamento da janela.
          * @param {any} children Conteúdo da janela.
          */
-        public constructor(title: string, children?: any) { 
+        public constructor(title: string, closeMode: ReactJs.Component.DialogCloseMode, children?: any) { 
             super();
             this.title = title;
+            this.closeMode = closeMode;
             this.children = children;
         }
 
@@ -21,6 +23,12 @@ namespace Skript.Layout.Message {
          * @type {string}
          */
         public title: string;
+
+        /**
+         * Modos de fechamento da janela.
+         * @type {ReactJs.Component.DialogCloseMode}
+         */
+        public closeMode: ReactJs.Component.DialogCloseMode;
 
         /**
          * Conteúdo da janela.

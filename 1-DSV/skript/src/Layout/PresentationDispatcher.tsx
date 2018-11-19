@@ -19,7 +19,10 @@ namespace Skript.Layout {
                 handler: (command: Message.DialogCreate) => {
                     command.result = 
                         ReactDOM.render(
-                            React.createElement(ReactJs.Component.Dialog, { title: command.title }, command.children), 
+                            React.createElement(ReactJs.Component.Dialog, { 
+                                title: command.title,                                 
+                                closeMode: command.closeMode
+                            }, command.children), 
                             skript.presentation.createContainer());
 
                     return command;
@@ -28,8 +31,7 @@ namespace Skript.Layout {
             {                
                 message: Message.MainDialogToggle.name,
                 handler: (command: Message.MainDialogToggle) => {
-                    command.result = Core.Bus.MessageDispatcher.Send(new Message.DialogCreate(skript.configuration.name, <p>Main Windows</p>)).result;
-
+                    skript.presentation.mainDialog.visible(!skript.presentation.mainDialog.visible());
                     return command;
                 }
             }

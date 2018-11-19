@@ -37,12 +37,24 @@ namespace Skript.Layout {
             ReactDOM.render(
                 React.createElement(ReactJs.Component.ButtonActivator, null, null), 
                 this.createContainer());
+
+            this.mainDialog = Core.Bus.MessageDispatcher.Send(
+                new Message.DialogCreate(
+                    skript.configuration.name, 
+                    ReactJs.Component.DialogCloseMode.Hide, 
+                    <p>Main Windows</p>)).result as ReactJs.Component.Dialog;
+            this.mainDialog.visible(false);
         }
 
         /**
          * Container para todo HTML do sistema.
          */
         public parentContainer: HTMLElement;
+
+        /**
+         * Instância da janela principal do sistema.
+         */
+        public mainDialog: ReactJs.Component.Dialog;
 
         /**
          * Cria um container para receber um componente independente.
