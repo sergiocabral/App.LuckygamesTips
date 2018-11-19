@@ -14,14 +14,15 @@ namespace Skript.Layout.ReactJs {
         public constructor(element: HTMLElement, show: boolean = false, fade: number = 0.2) {
             this.element = element;
             
-            this.setStylesheet();
+            this.stylesheet();
 
             this.seconds = 0;
             this.fade(fade);
 
             element.style.visibility = "hidden";
             element.classList.add("visibility");
-            setTimeout(() => this.visible(show), 1);
+            this.visible(false);
+            if (show) setTimeout(() => this.visible(show), 1);
         }
 
         /**
@@ -43,7 +44,6 @@ namespace Skript.Layout.ReactJs {
         public fade(seconds?: number): number {
             if (seconds !== undefined) {
                 this.seconds = seconds;
-                console.log(`opacity ${seconds.toFixed(1)}s ease-out`);
                 this.element.style.transition = `opacity ${seconds.toFixed(1)}s ease-out`;
             }
             return this.seconds;
@@ -52,7 +52,7 @@ namespace Skript.Layout.ReactJs {
         /**
          * Registra o código CSS.
          */
-        private setStylesheet() {
+        private stylesheet() {
             const selector = `.${Presentation.className}`;
             Util.DOM.stylesheetCode(`
             ${selector} .visibility {
