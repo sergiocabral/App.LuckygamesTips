@@ -176,6 +176,21 @@ namespace Skript.Layout.ReactJs {
         }
         
         /**
+         * Remove uma instância da lista caso o container tenha saído do DOM.
+         * @param {MoveAndResize[]} instances Lista de instâncias.
+         * @param {string} index Posição da instância sendo verificada.
+         */
+        public static checkIfRemoved(instances: MoveAndResize[], index: string): MoveAndResize|undefined {
+            const instance = instances[parseInt(index)];
+            let element = instance.configuration.elContainer;
+            do {
+                if (element === document.body) return instance;
+            } while (element = element.parentElement as HTMLElement);
+            delete instances[parseInt(index)];
+            return undefined;
+        }
+
+        /**
          * Construtor.
          * @param {MoveAndResizeConfiguration} configuration Configuração de inicialização.
          */
@@ -237,7 +252,7 @@ namespace Skript.Layout.ReactJs {
         private onWindowMouseDown(ev: any): void {
             const targets: any[] = Array.isArray(ev.path) ? ev.path : [ev.target];
             for (const i in MoveAndResize.instances) {
-                const instance = MoveAndResize.instances[i];
+                const instance = MoveAndResize.checkIfRemoved(MoveAndResize.instances, i); if (!instance) continue;
 
                 if (instance.configuration.ignoreEventClick instanceof Function &&
                     instance.configuration.ignoreEventClick.bind(instance.configuration.owner)(ev)) continue;
@@ -266,7 +281,7 @@ namespace Skript.Layout.ReactJs {
          */
         private onWindowMouseUp(): void {
             for (const i in MoveAndResize.instances) {
-                const instance = MoveAndResize.instances[i];
+                const instance = MoveAndResize.checkIfRemoved(MoveAndResize.instances, i); if (!instance) continue;
 
                 instance.control.action = Action.None;
                 instance.control.clicking = false;
@@ -282,7 +297,7 @@ namespace Skript.Layout.ReactJs {
          */
         private onWindowMouseMove(ev: any): void {
             for (const i in MoveAndResize.instances) {
-                const instance = MoveAndResize.instances[i];
+                const instance = MoveAndResize.checkIfRemoved(MoveAndResize.instances, i); if (!instance) continue;
 
                 if (!instance.control.clicking) continue;
 
