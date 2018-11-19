@@ -7,16 +7,21 @@ namespace Skript.Layout.ReactJs {
 
         /**
          * Construtor.
-         * @param owner Elemento.
+         * @param {HTMLElement} owner Elemento.
+         * @param {boolean} show Opcional. Indica se o elemento deve começar visível.
+         * @param {number} fade Opcional. Tempo em segundo da transição.
          */
-        public constructor(element: HTMLElement) {
+        public constructor(element: HTMLElement, show: boolean = false, fade: number = 0.2) {
             this.element = element;
             
             this.setStylesheet();
 
+            this.seconds = 0;
+            this.fade(fade);
+
             element.style.visibility = "hidden";
             element.classList.add("visibility");
-            element.classList.add("hidden");
+            setTimeout(() => this.visible(show), 1);
         }
 
         /**
@@ -26,6 +31,25 @@ namespace Skript.Layout.ReactJs {
         public element: HTMLElement;
 
         /**
+         * Tempo da transição.
+         */
+        private seconds: number;
+
+        /**
+         * Define o tempo da transição.
+         * @param {number} seconds Opcional. Tempo em segundos
+         * @returns {number} Valor atual.
+         */
+        public fade(seconds?: number): number {
+            if (seconds !== undefined) {
+                this.seconds = seconds;
+                console.log(`opacity ${seconds.toFixed(1)}s ease-out`);
+                this.element.style.transition = `opacity ${seconds.toFixed(1)}s ease-out`;
+            }
+            return this.seconds;
+        }
+
+        /**
          * Registra o código CSS.
          */
         private setStylesheet() {
@@ -33,7 +57,6 @@ namespace Skript.Layout.ReactJs {
             Util.DOM.stylesheetCode(`
             ${selector} .visibility {
                 visibility: visible !important;
-                transition: opacity 0.2s ease-out;
                 opacity: 1;
             }
             ${selector} .visibility.hidden {

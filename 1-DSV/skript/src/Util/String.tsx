@@ -31,6 +31,8 @@ namespace Skript.Util {
                 for (const value in values) {
                     result = result.replaceAll(`{${value}}`, values[value]);
                 }
+            } else {
+                result = result.replaceAll(`{0}`, values);
             }
             return result;
         }
