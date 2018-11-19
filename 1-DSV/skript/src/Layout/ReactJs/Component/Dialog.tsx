@@ -177,6 +177,12 @@ namespace Skript.Layout.ReactJs.Component {
         private elResize: React.RefObject<HTMLElement>;
 
         /**
+         * Implementa a exibição/esconder suave do elemento.
+         * @type {Visibility}
+         */
+        private visibility?: Visibility;
+
+        /**
          * Ajusta o título para sempre caber ma barra.
          */
         private adjustTitleWidth(): void {
@@ -210,13 +216,7 @@ namespace Skript.Layout.ReactJs.Component {
          * @returns {boolean} Retorna o estado de exibição da janela.
          */
         public visible(mode?: boolean): boolean {
-            const component = this.elContainer.current as HTMLElement;
-            if (mode === true) {
-                component.style.display = "";
-            } else if (mode === false) {
-                component.style.display = "none";
-            }
-            return component.style.display !== "none";
+            return (this.visibility as Visibility).visible(mode);
         }
 
         /**
@@ -252,6 +252,8 @@ namespace Skript.Layout.ReactJs.Component {
                 ignoreEventClick: this.ignoreEventClick
             });
             setTimeout(() => this.adjustTitleWidth(), 1);
+
+            this.visibility = new Visibility(this.elContainer.current as HTMLElement);
         }
 
         /**

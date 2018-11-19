@@ -43,7 +43,9 @@ namespace Skript.Layout.ReactJs {
          * Registra o código CSS para este componente.
          */
         protected loadStylesheet(): void {
-            Util.DOM.stylesheetCode(typeof(this.stylesheet) === "string" ? this.stylesheet : "");
+            if (typeof(this.stylesheet) === "string" && this.stylesheet) {
+                Util.DOM.stylesheetCode(this.stylesheet);
+            }
         }
 
         /**

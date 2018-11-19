@@ -70,6 +70,9 @@
 /// <reference path="Layout/ReactJs/MoveAndResize.tsx" />
 /// script: react
 
+/// <reference path="Layout/ReactJs/Visibility.tsx" />
+/// script: react
+
 /// <reference path="Layout/ReactJs/ComponentBase.tsx" />
 /// script: react
 
