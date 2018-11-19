@@ -185,7 +185,7 @@ namespace Skript.Layout.ReactJs.Component {
                         <a href="#" className="close" onClick={this.onCloseClick}><i className="fas fa-times"></i></a>
                     </div>
                     <div className="content">
-                        <p>Dialog...</p>
+                        {this.props.children}
                     </div>  
                     <div className="resize"><div ref={this.elResize as any}>&nbsp;</div></div>
                 </div>

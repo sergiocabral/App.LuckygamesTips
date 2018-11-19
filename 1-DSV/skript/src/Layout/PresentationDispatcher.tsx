@@ -15,12 +15,20 @@ namespace Skript.Layout {
          */
         public handlers: Core.Bus.MessageHandler[] = [ 
             {                
-                message: Message.CreateDialog.name,
-                handler: (command: Message.CreateDialog) => {
+                message: Message.DialogCreate.name,
+                handler: (command: Message.DialogCreate) => {
                     command.result = 
                         ReactDOM.render(
-                            React.createElement(ReactJs.Component.Dialog, { title: command.title }, null), 
+                            React.createElement(ReactJs.Component.Dialog, { title: command.title }, command.children), 
                             skript.presentation.createContainer());
+
+                    return command;
+                }
+            },
+            {                
+                message: Message.MainDialogToggle.name,
+                handler: (command: Message.MainDialogToggle) => {
+                    command.result = Core.Bus.MessageDispatcher.Send(new Message.DialogCreate(skript.configuration.name, <p>Main Windows</p>)).result;
 
                     return command;
                 }

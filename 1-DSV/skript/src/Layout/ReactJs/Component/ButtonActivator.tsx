@@ -77,7 +77,7 @@ namespace Skript.Layout.ReactJs.Component {
          */
         private onClick(): void {
             if (this.moveAndResize && !this.moveAndResize.controlInfo.clicked) return;
-            Core.Bus.MessageDispatcher.Send(new Layout.Message.CreateDialog(skript.configuration.name));
+            Core.Bus.MessageDispatcher.Send(new Layout.Message.MainDialogToggle());
         }
 
         /**

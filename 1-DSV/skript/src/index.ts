@@ -88,7 +88,10 @@
 /// <reference path="Core/Bus/MessageDispatcher.tsx" />
 /// script: initialize
 
-/// <reference path="Layout/Message/CreateDialog.tsx" />
+/// <reference path="Layout/Message/DialogCreate.tsx" />
+/// script: initialize
+
+/// <reference path="Layout/Message/MainDialogToggle.tsx" />
 /// script: initialize
 
 /// <reference path="Layout/PresentationDispatcher.tsx" />
