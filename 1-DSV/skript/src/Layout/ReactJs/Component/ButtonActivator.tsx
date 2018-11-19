@@ -76,7 +76,7 @@ namespace Skript.Layout.ReactJs.Component {
          * Quando o botão é acionado.
          */
         private onClick(): void {
-            if (this.moveAndResize && !this.moveAndResize.controlInfo.clicked) return;
+            if (this.moveAndResize && !this.moveAndResize.control.clicked) return;
             Core.Bus.MessageDispatcher.Send(new Layout.Message.MainDialogToggle());
         }
 

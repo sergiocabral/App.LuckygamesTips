@@ -1,34 +1,145 @@
 namespace Skript.Layout.ReactJs {
     
+    /**
+     * Ações do usuário.
+     */
     enum Action { 
+
+        /**
+         * Indefinido.
+         */
         None,
+
+        /**
+         * Mover elemento.
+         */
         Move, 
+
+        /**
+         * Redimensionar elemento.
+         */
         Resize 
     }
 
-    type ControlInfo = {
+    /**
+     * Informações de controle.
+     */
+    type Control = {
+
+        /**
+         * Ação.
+         * @type {Action}
+         */
         action: Action,
+
+        /**
+         * Está com clique pressionado.
+         * @type {boolean}
+         */
         clicking: boolean,
+
+        /**
+         * O movimento foi iniciado.
+         * @type {boolean}
+         */
         moving: boolean,
+
+        /**
+         * Informa se o clique é válido (ou se foi apenas arrastado).
+         * @type {boolean}
+         */
         clicked: boolean,
+
+        /**
+         * Informações de posicionamento.
+         * @type {{horizontal: number, vertical: number}}
+         */
         offset: { 
+
+            /**
+             * Informações de posicionamento horizontal.
+             * @type {number}
+             */
             horizontal: number,
+
+            /**
+             * Informações de posicionamento vertical.
+             * @type {number}
+             */
             vertical: number
         },
+
+        /**
+         * Posição do mouse.
+         * @type {{x: number, y: number}}
+         */
         mouse: { 
+
+            /**
+             * Posição horizontal.
+             * @type {number}
+             */
             x: number, 
+
+            /**
+             * Posição vertical.
+             * @type {number}
+             */
             y: number
-        },        
+        },
+
+        /**
+         * Identificado da última solicitação de FrameAnimation
+         * @type {number}
+         */
         idFrameAnimation: number
     }
 
-    export type MoveAndResizeConfig = { 
+    /**
+     * Configuração de inicialização.
+     */
+    export type MoveAndResizeConfiguration = { 
+
+        /**
+         * Componente responsável.
+         * @type {React.Component}
+         */
         owner: React.Component,
+
+        /**
+         * Elemento container.
+         * @type {HTMLElement}
+         */
         elContainer: HTMLElement,
+
+        /**
+         * Lista de elementos que iniciam a ação de mover.
+         * @type {HTMLElement[]}
+         */
         elMove: HTMLElement[]
+
+        /**
+         * Lista de elementos que iniciam a ação de redimensionar.
+         * @type {HTMLElement[]}
+         */
         elResize: HTMLElement[]
+
+        /**
+         * Retorna true para indicar que o container não precisa ser movido para frente ao mover.
+         * @type {Function}
+         */
         ignoreBringToFront?: Function,
+
+        /**
+         * Retorna true para indicar que qualquer ação de mover ou redimensionar deve ser ignorada.
+         * @type {Function}
+         */
         ignoreEventClick?: Function,
+
+        /**
+         * Função chamada sempre que redimensionar.
+         * @type {Function}
+         */
         onResize?: Function
     }
 
@@ -38,25 +149,39 @@ namespace Skript.Layout.ReactJs {
      */
     export class MoveAndResize {
 
+        /**
+         * Lista de instancias que instanciaram esta classe.
+         * @type {MoveAndResize[]}
+         */
         private static instances: MoveAndResize[] = [];        
 
+        /**
+         * Determina a ação do usuário com base nas informações de controle.
+         * @param {MoveAndResize} instance Instância.
+         * @param {HTMLElement[]} targets Lista de elementos que aceitam mover ou redimensionar.
+         * @returns {Action} Ação determinada.
+         */
         private static determineAction(instance: MoveAndResize, targets: HTMLElement[]): Action {
-            for (const j in instance.config.elResize) {
-                if (targets.indexOf(instance.config.elResize[j]) >= 0) {
+            for (const j in instance.configuration.elResize) {
+                if (targets.indexOf(instance.configuration.elResize[j]) >= 0) {
                     return Action.Resize;
                 }
             }
-            for (const j in instance.config.elMove) {
-                if (targets.indexOf(instance.config.elMove[j]) >= 0) {
+            for (const j in instance.configuration.elMove) {
+                if (targets.indexOf(instance.configuration.elMove[j]) >= 0) {
                     return Action.Move;
                 }
             }
             return Action.None;
         }
         
-        public constructor(config: MoveAndResizeConfig) {
-            this.config = config;
-            this.controlInfo = {
+        /**
+         * Construtor.
+         * @param {MoveAndResizeConfiguration} configuration Configuração de inicialização.
+         */
+        public constructor(configuration: MoveAndResizeConfiguration) {
+            this.configuration = configuration;
+            this.control = {
                 action: Action.Move,
                 clicking: false,
                 moving: false,
@@ -76,41 +201,56 @@ namespace Skript.Layout.ReactJs {
             this.addEventListener();
         }
 
-        public config: MoveAndResizeConfig;
+        /**
+         * Configuração de inicialização.
+         * @type {MoveAndResizeConfiguration}
+         */
+        public configuration: MoveAndResizeConfiguration;
 
-        public controlInfo: ControlInfo;
+        /**
+         * Informações de controle.
+         * @type {Control}
+         */
+        public control: Control;
 
+        /**
+         * Registra os handlers dos eventos.
+         */
         private addEventListener() {
             window.addEventListener("mousedown", this.onWindowMouseDown);
-            for (const i in this.config.elMove) this.config.elMove[i].addEventListener("touchstart", this.onWindowMouseDown);
-            for (const i in this.config.elResize) this.config.elResize[i].addEventListener("touchstart", this.onWindowMouseDown);
+            for (const i in this.configuration.elMove) this.configuration.elMove[i].addEventListener("touchstart", this.onWindowMouseDown);
+            for (const i in this.configuration.elResize) this.configuration.elResize[i].addEventListener("touchstart", this.onWindowMouseDown);
 
             window.addEventListener("mouseup", this.onWindowMouseUp);
-            for (const i in this.config.elMove) this.config.elMove[i].addEventListener("touchend", this.onWindowMouseUp);
-            for (const i in this.config.elResize) this.config.elResize[i].addEventListener("touchend", this.onWindowMouseUp);
+            for (const i in this.configuration.elMove) this.configuration.elMove[i].addEventListener("touchend", this.onWindowMouseUp);
+            for (const i in this.configuration.elResize) this.configuration.elResize[i].addEventListener("touchend", this.onWindowMouseUp);
 
             window.addEventListener("mousemove", this.onWindowMouseMove);
-            for (const i in this.config.elMove) this.config.elMove[i].addEventListener("touchmove", this.onWindowMouseMove);
-            for (const i in this.config.elResize) this.config.elResize[i].addEventListener("touchmove", this.onWindowMouseMove);
+            for (const i in this.configuration.elMove) this.configuration.elMove[i].addEventListener("touchmove", this.onWindowMouseMove);
+            for (const i in this.configuration.elResize) this.configuration.elResize[i].addEventListener("touchmove", this.onWindowMouseMove);
         }
 
+        /**
+         * Evento: mouse ou toque apertado qualquer área da janela.
+         * @param {any} ev Informações do evento.
+         */
         private onWindowMouseDown(ev: any): void {
             const targets: any[] = Array.isArray(ev.path) ? ev.path : [ev.target];
             for (const i in MoveAndResize.instances) {
                 const instance = MoveAndResize.instances[i];
 
-                if (instance.config.ignoreEventClick instanceof Function &&
-                    instance.config.ignoreEventClick.bind(instance.config.owner)(ev)) continue;
+                if (instance.configuration.ignoreEventClick instanceof Function &&
+                    instance.configuration.ignoreEventClick.bind(instance.configuration.owner)(ev)) continue;
 
-                if (targets.indexOf(instance.config.elContainer) >= 0) {
+                if (targets.indexOf(instance.configuration.elContainer) >= 0) {
                     instance.onContainerMouseDown(ev);
                 }
 
-                instance.controlInfo.action = MoveAndResize.determineAction(instance, targets);
-                instance.controlInfo.clicking = instance.controlInfo.action !== Action.None;
-                instance.controlInfo.clicked = true;
+                instance.control.action = MoveAndResize.determineAction(instance, targets);
+                instance.control.clicking = instance.control.action !== Action.None;
+                instance.control.clicked = true;
 
-                const elements = instance.config.elMove.concat(instance.config.elResize);
+                const elements = instance.configuration.elMove.concat(instance.configuration.elResize);
                 for (const j in elements) {
                     if (targets.indexOf(elements[j]) >= 0) {
                         instance.onElementsMouseDown(ev);
@@ -118,88 +258,107 @@ namespace Skript.Layout.ReactJs {
                     }
                 }
             }
-        }
-        
+        }        
+
+        /**
+         * Evento: mouse ou toque liberado em toda a tela.
+         * @param {any} ev Informações do evento.
+         */
         private onWindowMouseUp(): void {
             for (const i in MoveAndResize.instances) {
                 const instance = MoveAndResize.instances[i];
 
-                instance.controlInfo.action = Action.None;
-                instance.controlInfo.clicking = false;
-                instance.controlInfo.moving = false;
+                instance.control.action = Action.None;
+                instance.control.clicking = false;
+                instance.control.moving = false;
 
-                window.cancelAnimationFrame(instance.controlInfo.idFrameAnimation);
+                window.cancelAnimationFrame(instance.control.idFrameAnimation);
             }
         }
 
+        /**
+         * Evento: mouse ou toque em movimento.
+         * @param {any} ev Informações do evento.
+         */
         private onWindowMouseMove(ev: any): void {
             for (const i in MoveAndResize.instances) {
                 const instance = MoveAndResize.instances[i];
 
-                if (!instance.controlInfo.clicking) continue;
+                if (!instance.control.clicking) continue;
 
                 ev.preventDefault();
     
-                instance.controlInfo.mouse = {        
+                instance.control.mouse = {        
                     x: ev.changedTouches !== undefined ? ev.changedTouches[0].clientX : ev.clientX,
                     y: ev.changedTouches !== undefined ? ev.changedTouches[0].clientY : ev.clientY
                 };
 
-                if (instance.controlInfo.moving) {
-                    instance.controlInfo.clicked = false;
+                if (instance.control.moving) {
+                    instance.control.clicked = false;
                 }
-                if (!instance.controlInfo.moving) {
-                    instance.controlInfo.moving = true;
-                    instance.controlInfo.idFrameAnimation = 
+                if (!instance.control.moving) {
+                    instance.control.moving = true;
+                    instance.control.idFrameAnimation = 
                         window.requestAnimationFrame(instance.onFrameAnimation);
                 }    
             }
         }
 
+        /**
+         * Quando o elemento container é ativado.
+         * @param {any} ev Informações do evento.
+         */
         private onContainerMouseDown(ev: any): void {
-            if (this.config.ignoreBringToFront instanceof Function &&
-                this.config.ignoreBringToFront(ev)) return;
+            if (this.configuration.ignoreBringToFront instanceof Function &&
+                this.configuration.ignoreBringToFront(ev)) return;
 
-            Util.DOM.bring(this.config.elContainer.parentElement as HTMLElement, Util.BringTo.Front);
+            Util.DOM.bring(this.configuration.elContainer.parentElement as HTMLElement, Util.BringTo.Front);
         }
 
+        /**
+         * Lógica para mouse ou toque apertado.
+         * Evento individual para cada instância dessa classe.
+         * @param {any} ev Informações do evento.
+         */
         private onElementsMouseDown(ev: any): void {
             const clientX = ev.changedTouches !== undefined ? ev.changedTouches[0].clientX : ev.clientX;
             const clientY = ev.changedTouches !== undefined ? ev.changedTouches[0].clientY : ev.clientY;
 
-            this.controlInfo.offset = {
-                horizontal: this.config.elContainer.offsetLeft - clientX,
-                vertical: this.config.elContainer.offsetTop - clientY
+            this.control.offset = {
+                horizontal: this.configuration.elContainer.offsetLeft - clientX,
+                vertical: this.configuration.elContainer.offsetTop - clientY
             };
         }
 
+        /**
+         * Lógica para move ou redimensionar.
+         */
         private onFrameAnimation(): void {
             for (const i in MoveAndResize.instances) {
                 const instance = MoveAndResize.instances[i];
 
-                if (!instance.controlInfo.clicking) continue;
+                if (!instance.control.clicking) continue;
 
-                switch (instance.controlInfo.action) {
+                switch (instance.control.action) {
                     case Action.Move:
-                        instance.config.elContainer.style.left = (instance.controlInfo.mouse.x + instance.controlInfo.offset.horizontal) + 'px';
-                        instance.config.elContainer.style.top = (instance.controlInfo.mouse.y + instance.controlInfo.offset.vertical) + 'px';
-                        instance.config.elContainer.style.right = "auto";
-                        instance.config.elContainer.style.bottom = "auto";
+                        instance.configuration.elContainer.style.left = (instance.control.mouse.x + instance.control.offset.horizontal) + 'px';
+                        instance.configuration.elContainer.style.top = (instance.control.mouse.y + instance.control.offset.vertical) + 'px';
+                        instance.configuration.elContainer.style.right = "auto";
+                        instance.configuration.elContainer.style.bottom = "auto";
                         break;
                     case Action.Resize:
                         const diff = 4;
-                        instance.config.elContainer.style.width = diff + (instance.controlInfo.mouse.x - instance.config.elContainer.offsetLeft) + 'px';
-                        instance.config.elContainer.style.height = diff + (instance.controlInfo.mouse.y - instance.config.elContainer.offsetTop) + 'px';
-                        if (instance.config.onResize instanceof Function) {
-                            instance.config.onResize.bind(instance.config.owner)();
+                        instance.configuration.elContainer.style.width = diff + (instance.control.mouse.x - instance.configuration.elContainer.offsetLeft) + 'px';
+                        instance.configuration.elContainer.style.height = diff + (instance.control.mouse.y - instance.configuration.elContainer.offsetTop) + 'px';
+                        if (instance.configuration.onResize instanceof Function) {
+                            instance.configuration.onResize.bind(instance.configuration.owner)();
                         }
                         break;
                     default:
                         return;
                 }
-                instance.controlInfo.idFrameAnimation = window.requestAnimationFrame(instance.onFrameAnimation);
+                instance.control.idFrameAnimation = window.requestAnimationFrame(instance.onFrameAnimation);
             }
         }
-
     }
 }
