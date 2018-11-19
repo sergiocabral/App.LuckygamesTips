@@ -203,8 +203,11 @@ namespace Skript.Layout.ReactJs.Component {
                     this.visible(false);
                     break;
                 case DialogCloseMode.Remove:
-                    ReactDOM.unmountComponentAtNode(container);
-                    container.remove();
+                    this.visible(false);
+                    setTimeout(() => {
+                        ReactDOM.unmountComponentAtNode(container);
+                        container.remove();
+                    }, (this.visibility as Visibility).fade() * 1000 + 500);
                     break;
             }
         }
