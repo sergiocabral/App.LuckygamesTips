@@ -23,13 +23,20 @@ namespace Skript.Layout.ReactJs.Component {
                 background-size: contain;
                 border: none;
                 cursor: pointer;                
-                opacity: 0.5;
+                opacity: 0.8;
                 position: fixed;
                 transition: opacity 0.2s ease-out;
                 width: 75px;
                 height: 75px;
                 right: 10px;
                 bottom: 10px;
+                display: block !important;
+            }
+            ${this.selector()}.smooth {
+                transition: opacity 2s ease-out;
+            }
+            ${this.selector()}.hide {
+                opacity: 0;
             }
             ${this.selector()}:hover {
                 opacity: 1;
@@ -39,13 +46,6 @@ namespace Skript.Layout.ReactJs.Component {
             }
             ${this.selector()} i:before {
                 display: none;
-            }
-            ${this.selector()} span {
-                display: inline-block;
-                background-color: azure;
-                position: relative;
-                top: 50px;
-                float: right;
             }
         `;
 
@@ -86,7 +86,7 @@ namespace Skript.Layout.ReactJs.Component {
          */
         public render(): JSX.Element {            
             return (
-                <button id={Util.String.random()} className={this.className} ref={this.elButton as any} onClick={this.onClick}>
+                <button id={Util.String.random()} className={this.className + " smooth hide"} style={{ display: "none" }} ref={this.elButton as any} onClick={this.onClick}>
                     <i className="fas fa-robot"></i>
                 </button>
             );
@@ -103,6 +103,9 @@ namespace Skript.Layout.ReactJs.Component {
                 elResize: [],
                 ignoreBringToFront: () => true
             });
+
+            setTimeout(() => (this.elButton.current as HTMLElement).classList.remove("hide"), 1000);
+            setTimeout(() => (this.elButton.current as HTMLElement).classList.remove("smooth"), 3000);
         }
     }
 }
