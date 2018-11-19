@@ -1,9 +1,9 @@
-namespace Layout {
+namespace Skript.Layout {
     
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const tips: Core.All;
+    declare const skript: Core.All;
 
     /**
      * Organiza e manipula o layout.
@@ -20,7 +20,7 @@ namespace Layout {
          * Construtor.
          */
         public constructor() {
-            tips.presentation = this;
+            skript.presentation = this;
 
             new PresentationDispatcher(this);
 
@@ -32,7 +32,7 @@ namespace Layout {
             document.body.appendChild(container);
             this.parentContainer = container;
 
-            tips.log.post("Criado container do sistema.", null, Core.Log.Level.Debug, container);
+            skript.log.post("Criado container do sistema.", null, Core.Log.Level.Debug, container);
                 
             ReactDOM.render(
                 React.createElement(ReactJs.Component.ButtonActivator, null, null), 
@@ -51,7 +51,7 @@ namespace Layout {
         public createContainer(): HTMLElement {
             const container: HTMLDivElement = document.createElement('div') as HTMLDivElement;
             container.id = Util.String.random();
-            tips.presentation.parentContainer.appendChild(container);
+            skript.presentation.parentContainer.appendChild(container);
             return container;
         }
     }

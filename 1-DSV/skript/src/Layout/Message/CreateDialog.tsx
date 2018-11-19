@@ -1,4 +1,4 @@
-namespace Layout.Message {
+namespace Skript.Layout.Message {
 
     /**
      * Mensagem para criar uma nova janela de diálogo.

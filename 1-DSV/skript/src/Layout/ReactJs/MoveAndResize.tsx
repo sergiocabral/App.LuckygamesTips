@@ -1,4 +1,4 @@
-namespace Layout.ReactJs {
+namespace Skript.Layout.ReactJs {
     
     enum Action { 
         None,

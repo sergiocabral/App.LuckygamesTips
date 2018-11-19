@@ -1,9 +1,9 @@
-namespace Util {
+namespace Skript.Util {
     
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const tips: Core.All;
+    declare const skript: Core.All;
 
     /**
      * Utilitários para carregamento de dados.
@@ -51,11 +51,11 @@ namespace Util {
                 element.type = "text/javascript";
                 element.src = src;
                 element.onload = () => {
-                    tips.log.post("Carregado javascript.", null, Core.Log.Level.Debug, element);
+                    skript.log.post("Carregado javascript.", null, Core.Log.Level.Debug, element);
                     resolve();
                 }
                 element.onerror = (e) => {
-                    tips.log.post("Falha ao carregar javascript.", null, Core.Log.Level.Error, [e, element]);
+                    skript.log.post("Falha ao carregar javascript.", null, Core.Log.Level.Error, [e, element]);
                     reject({ error: e, url: src });
                 };
                 document.body.prepend(element);
@@ -82,11 +82,11 @@ namespace Util {
                 element.href = href;
                 element.media = "all";
                 element.onload = () => {
-                    tips.log.post("Carregado stylesheet.", null, Core.Log.Level.Debug, element);
+                    skript.log.post("Carregado stylesheet.", null, Core.Log.Level.Debug, element);
                     resolve();
                 }
                 element.onerror = (e) => {
-                    tips.log.post("Falha ao carregar stylesheet.", null, Core.Log.Level.Error, [e, element]);
+                    skript.log.post("Falha ao carregar stylesheet.", null, Core.Log.Level.Error, [e, element]);
                     reject({ error: e, url: href });
                 };
                 document.body.prepend(element);

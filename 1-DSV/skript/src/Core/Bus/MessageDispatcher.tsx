@@ -1,4 +1,4 @@
-namespace Core.Bus {
+namespace Skript.Core.Bus {
 
     /**
      * Despachador de mensagens.

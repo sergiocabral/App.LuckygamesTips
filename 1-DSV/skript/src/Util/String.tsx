@@ -1,4 +1,4 @@
-namespace Util {
+namespace Skript.Util {
 
     /**
      * Utilitários para manipulação e geração de string.

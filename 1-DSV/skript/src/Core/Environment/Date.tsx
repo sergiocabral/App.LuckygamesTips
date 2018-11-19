@@ -12,5 +12,5 @@ interface Date {
 }
 
 Date.prototype.format = function(config: any = { }): string {
-    return Util.DateTime.format(this, config);
+    return Skript.Util.DateTime.format(this, config);
 };

@@ -1,9 +1,9 @@
-namespace Core {
+namespace Skript.Core {
 
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const tips: Core.All;
+    declare const skript: Core.All;
 
     /**
      * Classe principal responsável por rodar o sistema.
@@ -16,11 +16,11 @@ namespace Core {
          * @param {Configuration} configuration Configuração para inicialização do sistema.
          */
         public constructor(configuration: Configuration) {
-            tips.infrastructure = this;
+            skript.infrastructure = this;
 
             const language: string = "en";
 
-            tips.configuration = configuration;
+            skript.configuration = configuration;
             new Log.History();
             new Api.Request(configuration.server);
             new Locale.Translates(language);
@@ -28,17 +28,17 @@ namespace Core {
             this.showWelcomeMessageInConsole();
 
             this.loadReferences(configuration.debug).then(() => {
-                tips.api.loadScript([Api.ScriptContext.React]).then(() => {
-                    tips.api.loadData([
-                        { type: Api.DataType.Translate, name: tips.translate.languageDefault, data: "" },
+                skript.api.loadScript([Api.ScriptContext.React]).then(() => {
+                    skript.api.loadData([
+                        { type: Api.DataType.Translate, name: skript.translate.languageDefault, data: "" },
                         { type: Api.DataType.Theme, name: "default", data: "" },
-                        { type: Api.DataType.Locale, name: tips.translate.languageDefault, data: "" }
+                        { type: Api.DataType.Locale, name: skript.translate.languageDefault, data: "" }
                     ]).then((data) => {
                         let translates: Locale.Translate[];
                         try {
                             translates = Locale.Translates.parse(data[0].data);
                         } catch (error) {
-                            tips.log.post("Não foi possível carregar as traduções de idioma.", null, Log.Level.Error, error);
+                            skript.log.post("Não foi possível carregar as traduções de idioma.", null, Log.Level.Error, error);
                             translates = [];
                         }
                         
@@ -46,7 +46,7 @@ namespace Core {
                         try {
                             colors = Layout.Theme.Stylesheet.parse(data[1].data);
                         } catch (error) {
-                            tips.log.post("Não foi possível carregar o tema de cores do layout.", null, Log.Level.Error, error);
+                            skript.log.post("Não foi possível carregar o tema de cores do layout.", null, Log.Level.Error, error);
                             colors = Layout.Theme.Stylesheet.getColorsDefault();
                         }
 
@@ -54,14 +54,14 @@ namespace Core {
                         try {
                             locale = Locale.Formats.parse(data[2].data);
                         } catch (error) {
-                            tips.log.post("Não foi possível carregar as informações de localização e região.", null, Log.Level.Error, error);
+                            skript.log.post("Não foi possível carregar as informações de localização e região.", null, Log.Level.Error, error);
                             locale = {
                                 date: Util.DateTime.defaultDateFormat,
                                 number: Util.Number.defaultNumberFormat,
                             }
                         }
 
-                        tips.data = { 
+                        skript.data = { 
                             colors: colors,
                             translates: translates, 
                             locale: locale 
@@ -82,8 +82,8 @@ namespace Core {
          * Exibe uma mensagem amigável de boas-vindas no console do navegador.
          */
         private showWelcomeMessageInConsole(): void {
-            if (tips.configuration.welcome) {
-                Log.ConsoleLog.welcome(tips.configuration.name, tips.translate.languageDefault === "pt" ? 
+            if (skript.configuration.welcome) {
+                Log.ConsoleLog.welcome(skript.configuration.name, skript.translate.languageDefault === "pt" ? 
                     "Uma maneira de fazer muito mais. Obrigado pelo apoio." :
                     "A way to do much more. Thanks for the support.");
             }
@@ -91,9 +91,9 @@ namespace Core {
 
         private fatalError(error: string = ""): void {
             alert(
-                `${tips.configuration.name}\n\n` + 
-                `Opa! Desculpe dizer, mas houve uma falha na conexão com a Internet que impediu o carregamento do Luckygames Tips. Por favor, atualize a página para tentar novamente.\n\n` + 
-                `Oops! Sorry to say, but there was a failure in the Internet connection that prevented the loading of Luckygames Tips. Please refresh the page to try again.` + 
+                `${skript.configuration.name}\n\n` + 
+                `Opa! Desculpe dizer, mas houve uma falha na conexão com a Internet que impediu o carregamento do Luckygames skript. Por favor, atualize a página para tentar novamente.\n\n` + 
+                `Oops! Sorry to say, but there was a failure in the Internet connection that prevented the loading of Luckygames skript. Please refresh the page to try again.` + 
                 (error ? "\n\n" + error : ""));
         }
 

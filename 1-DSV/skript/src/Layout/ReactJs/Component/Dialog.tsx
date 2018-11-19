@@ -1,4 +1,4 @@
-namespace Layout.ReactJs.Component {
+namespace Skript.Layout.ReactJs.Component {
     
     /**
      * Tipo para props do React deste componente.

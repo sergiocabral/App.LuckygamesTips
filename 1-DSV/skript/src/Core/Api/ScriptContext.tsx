@@ -1,4 +1,4 @@
-namespace Core.Api {
+namespace Skript.Core.Api {
 
     /**
      * Contextos de script para carregamento do servidor.

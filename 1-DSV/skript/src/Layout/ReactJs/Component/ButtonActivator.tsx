@@ -1,4 +1,4 @@
-namespace Layout.ReactJs.Component {
+namespace Skript.Layout.ReactJs.Component {
 
     /**
      * Botão que ativa o sistema.
@@ -15,7 +15,7 @@ namespace Layout.ReactJs.Component {
          */
         public stylesheet: string = `
             ${this.selector()} {
-                z-index: ${tips.stylesheet.zIndex * 2};
+                z-index: ${skript.stylesheet.zIndex * 2};
                 background-color: transparent;
                 background-image: url("https://dsv.luckygames.tips/mysys/Business/Images/button.png");
                 background-position: center;
@@ -77,7 +77,7 @@ namespace Layout.ReactJs.Component {
          */
         private onClick(): void {
             if (this.moveAndResize && !this.moveAndResize.controlInfo.clicked) return;
-            Core.Bus.MessageDispatcher.Send(new Layout.Message.CreateDialog(tips.configuration.name));
+            Core.Bus.MessageDispatcher.Send(new Layout.Message.CreateDialog(skript.configuration.name));
         }
 
         /**

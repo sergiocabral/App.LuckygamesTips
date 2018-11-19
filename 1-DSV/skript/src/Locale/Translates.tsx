@@ -1,9 +1,9 @@
-namespace Locale {
+namespace Skript.Locale {
     
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const tips: Core.All;
+    declare const skript: Core.All;
 
     /**
      * Manipulador de traduções.
@@ -15,7 +15,7 @@ namespace Locale {
          * @param {string} phrases Idioma padrão.
          */
         public constructor(languageDefault: string) {
-            tips.translate = this;
+            skript.translate = this;
             
             this.languageDefault = languageDefault;
         }
@@ -66,7 +66,7 @@ namespace Locale {
         public static parse(json: string): Translate[] {
             return (JSON.parse(json) as []).map(i => { 
                 return { 
-                    language: tips.translate.languageDefault,
+                    language: skript.translate.languageDefault,
                     id: Object.keys(i)[0] as string,
                     translated: i[Object.keys(i)[0]] as string
                 }

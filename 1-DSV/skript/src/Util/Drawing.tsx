@@ -1,4 +1,4 @@
-namespace Util {
+namespace Skript.Util {
 
     /**
      * Utilitários envolvendo desenho, cores, etc.

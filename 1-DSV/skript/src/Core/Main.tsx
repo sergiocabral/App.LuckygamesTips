@@ -1,9 +1,9 @@
-namespace Core {
+namespace Skript.Core {
     
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const tips: Core.All;
+    declare const skript: Core.All;
 
     /**
      * O sistema funciona a partir desta classe.
@@ -15,14 +15,14 @@ namespace Core {
          * @param {ConfigurationLazy} configurationLazy Configuração para inicialização do sistema carregada tardiamente.
          */
         public constructor() {
-            tips.main = this;
+            skript.main = this;
 
-            Util.DateTime.defaultDateFormat = tips.data.locale.date;
-            Util.Number.defaultNumberFormat = tips.data.locale.number;
+            Util.DateTime.defaultDateFormat = skript.data.locale.date;
+            Util.Number.defaultNumberFormat = skript.data.locale.number;
 
-            tips.translate.load(tips.data.translates);
+            skript.translate.load(skript.data.translates);
             
-            tips.presentation = new Layout.Presentation();
+            skript.presentation = new Layout.Presentation();
         }
     }
 }

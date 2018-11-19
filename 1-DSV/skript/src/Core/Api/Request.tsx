@@ -1,9 +1,9 @@
-namespace Core.Api {
+namespace Skript.Core.Api {
     
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const tips: Core.All;
+    declare const skript: Core.All;
 
     /**
      * Manipulador de chamadas api.
@@ -15,7 +15,7 @@ namespace Core.Api {
          * @param {string} server Url do servidor da api.
          */
         public constructor(server: string) {
-            tips.api = this;
+            skript.api = this;
             
             this.server = server;
             this.url = `${server}/api/`.replace("://", "$").replace("//", "/").replace("$", "://");
@@ -72,7 +72,7 @@ namespace Core.Api {
                         else resolve(data);
                         
                         const result = ev.currentTarget.status === 200 ? "Sucesso" : "Falha";
-                        tips.log.post(`API. ${result}. Status {status}. Url: {responseURL}`, ev.currentTarget, ev.currentTarget.status === 200 ? Core.Log.Level.Debug : Core.Log.Level.Warning, ev.currentTarget);
+                        skript.log.post(`API. ${result}. Status {status}. Url: {responseURL}`, ev.currentTarget, ev.currentTarget.status === 200 ? Core.Log.Level.Debug : Core.Log.Level.Warning, ev.currentTarget);
                     };
                 }
                 load(0);

@@ -1,4 +1,4 @@
-namespace Core {
+namespace Skript.Core {
     /**
      * Repositório de todas as instâncias principais do sistema.
      * Para que tudo fique acessível a todos.

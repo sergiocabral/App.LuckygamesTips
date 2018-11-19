@@ -1,4 +1,4 @@
-namespace Core {
+namespace Skript.Core {
 
     /**
      * Conjunto de dados que configuram o sistema.

@@ -1,4 +1,4 @@
-namespace Core {
+namespace Skript.Core {
 
     /**
      * Conjunto de propriedades que configuram o sistema.

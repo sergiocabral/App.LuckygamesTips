@@ -1,4 +1,4 @@
-namespace Layout.Theme {
+namespace Skript.Layout.Theme {
 
     /**
      * Tema para customização de cores do layout.

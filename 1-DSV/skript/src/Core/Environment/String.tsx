@@ -41,21 +41,21 @@ interface String {
 }
 
 String.prototype.replaceAll = function(search: string, replacement: string): string {
-    return Util.String.replaceAll(String(this), search, replacement);
+    return Skript.Util.String.replaceAll(String(this), search, replacement);
 };
 
 String.prototype.escapeRegExp = function(): string {
-    return Util.String.escapeRegExp(String(this));
+    return Skript.Util.String.escapeRegExp(String(this));
 };
 
 String.prototype.inc = function(increment: number = 1, radix: number = 10): string {
-    return Util.String.inc(String(this), increment, radix);
+    return Skript.Util.String.inc(String(this), increment, radix);
 };
 
 String.prototype.querystring = function(values: any): string {
-    return Util.String.querystring(String(this), values);
+    return Skript.Util.String.querystring(String(this), values);
 };
 
 String.prototype.hash = function(): number {
-    return Util.String.hash(String(this));
+    return Skript.Util.String.hash(String(this));
 };

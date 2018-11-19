@@ -1,4 +1,4 @@
-namespace Locale {
+namespace Skript.Locale {
 
     /**
      * Conjuntos de definições de localização e região.

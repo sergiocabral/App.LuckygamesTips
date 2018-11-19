@@ -1,4 +1,4 @@
-namespace Core.Log {
+namespace Skript.Core.Log {
 
     /**
      * Mensagem de log

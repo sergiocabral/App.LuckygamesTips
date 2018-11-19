@@ -1,9 +1,9 @@
-namespace Layout.ReactJs {
+namespace Skript.Layout.ReactJs {
     
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const tips: Core.All;
+    declare const skript: Core.All;
 
     /**
      * Tipo para props vazio do React deste componente.
@@ -49,7 +49,7 @@ namespace Layout.ReactJs {
         /**
          * Tema de cores para configurar o layout
          */
-        protected theme: Theme.Stylesheet = new Theme.Stylesheet(tips.data.colors);
+        protected theme: Theme.Stylesheet = new Theme.Stylesheet(skript.data.colors);
 
         /**
          * Seletor CSS mais alto que engloba o componente.

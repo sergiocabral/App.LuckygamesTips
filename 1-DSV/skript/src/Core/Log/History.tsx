@@ -1,9 +1,9 @@
-namespace Core.Log {
+namespace Skript.Core.Log {
     
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const tips: Core.All;
+    declare const skript: Core.All;
 
     /**
      * Manipula e registra mensagens de log.
@@ -14,7 +14,7 @@ namespace Core.Log {
          * Construtor.
          */
         public constructor() {
-            tips.log = this;
+            skript.log = this;
         }
 
         /**
@@ -32,7 +32,7 @@ namespace Core.Log {
          */
         public post(text: string, values: any = { }, level: Level, toConsoleLog: any = undefined): void {
             try {
-                text = tips.translate.get(text, values);
+                text = skript.translate.get(text, values);
             } catch (e) {
                 text = text.querystring(values)
             }

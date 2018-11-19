@@ -1,4 +1,4 @@
-namespace Util {
+namespace Skript.Util {
 
     /**
      * Opções para move um elemento.

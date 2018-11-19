@@ -1,4 +1,4 @@
-namespace Core.Bus {
+namespace Skript.Core.Bus {
 
     /**
      * Conjunto de informações para processar uma mensagem.

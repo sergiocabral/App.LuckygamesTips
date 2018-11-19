@@ -1,4 +1,4 @@
-namespace Locale {
+namespace Skript.Locale {
 
     /**
      * Unidade de tradução. Texto original e tradução.

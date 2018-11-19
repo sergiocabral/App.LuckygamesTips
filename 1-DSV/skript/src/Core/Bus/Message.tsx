@@ -1,4 +1,4 @@
-namespace Core.Bus {
+namespace Skript.Core.Bus {
 
     /**
      * Class abstrata para implementação de uma mensagem.

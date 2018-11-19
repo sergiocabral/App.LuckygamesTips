@@ -1,9 +1,9 @@
-namespace Layout.Theme {
+namespace Skript.Layout.Theme {
     
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const tips: Core.All;
+    declare const skript: Core.All;
 
     /**
      * Conjuntos de propriedades de stylesheet que configuram o layout.
@@ -14,8 +14,8 @@ namespace Layout.Theme {
          * Construtor.
          * @param {Colors} colors Tema de cores para configurar o layout.
          */
-        public constructor(colors: Colors = tips.data.colors) {
-            tips.stylesheet = this;
+        public constructor(colors: Colors = skript.data.colors) {
+            skript.stylesheet = this;
 
             this.colors = colors;
             this.zIndex = 1000;

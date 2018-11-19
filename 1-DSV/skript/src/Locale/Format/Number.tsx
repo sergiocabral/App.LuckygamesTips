@@ -1,4 +1,4 @@
-namespace Locale.Format {
+namespace Skript.Locale.Format {
 
     /**
      * Configurações de formatação de número.

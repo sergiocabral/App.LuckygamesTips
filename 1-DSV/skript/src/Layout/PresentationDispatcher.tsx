@@ -1,9 +1,9 @@
-namespace Layout {
+namespace Skript.Layout {
     
     /**
      * Repositório de todas as instâncias principais do sistema.
      */
-    declare const tips: Core.All;
+    declare const skript: Core.All;
 
     /**
      * Despachador de mensagens.
@@ -20,7 +20,7 @@ namespace Layout {
                     command.result = 
                         ReactDOM.render(
                             React.createElement(ReactJs.Component.Dialog, { title: command.title }, null), 
-                            tips.presentation.createContainer());
+                            skript.presentation.createContainer());
 
                     return command;
                 }
