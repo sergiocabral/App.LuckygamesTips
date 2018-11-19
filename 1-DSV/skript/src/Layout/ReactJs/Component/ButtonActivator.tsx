@@ -59,6 +59,12 @@ namespace Skript.Layout.ReactJs.Component {
         private elButton: React.RefObject<HTMLElement>;
 
         /**
+         * Implementa a exibição/esconder suave do elemento.
+         * @type {Visibility}
+         */
+        private visibility?: Visibility;
+
+        /**
          * Quando o botão é acionado.
          */
         private onClick(): void {
@@ -90,7 +96,13 @@ namespace Skript.Layout.ReactJs.Component {
                 ignoreBringToFront: () => true
             });
 
-            new Visibility(this.elButton.current as HTMLElement, true, 2);
+            this.visibility = new Visibility({
+                element: this.elButton.current as HTMLElement,
+                show: true,
+                fade: 2,
+                opacityVisible: 0.8
+            });
+            setTimeout(() => (this.visibility as Visibility).fade(0.2), 2000);
         }
     }
 }

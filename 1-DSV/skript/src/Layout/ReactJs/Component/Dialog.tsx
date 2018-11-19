@@ -253,7 +253,7 @@ namespace Skript.Layout.ReactJs.Component {
             });
             setTimeout(() => this.adjustTitleWidth(), 1);
 
-            this.visibility = new Visibility(this.elContainer.current as HTMLElement);
+            this.visibility = new Visibility({ element: this.elContainer.current as HTMLElement });
         }
 
         /**

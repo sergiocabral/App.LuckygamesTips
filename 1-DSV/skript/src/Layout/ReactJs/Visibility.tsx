@@ -1,40 +1,85 @@
 namespace Skript.Layout.ReactJs {
 
     /**
+     * Configuração de inicialização.
+     */
+    export type VisibilityConfiguration = {
+
+        /**
+         * Elemento.
+         * @type {HTMLElement}
+         */
+        element: HTMLElement,
+        
+         /**
+          * Indica se o elemento deve começar visível.
+          * @type {boolean}
+          */
+        show?: boolean,
+
+        /**
+         * Tempo em segundo da transição.
+         * @type {number}
+         */
+        fade?: number,
+
+        /**
+         * Opacidade quando o elemento está invisível.
+         */
+        opacityHidden?: number,
+
+        /**
+         * Opacidade quando o elemento está visível.
+         */
+        opacityVisible?: number,
+
+        /**
+         * Opacidade quando o elemento está com o mouse sobre.
+         */
+        opacityHover?: number,
+    }
+
+    /**
      * Implementa a exibição/esconder suave do elemento.
      */
     export class Visibility {
 
         /**
          * Construtor.
-         * @param {HTMLElement} owner Elemento.
-         * @param {boolean} show Opcional. Indica se o elemento deve começar visível.
-         * @param {number} fade Opcional. Tempo em segundo da transição.
+         * @param {VisibilityConfiguration} configuration Configuração de inicialização.
          */
-        public constructor(element: HTMLElement, show: boolean = false, fade: number = 0.2) {
-            this.element = element;
+        public constructor(configuration: VisibilityConfiguration) {
+            this.configuration = configuration;
+
+            configuration.show = configuration.show !== undefined ? configuration.show : false;
+            configuration.fade = configuration.fade !== undefined ? configuration.fade : 0.2;
             
+            this.configuration.opacityHidden = this.configuration.opacityHidden !== undefined ? this.configuration.opacityHidden : 0;
+            this.configuration.opacityVisible = this.configuration.opacityVisible !== undefined ? this.configuration.opacityVisible : 1;
+            this.configuration.opacityHover = this.configuration.opacityHover !== undefined ? this.configuration.opacityHover : 1;
+
+            this.className = Util.String.random();
+            configuration.element.classList.add(this.className);
             this.stylesheet();
 
-            this.seconds = 0;
-            this.fade(fade);
+            this.fade(configuration.fade);
 
-            element.style.visibility = "hidden";
-            element.classList.add("visibility");
-            this.visible(false);
-            if (show) setTimeout(() => this.visible(show), 1);
+            configuration.element.style.visibility = "hidden";
+            configuration.element.classList.add("visibility");
+            configuration.element.classList.add("hidden");
+            if (configuration.show) setTimeout(() => this.visible(true), 1);
         }
 
         /**
-         * Elemento.
-         * @type {HTMLElement}
+         * Configuração de inicialização.
+         * @type {VisibilityConfiguration}
          */
-        public element: HTMLElement;
+        public configuration: VisibilityConfiguration;
 
         /**
-         * Tempo da transição.
+         * Classe name atribuida ao elemento para aplicação de css de transição.
          */
-        private seconds: number;
+        public className: string;
 
         /**
          * Define o tempo da transição.
@@ -43,24 +88,27 @@ namespace Skript.Layout.ReactJs {
          */
         public fade(seconds?: number): number {
             if (seconds !== undefined) {
-                this.seconds = seconds;
-                this.element.style.transition = `opacity ${seconds.toFixed(1)}s ease-out`;
-            }
-            return this.seconds;
+                this.configuration.fade = seconds;
+                this.configuration.element.style.transition = `opacity ${seconds.toFixed(1)}s ease-out`;
+            }            
+            return this.configuration.fade as number;
         }
 
         /**
          * Registra o código CSS.
          */
         private stylesheet() {
-            const selector = `.${Presentation.className}`;
+            const selector = `.${Presentation.className} .${this.className}`;
             Util.DOM.stylesheetCode(`
-            ${selector} .visibility {
+            ${selector}.visibility {
                 visibility: visible !important;
-                opacity: 1;
+                opacity: ${(this.configuration.opacityVisible as number).toFixed(2)};
             }
-            ${selector} .visibility.hidden {
-                opacity: 0;
+            ${selector}.visibility.hidden {
+                opacity: ${(this.configuration.opacityHidden as number).toFixed(2)};
+            }
+            ${selector}.visibility:not(.hiding):hover {
+                opacity: ${(this.configuration.opacityHover as number).toFixed(2)};
             }
             `);
         }
@@ -73,11 +121,20 @@ namespace Skript.Layout.ReactJs {
          */
         public visible(mode?: boolean): boolean {
             if (mode === true) {
-                this.element.classList.remove("hidden");
+                this.configuration.element.style.display = "";
+                setTimeout(() => this.configuration.element.classList.remove("hidden"), 1);
             } else if (mode === false) {
-                this.element.classList.add("hidden");
+                this.configuration.element.classList.add("hidden");
+                this.configuration.element.classList.add("hiding");                
+                setTimeout(() => {
+                    if (!this.visible()) {
+                        this.configuration.element.style.display = "none";
+                        this.configuration.element.classList.remove("hiding");
+                    }
+                }, (this.configuration.fade as number) * 1000);
             }
-            return !this.element.classList.contains("hidden");
+            
+            return !this.configuration.element.classList.contains("hidden");
         }
     }
 }
