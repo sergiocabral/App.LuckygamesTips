@@ -22,7 +22,7 @@ namespace Layout.ReactJs.Component {
         public className: string = 'dialog';
 
         private defaults: { width: number, height: number } = { 
-            width: 50,
+            width: 400,
             height: 200
         };
 

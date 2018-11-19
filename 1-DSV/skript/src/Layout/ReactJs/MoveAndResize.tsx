@@ -8,8 +8,9 @@ namespace Layout.ReactJs {
 
     type ControlInfo = {
         action: Action,
-        clicked: boolean,
+        clicking: boolean,
         moving: boolean,
+        clicked: boolean,
         offset: { 
             horizontal: number,
             vertical: number
@@ -26,6 +27,7 @@ namespace Layout.ReactJs {
         elContainer: HTMLElement,
         elMove: HTMLElement[]
         elResize: HTMLElement[]
+        ignoreBringToFront?: Function,
         ignoreEventClick?: Function,
         onResize?: Function
     }
@@ -56,8 +58,9 @@ namespace Layout.ReactJs {
             this.config = config;
             this.controlInfo = {
                 action: Action.Move,
-                clicked: false,
+                clicking: false,
                 moving: false,
+                clicked: false,
                 offset: { 
                     horizontal: 0,
                     vertical: 0
@@ -73,9 +76,9 @@ namespace Layout.ReactJs {
             this.addEventListener();
         }
 
-        private config: MoveAndResizeConfig;
+        public config: MoveAndResizeConfig;
 
-        private controlInfo: ControlInfo;
+        public controlInfo: ControlInfo;
 
         private addEventListener() {
             window.addEventListener("mousedown", this.onWindowMouseDown);
@@ -100,11 +103,12 @@ namespace Layout.ReactJs {
                     instance.config.ignoreEventClick.bind(instance.config.owner)(ev)) continue;
 
                 if (targets.indexOf(instance.config.elContainer) >= 0) {
-                    instance.onContainerMouseDown();
+                    instance.onContainerMouseDown(ev);
                 }
 
                 instance.controlInfo.action = MoveAndResize.determineAction(instance, targets);
-                instance.controlInfo.clicked = instance.controlInfo.action !== Action.None;
+                instance.controlInfo.clicking = instance.controlInfo.action !== Action.None;
+                instance.controlInfo.clicked = true;
 
                 const elements = instance.config.elMove.concat(instance.config.elResize);
                 for (const j in elements) {
@@ -121,7 +125,7 @@ namespace Layout.ReactJs {
                 const instance = MoveAndResize.instances[i];
 
                 instance.controlInfo.action = Action.None;
-                instance.controlInfo.clicked = false;
+                instance.controlInfo.clicking = false;
                 instance.controlInfo.moving = false;
 
                 window.cancelAnimationFrame(instance.controlInfo.idFrameAnimation);
@@ -132,7 +136,7 @@ namespace Layout.ReactJs {
             for (const i in MoveAndResize.instances) {
                 const instance = MoveAndResize.instances[i];
 
-                if (!instance.controlInfo.clicked) continue;
+                if (!instance.controlInfo.clicking) continue;
 
                 ev.preventDefault();
     
@@ -141,6 +145,9 @@ namespace Layout.ReactJs {
                     y: ev.changedTouches !== undefined ? ev.changedTouches[0].clientY : ev.clientY
                 };
 
+                if (instance.controlInfo.moving) {
+                    instance.controlInfo.clicked = false;
+                }
                 if (!instance.controlInfo.moving) {
                     instance.controlInfo.moving = true;
                     instance.controlInfo.idFrameAnimation = 
@@ -149,7 +156,10 @@ namespace Layout.ReactJs {
             }
         }
 
-        private onContainerMouseDown(): void {
+        private onContainerMouseDown(ev: any): void {
+            if (this.config.ignoreBringToFront instanceof Function &&
+                this.config.ignoreBringToFront(ev)) return;
+
             Util.DOM.bring(this.config.elContainer.parentElement as HTMLElement, Util.BringTo.Front);
         }
 
@@ -167,12 +177,14 @@ namespace Layout.ReactJs {
             for (const i in MoveAndResize.instances) {
                 const instance = MoveAndResize.instances[i];
 
-                if (!instance.controlInfo.clicked) continue;
+                if (!instance.controlInfo.clicking) continue;
 
                 switch (instance.controlInfo.action) {
                     case Action.Move:
                         instance.config.elContainer.style.left = (instance.controlInfo.mouse.x + instance.controlInfo.offset.horizontal) + 'px';
                         instance.config.elContainer.style.top = (instance.controlInfo.mouse.y + instance.controlInfo.offset.vertical) + 'px';
+                        instance.config.elContainer.style.right = "auto";
+                        instance.config.elContainer.style.bottom = "auto";
                         break;
                     case Action.Resize:
                         const diff = 4;

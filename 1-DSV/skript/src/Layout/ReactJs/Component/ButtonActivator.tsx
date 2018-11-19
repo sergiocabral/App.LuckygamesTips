@@ -22,14 +22,14 @@ namespace Layout.ReactJs.Component {
                 background-repeat: no-repeat;
                 background-size: contain;
                 border: none;
-                cursor: pointer;
-                height: 75px;
-                left: 5px;
-                opacity: 0.75;
+                cursor: pointer;                
+                opacity: 0.5;
                 position: fixed;
-                top: 5px;
-                transition: opacity 1s ease-in-out;
+                transition: opacity 0.2s ease-out;
                 width: 75px;
+                height: 75px;
+                right: 10px;
+                bottom: 10px;
             }
             ${this.selector()}:hover {
                 opacity: 1;
@@ -57,15 +57,28 @@ namespace Layout.ReactJs.Component {
             super(props);
             
             this.elButton = React.createRef();
-            this.elResize = React.createRef();
+
+            this.onClick = this.onClick.bind(this);
         }
+
+        /**
+         * Manipulador de arrastar e redimensionar.
+         */
+        public moveAndResize?: MoveAndResize;
 
         /**
          * Referência ao botão.
          * @type {React.RefObject<HTMLElement>}
          */
         private elButton: React.RefObject<HTMLElement>;
-        private elResize: React.RefObject<HTMLElement>;
+
+        /**
+         * Quando o botão é acionado.
+         */
+        private onClick(): void {
+            if (this.moveAndResize && !this.moveAndResize.controlInfo.clicked) return;
+            Core.Bus.MessageDispatcher.Send(new Layout.Message.CreateDialog(tips.configuration.name));
+        }
 
         /**
          * Renderizador do React.
@@ -73,9 +86,8 @@ namespace Layout.ReactJs.Component {
          */
         public render(): JSX.Element {            
             return (
-                <button id={Util.String.random()} className={this.className} ref={this.elButton as any}>
+                <button id={Util.String.random()} className={this.className} ref={this.elButton as any} onClick={this.onClick}>
                     <i className="fas fa-robot"></i>
-                    <span ref={this.elResize}>Resize</span>
                 </button>
             );
         }
@@ -84,11 +96,12 @@ namespace Layout.ReactJs.Component {
          * Quando o componente é montado.
          */
         public componentDidMount(): void {
-            new MoveAndResize({ 
+            this.moveAndResize = new MoveAndResize({ 
                 owner: this,
                 elContainer: this.elButton.current as HTMLElement,
                 elMove: [this.elButton.current as HTMLElement],
-                elResize: [this.elResize.current as HTMLElement]
+                elResize: [],
+                ignoreBringToFront: () => true
             });
         }
     }

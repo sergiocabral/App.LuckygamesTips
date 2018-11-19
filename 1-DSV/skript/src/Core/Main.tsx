@@ -23,8 +23,6 @@ namespace Core {
             tips.translate.load(tips.data.translates);
             
             tips.presentation = new Layout.Presentation();
-
-            Core.Bus.MessageDispatcher.Send(new Layout.Message.CreateDialog(tips.configuration.name));
         }
     }
 }
