@@ -201,9 +201,17 @@ namespace Layout.ReactJs.Component {
                 elContainer: this.elContainer.current as HTMLElement,
                 elMove: [this.elTitle.current as HTMLElement],
                 elResize: [this.elResize.current as HTMLElement],
-                onResize: this.onResize
+                onResize: this.onResize,
+                ignoreEventClick: this.ignoreEventClick
             });
             setTimeout(() => this.adjustTitleWidth(), 1);
+        }
+
+        /**
+         * Ignora o evento de clica se o botão clicado foi para fechar a janela.
+         */
+        public ignoreEventClick(ev: any) {
+            return ev.target.className === "close" || ev.target.parentElement.className === "close";
         }
 
         /**

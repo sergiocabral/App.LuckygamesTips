@@ -26,6 +26,7 @@ namespace Layout.ReactJs {
         elContainer: HTMLElement,
         elMove: HTMLElement[]
         elResize: HTMLElement[]
+        ignoreEventClick?: Function,
         onResize?: Function
     }
 
@@ -78,19 +79,25 @@ namespace Layout.ReactJs {
 
         private addEventListener() {
             window.addEventListener("mousedown", this.onWindowMouseDown);
-            window.addEventListener("touchstart", this.onWindowMouseDown);
+            for (const i in this.config.elMove) this.config.elMove[i].addEventListener("touchstart", this.onWindowMouseDown);
+            for (const i in this.config.elResize) this.config.elResize[i].addEventListener("touchstart", this.onWindowMouseDown);
 
             window.addEventListener("mouseup", this.onWindowMouseUp);
-            window.addEventListener("touchend", this.onWindowMouseUp);
+            for (const i in this.config.elMove) this.config.elMove[i].addEventListener("touchend", this.onWindowMouseUp);
+            for (const i in this.config.elResize) this.config.elResize[i].addEventListener("touchend", this.onWindowMouseUp);
 
             window.addEventListener("mousemove", this.onWindowMouseMove);
-            window.addEventListener("touchmove", this.onWindowMouseMove);
+            for (const i in this.config.elMove) this.config.elMove[i].addEventListener("touchmove", this.onWindowMouseMove);
+            for (const i in this.config.elResize) this.config.elResize[i].addEventListener("touchmove", this.onWindowMouseMove);
         }
 
         private onWindowMouseDown(ev: any): void {
             const targets: any[] = Array.isArray(ev.path) ? ev.path : [ev.target];
             for (const i in MoveAndResize.instances) {
                 const instance = MoveAndResize.instances[i];
+
+                if (instance.config.ignoreEventClick instanceof Function &&
+                    instance.config.ignoreEventClick.bind(instance.config.owner)(ev)) continue;
 
                 if (targets.indexOf(instance.config.elContainer) >= 0) {
                     instance.onContainerMouseDown();
