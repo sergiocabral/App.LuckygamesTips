@@ -8,7 +8,7 @@ interface Date {
      * @param {any} config Configurações de formatação.
      * @returns {string} Data formatada como texto.
      */
-    format(config: any): string;
+    format(/* config: any */): string;
 }
 
 Date.prototype.format = function(config: any = { }): string {

@@ -30,7 +30,7 @@ namespace Skript.Core.Log {
 
             const style = this.getStyle(level);
 
-            if (toConsoleLog !== undefined) console.log(`%c[${Level[message.level]}] ${message.text}`, style, toConsoleLog);
+            if (toConsoleLog !== undefined) console.log(`%c[${message.time.format()}][${Level[message.level]}] ${message.text}`, style, toConsoleLog);
             else console.log(`%c[${Level[message.level]}] ${message.text}`, style);
         }
 

@@ -8,7 +8,7 @@ interface Number {
      * @param {any} config Configurações de formatação.
      * @returns {string} Número formatado como texto.
      */
-    format(config: any): string;    
+    format(/* config: any */): string;    
 }
 
 Number.prototype.format = function(config: any = { }): string {
