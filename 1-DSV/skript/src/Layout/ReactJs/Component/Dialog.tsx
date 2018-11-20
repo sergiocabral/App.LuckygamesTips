@@ -19,7 +19,7 @@ namespace Skript.Layout.ReactJs.Component {
     /**
      * Tipo para props do React deste componente.
      */
-    type Props = {
+    export type DialogProps = {
 
         /**
          * Título da janela de diálogo.
@@ -35,9 +35,21 @@ namespace Skript.Layout.ReactJs.Component {
     }
 
     /**
+     * Tipo para state do React deste componente.
+     */
+    export type DialogState = {
+
+        /**
+         * Conteúdo
+         * @type {React.ReactNode[]}
+         */
+        children: React.ReactNode[]
+    }
+    
+    /**
      * Janela base que contem outros componentes.
      */
-    export class Dialog extends ComponentBase<Props, Partial<EmptyState>> {
+    export class Dialog extends ComponentBase<DialogProps, Partial<DialogState>> {
 
         /**
          * Nome da classe CSS deste componente.
@@ -148,8 +160,10 @@ namespace Skript.Layout.ReactJs.Component {
          * Construtor.
          * @param {DialogProps} props Propriedades.
          */
-        public constructor(props: Props) {
+        public constructor(props: DialogProps) {
             super(props);
+
+            this.state = { children: [this.props.children] };
 
             this.elContainer = React.createRef();
             this.elTitle = React.createRef();
@@ -221,6 +235,14 @@ namespace Skript.Layout.ReactJs.Component {
         public visible(mode?: boolean): boolean {
             return (this.visibility as Visibility).visible(mode);
         }
+        
+        /**
+         * Adiciona conteúdo na janela.
+         * @param {any} children Conteúdo para adicionar.
+         */
+        public append(children: any): void {
+            this.setState({ children: (this.state.children as React.ReactNode[]).concat(children) });
+        }
 
         /**
          * Renderizador do React.
@@ -235,7 +257,7 @@ namespace Skript.Layout.ReactJs.Component {
                         <a href="#" className="close" onClick={this.onCloseClick}><i className="fas fa-times"></i></a>
                     </div>
                     <div className="content">
-                        {this.props.children}
+                        {(this.state.children as React.ReactNode[]).map((child) => <div key={Util.String.random()}>{child}</div>)}
                     </div>  
                     <div className="resize"><div ref={this.elResize as any}>&nbsp;</div></div>
                 </div>

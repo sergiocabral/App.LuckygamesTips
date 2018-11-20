@@ -42,18 +42,21 @@ namespace Skript.Core {
         /**
          * Lista de módulo carregados.
          */
-        public parts: Parts.PartBase[] = [];
+        public parts: Part.PartBase[] = [];
 
         /**
          * Registra um novo módulo.
-         * @param {Parts.PartBase} part Módulo.
+         * @param {Part.PartBase} part Módulo.
          */
-        public registerPart(part: Parts.PartBase): void {
+        public registerPart(part: Part.PartBase): void {
             this.parts.push(part);
             
             part.tools = {
                 log: skript.log
             };
+
+            const component = part.component();
+            if (component !== undefined) Bus.MessageBus.Send(new Layout.Message.AppendPartInMainDialog(component));
 
             part.loaded();
         }

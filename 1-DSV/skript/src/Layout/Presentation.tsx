@@ -41,8 +41,7 @@ namespace Skript.Layout {
             this.mainDialog = Core.Bus.MessageBus.Send(
                 new Message.DialogCreate(
                     skript.configuration.name, 
-                    ReactJs.Component.DialogCloseMode.Hide, 
-                    <p>Main Windows</p>)).result as ReactJs.Component.Dialog;
+                    ReactJs.Component.DialogCloseMode.Hide)).result as ReactJs.Component.Dialog;
             this.mainDialog.visible(false);
         }
 
@@ -65,6 +64,25 @@ namespace Skript.Layout {
             container.id = Util.String.random();
             skript.presentation.parentContainer.appendChild(container);
             return container;
+        }
+
+        /**
+         * Cria uma janela de di[alogo.]
+         * @param {ReactJs.Component.DialogProps} config Configuração inicial.
+         * @param {any} children Conteúdo da janela.
+         */
+        public createDialog(config: ReactJs.Component.DialogProps, children: any): ReactJs.Component.Dialog {
+            return ReactDOM.render(
+                React.createElement(ReactJs.Component.Dialog, config, children), 
+                skript.presentation.createContainer());
+        }
+        
+        /**
+         * Adiciona um componente.
+         * @param {any} children Conteúdo.
+         */
+        public appendToMainDialog(children: any): void { 
+            this.mainDialog.append(children);
         }
     }
 }

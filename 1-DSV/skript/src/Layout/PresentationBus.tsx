@@ -17,14 +17,7 @@ namespace Skript.Layout {
             {                
                 message: Message.DialogCreate.name,
                 handler: (command: Message.DialogCreate) => {
-                    command.result = 
-                        ReactDOM.render(
-                            React.createElement(ReactJs.Component.Dialog, { 
-                                title: command.title,                                 
-                                closeMode: command.closeMode
-                            }, command.children), 
-                            skript.presentation.createContainer());
-
+                    command.result = skript.presentation.createDialog({ title: command.title, closeMode: command.closeMode }, command.children);
                     return command;
                 }
             },
@@ -32,6 +25,13 @@ namespace Skript.Layout {
                 message: Message.MainDialogToggle.name,
                 handler: (command: Message.MainDialogToggle) => {
                     skript.presentation.mainDialog.visible(!skript.presentation.mainDialog.visible());
+                    return command;
+                }
+            },
+            {
+                message: Message.AppendPartInMainDialog.name,
+                handler: (command: Message.AppendPartInMainDialog) => {
+                    command.result = skript.presentation.appendToMainDialog(command.component);
                     return command;
                 }
             }

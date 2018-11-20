@@ -1,4 +1,4 @@
-namespace Skript.Parts {
+namespace Skript.Part {
     
     /**
      * Classe base para os módulos do sistema.
@@ -22,6 +22,12 @@ namespace Skript.Parts {
          * Chamado quando o módulo é carregado.
          */
         public abstract loaded(): void;
+
+        /**
+         * Componente para inclusão na janela .
+         * @returns {any} Qualquer coisa que seja adicionado como children em um component React.
+         */
+        public abstract component(): any;
 
     }
 }

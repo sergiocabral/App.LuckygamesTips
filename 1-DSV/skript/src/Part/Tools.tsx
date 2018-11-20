@@ -1,4 +1,4 @@
-namespace Skript.Parts {
+namespace Skript.Part {
     
     /**
      * Conjunto de ferramentas para uso do módulo.

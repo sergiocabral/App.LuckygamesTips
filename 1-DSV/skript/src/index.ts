@@ -1,3 +1,59 @@
+/// <reference path="Part/System/MainHeader/Component/Main.tsx" />
+/// context: SystemPart
+
+/// <reference path="Part/System/MainHeader/Part.tsx" />
+/// context: SystemPart
+
+/// #############################################
+
+/// <reference path="Part/User/LuckygamesAdjusts/Component/Main.tsx" />
+/// context: PaidPart,LuckygamesAdjusts
+
+/// <reference path="Part/User/LuckygamesAdjusts/Part.tsx" />
+/// context: PaidPart,LuckygamesAdjusts
+
+/// #############################################
+
+/// <reference path="Layout/Theme/Stylesheet.tsx" />
+/// context: react
+
+/// <reference path="Layout/ReactJs/ComponentBase.tsx" />
+/// context: react
+
+/// <reference path="Layout/ReactJs/MoveAndResize.tsx" />
+/// context: react
+
+/// <reference path="Layout/ReactJs/Visibility.tsx" />
+/// context: react
+
+/// <reference path="Layout/ReactJs/Component/Dialog.tsx" />
+/// context: react
+
+/// <reference path="Layout/ReactJs/Component/ButtonActivator.tsx" />
+/// context: react
+
+/// #############################################
+
+/// <reference path="Util/DateTime.tsx" />
+/// context: Initialize
+
+/// <reference path="Util/DOM.tsx" />
+/// context: Initialize
+
+/// <reference path="Util/Drawing.tsx" />
+/// context: Initialize
+
+/// <reference path="Util/LoadReferences.tsx" />
+/// context: Initialize
+
+/// <reference path="Util/Number.tsx" />
+/// context: Initialize
+
+/// <reference path="Util/String.tsx" />
+/// context: Initialize
+
+/// #############################################
+
 /// <reference path="Core/Environment/String.tsx" />
 /// context: Initialize
 
@@ -6,6 +62,8 @@
 
 /// <reference path="Core/Environment/Number.tsx" />
 /// context: Initialize
+
+/// #############################################
 
 /// <reference path="Locale/Format/Number.tsx" />
 /// context: Initialize
@@ -25,6 +83,8 @@
 /// <reference path="Locale/Translates.tsx" />
 /// context: Initialize
 
+/// #############################################
+
 /// <reference path="Core/Log/Level.tsx" />
 /// context: Initialize
 
@@ -37,50 +97,15 @@
 /// <reference path="Core/Log/History.tsx" />
 /// context: Initialize
 
+/// #############################################
+
 /// <reference path="Core/Configuration.tsx" />
 /// context: Initialize
 
 /// <reference path="Core/Data.tsx" />
 /// context: Initialize
 
-/// <reference path="Util/Number.tsx" />
-/// context: Initialize
-
-/// <reference path="Util/DateTime.tsx" />
-/// context: Initialize
-
-/// <reference path="Util/String.tsx" />
-/// context: Initialize
-
-/// <reference path="Util/DOM.tsx" />
-/// context: Initialize
-
-/// <reference path="Util/Drawing.tsx" />
-/// context: Initialize
-
-/// <reference path="Util/LoadReferences.tsx" />
-/// context: Initialize
-
-/// <reference path="Layout/Theme/Colors.tsx" />
-/// context: Initialize
-
-/// <reference path="Layout/Theme/Stylesheet.tsx" />
-/// context: react
-
-/// <reference path="Layout/ReactJs/MoveAndResize.tsx" />
-/// context: react
-
-/// <reference path="Layout/ReactJs/Visibility.tsx" />
-/// context: react
-
-/// <reference path="Layout/ReactJs/ComponentBase.tsx" />
-/// context: react
-
-/// <reference path="Layout/ReactJs/Component/Dialog.tsx" />
-/// context: react
-
-/// <reference path="Layout/ReactJs/Component/ButtonActivator.tsx" />
-/// context: react
+/// #############################################
 
 /// <reference path="Core/Bus/Message.tsx" />
 /// context: Initialize
@@ -91,10 +116,21 @@
 /// <reference path="Core/Bus/MessageBus.tsx" />
 /// context: Initialize
 
+/// <reference path="Core/Message/RegisterPart.tsx" />
+/// context: Initialize
+
+/// #############################################
+
+/// <reference path="Layout/Theme/Colors.tsx" />
+/// context: Initialize
+
 /// <reference path="Layout/Message/DialogCreate.tsx" />
 /// context: Initialize
 
 /// <reference path="Layout/Message/MainDialogToggle.tsx" />
+/// context: Initialize
+
+/// <reference path="Layout/Message/AppendPartInMainDialog.tsx" />
 /// context: Initialize
 
 /// <reference path="Layout/PresentationBus.tsx" />
@@ -102,6 +138,8 @@
 
 /// <reference path="Layout/Presentation.tsx" />
 /// context: Initialize
+
+/// #############################################
 
 /// <reference path="Core/Api/ScriptContext.tsx" />
 /// context: Initialize
@@ -115,20 +153,15 @@
 /// <reference path="Core/Api/Request.tsx" />
 /// context: Initialize
 
-/// <reference path="Core/Message/RegisterPart.tsx" />
+/// #############################################
+
+/// <reference path="Part/Tools.tsx" />
 /// context: Initialize
 
-/// <reference path="Parts/PartBase.tsx" />
+/// <reference path="Part/PartBase.tsx" />
 /// context: Initialize
 
-/// <reference path="Parts/Tools.tsx" />
-/// context: Initialize
-
-/// <reference path="Parts/System/MainHeader/Part.tsx" />
-/// context: SystemPart
-
-/// <reference path="Parts/User/LuckygamesAdjusts/Part.tsx" />
-/// context: PaidPart,LuckygamesAdjusts
+/// #############################################
 
 /// <reference path="Core/MainBus.tsx" />
 /// context: Initialize
@@ -141,6 +174,8 @@
 
 /// <reference path="Core/All.tsx" />
 /// context: Initialize
+
+/// #############################################
 
 const skript: Skript.Core.All = new Skript.Core.All();
 

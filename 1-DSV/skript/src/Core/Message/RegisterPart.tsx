@@ -9,7 +9,7 @@ namespace Skript.Core.Message {
          * Construtor.
          * @param {PartBase} part Parte.
          */
-        public constructor(part: Parts.PartBase) {
+        public constructor(part: Part.PartBase) {
             super();
             this.part = part;
         }
@@ -18,6 +18,6 @@ namespace Skript.Core.Message {
          * Parte.
          * @type {PartBase}
          */
-        public part: Parts.PartBase;
+        public part: Part.PartBase;
     }
 }
