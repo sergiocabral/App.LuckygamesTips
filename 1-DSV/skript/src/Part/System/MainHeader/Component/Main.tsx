@@ -19,11 +19,11 @@ namespace Skript.Part.System.MainHeader.Component {
             }
             ${this.selector()} > div {
                 text-align: center;
-                background-image: url(https://dsv.luckygames.tips/media/header-background.png);
-                background-size: 150%;
+                background-image: url(https://dsv.luckygames.tips/media/header-background.jpg);
+                background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.25);
                 height: 105px;
             }
             ${this.selector()} > div > div {
@@ -39,19 +39,29 @@ namespace Skript.Part.System.MainHeader.Component {
                 margin: 0 0 0 115px;
                 padding-top: 9px;
                 white-space: nowrap;
+                text-shadow: 
+                    0 0 20px ${this.theme.generalBackground},
+                    0 0 20px ${this.theme.generalBackground},
+                    0 0 40px ${this.theme.generalBackground},
+                    0 0 40px ${this.theme.generalBackground},
+                    0 0 40px ${this.theme.generalBackground},
+                    0 0 60px ${this.theme.generalBackground},
+                    0 0 60px ${this.theme.generalBackground},
+                    0 0 60px ${this.theme.generalBackground}, 
+                    0 0 60px ${this.theme.generalBackground};
             }
             ${this.selector()} h1 {
-                color: ${Util.Drawing.blend(-0.4, this.theme.generalTextColor)};                
+                color: ${Util.Drawing.blend(-0.5, this.theme.generalTextColor)};                
                 font-family: fast-forward;
                 font-size: 120%;
             }
             ${this.selector()} h2 {
-                color: ${Util.Drawing.blend(0.2, this.theme.generalTextColor)};                
+                color: ${Util.Drawing.blend(0.25, this.theme.generalTextColor)};                
                 font-family: ${this.theme.dialogTextFont};
                 font-size: 120%;
             }
             ${this.selector()} h3 {
-                color: ${Util.Drawing.blend(0.6, this.theme.generalTextColor)};
+                color: ${Util.Drawing.blend(0.5, this.theme.generalTextColor)};
                 font-family: ${this.theme.dialogTextFont};
                 font-size: 90%;
             }

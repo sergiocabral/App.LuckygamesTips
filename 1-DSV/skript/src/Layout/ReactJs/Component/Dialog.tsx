@@ -81,7 +81,7 @@ namespace Skript.Layout.ReactJs.Component {
             }
             ${this.selector()} .header {
                 background-color: ${this.theme.dialogTitleBackground};
-                border-bottom: 1px solid ${Util.Drawing.blend(0.8, this.theme.dialogTitleTextColor)};
+                border-bottom: 1px solid ${Util.Drawing.blend(0.5, this.theme.dialogTitleTextColor)};
                 border-radius: 7px 7px 0 0;
                 padding: 9px 0 8px 0;
                 cursor: pointer;
@@ -91,7 +91,7 @@ namespace Skript.Layout.ReactJs.Component {
                 color: ${this.theme.dialogTitleTextColor};
                 font-family: ${this.theme.dialogTextFont};
                 white-space: nowrap;
-                margin: 0 10px;                
+                margin: 1px 10px -1px 10px;                
                 font-size: 18px;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -101,11 +101,11 @@ namespace Skript.Layout.ReactJs.Component {
                 color: ${this.theme.dialogTitleTextColor};
                 font-size: 20px;
                 float: left;
-                margin: -3px 9px 0 11px;
+                margin: -4px 9px 0 11px;
                 opacity: 1;
             }
             ${this.selector()} .header a.close {
-                color: ${Util.Drawing.blend(0.3, this.theme.dialogTitleTextColor)};
+                color: ${Util.Drawing.blend(0.25, this.theme.dialogTitleTextColor)};
                 position: absolute;
                 right: 13px;
                 top: 12px;

@@ -20,11 +20,11 @@ namespace Skript.Layout.Theme {
             this.colors = colors;
             this.zIndex = 1000;
             this.generalTextFont = "'Hind Siliguri', sans-serif";
-            this.generalTextColor = Util.Drawing.blend(-0.8, colors.primary);
+            this.generalTextColor = Util.Drawing.blend(-0.5, colors.primary);
             this.generalBackground = "#ffffff";
             this.dialogTextFont = "'Raleway', sans-serif";
-            this.dialogTitleTextColor = Util.Drawing.blend(-0.8, colors.secondary);
-            this.dialogTitleBackground = Util.Drawing.blend(0.8, colors.secondary);
+            this.dialogTitleTextColor = Util.Drawing.blend(-0.5, colors.secondary);
+            this.dialogTitleBackground = Util.Drawing.blend(0.5, colors.secondary);
         }
 
         /**
