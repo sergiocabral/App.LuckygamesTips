@@ -29,9 +29,10 @@ namespace Skript.Core.Log {
             if (!skript.configuration.debug) return;
 
             const style = this.getStyle(level);
+            const text = `%c[${Level[message.level]}] ${message.time.format()}: ${message.text}`;
 
-            if (toConsoleLog !== undefined) console.log(`%c[${message.time.format()}][${Level[message.level]}] ${message.text}`, style, toConsoleLog);
-            else console.log(`%c[${Level[message.level]}] ${message.text}`, style);
+            if (toConsoleLog !== undefined) console.log(text, style, toConsoleLog);
+            else console.log(text, style);
         }
 
         /**

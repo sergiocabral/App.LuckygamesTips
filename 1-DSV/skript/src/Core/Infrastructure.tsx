@@ -21,7 +21,7 @@ namespace Skript.Core {
             const language: string = "en";
 
             skript.configuration = configuration;
-            new Log.History();
+            new Log.History(); skript.log.post("Iniciando.", null, Log.Level.Debug);
             new Api.Request(configuration.server);
             new Locale.Translates(language);
 
