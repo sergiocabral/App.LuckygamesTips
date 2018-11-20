@@ -26,6 +26,7 @@ namespace Skript.Core {
             
             skript.presentation = new Layout.Presentation();
 
+            skript.log.post("Carregando módulos do sistema.");
             skript.api.loadScript([Api.ScriptContext.SystemPart])
                 .then(() => { 
                     skript.log.post("Ótimo! O Tips foi carregado com sucesso."); 
@@ -47,18 +48,14 @@ namespace Skript.Core {
         /**
          * Registra um novo módulo.
          * @param {Part.PartBase} part Módulo.
+         * @returns {Part.Tools} Disponibiliza o conjunto de ferramentas para uso dos módulos.
          */
-        public registerPart(part: Part.PartBase): void {
+        public registerPart(part: Part.PartBase): Part.Tools {
             this.parts.push(part);
-            
-            part.tools = {
+            const tools: Part.Tools = {
                 log: skript.log
             };
-
-            const component = part.component();
-            if (component !== undefined) Bus.MessageBus.Send(new Layout.Message.AppendToMainDialog(component));
-
-            part.loaded();
+            return tools;
         }
     }
 }

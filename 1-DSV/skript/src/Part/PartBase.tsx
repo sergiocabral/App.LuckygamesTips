@@ -6,17 +6,27 @@ namespace Skript.Part {
     export abstract class PartBase {
 
         /**
-         * Construtor.
+         * Rgistra o módulo.
          */
-        public constructor() {
-            const command = Core.Bus.MessageBus.Send(new Core.Message.RegisterPart(this));
-            this.tools = command.result;
+        public register() {
+            this.tools = Core.Bus.MessageBus.Send(new Core.Message.RegisterPart(this)).result;
+
+            Core.Bus.MessageBus.Send(new Layout.Message.AppendToMainDialog(this.component()));
+
+            this.tools.log.post("Módulo carregado: {0}", this.name);
+
+            this.loaded();
         }
 
         /**
          * Conjunto de ferramentas para uso do módulo.
          */
-        public tools: Tools;
+        public tools: Tools = { } as Tools;
+
+        /**
+         * Nome identificador do módulo.
+         */
+        public abstract name: string;
 
         /**
          * Chamado quando o módulo é carregado.

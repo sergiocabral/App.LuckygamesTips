@@ -6,10 +6,15 @@ namespace Skript.Part.System.MainHeader {
     class Part extends PartBase {
         
         /**
+         * Nome identificador do módulo.
+         */
+        public name: string = "MainHeader";
+        
+        /**
          * Chamado quando o módulo é carregado.
          */
         public loaded(): void {
-            this.tools.log.post("MainHeader");
+            console.log("loaded WWWWWWWWWW");
         }
 
         /**
@@ -22,5 +27,5 @@ namespace Skript.Part.System.MainHeader {
         
     }
 
-    new Part();
+    new Part().register();
 }

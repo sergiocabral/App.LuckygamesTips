@@ -6,10 +6,15 @@ namespace Skript.Part.User.LuckygamesAdjusts {
     class Part extends PartBase {
         
         /**
+         * Nome identificador do módulo.
+         */
+        public name: string = "LuckygamesAdjusts";
+        
+        /**
          * Chamado quando o módulo é carregado.
          */
         public loaded(): void {
-            this.tools.log.post("LuckygamesAdjusts");
+            console.log("loaded TTTTTTTTTT");
         }
 
         /**
@@ -22,5 +27,5 @@ namespace Skript.Part.User.LuckygamesAdjusts {
         
     }
     
-    new Part();
+    new Part().register();
 }

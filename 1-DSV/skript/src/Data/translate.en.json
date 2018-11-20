@@ -7,6 +7,10 @@
         "Modules loaded successfully." },
     { "Ops! Ocorreu uma falha na conexão com a internet. Tente novamente.":
         "Oops! An internet connection failed. Try again."},
+    { "Carregando módulos do sistema.":
+        "Loading system modules." },
     { "Carregando módulos disponíveis.": 
-        "Loading available modules." }
+        "Loading available modules." },
+    { "Módulo carregado: {0}":
+        "Module loaded: {0}" }
 ]

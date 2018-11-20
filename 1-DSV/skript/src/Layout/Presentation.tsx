@@ -82,7 +82,7 @@ namespace Skript.Layout {
          * @param {React.ReactNode} children Conteúdo.
          */
         public appendToMainDialog(children: React.ReactNode): void { 
-            this.mainDialog.append(children);
+            if (children) this.mainDialog.append(children);
         }
     }
 }
