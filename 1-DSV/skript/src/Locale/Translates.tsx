@@ -65,11 +65,12 @@ namespace Skript.Locale {
          */
         public static parse(json: string): Translate[] {
             if (!json || !eval(`!!${json};`)) throw new Error("JSON is null.");
-            return (JSON.parse(json) as []).map(i => { 
+            
+            return (JSON.parse(json) as any[]).map(val => { 
                 return { 
                     language: skript.translate.languageDefault,
-                    id: Object.keys(i)[0] as string,
-                    translated: i[Object.keys(i)[0]] as string
+                    id: Object.keys(val)[0] as string,
+                    translated: val[Object.keys(val)[0]] as string
                 }
             });
         }

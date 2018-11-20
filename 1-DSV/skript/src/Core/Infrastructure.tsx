@@ -37,7 +37,7 @@ namespace Skript.Core {
                     ];
 
                     skript.api.loadData(data).then((response) => {
-                        
+
                         try {
                             skript.data = this.extractData(response, data);
                             new Main();
@@ -128,11 +128,11 @@ namespace Skript.Core {
                 throw new Error(`extractData ${response.length} == ${data.length}`);
             }
 
-            for (let i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {                
                 try {
                     switch (data[i].type) {
                         case Api.DataType.Translate:
-                            result.translates = Locale.Translates.parse(data[i].data);
+                            result.translates = Locale.Translates.parse(data[i].data);                            
                             break;
                         case Api.DataType.Theme:
                             result.colors = Layout.Theme.Stylesheet.parse(data[i].data);

@@ -49,7 +49,7 @@ class Api extends \Mysys\Website\WebsiteBase {
             }            
 
             header("Access-Control-Allow-Origin: *");
-            if (count($list)) return $list;
+            if (count($list)) return count($list) === 1 ? $list[0] : $list;
             else header("HTTP/1.0 404 Not Found");
         }
     }

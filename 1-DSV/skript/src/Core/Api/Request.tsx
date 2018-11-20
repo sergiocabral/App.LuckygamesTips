@@ -74,7 +74,7 @@ namespace Skript.Core.Api {
             let urls: string[];
             if (uniqueRequest) {
                 const params = data.reduce((p, c) => {
-                    p += `/${DataType[c.type]}/${c.name}`;
+                    p += (p ? "/" : "") + `${DataType[c.type]}/${c.name}`;
                     return p;
                 }, "");
                 urls = [this.getUrl("data", params)];
