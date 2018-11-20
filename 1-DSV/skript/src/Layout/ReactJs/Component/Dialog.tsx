@@ -238,9 +238,9 @@ namespace Skript.Layout.ReactJs.Component {
         
         /**
          * Adiciona conteúdo na janela.
-         * @param {any} children Conteúdo para adicionar.
+         * @param {React.ReactNode} children Conteúdo.
          */
-        public append(children: any): void {
+        public append(children: React.ReactNode): void {
             this.setState({ children: (this.state.children as React.ReactNode[]).concat(children) });
         }
 

@@ -56,7 +56,7 @@ namespace Skript.Core {
             };
 
             const component = part.component();
-            if (component !== undefined) Bus.MessageBus.Send(new Layout.Message.AppendPartInMainDialog(component));
+            if (component !== undefined) Bus.MessageBus.Send(new Layout.Message.AppendToMainDialog(component));
 
             part.loaded();
         }

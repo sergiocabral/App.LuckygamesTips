@@ -25,9 +25,9 @@ namespace Skript.Part {
 
         /**
          * Componente para inclusão na janela .
-         * @returns {any} Qualquer coisa que seja adicionado como children em um component React.
+         * @returns {React.ReactNode} Qualquer coisa que seja adicionado como children em um component React.
          */
-        public abstract component(): any;
+        public abstract component(): React.ReactNode;
 
     }
 }

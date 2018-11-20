@@ -14,9 +14,9 @@ namespace Skript.Part.System.MainHeader {
 
         /**
          * Componente para inclusão na janela.
-         * @returns {any} Qualquer coisa que seja adicionado como children em um component React.
+         * @returns {React.ReactNode} Qualquer coisa que seja adicionado como children em um component React.
          */
-        public component(): any {
+        public component(): React.ReactNode {
             return React.createElement(Component.Main, null, null);
         }
         

@@ -79,9 +79,9 @@ namespace Skript.Layout {
         
         /**
          * Adiciona um componente.
-         * @param {any} children Conteúdo.
+         * @param {React.ReactNode} children Conteúdo.
          */
-        public appendToMainDialog(children: any): void { 
+        public appendToMainDialog(children: React.ReactNode): void { 
             this.mainDialog.append(children);
         }
     }

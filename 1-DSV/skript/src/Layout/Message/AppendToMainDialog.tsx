@@ -3,21 +3,21 @@ namespace Skript.Layout.Message {
     /**
      * Adiciona um componente a janela de diálogo principal.
      */
-    export class AppendPartInMainDialog extends Core.Bus.Message { 
+    export class AppendToMainDialog extends Core.Bus.Message { 
 
         /**
          * Construtor.
-         * @param {React.Component} component Componente.
+         * @param {React.ReactNode} children Conteúdo.
          */
-        public constructor(component: React.Component) {
+        public constructor(children: React.ReactNode) {
             super();
-            this.component = component;
+            this.children = children;
         }
 
         /**
          * Componente.
          * @type {PartBase}
          */
-        public component: React.Component;
+        public children: React.ReactNode;
     }
 }

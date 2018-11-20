@@ -29,9 +29,9 @@ namespace Skript.Layout {
                 }
             },
             {
-                message: Message.AppendPartInMainDialog.name,
-                handler: (command: Message.AppendPartInMainDialog) => {
-                    command.result = skript.presentation.appendToMainDialog(command.component);
+                message: Message.AppendToMainDialog.name,
+                handler: (command: Message.AppendToMainDialog) => {
+                    command.result = skript.presentation.appendToMainDialog(command.children);
                     return command;
                 }
             }

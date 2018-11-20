@@ -130,7 +130,7 @@
 /// <reference path="Layout/Message/MainDialogToggle.tsx" />
 /// context: Initialize
 
-/// <reference path="Layout/Message/AppendPartInMainDialog.tsx" />
+/// <reference path="Layout/Message/AppendToMainDialog.tsx" />
 /// context: Initialize
 
 /// <reference path="Layout/PresentationBus.tsx" />
