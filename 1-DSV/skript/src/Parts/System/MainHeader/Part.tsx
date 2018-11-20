@@ -1,4 +1,4 @@
-namespace Skript.Parts.MainHeader {
+namespace Skript.Parts.System.MainHeader {
     
     /**
      * Cabeçalho principal sobre o sistema.

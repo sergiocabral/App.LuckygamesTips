@@ -1,4 +1,4 @@
-namespace Skript.Parts.LuckygamesAdjusts {
+namespace Skript.Parts.User.LuckygamesAdjusts {
     
     /**
      * Ajustes no ambiente da luckygames.io

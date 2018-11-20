@@ -124,10 +124,10 @@
 /// <reference path="Parts/Tools.tsx" />
 /// context: Initialize
 
-/// <reference path="Parts/MainHeader/Part.tsx" />
+/// <reference path="Parts/System/MainHeader/Part.tsx" />
 /// context: SystemPart
 
-/// <reference path="Parts/LuckygamesAdjusts/Part.tsx" />
+/// <reference path="Parts/User/LuckygamesAdjusts/Part.tsx" />
 /// context: PaidPart,LuckygamesAdjusts
 
 /// <reference path="Core/MainDispatcher.tsx" />
