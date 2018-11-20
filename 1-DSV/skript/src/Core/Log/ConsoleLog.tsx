@@ -14,10 +14,10 @@ namespace Skript.Core.Log {
          * Exibe no console.log() uma mensagem de boas vondas ao usuário.
          */
         public static welcome(title: string, message: string): void {
-            for (let i = 0; i < 1000; i++) console.log(i % 2 ? " " : "  ");
-            console.log(`%c${title}`, "font-size: 36px; color: #28a745; font-weight: bold;");
-            console.log(`%c${message}`, "font-size: 20px; color: #007bff; font-weight: bold;");
-            for (let i = 0; i < 1; i++) console.log(i % 2 ? " " : "  ");
+            for (let i = 0; i < 1000; i++) console.info(i % 2 ? " " : "  ");
+            console.info(`%c${title}`, "font-size: 36px; color: #28a745; font-weight: bold;");
+            console.info(`%c${message}`, "font-size: 20px; color: #007bff; font-weight: bold;");
+            for (let i = 0; i < 1; i++) console.info(i % 2 ? " " : "  ");
         }
         
         /**
@@ -31,8 +31,16 @@ namespace Skript.Core.Log {
             const style = this.getStyle(level);
             const text = `%c[${Level[message.level]}] ${message.time.format({ mask: "y-M-d h:m:s,z" })}: ${message.text}`;
 
-            if (toConsoleLog !== undefined) console.log(text, style, toConsoleLog);
-            else console.log(text, style);
+            let log;
+            switch (level) {
+                case Level.Error: log = console.error; break;
+                case Level.Warning: log = console.warn; break;
+                case Level.Information: log = console.info; break;
+                default: log = console.debug;
+            }
+
+            if (toConsoleLog !== undefined) log(text, style, toConsoleLog);
+            else log(text, style);
         }
 
         /**
