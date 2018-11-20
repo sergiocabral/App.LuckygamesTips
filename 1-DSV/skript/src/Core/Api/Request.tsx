@@ -70,7 +70,7 @@ namespace Skript.Core.Api {
          * @param {boolean} uniqueRequest Opcional. Quando true agrupa os modulos em uma chama. Quando false faz uma chamada para cada modulo.
          * @returns {Promise<string>} Retorna os dados carregados como string.
          */
-        public loadData(data: Data[], uniqueRequest: boolean = true): Promise<string> {
+        public loadData(data: Data[], uniqueRequest: boolean = true): Promise<string[]> {
             let urls: string[];
             if (uniqueRequest) {
                 const params = data.reduce((p, c) => {
@@ -83,13 +83,16 @@ namespace Skript.Core.Api {
             }
             
             return new Promise(resolve => {
+                const response: string[] = [];
                 const load = (index: number) => {
                     const request = new XMLHttpRequest();
                     request.open("GET", urls[index]);
                     request.send();                    
                     request.onloadend = (ev: any) => {
+                        response.push(request.responseText);
+
                         if (++index < urls.length) load(index);
-                        else resolve(request.responseText);
+                        else resolve(response);
                         
                         const result = ev.currentTarget.status === 200 ? "Sucesso" : "Falha";
                         skript.log.post(`API. ${result}. Status {status}. Url: {responseURL}`, ev.currentTarget, ev.currentTarget.status === 200 ? Core.Log.Level.Debug : Core.Log.Level.Warning, ev.currentTarget);

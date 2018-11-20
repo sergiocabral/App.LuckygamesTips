@@ -9,7 +9,7 @@ namespace Skript.Core {
      * Classe principal responsável por rodar o sistema.
      * Aqui ficam definições de infraestrutura.
      */
-    export class Infrastructure {
+    export class Infrastructure {       
 
         /**
          * Construtor.
@@ -29,61 +29,26 @@ namespace Skript.Core {
 
             this.loadReferences(configuration.debug).then(() => {
                 skript.api.loadScript([Api.ScriptContext.React]).then(() => {
+
                     const data: Api.Data[] = [
                         { type: Api.DataType.Translate, name: skript.translate.languageDefault, data: "" },
                         { type: Api.DataType.Theme, name: "default", data: "" },
                         { type: Api.DataType.Locale, name: skript.translate.languageDefault, data: "" }
                     ];
+
                     skript.api.loadData(data).then((response) => {
-                        try {
-                            const json = JSON.parse(response);
-                            for (let i = 0; i < json.length; i++) {
-                                data[i].data = JSON.stringify(json[i]);
-                            }
-                        } catch (error) {
-                            skript.log.post("Não foi possível carregar os dados de inicialização.", null, Log.Level.Error, error);
-                        }
-
-                        let translates: Locale.Translate[];
-                        try {
-                            translates = Locale.Translates.parse(data[0].data);
-                        } catch (error) {
-                            skript.log.post("Falha ao carregar as traduções de idioma. Usando idioma padrão.", null, Log.Level.Error, error);
-                            translates = [];
-                        }
                         
-                        let colors: Layout.Theme.Colors;
                         try {
-                            colors = Layout.Theme.Stylesheet.parse(data[1].data);
-                        } catch (error) {
-                            skript.log.post("Falha ao carregar o tema de cores do layout. Usando tema padrão.", null, Log.Level.Error, error);
-                            colors = Layout.Theme.Stylesheet.getColorsDefault();
-                        }
-
-                        let locale: Locale.FormatSet;
-                        try {
-                            locale = Locale.Formats.parse(data[2].data);
-                        } catch (error) {
-                            skript.log.post("Falha ao carregar as informações de localização e região. Usando definições padrão.", null, Log.Level.Error, error);
-                            locale = {
-                                date: Util.DateTime.defaultDateFormat,
-                                number: Util.Number.defaultNumberFormat,
-                            }
-                        }
-
-                        skript.data = { 
-                            colors: colors,
-                            translates: translates, 
-                            locale: locale 
-                        };
-                        try {
+                            skript.data = this.extractData(response, data);
                             new Main();
                         } catch (error) {
                             this.fatalError("Systema error: " + error);
                         }
+
                     }).catch(() => {
                         this.fatalError("Error on load data.");
                     });
+
                 }).catch(error => {
                     this.fatalError("Error on load: " + error.url);
                 });
@@ -131,6 +96,57 @@ namespace Skript.Core {
 
                 Util.LoadReferences.libraries(libs).then(resolve).catch(reject);
             });
+        }
+
+        /**
+         * Extrai e valida os dados carregados do servidor.
+         * @param response Resposta do servidor com os dados carregados.
+         * @param data Dados originais enviados ao servidor.
+         * @returns {Data} Dados originais enriquecidos com retorno do servidor.
+         */
+        private extractData(response: string[], data: Api.Data[]): Data {
+            const result: Data = {
+                translates: [],
+                colors: Layout.Theme.Stylesheet.getColorsDefault(),
+                locale: {
+                    date: Util.DateTime.defaultDateFormat,
+                    number: Util.Number.defaultNumberFormat,
+                }
+            };
+
+            if (data.length === response.length) {
+                for (let i = 0; i < data.length; i++) data[i].data = response[i];
+            } else if (response.length === 1) {
+                try {
+                    const json = JSON.parse(response[0]);
+                    for (let i = 0; i < json.length; i++) data[i].data = JSON.stringify(json[i]);
+                } catch (error) {
+                    skript.log.post("Falha ao carregar dados: {0}.", data.reduce((p, c) => { p += (p ? ", " : "") + Api.DataType[c.type]; return p}, ""), Log.Level.Error, error);
+                    return result;
+                }
+            } else {
+                throw new Error(`extractData ${response.length} == ${data.length}`);
+            }
+
+            for (let i = 0; i < data.length; i++) {
+                try {
+                    switch (data[i].type) {
+                        case Api.DataType.Translate:
+                            result.translates = Locale.Translates.parse(data[i].data);
+                            break;
+                        case Api.DataType.Theme:
+                            result.colors = Layout.Theme.Stylesheet.parse(data[i].data);
+                            break;
+                        case Api.DataType.Locale:
+                            result.locale = Locale.Formats.parse(data[i].data);
+                            break;
+                    }
+                } catch (error) {
+                    skript.log.post("Falha ao carregar dados: {0}.", Api.DataType[data[i].type], Log.Level.Error, error);
+                }
+            }
+
+            return result;
         }
     }
 }

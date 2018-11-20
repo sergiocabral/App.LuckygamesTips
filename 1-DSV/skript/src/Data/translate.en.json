@@ -1,12 +1,6 @@
 [
-    { "Não foi possível carregar os dados de inicialização.":
-        "Could not load startup data.." },
-    { "Falha ao carregar as traduções de idioma. Usando idioma padrão.":
-        "Failed to load language translations. Using the default language." },
-    { "Falha ao carregar o tema de cores do layout. Usando tema padrão.":
-        "Failed to load layout color theme. Using the default theme." },
-    { "Falha ao carregar as informações de localização e região. Usando definições padrão.":
-        "Failed to load location and region information. Using default settings." },
+    { "Falha ao carregar dados: {0}.":
+        "Failed to load data: {0}." },
     { "Ótimo! O Tips foi carregado com sucesso.":
         "Great! The Tips were loaded successfully." },
     { "Módulos carregados com sucesso.":
