@@ -22,7 +22,7 @@ namespace Skript.Layout {
         public constructor() {
             skript.presentation = this;
 
-            new PresentationDispatcher(this);
+            new PresentationBus(this);
 
             new Theme.Stylesheet();
 
@@ -38,7 +38,7 @@ namespace Skript.Layout {
                 React.createElement(ReactJs.Component.ButtonActivator, null, null), 
                 this.createContainer());
 
-            this.mainDialog = Core.Bus.MessageDispatcher.Send(
+            this.mainDialog = Core.Bus.MessageBus.Send(
                 new Message.DialogCreate(
                     skript.configuration.name, 
                     ReactJs.Component.DialogCloseMode.Hide, 

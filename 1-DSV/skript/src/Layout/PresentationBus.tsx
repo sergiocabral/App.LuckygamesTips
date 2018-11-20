@@ -8,7 +8,7 @@ namespace Skript.Layout {
     /**
      * Despachador de mensagens.
      */
-    export class PresentationDispatcher extends Core.Bus.MessageDispatcher<Presentation> {
+    export class PresentationBus extends Core.Bus.MessageBus<Presentation> {
 
         /**
          * Lista de mensagem possíveis de serem processados.

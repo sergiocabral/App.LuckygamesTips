@@ -9,7 +9,7 @@ namespace Skript.Parts {
          * Construtor.
          */
         public constructor() {
-            const command = Core.Bus.MessageDispatcher.Send(new Core.Message.RegisterPart(this));
+            const command = Core.Bus.MessageBus.Send(new Core.Message.RegisterPart(this));
             this.tools = command.result;
         }
 

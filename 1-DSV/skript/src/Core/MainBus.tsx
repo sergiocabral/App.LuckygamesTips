@@ -8,7 +8,7 @@ namespace Skript.Core {
     /**
      * Despachador de mensagens.
      */
-    export class MainDispatcher extends Core.Bus.MessageDispatcher<Main> {
+    export class MainBus extends Core.Bus.MessageBus<Main> {
 
         /**
          * Lista de mensagem possíveis de serem processados.

@@ -88,7 +88,7 @@
 /// <reference path="Core/Bus/MessageHandler.tsx" />
 /// context: Initialize
 
-/// <reference path="Core/Bus/MessageDispatcher.tsx" />
+/// <reference path="Core/Bus/MessageBus.tsx" />
 /// context: Initialize
 
 /// <reference path="Layout/Message/DialogCreate.tsx" />
@@ -97,7 +97,7 @@
 /// <reference path="Layout/Message/MainDialogToggle.tsx" />
 /// context: Initialize
 
-/// <reference path="Layout/PresentationDispatcher.tsx" />
+/// <reference path="Layout/PresentationBus.tsx" />
 /// context: Initialize
 
 /// <reference path="Layout/Presentation.tsx" />
@@ -130,7 +130,7 @@
 /// <reference path="Parts/User/LuckygamesAdjusts/Part.tsx" />
 /// context: PaidPart,LuckygamesAdjusts
 
-/// <reference path="Core/MainDispatcher.tsx" />
+/// <reference path="Core/MainBus.tsx" />
 /// context: Initialize
 
 /// <reference path="Core/Main.tsx" />

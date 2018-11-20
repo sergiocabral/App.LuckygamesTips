@@ -3,14 +3,14 @@ namespace Skript.Core.Bus {
     /**
      * Despachador de mensagens.
      */
-    export abstract class MessageDispatcher<T> {
+    export abstract class MessageBus<T> {
         
         /**
          * Construtor.
          * @param {T} sponsor Quem é responsável pela instância.
          */
         public constructor(sponsor: T) {
-            MessageDispatcher.list.push(this);
+            MessageBus.list.push(this);
             this.sponsor = sponsor;
         }
 
@@ -24,7 +24,7 @@ namespace Skript.Core.Bus {
          * Roteadores de comandos. Toda classe descendente que é instanciada entra nessa lista.
          * @type {any}
          */
-        private static list: MessageDispatcher<any>[] = [];
+        private static list: MessageBus<any>[] = [];
 
         /**
          * Envia uma mensagem para que algum handler possa processar.
@@ -32,12 +32,12 @@ namespace Skript.Core.Bus {
          */
         public static Send(message: Message): Message {
             const messageToSend = message.constructor.name;
-            for (let i = 0; i < MessageDispatcher.list.length; i++) {
-                for (let j = 0; Array.isArray(MessageDispatcher.list[i].handlers) && 
-                                j < MessageDispatcher.list[i].handlers.length; j++) {
-                    const messageOfHandler = MessageDispatcher.list[i].handlers[j].message;
+            for (let i = 0; i < MessageBus.list.length; i++) {
+                for (let j = 0; Array.isArray(MessageBus.list[i].handlers) && 
+                                j < MessageBus.list[i].handlers.length; j++) {
+                    const messageOfHandler = MessageBus.list[i].handlers[j].message;
                     if (messageOfHandler === messageToSend) {
-                        MessageDispatcher.list[i].handlers[j].handler(message);
+                        MessageBus.list[i].handlers[j].handler(message);
                         message.handled = true;
                     }
                 }

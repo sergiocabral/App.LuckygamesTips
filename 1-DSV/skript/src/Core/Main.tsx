@@ -17,7 +17,7 @@ namespace Skript.Core {
         public constructor() {
             skript.main = this;
 
-            new MainDispatcher(this);
+            new MainBus(this);
 
             Util.DateTime.defaultDateFormat = skript.data.locale.date;
             Util.Number.defaultNumberFormat = skript.data.locale.number;
