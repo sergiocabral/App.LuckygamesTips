@@ -31,7 +31,7 @@ class Api extends \Mysys\Website\WebsiteBase {
      * @return mixed
      */
     public function api_script($params) {
-        header("Access-Control-Allow-Origin: *");
+        //header("Access-Control-Allow-Origin: *");
         echo (new \Website\Loader\Script())->GetScript(count($params) ? $params[0] : "");
     }
 
@@ -48,7 +48,7 @@ class Api extends \Mysys\Website\WebsiteBase {
                 $list[] = $data === false ? null : $data;
             }            
 
-            header("Access-Control-Allow-Origin: *");
+            //header("Access-Control-Allow-Origin: *");
             if (count($list)) return count($list) === 1 ? $list[0] : $list;
             else header("HTTP/1.0 404 Not Found");
         }

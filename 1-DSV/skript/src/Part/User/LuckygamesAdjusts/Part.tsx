@@ -13,9 +13,7 @@ namespace Skript.Part.User.LuckygamesAdjusts {
         /**
          * Chamado quando o módulo é carregado.
          */
-        public loaded(): void {
-            console.log("loaded TTTTTTTTTT");
-        }
+        public loaded(): void { }
 
         /**
          * Componente para inclusão na janela.

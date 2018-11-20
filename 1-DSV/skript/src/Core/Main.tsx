@@ -53,6 +53,7 @@ namespace Skript.Core {
         public registerPart(part: Part.PartBase): Part.Tools {
             this.parts.push(part);
             const tools: Part.Tools = {
+                server: skript.configuration.server,
                 log: skript.log
             };
             return tools;

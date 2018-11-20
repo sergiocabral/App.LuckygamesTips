@@ -6,6 +6,11 @@ namespace Skript.Part {
     export type Tools = {
 
         /**
+         * Endereço do servidor.
+         */
+        server: string,
+
+        /**
          * Manipula e registra mensagens de log.
          */
         log: Core.Log.History

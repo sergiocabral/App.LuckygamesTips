@@ -12,5 +12,9 @@
     { "Carregando módulos disponíveis.": 
         "Loading available modules." },
     { "Módulo carregado: {0}":
-        "Module loaded: {0}" }
+        "Module loaded: {0}" },
+    { "Uma maneira de fazer muito mais.":
+        "A way to do much more." },
+    { "Obrigado pelo apoio.":
+        "Thanks for the support." }
 ]

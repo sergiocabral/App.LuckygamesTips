@@ -30,7 +30,7 @@ namespace Skript.Locale {
          * Lista de traduções.
          * @type {Translate[]}
          */
-        public translates: Translate[] = [];
+        private translates: Translate[] = [];
 
         /**
          * Carrega uma lista de traduções.

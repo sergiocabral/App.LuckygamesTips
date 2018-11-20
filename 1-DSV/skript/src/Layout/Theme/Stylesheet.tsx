@@ -88,6 +88,18 @@ namespace Skript.Layout.Theme {
         }
 
         /**
+         * Nome descritivo do sistema
+         * @type {string}
+         */
+        public title: string = skript.configuration.name;
+
+        /**
+         * Url do servidor.
+         * @type {string}
+         */
+        public url: string = skript.configuration.server;
+        
+        /**
          * Valida uma string para retorna como objeto.
          * @param {string} json Dados do json como string.
          * @returns {Translate[]} Objeto.

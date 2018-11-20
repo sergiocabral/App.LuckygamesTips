@@ -70,6 +70,7 @@ namespace Skript.Layout.ReactJs.Component {
                 background: ${this.theme.generalBackground};
                 box-shadow: 0 0 20px black;
                 border-radius: 7px;
+                overflow: hidden;
                 position: fixed;
                 left: calc(50% - ${this.defaults.width / 2}px);
                 top: calc(50% - ${this.defaults.height / 2}px);
@@ -114,21 +115,7 @@ namespace Skript.Layout.ReactJs.Component {
                 color: ${this.theme.dialogTitleTextColor};
             }
             ${this.selector()} .content > * {
-                margin: 5px 10px;
-            }
-            ${this.selector()} .content * {
-                font-family: ${this.theme.generalTextFont};
-                font-size: 14px;              
-            }
-            ${this.selector()} .content > * {
-                margin-left: 10px;
-                margin-right: 10px;
-            }
-            ${this.selector()} .content > *:first-child {
-                margin-top: 5px;
-            }  
-            ${this.selector()} .content > *:last-child {
-                margin-bottom: 5px;
+                margin: 0;
             }
             ${this.selector()} .resize {
                 position: absolute;
@@ -257,7 +244,7 @@ namespace Skript.Layout.ReactJs.Component {
                         <a href="#" className="close" onClick={this.onCloseClick}><i className="fas fa-times"></i></a>
                     </div>
                     <div className="content">
-                        {(this.state.children as React.ReactNode[]).map((child) => <div key={Util.String.random()}>{child}</div>)}
+                        {(this.state.children as React.ReactNode[]).map(child => !child ? "" : <div key={Util.String.random()}>{child}</div>)}
                     </div>  
                     <div className="resize"><div ref={this.elResize as any}>&nbsp;</div></div>
                 </div>

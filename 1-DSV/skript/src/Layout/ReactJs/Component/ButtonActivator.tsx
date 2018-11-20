@@ -17,7 +17,7 @@ namespace Skript.Layout.ReactJs.Component {
             ${this.selector()} {
                 z-index: ${skript.stylesheet.zIndex * 2};
                 background-color: transparent;
-                background-image: url("https://dsv.luckygames.tips/mysys/Business/Images/button.png");
+                background-image: url("${this.theme.url}/media/logo.png");
                 background-position: center;
                 background-repeat: no-repeat;
                 background-size: contain;

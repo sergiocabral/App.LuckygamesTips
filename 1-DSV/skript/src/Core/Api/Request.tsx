@@ -18,7 +18,7 @@ namespace Skript.Core.Api {
             skript.api = this;
             
             this.server = server;
-            this.url = `${server}/api/`.replace("://", "$").replace("//", "/").replace("$", "://");
+            this.url = `${server}/api/`;
         }
 
         /**

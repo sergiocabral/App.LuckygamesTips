@@ -16,6 +16,8 @@ namespace Skript.Core {
          * @param {Configuration} configuration Configuração para inicialização do sistema.
          */
         public constructor(configuration: Configuration) {
+            if (configuration.server.substr(-1) === "/") configuration.server = configuration.server.substr(0, configuration.server.length - 1);
+
             skript.infrastructure = this;
 
             const language: string = "en";
@@ -91,8 +93,9 @@ namespace Skript.Core {
                     libs.push("https://unpkg.com/react@16/umd/react.production.min.js");
                     libs.push("https://unpkg.com/react-dom@16/umd/react-dom.production.min.js");
                 }
-                libs.push("https://use.fontawesome.com/releases/v5.5.0/css/all.css");
+                libs.push("https://use.fontawesome.com/releases/v5.5.0/css/all.css");                
                 libs.push("https://fonts.googleapis.com/css?family=Raleway|Hind+Siliguri");
+                libs.push(`${skript.configuration.server}/media/FastForward/font.css`);
 
                 Util.LoadReferences.libraries(libs).then(resolve).catch(reject);
             });

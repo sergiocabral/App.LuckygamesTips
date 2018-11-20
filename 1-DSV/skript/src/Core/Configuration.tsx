@@ -24,7 +24,7 @@ namespace Skript.Core {
         welcome: boolean,
 
         /**
-         * Url da api no servidor.
+         * Url do servidor.
          * @type {string}
          */
         server: string
