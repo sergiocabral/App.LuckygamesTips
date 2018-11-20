@@ -15,9 +15,9 @@ namespace Skript.Core {
          */
         public handlers: Core.Bus.MessageHandler[] = [ 
             {
-                message: Message.RegisterModule.name,
-                handler: (command: Message.RegisterModule) => {
-                    skript.main.registerModule(command.module);
+                message: Message.RegisterPart.name,
+                handler: (command: Message.RegisterPart) => {
+                    skript.main.registerPart(command.part);
                     return command;
                 }
             }

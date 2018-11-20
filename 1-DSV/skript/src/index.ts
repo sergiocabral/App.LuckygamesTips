@@ -1,140 +1,146 @@
 /// <reference path="Core/Environment/String.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Core/Environment/Date.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Core/Environment/Number.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Locale/Format/Number.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Locale/Format/Date.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Locale/FormatSet.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Locale/Formats.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Locale/Translate.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Locale/Translates.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Core/Log/Level.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Core/Log/Message.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Core/Log/ConsoleLog.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Core/Log/History.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Core/Configuration.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Core/Data.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Util/Number.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Util/DateTime.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Util/String.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Util/DOM.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Util/Drawing.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Util/LoadReferences.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Layout/Theme/Colors.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Layout/Theme/Stylesheet.tsx" />
-/// script: react
+/// context: react
 
 /// <reference path="Layout/ReactJs/MoveAndResize.tsx" />
-/// script: react
+/// context: react
 
 /// <reference path="Layout/ReactJs/Visibility.tsx" />
-/// script: react
+/// context: react
 
 /// <reference path="Layout/ReactJs/ComponentBase.tsx" />
-/// script: react
+/// context: react
 
 /// <reference path="Layout/ReactJs/Component/Dialog.tsx" />
-/// script: react
+/// context: react
 
 /// <reference path="Layout/ReactJs/Component/ButtonActivator.tsx" />
-/// script: react
+/// context: react
 
 /// <reference path="Core/Bus/Message.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Core/Bus/MessageHandler.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Core/Bus/MessageDispatcher.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Layout/Message/DialogCreate.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Layout/Message/MainDialogToggle.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Layout/PresentationDispatcher.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Layout/Presentation.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Core/Api/ScriptContext.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Core/Api/Data.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Core/Api/DataType.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Core/Api/Request.tsx" />
-/// script: Initialize
+/// context: Initialize
 
-/// <reference path="Core/Message/RegisterModule.tsx" />
-/// script: Initialize
+/// <reference path="Core/Message/RegisterPart.tsx" />
+/// context: Initialize
 
-/// <reference path="Modules/ModuleBase.tsx" />
-/// script: Initialize
+/// <reference path="Parts/PartBase.tsx" />
+/// context: Initialize
 
-/// <reference path="Modules/MainHeader/Module.tsx" />
-/// script: FreeModule
+/// <reference path="Parts/Tools.tsx" />
+/// context: Initialize
+
+/// <reference path="Parts/MainHeader/Part.tsx" />
+/// context: SystemPart
+
+/// <reference path="Parts/LuckygamesAdjusts/Part.tsx" />
+/// context: PaidPart,LuckygamesAdjusts
 
 /// <reference path="Core/MainDispatcher.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Core/Main.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Core/Infrastructure.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 /// <reference path="Core/All.tsx" />
-/// script: Initialize
+/// context: Initialize
 
 const skript: Skript.Core.All = new Skript.Core.All();
 

@@ -6,5 +6,9 @@
     { "Não foi possível carregar as informações de localização e região.":
         "Unable to load location and region information." },
     { "Ótimo! O Tips foi carregado com sucesso.":
-        "Great! The Tips were loaded successfully."}
+        "Great! The Tips were loaded successfully." },
+    { "Módulos carregados com sucesso.":
+        "Modules loaded successfully." },
+    { "Ops! Ocorreu uma falha na conexão com a internet. Tente novamente.":
+        "Oops! An internet connection failed. Try again."}
 ]

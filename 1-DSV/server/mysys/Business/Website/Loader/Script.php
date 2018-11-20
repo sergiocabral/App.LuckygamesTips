@@ -38,10 +38,13 @@ class Script extends \Mysys\Core\Base {
         $contexts = array_map("strtolower", $contexts);
         
         $files = $this->GetFiles();
-        
+
         $filesInContext = array_keys(array_filter($files, 
-            function($context) use ($contexts) { 
-                return in_array(strtolower($context), $contexts); 
+            function($contextsOfFile) use ($contexts) { 
+                foreach (explode(",", strtolower($contextsOfFile)) as $contextOfFile) {
+                    if (in_array($contextOfFile, $contexts)) return true;
+                }
+                return false;
             }
         ));
 
@@ -61,9 +64,9 @@ class Script extends \Mysys\Core\Base {
         $basedir = self::UpDirectoryWithFile("wp-config.php", dirname(__FILE__));
         $content = file_get_contents("$basedir/../" . DIRNAME_JAVASCRIPT . "/src/{$mainFile}.ts");
 
-        $matches = preg_grep('/^\/\/\/\s+(<reference\s*path="|script:)/', explode("\n", $content));
+        $matches = preg_grep('/^\/\/\/\s+(<reference\s*path="|context:)/', explode("\n", $content));
         $matches = array_map(function($item) {
-            preg_match('/((?<==").*(?=")|(?<=script:).*)/i', $item, $matches);
+            preg_match('/((?<==").*(?=")|(?<=context:).*)/i', $item, $matches);
             return !count($matches) ? "" : trim($matches[0]);
         }, $matches);
 

@@ -11,8 +11,13 @@ namespace Skript.Core.Api {
         React,
 
         /**
-         * Módulos livres
+         * Módulos do sistema
          */
-        FreeModule
+        SystemPart,
+
+        /**
+         * Partes licenciadas.
+         */
+        PaidPart
     }
 }

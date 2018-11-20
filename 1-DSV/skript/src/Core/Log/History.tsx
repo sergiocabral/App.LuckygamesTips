@@ -21,7 +21,7 @@ namespace Skript.Core.Log {
          * Lista de mensagens de log.
          * @type {Message[]}
          */
-        public messages: Message[] = [];
+        private messages: Message[] = [];
         
         /**
          * Registra uma mensagem de log
@@ -30,7 +30,7 @@ namespace Skript.Core.Log {
          * @param {Level} level Nível da mensagem.
          * @param {any} toConsoleLog Qualquer coisas para ser passado como parâmetro para console.log();
          */
-        public post(text: string, values: any = { }, level: Level, toConsoleLog: any = undefined): void {
+        public post(text: string, values: any = { }, level: Level = Level.Information, toConsoleLog: any = undefined): void {
             try {
                 text = skript.translate.get(text, values);
             } catch (e) {

@@ -33,13 +33,13 @@ namespace Skript.Core.Api {
 
         /**
          * Retorna a url completa para chamada da api.
-         * @param {string} module Nome do módulo.
+         * @param {string} part Nome do parte.
          * @param {string} command Nome do comando.
          * @param {string} parameter Nome do parâmetro
          * @returns {string} Url.
          */
-        public getUrl(module: string, command: string, parameter: string = "") {
-            return `${this.url}${module}/${command}/${parameter}`;
+        public getUrl(part: string, command: string, parameter: string = "") {
+            return `${this.url}${part}/${command}/${parameter}`;
         }
 
         /**

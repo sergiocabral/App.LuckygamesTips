@@ -26,19 +26,36 @@ namespace Skript.Core {
             
             skript.presentation = new Layout.Presentation();
 
-            this.loadModules();
-        }
+            skript.api.loadScript([Api.ScriptContext.SystemPart])
+                .then(() => { 
+                    skript.log.post("Ótimo! O Tips foi carregado com sucesso."); 
 
-        private loadModules() {
-            skript.api.loadScript([Api.ScriptContext.FreeModule]).then(() => { skript.log.post("Ótimo! O Tips foi carregado com sucesso.", null, Log.Level.Information); });
+                    setTimeout(() => {
+                        skript.log.post("Carregando módulos disponíveis.");
+                        skript.api.loadScript([Api.ScriptContext.PaidPart])
+                            .then(() => { skript.log.post("Módulos carregados com sucesso."); })
+                            .catch(() => { skript.log.post("Ops! Ocorreu uma falha na conexão com a internet. Tente novamente.", null, Log.Level.Error); });
+                    }, 1000);
+                });
         }
 
         /**
-         * Registra um novo módulo.
-         * @param {Modules.ModuleBase} module Módulo.
+         * Lista de módulo carregados.
          */
-        public registerModule(module: Modules.ModuleBase): void {
-            console.log("TODO: register", module);
+        public parts: Parts.PartBase[] = [];
+
+        /**
+         * Registra um novo módulo.
+         * @param {Parts.PartBase} part Módulo.
+         */
+        public registerPart(part: Parts.PartBase): void {
+            this.parts.push(part);
+            
+            part.tools = {
+                log: skript.log
+            };
+
+            part.loaded();
         }
     }
 }
