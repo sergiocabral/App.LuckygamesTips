@@ -66,7 +66,11 @@ namespace Skript.Core {
                             translates: translates, 
                             locale: locale 
                         };
-                        new Main();
+                        try {
+                            new Main();
+                        } catch (error) {
+                            this.fatalError("Systema error: " + error);
+                        }
                     }).catch(() => {
                         this.fatalError("Error on load data.");
                     });

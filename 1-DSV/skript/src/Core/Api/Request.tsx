@@ -44,11 +44,21 @@ namespace Skript.Core.Api {
 
         /**
          * Carrega um script do servidor.
-         * @param ScriptContext[] contexts Contextos de script para carregamento do servidor.
+         * @param {ScriptContext[]} contexts Contextos de script para carregamento do servidor.
+         * @param {boolean} uniqueRequest Opcional. Quando true agrupa os modulos em uma chama. Quando false faz uma chamada para cada modulo.
          * @returns {Promise<void>} Retorna void depois que carrega o script do servidor.
          */
-        public loadScript(contexts: ScriptContext[]): Promise<void> {
-            const urls: string[] = contexts.map(i => this.getUrl("script", ScriptContext[i]));
+        public loadScript(contexts: ScriptContext[], uniqueRequest: boolean = true): Promise<void> {
+            let urls: string[];
+
+            if (uniqueRequest) {
+                const separator = ",";
+                const contextsString = contexts.reduce((c, i) => { c += (c !== "" ? separator : "") + ScriptContext[i]; return c; }, "");
+                urls = [this.getUrl("script", contextsString)];
+            } else {
+                urls = contexts.map(i => this.getUrl("script", ScriptContext[i]));
+            }
+
             return new Promise((resolve, reject) => {
                 Util.LoadReferences.libraries(urls).then(resolve).catch(reject);
             });

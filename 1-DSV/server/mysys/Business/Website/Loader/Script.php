@@ -19,7 +19,7 @@ class Script extends \Mysys\Core\Base {
      */
     public function GetScript($contexts = null) {
         if (!$contexts) $contexts = [strtolower(self::DEFAULT_CONTEXT)];
-        elseif (is_string($contexts)) $contexts = [$contexts];
+        elseif (is_string($contexts)) $contexts = explode(",", $contexts);
         
         if (!is_array($contexts)) return false;
 

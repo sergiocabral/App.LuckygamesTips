@@ -8,6 +8,11 @@ namespace Skript.Core.Api {
         /**
          * Implementação do React
          */
-        React
+        React,
+
+        /**
+         * Módulos livres
+         */
+        FreeModule
     }
 }

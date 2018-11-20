@@ -4,5 +4,7 @@
     { "Não foi possível carregar o tema de cores do layout.":
         "The layout color theme could not be loaded." },
     { "Não foi possível carregar as informações de localização e região.":
-        "Unable to load location and region information." }
+        "Unable to load location and region information." },
+    { "Ótimo! O Tips foi carregado com sucesso.":
+        "Great! The Tips were loaded successfully."}
 ]

@@ -1,68 +1,68 @@
 /// <reference path="Core/Environment/String.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Core/Environment/Date.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Core/Environment/Number.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Locale/Format/Number.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Locale/Format/Date.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Locale/FormatSet.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Locale/Formats.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Locale/Translate.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Locale/Translates.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Core/Log/Level.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Core/Log/Message.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Core/Log/ConsoleLog.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Core/Log/History.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Core/Configuration.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Core/Data.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Util/Number.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Util/DateTime.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Util/String.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Util/DOM.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Util/Drawing.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Util/LoadReferences.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Layout/Theme/Colors.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Layout/Theme/Stylesheet.tsx" />
 /// script: react
@@ -83,46 +83,58 @@
 /// script: react
 
 /// <reference path="Core/Bus/Message.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Core/Bus/MessageHandler.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Core/Bus/MessageDispatcher.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Layout/Message/DialogCreate.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Layout/Message/MainDialogToggle.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Layout/PresentationDispatcher.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Layout/Presentation.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Core/Api/ScriptContext.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Core/Api/Data.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Core/Api/DataType.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Core/Api/Request.tsx" />
-/// script: initialize
+/// script: Initialize
+
+/// <reference path="Core/Message/RegisterModule.tsx" />
+/// script: Initialize
+
+/// <reference path="Modules/ModuleBase.tsx" />
+/// script: Initialize
+
+/// <reference path="Modules/MainHeader/Module.tsx" />
+/// script: FreeModule
+
+/// <reference path="Core/MainDispatcher.tsx" />
+/// script: Initialize
 
 /// <reference path="Core/Main.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Core/Infrastructure.tsx" />
-/// script: initialize
+/// script: Initialize
 
 /// <reference path="Core/All.tsx" />
-/// script: initialize
+/// script: Initialize
 
 const skript: Skript.Core.All = new Skript.Core.All();
 

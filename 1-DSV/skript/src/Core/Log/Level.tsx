@@ -9,6 +9,11 @@ namespace Skript.Core.Log {
          * Informações de depuração.
          */
         Debug,
+        
+        /**
+         * Informações em geral.
+         */
+        Information,
 
         /**
          * Pontos de atenção.
