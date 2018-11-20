@@ -41,10 +41,15 @@ class Api extends \Mysys\Website\WebsiteBase {
      * @return mixed
      */
     public function api_data($params) {
-        if (count($params) >= 2) {
+        if (count($params) % 2 === 0) {
+            $list = [];
+            for ($i = 0; $i < count($params); $i += 2) { 
+                $data = (new \Website\Loader\Data())->GetData($params[$i], $params[$i + 1]);
+                $list[] = $data === false ? null : $data;
+            }            
+
             header("Access-Control-Allow-Origin: *");
-            $content = (new \Website\Loader\Data())->GetData($params[0], $params[1]);
-            if ($content !== false) return $content;
+            if (count($list)) return $list;
             else header("HTTP/1.0 404 Not Found");
         }
     }

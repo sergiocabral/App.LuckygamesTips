@@ -10,7 +10,7 @@ namespace Skript.Util {
          */
         public static defaultNumberFormat: Locale.Format.Number = {
             digits: 8,
-            decimal: ".",
+            decimal: ",",
             showPositive: false,
             prefix: "",
             sufix: ""

@@ -10,8 +10,8 @@ namespace Skript.Util {
          */
         public static defaultDateFormat: Locale.Format.Date = {
             mask: "d/M/y h:m:s",
-            day: "day",
-            days: "days"
+            day: "dia",
+            days: "dias"
         };
 
         /**

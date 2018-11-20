@@ -11,6 +11,7 @@ namespace Skript.Locale {
          * @returns {FormatSet} Objeto.
          */
         public static parse(json: string): FormatSet {
+            if (!json || !eval(`!!${json};`)) throw new Error("JSON is null.");
             return JSON.parse(json) as FormatSet;
         }
     }

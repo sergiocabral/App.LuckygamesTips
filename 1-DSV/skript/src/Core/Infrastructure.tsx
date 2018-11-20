@@ -29,16 +29,26 @@ namespace Skript.Core {
 
             this.loadReferences(configuration.debug).then(() => {
                 skript.api.loadScript([Api.ScriptContext.React]).then(() => {
-                    skript.api.loadData([
+                    const data: Api.Data[] = [
                         { type: Api.DataType.Translate, name: skript.translate.languageDefault, data: "" },
                         { type: Api.DataType.Theme, name: "default", data: "" },
                         { type: Api.DataType.Locale, name: skript.translate.languageDefault, data: "" }
-                    ]).then((data) => {
+                    ];
+                    skript.api.loadData(data).then((response) => {
+                        try {
+                            const json = JSON.parse(response);
+                            for (let i = 0; i < json.length; i++) {
+                                data[i].data = JSON.stringify(json[i]);
+                            }
+                        } catch (error) {
+                            skript.log.post("Não foi possível carregar os dados de inicialização.", null, Log.Level.Error, error);
+                        }
+
                         let translates: Locale.Translate[];
                         try {
                             translates = Locale.Translates.parse(data[0].data);
                         } catch (error) {
-                            skript.log.post("Não foi possível carregar as traduções de idioma.", null, Log.Level.Error, error);
+                            skript.log.post("Falha ao carregar as traduções de idioma. Usando idioma padrão.", null, Log.Level.Error, error);
                             translates = [];
                         }
                         
@@ -46,7 +56,7 @@ namespace Skript.Core {
                         try {
                             colors = Layout.Theme.Stylesheet.parse(data[1].data);
                         } catch (error) {
-                            skript.log.post("Não foi possível carregar o tema de cores do layout.", null, Log.Level.Error, error);
+                            skript.log.post("Falha ao carregar o tema de cores do layout. Usando tema padrão.", null, Log.Level.Error, error);
                             colors = Layout.Theme.Stylesheet.getColorsDefault();
                         }
 
@@ -54,7 +64,7 @@ namespace Skript.Core {
                         try {
                             locale = Locale.Formats.parse(data[2].data);
                         } catch (error) {
-                            skript.log.post("Não foi possível carregar as informações de localização e região.", null, Log.Level.Error, error);
+                            skript.log.post("Falha ao carregar as informações de localização e região. Usando definições padrão.", null, Log.Level.Error, error);
                             locale = {
                                 date: Util.DateTime.defaultDateFormat,
                                 number: Util.Number.defaultNumberFormat,

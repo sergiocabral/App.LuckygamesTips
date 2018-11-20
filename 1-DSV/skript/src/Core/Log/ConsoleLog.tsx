@@ -29,7 +29,7 @@ namespace Skript.Core.Log {
             if (!skript.configuration.debug) return;
 
             const style = this.getStyle(level);
-            const text = `%c[${Level[message.level]}] ${message.time.format()}: ${message.text}`;
+            const text = `%c[${Level[message.level]}] ${message.time.format({ mask: "y-M-d h:m:s,z" })}: ${message.text}`;
 
             if (toConsoleLog !== undefined) console.log(text, style, toConsoleLog);
             else console.log(text, style);

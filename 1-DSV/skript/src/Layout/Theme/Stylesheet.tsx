@@ -93,6 +93,7 @@ namespace Skript.Layout.Theme {
          * @returns {Translate[]} Objeto.
          */
         public static parse(json: string): Colors {
+            if (!json || !eval(`!!${json};`)) throw new Error("JSON is null.");
             return JSON.parse(json) as Colors;
         }
     }

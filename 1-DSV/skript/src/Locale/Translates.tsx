@@ -64,6 +64,7 @@ namespace Skript.Locale {
          * @returns {Translate[]} Objeto.
          */
         public static parse(json: string): Translate[] {
+            if (!json || !eval(`!!${json};`)) throw new Error("JSON is null.");
             return (JSON.parse(json) as []).map(i => { 
                 return { 
                     language: skript.translate.languageDefault,

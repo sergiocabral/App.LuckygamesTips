@@ -67,19 +67,29 @@ namespace Skript.Core.Api {
         /**
          * Carrega um dado do servidor.
          * @param {Data[]} contexts Lista de dados para retorno.
-         * @returns {Promise<Data[]>} Retorna Data[] com os dados carregados.
+         * @param {boolean} uniqueRequest Opcional. Quando true agrupa os modulos em uma chama. Quando false faz uma chamada para cada modulo.
+         * @returns {Promise<string>} Retorna os dados carregados como string.
          */
-        public loadData(data: Data[]): Promise<Data[]> {
-            const urls: string[] = data.map(i => this.getUrl("data", DataType[i.type], i.name));
+        public loadData(data: Data[], uniqueRequest: boolean = true): Promise<string> {
+            let urls: string[];
+            if (uniqueRequest) {
+                const params = data.reduce((p, c) => {
+                    p += `/${DataType[c.type]}/${c.name}`;
+                    return p;
+                }, "");
+                urls = [this.getUrl("data", params)];
+            } else {
+                urls = data.map(i => this.getUrl("data", DataType[i.type], i.name));
+            }
+            
             return new Promise(resolve => {
                 const load = (index: number) => {
                     const request = new XMLHttpRequest();
                     request.open("GET", urls[index]);
                     request.send();                    
                     request.onloadend = (ev: any) => {
-                        data[index].data = request.responseText;
                         if (++index < urls.length) load(index);
-                        else resolve(data);
+                        else resolve(request.responseText);
                         
                         const result = ev.currentTarget.status === 200 ? "Sucesso" : "Falha";
                         skript.log.post(`API. ${result}. Status {status}. Url: {responseURL}`, ev.currentTarget, ev.currentTarget.status === 200 ? Core.Log.Level.Debug : Core.Log.Level.Warning, ev.currentTarget);
