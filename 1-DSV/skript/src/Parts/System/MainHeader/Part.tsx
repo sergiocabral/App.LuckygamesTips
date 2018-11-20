@@ -3,7 +3,7 @@ namespace Skript.Parts.System.MainHeader {
     /**
      * Cabeçalho principal sobre o sistema.
      */
-    export class Part extends PartBase {
+    class Part extends PartBase {
         
         /**
          * Chamado quando o módulo é carregado.

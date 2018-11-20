@@ -3,7 +3,7 @@ namespace Skript.Parts.User.LuckygamesAdjusts {
     /**
      * Ajustes no ambiente da luckygames.io
      */
-    export class Part extends PartBase {
+    class Part extends PartBase {
         
         /**
          * Chamado quando o módulo é carregado.
