@@ -109,15 +109,15 @@ namespace Skript.Layout.Theme {
             const styles: string[] = [];
             
             styles.push(`
-                ${selector} button:not(.noshadow),
+                ${selector} button:not(.no-shadow),
                 ${selector} .shadow {
                     box-shadow: 1px 1px 9px rgba(0, 0, 0, 0.5);
                 }
-                ${selector} button:not(.noshadow):hover,
+                ${selector} button:not(.no-shadow):hover,
                 ${selector} .shadow:hover {
                     box-shadow: 1px 1px 9px rgba(0, 0, 0, 0.6);
                 }
-                ${selector} button:not(.noshadow):active,
+                ${selector} button:not(.no-shadow):active,
                 ${selector} .shadow:active {
                     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
                 }
