@@ -136,7 +136,7 @@ namespace Skript.Layout.ReactJs.Component {
                 right: 0;
                 width: 100%;
                 overflow: hidden;
-                background-color: ${this.theme.dialogTitleBackground};
+                background-color: ${Util.Drawing.blend(0.2, this.theme.dialogTitleBackground)};
                 border-top: 1px solid ${Util.Drawing.blend(0.5, this.theme.dialogTitleTextColor)};
             }
             ${this.selector()} .resize div {
