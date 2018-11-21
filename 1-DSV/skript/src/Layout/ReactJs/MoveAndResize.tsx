@@ -296,6 +296,8 @@ namespace Skript.Layout.ReactJs {
          * @param {any} ev Informações do evento.
          */
         private onWindowMouseMove(ev: any): void {
+            let proccessed = false;
+
             for (const i in MoveAndResize.instances) {
                 const instance = MoveAndResize.checkIfRemoved(MoveAndResize.instances, i); if (!instance) continue;
 
@@ -315,8 +317,12 @@ namespace Skript.Layout.ReactJs {
                     instance.control.moving = true;
                     instance.control.idFrameAnimation = 
                         window.requestAnimationFrame(instance.onFrameAnimation);
-                }    
+                } 
+                
+                proccessed = true;
             }
+
+            if (proccessed) Util.DOM.clearSelection();
         }
 
         /**
