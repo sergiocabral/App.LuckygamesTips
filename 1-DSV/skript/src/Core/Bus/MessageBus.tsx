@@ -30,7 +30,7 @@ namespace Skript.Core.Bus {
          * Envia uma mensagem para que algum handler possa processar.
          * @param message Mensagem.
          */
-        public static Send(message: Message): Message {
+        public static send(message: Message): Message {
             const messageToSend = message.constructor.name;
             for (let i = 0; i < MessageBus.list.length; i++) {
                 for (let j = 0; Array.isArray(MessageBus.list[i].handlers) && 
@@ -38,11 +38,24 @@ namespace Skript.Core.Bus {
                     const messageOfHandler = MessageBus.list[i].handlers[j].message;
                     if (messageOfHandler === messageToSend) {
                         MessageBus.list[i].handlers[j].handler(message);
-                        message.handled = true;
+                        message.handled++;
                     }
                 }
             }
+            skript.log.post("Message {0} dispatched and processed by {1}x.", [message.constructor.name, message.handled], Log.Level.Debug);
             return message;
+        }
+
+        /**
+         * Dispara um notificador de evento.
+         * @param {Notify} notify Notificador.
+         */
+        public static notify(notify: Notify): void {            
+            window.dispatchEvent(
+                new CustomEvent(
+                    notify.constructor.name, 
+                    { detail: notify }));
+            skript.log.post("Notifier {0} triggered.", notify.constructor.name, Log.Level.Debug);
         }
 
         /**

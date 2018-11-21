@@ -90,6 +90,9 @@
 
 /// #############################################
 
+/// <reference path="Core/Bus/Notify.tsx" />
+/// context: Initialize
+
 /// <reference path="Core/Bus/Message.tsx" />
 /// context: Initialize
 
@@ -114,6 +117,9 @@
 /// context: Initialize
 
 /// <reference path="Locale/Formats.tsx" />
+/// context: Initialize
+
+/// <reference path="Locale/Message/LanguageChanged.tsx" />
 /// context: Initialize
 
 /// <reference path="Locale/Message/SetLanguage.tsx" />

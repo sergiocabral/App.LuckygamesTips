@@ -38,7 +38,7 @@ namespace Skript.Layout {
                 React.createElement(ReactJs.Component.ButtonActivator, null, null), 
                 this.createContainer());
 
-            this.mainDialog = Core.Bus.MessageBus.Send(
+            this.mainDialog = Core.Bus.MessageBus.send(
                 new Message.DialogCreate(
                     skript.configuration.name, 
                     ReactJs.Component.DialogCloseMode.Hide)).result as ReactJs.Component.Dialog;

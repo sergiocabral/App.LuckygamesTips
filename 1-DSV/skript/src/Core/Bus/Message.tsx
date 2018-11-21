@@ -6,10 +6,10 @@ namespace Skript.Core.Bus {
     export abstract class Message {
 
         /**
-         * Indica que pelo menos um handler processou.
-         * @type {boolean}
+         * Total de vezes que foi processada por um handler.
+         * @type {number}
          */
-        public handled: boolean = false;
+        public handled: number = 0;
 
         /**
          * O handler pode armazenar valores aqui no final do processamento.

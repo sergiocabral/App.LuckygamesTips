@@ -90,6 +90,8 @@ namespace Skript.Part.System.MainHeader.Component {
                             <h2>{this.translate("do more, much more")}</h2>
                             <h3><a href={this.theme.url} target="_blank">{this.theme.url.substr(this.theme.url.indexOf("//") + 2)}</a></h3>
                             <div className="select-language"><Skript.Part.System.MainHeader.Component.Language /></div>
+                            hahaha
+                            <div className="select-language"><Skript.Part.System.MainHeader.Component.Language /></div>
                         </div>
                     </div>
                 </div>

@@ -16,6 +16,11 @@
         "Carregando módulos disponíveis." },
     { "Module loaded: {0}":
         "Módulo carregado: {0}" },
+
+    { "Message {0} dispatched and processed by {1}x.":
+        "Mensagem {0} despachada e processada por {1}x." },
+    { "Notifier {0} triggered.":
+        "Notificador {0} disparado."},
         
     { "Select language.":
         "Seleção de idioma." },
