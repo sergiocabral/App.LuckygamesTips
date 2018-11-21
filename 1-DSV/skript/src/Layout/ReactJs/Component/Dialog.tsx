@@ -116,6 +116,8 @@ namespace Skript.Layout.ReactJs.Component {
                 right: 13px;
                 top: 12px;
                 font-size: 13px;
+                border-bottom: none;
+                text-transform: none;
             }
             ${this.selector()} .header a.close:hover {
                 color: ${this.theme.dialogTitleTextColor};
@@ -123,30 +125,27 @@ namespace Skript.Layout.ReactJs.Component {
             ${this.selector()} .content > * {
                 margin: 0;
             }
+            ${this.selector()} .content {
+                height: calc(100% - 50px);
+                overflow: auto;
+                overflow-x: hidden;
+            }
             ${this.selector()} .resize {
                 position: absolute;
                 bottom: 0;
                 right: 0;
-                width: 15px;
+                width: 100%;
                 overflow: hidden;
-                background: ${this.theme.generalBackground};
+                background-color: ${this.theme.dialogTitleBackground};
+                border-top: 1px solid ${Util.Drawing.blend(0.5, this.theme.dialogTitleTextColor)};
             }
             ${this.selector()} .resize div {
-                width: 20px;
-                height: 20px;
-                background-color: ${Util.Drawing.blend(0.5, this.theme.generalTextColor)};
+                background-color: transparent;
                 float: right;
-                transform: rotate(45deg);
-                position: relative;
-                top: 10px;
-                left: 10px;
+                width: 20px;
+                height: 10px;
                 cursor: nw-resize;
-                transition: opacity 0.5s linear;
-                opacity: 0.5;
             }          
-            ${this.selector()} .resize div:hover {
-                opacity: 1;
-            }
         `;
 
         /**
@@ -250,7 +249,9 @@ namespace Skript.Layout.ReactJs.Component {
                         <a href="#" className="close" onClick={this.onCloseClick}><i className="fas fa-times"></i></a>
                     </div>
                     <div className="content">
-                        {(this.state.children as React.ReactNode[]).map(child => !child ? "" : <div key={Util.String.random()}>{child}</div>)}
+                        <div>
+                            {(this.state.children as React.ReactNode[]).map(child => !child ? "" : <div key={Util.String.random()}>{child}</div>)}
+                        </div>
                     </div>  
                     <div className="resize"><div ref={this.elResize as any}>&nbsp;</div></div>
                 </div>

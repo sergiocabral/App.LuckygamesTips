@@ -32,7 +32,21 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
         public render(): JSX.Element {            
             return (
                 <div id={this.id()} className={this.className}>
-                    LuckygamesAdjusts
+                    LuckygamesAdjusts<br/>
+                    LuckygamesAdjusts<br/>
+                    LuckygamesAdjusts<br/>
+                    LuckygamesAdjusts<br/>
+                    LuckygamesAdjusts<br/>
+                    LuckygamesAdjusts<br/>
+                    LuckygamesAdjusts<br/>
+                    LuckygamesAdjusts<br/>
+                    LuckygamesAdjusts<br/>
+                    LuckygamesAdjusts<br/>
+                    LuckygamesAdjusts<br/>
+                    LuckygamesAdjusts<br/>
+                    LuckygamesAdjusts<br/>
+                    LuckygamesAdjusts<br/>
+                    LuckygamesAdjusts<br/>
                 </div>
             );
         }
