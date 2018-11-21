@@ -64,8 +64,8 @@ namespace Skript.Core {
         private showWelcomeMessageInConsole(): void {
             if (skript.configuration.welcome) {
                 Log.ConsoleLog.welcome(skript.configuration.name, skript.translate.languageDefault === "en" ? 
-                "A way to do much more. Thanks for the support." :
-                "A way to do much more. Thanks for the support.");
+                "do more, much more. Thanks for the support." :
+                "Faça mais, muito mais. Obrigado pelo apoio.");
             }
         }
 
