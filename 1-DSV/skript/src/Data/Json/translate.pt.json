@@ -18,5 +18,7 @@
     { "Thanks for the support.":
         "Obrigado pelo apoio." },
     { "Select language.":
-        "Seleção de idioma." }
+        "Seleção de idioma." },
+    { "Change language from {old} to {new}.":
+        "Trocado idioma de {old} para {new}." }
 ]

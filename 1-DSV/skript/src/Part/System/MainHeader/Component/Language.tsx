@@ -80,7 +80,7 @@ namespace Skript.Part.System.MainHeader.Component {
             message.innerHTML = parent.classList.contains("original") ? "" : button.getAttribute("data-message") as string;
 
             const language = button.getAttribute("data-language");
-            console.log(language);
+            Core.Bus.MessageBus.Send(new Locale.Message.SetLanguage(language as string));
         }
 
         /**
