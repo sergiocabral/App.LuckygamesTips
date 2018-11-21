@@ -16,6 +16,8 @@ namespace Skript.Locale {
          */
         public constructor(languageDefault: string) {
             skript.translate = skript.translate ? skript.translate : this;
+
+            new TranslatesBus(this);
             
             this.languageDefault = languageDefault;
 
@@ -58,6 +60,22 @@ namespace Skript.Locale {
                 }
             }
             return translated.querystring(values);
+        }
+
+        /**
+         * Define um idioma.
+         * @param {string} language Idioma.
+         * @returns {string} Retorna o idioma anterior.
+         */
+        public setLanguage(language: string): string {
+            const old = skript.storage.data().language;
+            
+            if (old === language) return "";
+
+            skript.storage.data({ language: language });
+            skript.log.post("Change language from {old} to {new}. You need to refresh the page to make the change.", { old: old.toUpperCase(), new: language.toUpperCase() });
+
+            return old;
         }
 
         /**

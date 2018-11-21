@@ -68,26 +68,6 @@
 
 /// #############################################
 
-/// <reference path="Locale/Format/Number.tsx" />
-/// context: Initialize
-
-/// <reference path="Locale/Format/Date.tsx" />
-/// context: Initialize
-
-/// <reference path="Locale/FormatSet.tsx" />
-/// context: Initialize
-
-/// <reference path="Locale/Formats.tsx" />
-/// context: Initialize
-
-/// <reference path="Locale/Translate.tsx" />
-/// context: Initialize
-
-/// <reference path="Locale/Translates.tsx" />
-/// context: Initialize
-
-/// #############################################
-
 /// <reference path="Core/Log/Level.tsx" />
 /// context: Initialize
 
@@ -120,6 +100,32 @@
 /// context: Initialize
 
 /// <reference path="Core/Message/RegisterPart.tsx" />
+/// context: Initialize
+
+/// #############################################
+
+/// <reference path="Locale/Format/Number.tsx" />
+/// context: Initialize
+
+/// <reference path="Locale/Format/Date.tsx" />
+/// context: Initialize
+
+/// <reference path="Locale/FormatSet.tsx" />
+/// context: Initialize
+
+/// <reference path="Locale/Formats.tsx" />
+/// context: Initialize
+
+/// <reference path="Locale/Message/SetLanguage.tsx" />
+/// context: Initialize
+
+/// <reference path="Locale/TranslatesBus.tsx" />
+/// context: Initialize
+
+/// <reference path="Locale/Translate.tsx" />
+/// context: Initialize
+
+/// <reference path="Locale/Translates.tsx" />
 /// context: Initialize
 
 /// #############################################

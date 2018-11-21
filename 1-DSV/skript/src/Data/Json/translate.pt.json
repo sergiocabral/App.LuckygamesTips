@@ -1,22 +1,26 @@
 [
+    { "A way to do much more.":
+        "Uma maneira de fazer muito mais." },
+    { "Thanks for the support.":
+        "Obrigado pelo apoio." },
+
     { "Failed to load data: {0}":
         "Falha ao carregar dados: {0}" },
+    { "Oops! An internet connection failed. Try again.":
+        "Ops! Ocorreu uma falha na conexão com a internet. Tente novamente."},
     { "Great! The Tips were loaded successfully.":
         "Ótimo! O Tips foi carregado com sucesso." },
     { "Modules loaded successfully.":
         "Módulos carregados com sucesso." },
-    { "Oops! An internet connection failed. Try again.":
-        "Ops! Ocorreu uma falha na conexão com a internet. Tente novamente."},
     { "Loading system modules.":
         "Carregando módulos do sistema." },
     { "Loading available modules.": 
         "Carregando módulos disponíveis." },
     { "Module loaded: {0}":
         "Módulo carregado: {0}" },
-    { "A way to do much more.":
-        "Uma maneira de fazer muito mais." },
-    { "Thanks for the support.":
-        "Obrigado pelo apoio." },
+        
     { "Select language.":
-        "Seleção de idioma." }
+        "Seleção de idioma." },
+    { "Change language from {old} to {new}. You need to refresh the page to make the change.":
+        "Trocado idioma de {old} para {new}. É necessário atualizar a página para efetivar a alteração." }
 ]
