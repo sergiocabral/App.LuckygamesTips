@@ -17,6 +17,7 @@ namespace Skript.Part.System.MainHeader.Component {
             ${this.selector()} {
                 text-align: right;
                 margin: 18px 13px 0 0;
+                min-width: 130px;
             }
             ${this.selector()} .language {
                 border-bottom: 2px solid transparent;
