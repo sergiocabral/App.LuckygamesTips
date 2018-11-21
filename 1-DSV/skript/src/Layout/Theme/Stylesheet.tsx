@@ -108,6 +108,19 @@ namespace Skript.Layout.Theme {
             const selector = `.${Presentation.className}`;
             const styles: string[] = [];
             
+            //Elementos <a>
+            styles.push(`
+                ${selector} a {
+                    color: ${Util.Drawing.blend(0.2, this.generalTextColor)};
+                    border-bottom: 1px solid;
+                    padding-bottom: 2px;
+                }
+                ${selector} a:hover {
+                    color: ${Util.Drawing.blend(-0.5, this.generalTextColor)};
+                }
+            `);
+            
+            //Elemento tipo botão para mostrar diferença quando o mouse passa por cima.
             styles.push(`
                 ${selector} button:not(.no-shadow),
                 ${selector} .shadow {
