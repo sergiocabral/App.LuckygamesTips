@@ -31,7 +31,7 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
          */
         public render(): JSX.Element {            
             return (
-                <div id={Util.String.random()} className={this.className}>
+                <div id={this.id()} className={this.className}>
                     LuckygamesAdjusts
                 </div>
             );

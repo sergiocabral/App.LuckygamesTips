@@ -8,7 +8,14 @@ namespace Skript.Layout.ReactJs {
     /**
      * Tipo para props vazio do React deste componente.
      */
-    export type EmptyProps = { }
+    export type EmptyProps = { 
+
+        /**
+         * Id do elemento.
+         * @type {string}
+         */
+        id?: string
+    }
 
     /**
      * Tipo para state vazio do React deste componente.
@@ -70,6 +77,11 @@ namespace Skript.Layout.ReactJs {
         protected translate(id: string, values: any = { }): string {
             return skript.translate.get(id, values);
         }
+
+        /**
+         * Determina o id para o elemento.
+         */
+        protected id: Function = () => (this.props as any).id ? (this.props as any).id : Util.String.random();
 
         /**
          * Seletor CSS mais alto que engloba o componente.

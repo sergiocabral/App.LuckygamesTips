@@ -1,3 +1,6 @@
+/// <reference path="Part/System/MainHeader/Component/Language.tsx" />
+/// context: SystemPart
+
 /// <reference path="Part/System/MainHeader/Component/Main.tsx" />
 /// context: SystemPart
 

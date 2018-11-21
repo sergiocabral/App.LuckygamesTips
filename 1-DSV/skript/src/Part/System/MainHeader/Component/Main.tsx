@@ -8,7 +8,7 @@ namespace Skript.Part.System.MainHeader.Component {
         /**
          * Nome da classe CSS deste componente.
          */
-        public className: string = 'MainHeader';
+        public className: string = 'MainHeader-Main';
 
         /**
          * Código CSS para este componente.
@@ -79,14 +79,14 @@ namespace Skript.Part.System.MainHeader.Component {
          * @returns {JSX.Element}
          */
         public render(): JSX.Element {            
-            const id = Util.String.random();
             return (
-                <div id={id} className={this.className}>
+                <div id={this.id()} className={this.className}>
                     <div>
                         <div>
                             <h1>{this.theme.title.toUpperCase().replaceAll(" ", ".")}</h1>
                             <h2>{this.translate("Uma maneira de fazer muito mais.")}</h2>
                             <h3>{this.translate("Obrigado pelo apoio.")}</h3>
+                            <Skript.Part.System.MainHeader.Component.Language />
                         </div>
                     </div>
                 </div>

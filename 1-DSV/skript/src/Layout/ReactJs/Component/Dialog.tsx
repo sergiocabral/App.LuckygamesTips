@@ -22,7 +22,13 @@ namespace Skript.Layout.ReactJs.Component {
     export type DialogProps = {
 
         /**
-         * Título da janela de diálogo.
+         * Id do elemento.
+         * @type {string}
+         */
+        id?: string,
+
+        /**
+         * Título da janela.
          * @type {string}
          */
         title: string,
@@ -57,8 +63,8 @@ namespace Skript.Layout.ReactJs.Component {
         public className: string = 'dialog';
 
         private defaults: { width: number, height: number } = { 
-            width: 400,
-            height: 200
+            width: 500,
+            height: 250
         };
 
         /**
@@ -237,7 +243,7 @@ namespace Skript.Layout.ReactJs.Component {
          */
         public render(): JSX.Element {
             return (
-                <div id={Util.String.random()} className={this.className} ref={this.elContainer as any}>
+                <div id={this.id()} className={this.className} ref={this.elContainer as any}>
                     <div className="header">
                         <span className="icon"><i className="fas fa-robot"></i></span>
                         <h1 ref={this.elTitle as any}>{this.props.title}</h1>

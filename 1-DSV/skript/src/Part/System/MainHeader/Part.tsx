@@ -20,7 +20,7 @@ namespace Skript.Part.System.MainHeader {
          * @returns {React.ReactNode} Qualquer coisa que seja adicionado como children em um component React.
          */
         public component(): React.ReactNode {
-            return React.createElement(Component.Main, this.tools, null);
+            return React.createElement(Component.Main, null, null);
         }
         
     }
