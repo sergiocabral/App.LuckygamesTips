@@ -3,7 +3,7 @@ namespace Skript.Locale.Message {
     /**
      * Quando o idioma é alterado.
      */
-    export class LanguageChanged extends Core.Bus.Notify { 
+    export class LanguageChanged extends Core.Bus.Message { 
 
         /**
          * Construtor.

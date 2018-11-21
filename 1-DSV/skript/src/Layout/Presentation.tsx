@@ -38,10 +38,10 @@ namespace Skript.Layout {
                 React.createElement(ReactJs.Component.ButtonActivator, null, null), 
                 this.createContainer());
 
-            this.mainDialog = Core.Bus.MessageBus.send(
+            this.mainDialog = 
                 new Message.DialogCreate(
                     skript.configuration.name, 
-                    ReactJs.Component.DialogCloseMode.Hide)).result as ReactJs.Component.Dialog;
+                    ReactJs.Component.DialogCloseMode.Hide).send().result as ReactJs.Component.Dialog;
             this.mainDialog.visible(false);
         }
 

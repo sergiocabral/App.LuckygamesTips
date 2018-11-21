@@ -1,6 +1,9 @@
 /// <reference path="Part/System/MainHeader/Component/Language.tsx" />
 /// context: SystemPart
 
+/// <reference path="Part/System/MainHeader/Component/LanguageBus.tsx" />
+/// context: SystemPart
+
 /// <reference path="Part/System/MainHeader/Component/Main.tsx" />
 /// context: SystemPart
 
@@ -89,9 +92,6 @@
 /// context: Initialize
 
 /// #############################################
-
-/// <reference path="Core/Bus/Notify.tsx" />
-/// context: Initialize
 
 /// <reference path="Core/Bus/Message.tsx" />
 /// context: Initialize

@@ -94,6 +94,11 @@ namespace Skript.Layout.ReactJs {
         protected id: Function = () => (this.props as any).id ? (this.props as any).id : this.randomId;
 
         /**
+         * Verifica pelo id se o componente existe.
+         */
+        public exists: Function = () => document.querySelector(`#${this.id()}`);
+
+        /**
          * Seletor CSS mais alto que engloba o componente.
          */
         protected selector: Function = () => `.${Presentation.className} .${this.className}`;

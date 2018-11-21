@@ -8,7 +8,7 @@ namespace Skript.Locale.Message {
         /**
          * Construtor.
          * @param {string} language Idioma.
-         */
+        */
         public constructor(language: string) {
             super();
             this.language = language;

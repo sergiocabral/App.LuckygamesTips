@@ -16,5 +16,14 @@ namespace Skript.Core.Bus {
          * @type {any}
          */
         public result: any = undefined;
+
+        /**
+         * Envia uma mensagem para que algum handler possa processar.
+         * Mesmo que MessageBus.send();
+         * @returns {Message} A própria mensagem enviada.
+         */
+        public send(): Message {
+            return MessageBus.send(this);
+        }
     }
 }

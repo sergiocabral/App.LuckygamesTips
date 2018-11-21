@@ -53,7 +53,9 @@ namespace Skript.Part.System.MainHeader.Component {
          * @param {Layout.ReactJs.EmptyProps} props Propriedades.
          */
         public constructor(props: Layout.ReactJs.EmptyProps) {
-            super(props);            
+            super(props);
+
+            new LanguageBus(this);
 
             this.onClick = this.onClick.bind(this);
 
@@ -67,23 +69,29 @@ namespace Skript.Part.System.MainHeader.Component {
         private elMessage: React.RefObject<HTMLElement>;
 
         /**
-         * 
-         * @param ev Quando o botão é pressionado.
+         * Define o idioma neste componente.
+         * @param {string} language Idioma
          */
-        private onClick(ev: any) {
-            const container = document.querySelectorAll(`#${this.id()} .language.active`);
-            for (let i = 0; i < container.length; i++) container[i].classList.remove("active");
+        public setLanguage(language: string): void {
+            const all = document.querySelectorAll(`#${this.id()} .language.active`);
+            for (let i = 0; i < all.length; i++) all[i].classList.remove("active");
 
-            const button = ev.target as HTMLElement;
-            
-            const parent = button.parentElement as HTMLElement;
-            parent.classList.add("active");
+            const defined = document.querySelector(`#${this.id()} .language.${language}`) as HTMLElement;
+            defined.classList.add("active");
 
             const message = this.elMessage.current as HTMLElement;            
-            message.innerHTML = parent.classList.contains("original") ? "" : button.getAttribute("data-message") as string;
+            message.innerHTML = defined.classList.contains("original") ? "" : defined.getAttribute("data-message") as string;
+        }
 
-            const language = button.getAttribute("data-language");
-            Core.Bus.MessageBus.send(new Locale.Message.SetLanguage(language as string));
+        /**
+         * Quando o botão é pressionado.
+         * @param ev Informações do evento.
+         */
+        private onClick(ev: any) {
+            const button = ev.target as HTMLElement;
+            const parent = button.parentElement as HTMLElement;
+            const language = parent.getAttribute("data-language");
+            new Locale.Message.SetLanguage(language as string).send();
         }
 
         /**
@@ -94,15 +102,17 @@ namespace Skript.Part.System.MainHeader.Component {
             return (
                 <div id={this.id()} className={this.className}>
                     <span className="message" ref={this.elMessage as any}></span>
-                    <span className="language en"><button 
-                        data-language="en" 
-                        data-message="Refresh the page to update." 
+                    <span 
+                        className="language en" 
+                        data-language="en"
+                        data-message="Refresh the page to update."><button                         
                         title={this.translate("Select language.")}
                         onClick={this.onClick}
                         >English</button></span>
-                    <span className="language pt"><button
+                    <span 
+                        className="language pt"
                         data-language="pt" 
-                        data-message="Atualize a página para atualizar." 
+                        data-message="Atualize a página para atualizar."><button
                         title={this.translate("Select language.")}
                         onClick={this.onClick}
                         >Português</button></span>

@@ -28,16 +28,19 @@ namespace Skript.Core.Bus {
 
         /**
          * Envia uma mensagem para que algum handler possa processar.
-         * @param message Mensagem.
+         * @param {Message} message Mensagem.
+         * @returns {Message} A própria mensagem enviada.
          */
         public static send(message: Message): Message {
+            message.handled = 0;
             const messageToSend = message.constructor.name;
             for (let i = 0; i < MessageBus.list.length; i++) {
                 for (let j = 0; Array.isArray(MessageBus.list[i].handlers) && 
                                 j < MessageBus.list[i].handlers.length; j++) {
-                    const messageOfHandler = MessageBus.list[i].handlers[j].message;
+                    const messageOfHandler = MessageBus.list[i].handlers[j].message;                    
                     if (messageOfHandler === messageToSend) {
-                        MessageBus.list[i].handlers[j].handler(message);
+                        const handler = MessageBus.list[i].handlers[j].handler.bind(MessageBus.list[i].sponsor);
+                        handler(message);
                         message.handled++;
                     }
                 }
@@ -48,14 +51,14 @@ namespace Skript.Core.Bus {
 
         /**
          * Dispara um notificador de evento.
-         * @param {Notify} notify Notificador.
+         * @param {Object} object Objeto enviado como evento.
          */
-        public static notify(notify: Notify): void {            
+        public static event(object: Object): void {            
             window.dispatchEvent(
                 new CustomEvent(
-                    notify.constructor.name, 
-                    { detail: notify }));
-            skript.log.post("Notifier {0} triggered.", notify.constructor.name, Log.Level.Debug);
+                    object.constructor.name, 
+                    { detail: object }));
+            skript.log.post("Notifier {0} triggered.", object.constructor.name, Log.Level.Debug);
         }
 
         /**
