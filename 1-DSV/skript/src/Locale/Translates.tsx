@@ -73,11 +73,7 @@ namespace Skript.Locale {
             if (old === language) return "";
 
             skript.storage.data({ language: language });
-<<<<<<< HEAD
             skript.log.post("Change language from {old} to {new}. You need to refresh the page to make the change.", { old: old.toUpperCase(), new: language.toUpperCase() });
-=======
-            skript.log.post("Change language from {old} to {new}.", { old: old.toUpperCase(), new: language.toUpperCase() });
->>>>>>> 9a9fa039102004e9a900aa732e4118ceea3d6659
 
             return old;
         }

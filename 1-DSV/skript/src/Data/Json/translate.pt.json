@@ -21,11 +21,6 @@
         
     { "Select language.":
         "Seleção de idioma." },
-<<<<<<< HEAD
     { "Change language from {old} to {new}. You need to refresh the page to make the change.":
         "Trocado idioma de {old} para {new}. É necessário atualizar a página para efetivar a alteração." }
-=======
-    { "Change language from {old} to {new}.":
-        "Trocado idioma de {old} para {new}." }
->>>>>>> 9a9fa039102004e9a900aa732e4118ceea3d6659
 ]
