@@ -36,7 +36,7 @@ namespace Skript.Part.System.MainHeader.Component {
             ${this.selector()} h1,
             ${this.selector()} h2,
             ${this.selector()} h3 {
-                margin: 0 0 0 115px;
+                margin: 0 0 0 130px;
                 padding-top: 9px;
                 white-space: nowrap;
                 text-shadow: 
@@ -65,6 +65,9 @@ namespace Skript.Part.System.MainHeader.Component {
                 font-family: ${this.theme.dialogTextFont};
                 font-size: 90%;
             }
+            ${this.selector()} .select-language {
+                padding-left: 130px;
+            }
         `;
 
         /**
@@ -86,7 +89,7 @@ namespace Skript.Part.System.MainHeader.Component {
                             <h1>{this.theme.title.toUpperCase().replaceAll(" ", ".")}</h1>
                             <h2>{this.translate("Uma maneira de fazer muito mais.")}</h2>
                             <h3>{this.translate("Obrigado pelo apoio.")}</h3>
-                            <Skript.Part.System.MainHeader.Component.Language />
+                            <div className="select-language"><Skript.Part.System.MainHeader.Component.Language /></div>
                         </div>
                     </div>
                 </div>

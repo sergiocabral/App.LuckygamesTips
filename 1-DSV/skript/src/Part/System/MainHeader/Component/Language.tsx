@@ -18,6 +18,14 @@ namespace Skript.Part.System.MainHeader.Component {
                 text-align: right;
                 margin: 18px 13px 0 0;
             }
+            ${this.selector()} .language {
+                border-bottom: 2px solid transparent;
+                padding-bottom: 1px;
+                margin-left: 10px;           
+            }
+            ${this.selector()} .language.active {
+                border-bottom-color: ${Util.Drawing.blend(0.3, this.theme.dialogTitleBackground)};
+            }
             ${this.selector()} button {
                 background: transparent;
                 color: transparent;
@@ -25,15 +33,14 @@ namespace Skript.Part.System.MainHeader.Component {
                 cursor: pointer;
                 width: 24px;
                 background-size: cover;
-                margin-left: 10px;
             }
             ${this.selector()} button:focus {
                 outline: none;
             }
-            ${this.selector()} button.en {
+            ${this.selector()} .en button {
                 background-image: url("${this.theme.url}/media/language-en.png");
             }
-            ${this.selector()} button.pt {
+            ${this.selector()} .pt button {
                 background-image: url("${this.theme.url}/media/language-pt.png");
             }
         `;
@@ -44,7 +51,38 @@ namespace Skript.Part.System.MainHeader.Component {
          */
         public constructor(props: Layout.ReactJs.EmptyProps) {
             super(props);            
+
+            this.onClick = this.onClick.bind(this);
+
+            this.elMessage = React.createRef();
         }
+
+        /**
+         * Mensagem ao usuário.
+         * @type {React.RefObject<HTMLElement>}
+         */
+        private elMessage: React.RefObject<HTMLElement>;
+
+        /**
+         * 
+         * @param ev Quando o botão é pressionado.
+         */
+        private onClick(ev: any) {
+            const container = document.querySelectorAll(`#${this.id()} .language.active`);
+            for (let i = 0; i < container.length; i++) container[i].classList.remove("active");
+
+            const button = ev.target as HTMLElement;
+            
+            const parent = button.parentElement as HTMLElement;
+            parent.classList.add("active");
+
+            const message = this.elMessage.current as HTMLElement;            
+            message.innerHTML = parent.classList.contains("original") ? "" : button.getAttribute("data-message") as string;
+
+            const language = button.getAttribute("data-language");
+            console.log(language);
+        }
+
         /**
          * Renderizador do React.
          * @returns {JSX.Element}
@@ -52,11 +90,30 @@ namespace Skript.Part.System.MainHeader.Component {
         public render(): JSX.Element {            
             return (
                 <div id={this.id()} className={this.className}>
-                    <button className="en" data-language="en" data-message="Refresh the page to update the language." title={this.translate("Seleção de idioma.")}>English</button>
-                    <button className="pt" data-language="pt" data-message="Atualize a página para atualizar o idioma." title={this.translate("Seleção de idioma.")}>Português</button>
-                    <div className="message"></div>
+                    <span className="message" ref={this.elMessage as any}></span>
+                    <span className="language en"><button 
+                        data-language="en" 
+                        data-message="Refresh the page to update." 
+                        title={this.translate("Seleção de idioma.")}
+                        onClick={this.onClick}
+                        >English</button></span>
+                    <span className="language pt"><button
+                        data-language="pt" 
+                        data-message="Atualize a página para atualizar." 
+                        title={this.translate("Seleção de idioma.")}
+                        onClick={this.onClick}
+                        >Português</button></span>
                 </div>
             );
+        }
+
+        /**
+         * Após componente montado.
+         */
+        public componentDidMount(): void {
+            const language = document.querySelector(`#${this.id()} .language.${this.language()}`) as HTMLElement;
+            language.classList.add("original");
+            language.classList.add("active");
         }
     }
 }

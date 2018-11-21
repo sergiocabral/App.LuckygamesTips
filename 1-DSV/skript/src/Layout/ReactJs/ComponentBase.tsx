@@ -79,9 +79,19 @@ namespace Skript.Layout.ReactJs {
         }
 
         /**
+         * Idioma atual.
+         */
+        protected language: Function = () => skript.translate.languageDefault;
+
+        /**
+         * Id randômico determinado para a instância.
+         */
+        private randomId: string = Util.String.random();
+
+        /**
          * Determina o id para o elemento.
          */
-        protected id: Function = () => (this.props as any).id ? (this.props as any).id : Util.String.random();
+        protected id: Function = () => (this.props as any).id ? (this.props as any).id : this.randomId;
 
         /**
          * Seletor CSS mais alto que engloba o componente.
