@@ -21,7 +21,9 @@ namespace Skript.Part.System.MainHeader.Component {
             ${this.selector()} .language {
                 border-bottom: 2px solid transparent;
                 padding-bottom: 1px;
-                margin-left: 10px;           
+                display: inline-block;
+                margin-left: 10px;  
+                margin-bottom: 2px;         
             }
             ${this.selector()} .language.active {
                 border-bottom-color: ${Util.Drawing.blend(0.3, this.theme.dialogTitleBackground)};
