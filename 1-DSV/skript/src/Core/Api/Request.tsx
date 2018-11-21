@@ -15,7 +15,7 @@ namespace Skript.Core.Api {
          * @param {string} server Url do servidor da api.
          */
         public constructor(server: string) {
-            skript.api = this;
+            skript.api = skript.api ? skript.api : this;
             
             this.server = server;
             this.url = `${server}/api/`;

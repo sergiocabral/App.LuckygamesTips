@@ -31,7 +31,7 @@ class Data extends \Mysys\Core\Base {
     public function GetFilename(string $type, string $subtype): string {
         $filename = "$type.$subtype.json";
         $dirbase = self::UpDirectoryWithFile("wp-config.php", __FILE__);
-        $path = "$dirbase\\..\\" . DIRNAME_JAVASCRIPT . "\\src\\Data\\$filename";
+        $path = "$dirbase\\..\\" . DIRNAME_JAVASCRIPT . "\\src\\Data\\Json\\$filename";
         return $path;
     }
 

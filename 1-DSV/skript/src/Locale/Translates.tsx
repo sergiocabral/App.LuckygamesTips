@@ -15,9 +15,11 @@ namespace Skript.Locale {
          * @param {string} phrases Idioma padrão.
          */
         public constructor(languageDefault: string) {
-            skript.translate = this;
+            skript.translate = skript.translate ? skript.translate : this;
             
             this.languageDefault = languageDefault;
+
+            skript.log.post("Language default: {0}", languageDefault);
         }
 
         /**

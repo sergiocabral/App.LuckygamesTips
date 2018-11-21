@@ -20,7 +20,7 @@ namespace Skript.Layout {
          * Construtor.
          */
         public constructor() {
-            skript.presentation = this;
+            skript.presentation = skript.presentation ? skript.presentation : this;
 
             new PresentationBus(this);
 

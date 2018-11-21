@@ -15,7 +15,7 @@ namespace Skript.Layout.Theme {
          * @param {Colors} colors Tema de cores para configurar o layout.
          */
         public constructor(colors: Colors = skript.data.colors) {
-            skript.stylesheet = this;
+            skript.stylesheet = skript.stylesheet ? skript.stylesheet : this;
 
             this.colors = colors;
             this.zIndex = 1000;

@@ -14,7 +14,7 @@ namespace Skript.Core.Log {
          * Construtor.
          */
         public constructor() {
-            skript.log = this;
+            skript.log = skript.log ? skript.log : this;
         }
 
         /**

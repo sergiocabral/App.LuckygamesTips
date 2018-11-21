@@ -18,14 +18,13 @@ namespace Skript.Core {
         public constructor(configuration: Configuration) {
             if (configuration.server.substr(-1) === "/") configuration.server = configuration.server.substr(0, configuration.server.length - 1);
 
-            skript.infrastructure = this;
-
-            const language: string = "pt";
+            skript.infrastructure = skript.infrastructure ? skript.infrastructure : this;
 
             skript.configuration = configuration;
             new Log.History(); skript.log.post("Starting.", null, Log.Level.Debug);
+            new Data.Storage("luckygames.tips");
             new Api.Request(configuration.server);
-            new Locale.Translates(language);
+            new Locale.Translates(skript.storage.data().language);
 
             this.showWelcomeMessageInConsole();
 

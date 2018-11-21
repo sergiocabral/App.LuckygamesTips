@@ -15,7 +15,7 @@ namespace Skript.Core {
          * @param {ConfigurationLazy} configurationLazy Configuração para inicialização do sistema carregada tardiamente.
          */
         public constructor() {
-            skript.main = this;
+            skript.main = skript.main ? skript.main : this;
 
             new MainBus(this);
 
