@@ -18,12 +18,7 @@ class Data extends \Mysys\Core\Base {
         if (!file_exists($filename)) return false;
         $content = file_get_contents($filename);
         $obj = json_decode($content);
-        if ($obj) {
-            return $obj;
-        } else {
-            echo $content;
-            die;
-        }
+        return $obj;
     }
 
     /**
