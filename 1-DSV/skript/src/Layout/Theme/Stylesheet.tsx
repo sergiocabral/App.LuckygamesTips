@@ -112,7 +112,7 @@ namespace Skript.Layout.Theme {
             styles.push(`
                 ${selector} a {
                     color: ${Util.Drawing.blend(0.2, this.generalTextColor)};
-                    border-bottom: 1px solid;
+                    border-bottom: 1px dotted;
                     padding-bottom: 2px;
                 }
                 ${selector} a:hover {
