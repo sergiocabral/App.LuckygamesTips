@@ -12,9 +12,8 @@ namespace Skript.Part.System.MainHeader.Component {
             {
                 message: Locale.Message.LanguageChanged.name,
                 handler: (command: Locale.Message.LanguageChanged) => {
-                    if (!this.sponsor.exists()) return;
+                    if (!this.sponsor.exists()) return this.dispose();
                     this.sponsor.setLanguage(command.newLanguage);
-                    return command;
                 }
             }
         ];

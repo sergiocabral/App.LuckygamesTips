@@ -18,7 +18,6 @@ namespace Skript.Locale {
                 message: Message.SetLanguage.name,
                 handler: (command: Message.SetLanguage) => {
                     command.result = skript.translate.setLanguage(command.language);
-                    return command;
                 }
             }
         ];

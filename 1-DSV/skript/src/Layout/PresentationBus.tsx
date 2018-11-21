@@ -18,21 +18,18 @@ namespace Skript.Layout {
                 message: Message.DialogCreate.name,
                 handler: (command: Message.DialogCreate) => {
                     command.result = skript.presentation.createDialog({ title: command.title, closeMode: command.closeMode }, command.children);
-                    return command;
                 }
             },
             {                
                 message: Message.MainDialogToggle.name,
-                handler: (command: Message.MainDialogToggle) => {
+                handler: () => {
                     skript.presentation.mainDialog.visible(!skript.presentation.mainDialog.visible());
-                    return command;
                 }
             },
             {
                 message: Message.AppendToMainDialog.name,
                 handler: (command: Message.AppendToMainDialog) => {
                     command.result = skript.presentation.appendToMainDialog(command.children);
-                    return command;
                 }
             }
         ];

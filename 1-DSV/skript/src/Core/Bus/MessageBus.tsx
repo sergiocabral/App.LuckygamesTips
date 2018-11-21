@@ -21,6 +21,19 @@ namespace Skript.Core.Bus {
         public sponsor: T;
 
         /**
+         * Indica se foi desativada.
+         * @type {boolean}
+         */
+        private disposed: boolean = false;
+
+        /**
+         * Quando chamada tira o bus da lista de processamento.
+         */
+        public dispose(): void {
+            this.disposed = true;
+        }
+
+        /**
          * Roteadores de comandos. Toda classe descendente que é instanciada entra nessa lista.
          * @type {any}
          */
@@ -34,7 +47,10 @@ namespace Skript.Core.Bus {
         public static send(message: Message): Message {
             message.handled = 0;
             const messageToSend = message.constructor.name;
-            for (let i = 0; i < MessageBus.list.length; i++) {
+            for (let i = 0; i < MessageBus.list.length; i++) {                
+                if (!MessageBus.list[i]) continue;
+                if (MessageBus.list[i].disposed) { delete MessageBus.list[i]; continue; }
+
                 for (let j = 0; Array.isArray(MessageBus.list[i].handlers) && 
                                 j < MessageBus.list[i].handlers.length; j++) {
                     const messageOfHandler = MessageBus.list[i].handlers[j].message;                    

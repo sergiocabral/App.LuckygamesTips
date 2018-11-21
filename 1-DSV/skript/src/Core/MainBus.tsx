@@ -18,7 +18,6 @@ namespace Skript.Core {
                 message: Message.RegisterPart.name,
                 handler: (command: Message.RegisterPart) => {
                     command.result = skript.main.registerPart(command.part);
-                    return command;
                 }
             }
         ];

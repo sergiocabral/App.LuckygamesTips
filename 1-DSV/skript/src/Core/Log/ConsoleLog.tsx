@@ -49,10 +49,11 @@ namespace Skript.Core.Log {
          */
         private static getStyle(level: Level) {
             switch (level) {
-                case Level.Debug: return "color: #6c757d;";
-                case Level.Warning: return "color: #ffc107; font-weight: bold;";
                 case Level.Error: return "color: #dc3545; font-weight: bold;";
-                default: return "color: #007bff;";
+                case Level.Warning: return "color: #ffc107; font-weight: bold;";
+                case Level.Information: return "color: #007bff;";
+                case Level.Debug: return "color: #6c757d;";
+                default: return "color: #C9CBCB;";
             }
         }
     }

@@ -31,12 +31,10 @@ namespace Skript.Core {
                 .then(() => { 
                     skript.log.post("Great! The Tips were loaded successfully."); 
 
-                    setTimeout(() => {
-                        skript.log.post("Loading available modules.");
-                        skript.api.loadScript([Api.ScriptContext.PaidPart])
-                            .then(() => { skript.log.post("Modules loaded successfully."); })
-                            .catch(() => { skript.log.post("Oops! An internet connection failed. Try again.", null, Log.Level.Error); });
-                    }, 1000);
+                    skript.log.post("Loading available modules.");
+                    skript.api.loadScript([Api.ScriptContext.PaidPart])
+                        .then(() => { skript.log.post("Modules loaded successfully."); })
+                        .catch(() => { skript.log.post("Oops! An internet connection failed. Try again.", null, Log.Level.Error); });
                 });
         }
 

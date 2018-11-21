@@ -102,5 +102,19 @@ namespace Skript.Layout.ReactJs {
          * Seletor CSS mais alto que engloba o componente.
          */
         protected selector: Function = () => `.${Presentation.className} .${this.className}`;
+
+        /**
+         * Quando um componente é montado.
+         */
+        public componentWillMount() {
+            skript.log.post(`componentWillMount: ${this.constructor.name} id="${this.id()}".`, null, Core.Log.Level.DebugReact);
+        }
+
+        /**
+         * Quando um componente é desmontado.
+         */
+        public componentWillUnmount() {
+            skript.log.post(`componentWillUnmount: ${this.constructor.name} id="${this.id()}".`, null, Core.Log.Level.DebugReact);
+        }
     }
 }

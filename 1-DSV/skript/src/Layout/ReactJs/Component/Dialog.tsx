@@ -229,11 +229,31 @@ namespace Skript.Layout.ReactJs.Component {
         }
         
         /**
+         * Usada para acumular comandos append e enviá-los de uma única vez depois de alguns milissegundos.
+         * @type {React.ReactNode[]}
+         */
+        private appendDelay: React.ReactNode[] = [];
+        
+        /**
+         * Id do timeout que irá processar a lista appendDelay. 
+         * @type {number}
+         */
+        private appendIdTimeout: number = 0;
+
+        /**
          * Adiciona conteúdo na janela.
          * @param {React.ReactNode} children Conteúdo.
          */
         public append(children: React.ReactNode): void {
-            this.setState({ children: (this.state.children as React.ReactNode[]).concat(children) });
+            const delay = 100;
+            clearTimeout(this.appendIdTimeout);
+            this.appendDelay.push(children);
+
+            this.appendIdTimeout = setTimeout(() => { 
+                skript.log.post(`Dialog.append(ReactNode[${this.appendDelay.length}])`, null, Core.Log.Level.DebugReact);
+                this.setState({ children: (this.state.children as React.ReactNode[]).concat(this.appendDelay) });
+                this.appendDelay.length = 0;
+            }, delay) as any;
         }
 
         /**

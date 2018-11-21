@@ -6,6 +6,11 @@ namespace Skript.Core.Log {
     export enum Level { 
         
         /**
+         * Informações de depuração do React.
+         */
+        DebugReact,
+        
+        /**
          * Informações de depuração.
          */
         Debug,
