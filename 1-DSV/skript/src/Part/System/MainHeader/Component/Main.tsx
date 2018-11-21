@@ -87,8 +87,8 @@ namespace Skript.Part.System.MainHeader.Component {
                     <div>
                         <div>
                             <h1>{this.theme.title.toUpperCase().replaceAll(" ", ".")}</h1>
-                            <h2>{this.translate("Uma maneira de fazer muito mais.")}</h2>
-                            <h3>{this.translate("Obrigado pelo apoio.")}</h3>
+                            <h2>{this.translate("A way to do much more.")}</h2>
+                            <h3>{this.translate("Thanks for the support.")}</h3>
                             <div className="select-language"><Skript.Part.System.MainHeader.Component.Language /></div>
                         </div>
                     </div>

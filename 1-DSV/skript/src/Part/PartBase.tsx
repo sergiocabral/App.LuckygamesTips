@@ -13,7 +13,7 @@ namespace Skript.Part {
 
             Core.Bus.MessageBus.Send(new Layout.Message.AppendToMainDialog(this.component()));
 
-            this.tools.log.post("Módulo carregado: {0}", this.name);
+            this.tools.log.post("Module loaded: {0}", this.name);
 
             this.loaded();
         }

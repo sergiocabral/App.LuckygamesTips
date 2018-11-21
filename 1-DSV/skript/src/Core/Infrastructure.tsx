@@ -20,10 +20,10 @@ namespace Skript.Core {
 
             skript.infrastructure = this;
 
-            const language: string = "en";
+            const language: string = "pt";
 
             skript.configuration = configuration;
-            new Log.History(); skript.log.post("Iniciando.", null, Log.Level.Debug);
+            new Log.History(); skript.log.post("Starting.", null, Log.Level.Debug);
             new Api.Request(configuration.server);
             new Locale.Translates(language);
 
@@ -44,7 +44,7 @@ namespace Skript.Core {
                             skript.data = this.extractData(response, data);
                             new Main();
                         } catch (error) {
-                            this.fatalError("Systema error: " + error);
+                            this.fatalError("System error: " + error);
                         }
 
                     }).catch(() => {
@@ -64,17 +64,17 @@ namespace Skript.Core {
          */
         private showWelcomeMessageInConsole(): void {
             if (skript.configuration.welcome) {
-                Log.ConsoleLog.welcome(skript.configuration.name, skript.translate.languageDefault === "pt" ? 
-                    "Uma maneira de fazer muito mais. Obrigado pelo apoio." :
-                    "A way to do much more. Thanks for the support.");
+                Log.ConsoleLog.welcome(skript.configuration.name, skript.translate.languageDefault === "en" ? 
+                "A way to do much more. Thanks for the support." :
+                "A way to do much more. Thanks for the support.");
             }
         }
 
         private fatalError(error: string = ""): void {
             alert(
                 `${skript.configuration.name}\n\n` + 
-                `Opa! Desculpe dizer, mas houve uma falha na conexão com a Internet que impediu o carregamento do Luckygames skript. Por favor, atualize a página para tentar novamente.\n\n` + 
                 `Oops! Sorry to say, but there was a failure in the Internet connection that prevented the loading of Luckygames skript. Please refresh the page to try again.` + 
+                `Opa! Desculpe dizer, mas houve uma falha na conexão com a Internet que impediu o carregamento do Luckygames skript. Por favor, atualize a página para tentar novamente.\n\n` + 
                 (error ? "\n\n" + error : ""));
         }
 
@@ -124,11 +124,11 @@ namespace Skript.Core {
                     const json = JSON.parse(response[0]);
                     for (let i = 0; i < json.length; i++) data[i].data = JSON.stringify(json[i]);
                 } catch (error) {
-                    skript.log.post("Falha ao carregar dados: {0}.", data.reduce((p, c) => { p += (p ? ", " : "") + Api.DataType[c.type]; return p}, ""), Log.Level.Error, error);
+                    skript.log.post("Failed to load data: {0}", data.reduce((p, c) => { p += (p ? ", " : "") + Api.DataType[c.type]; return p}, ""), Log.Level.Error, error);
                     return result;
                 }
             } else {
-                throw new Error(`extractData ${response.length} == ${data.length}`);
+                throw new Error(`ExtractData failure: ${response.length} == ${data.length}`);
             }
 
             for (let i = 0; i < data.length; i++) {                
@@ -145,7 +145,7 @@ namespace Skript.Core {
                             break;
                     }
                 } catch (error) {
-                    skript.log.post("Falha ao carregar dados: {0}.", Api.DataType[data[i].type], Log.Level.Error, error);
+                    skript.log.post("Failed to load data: {0}", Api.DataType[data[i].type], Log.Level.Error, error);
                 }
             }
 

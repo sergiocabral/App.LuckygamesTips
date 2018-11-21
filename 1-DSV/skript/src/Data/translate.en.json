@@ -1,22 +1,22 @@
 [
-    { "Falha ao carregar dados: {0}.":
-        "Failed to load data: {0}." },
-    { "Ótimo! O Tips foi carregado com sucesso.":
-        "Great! The Tips were loaded successfully." },
-    { "Módulos carregados com sucesso.":
-        "Modules loaded successfully." },
-    { "Ops! Ocorreu uma falha na conexão com a internet. Tente novamente.":
-        "Oops! An internet connection failed. Try again."},
-    { "Carregando módulos do sistema.":
-        "Loading system modules." },
-    { "Carregando módulos disponíveis.": 
-        "Loading available modules." },
-    { "Módulo carregado: {0}":
-        "Module loaded: {0}" },
-    { "Uma maneira de fazer muito mais.":
-        "A way to do much more." },
-    { "Obrigado pelo apoio.":
-        "Thanks for the support." },
-    { "Seleção de idioma.":
-        "Select language." }
+    { "Failed to load data: {0}":
+        "Falha ao carregar dados: {0}" },
+    { "Great! The Tips were loaded successfully.":
+        "Ótimo! O Tips foi carregado com sucesso." },
+    { "Modules loaded successfully.":
+        "Módulos carregados com sucesso." },
+    { "Oops! An internet connection failed. Try again.":
+        "Ops! Ocorreu uma falha na conexão com a internet. Tente novamente."},
+    { "Loading system modules.":
+        "Carregando módulos do sistema." },
+    { "Loading available modules.": 
+        "Carregando módulos disponíveis." },
+    { "Module loaded: {0}":
+        "Módulo carregado: {0}" },
+    { "A way to do much more.":
+        "Uma maneira de fazer muito mais." },
+    { "Thanks for the support.":
+        "Obrigado pelo apoio." },
+    { "Select language.":
+        "Seleção de idioma." }
 ]

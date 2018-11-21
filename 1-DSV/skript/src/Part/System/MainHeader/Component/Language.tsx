@@ -94,13 +94,13 @@ namespace Skript.Part.System.MainHeader.Component {
                     <span className="language en"><button 
                         data-language="en" 
                         data-message="Refresh the page to update." 
-                        title={this.translate("Seleção de idioma.")}
+                        title={this.translate("Select language.")}
                         onClick={this.onClick}
                         >English</button></span>
                     <span className="language pt"><button
                         data-language="pt" 
                         data-message="Atualize a página para atualizar." 
-                        title={this.translate("Seleção de idioma.")}
+                        title={this.translate("Select language.")}
                         onClick={this.onClick}
                         >Português</button></span>
                 </div>

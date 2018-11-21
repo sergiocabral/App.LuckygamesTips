@@ -94,7 +94,7 @@ namespace Skript.Core.Api {
                         if (++index < urls.length) load(index);
                         else resolve(response);
                         
-                        const result = ev.currentTarget.status === 200 ? "Sucesso" : "Falha";
+                        const result = ev.currentTarget.status === 200 ? "Success" : "Fail";
                         skript.log.post(`API. ${result}. Status {status}. Url: {responseURL}`, ev.currentTarget, ev.currentTarget.status === 200 ? Core.Log.Level.Debug : Core.Log.Level.Warning, ev.currentTarget);
                     };
                 }

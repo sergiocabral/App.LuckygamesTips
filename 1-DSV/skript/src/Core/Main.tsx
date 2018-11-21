@@ -26,16 +26,16 @@ namespace Skript.Core {
             
             skript.presentation = new Layout.Presentation();
 
-            skript.log.post("Carregando módulos do sistema.");
+            skript.log.post("Loading system modules.");
             skript.api.loadScript([Api.ScriptContext.SystemPart])
                 .then(() => { 
-                    skript.log.post("Ótimo! O Tips foi carregado com sucesso."); 
+                    skript.log.post("Great! The Tips were loaded successfully."); 
 
                     setTimeout(() => {
-                        skript.log.post("Carregando módulos disponíveis.");
+                        skript.log.post("Loading available modules.");
                         skript.api.loadScript([Api.ScriptContext.PaidPart])
-                            .then(() => { skript.log.post("Módulos carregados com sucesso."); })
-                            .catch(() => { skript.log.post("Ops! Ocorreu uma falha na conexão com a internet. Tente novamente.", null, Log.Level.Error); });
+                            .then(() => { skript.log.post("Modules loaded successfully."); })
+                            .catch(() => { skript.log.post("Oops! An internet connection failed. Try again.", null, Log.Level.Error); });
                     }, 1000);
                 });
         }
