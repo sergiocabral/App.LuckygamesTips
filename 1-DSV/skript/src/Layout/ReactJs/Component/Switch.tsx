@@ -103,7 +103,7 @@ namespace Skript.Layout.ReactJs.Component {
 
             this.elCheckbox = React.createRef();
 
-            this.onClick = this.onClick.bind(this);
+            this.onChange = this.onChange.bind(this);
 
             this.state = { checked: props.checked };
         }
@@ -128,10 +128,10 @@ namespace Skript.Layout.ReactJs.Component {
         }
 
         /**
-         * Ao clicar no controle
+         * Ao definir checked.
          * @param ev Informações sobre o evento.
          */
-        private onClick(ev: any): void {
+        private onChange(ev: any): void {
             this.setState({ checked: ev.target.checked });
         }
 
@@ -143,7 +143,7 @@ namespace Skript.Layout.ReactJs.Component {
             const _this = this;eval("window._this = _this"); _this;
             return (
                 <div id={this.id()} className={this.className}>
-                    <input id={this.id() + "-input"} type="checkbox" className="shadow" ref={this.elCheckbox as any} defaultChecked={this.state.checked} onClick={this.onClick}/>
+                    <input id={this.id() + "-input"} type="checkbox" className="shadow" ref={this.elCheckbox as any} checked={this.state.checked} onChange={this.onChange}/>
                     <label htmlFor={this.id() + "-input"}></label>
                 </div>
             );
