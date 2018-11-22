@@ -33,20 +33,10 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
             return (
                 <div id={this.id()} className={this.className}>
                     LuckygamesAdjusts<br/>
-                    LuckygamesAdjusts<br/>
-                    LuckygamesAdjusts<br/>
-                    LuckygamesAdjusts<br/>
-                    LuckygamesAdjusts<br/>
-                    LuckygamesAdjusts<br/>
-                    LuckygamesAdjusts<br/>
-                    LuckygamesAdjusts<br/>
-                    LuckygamesAdjusts<br/>
-                    LuckygamesAdjusts<br/>
-                    LuckygamesAdjusts<br/>
-                    LuckygamesAdjusts<br/>
-                    LuckygamesAdjusts<br/>
-                    LuckygamesAdjusts<br/>
-                    LuckygamesAdjusts<br/>
+                    WebSocket: on|off|delay<br/>
+                    Animation: on|off<br/>
+                    Sounds: on|off<br/>
+                    Counts: on|off<br/>
                 </div>
             );
         }

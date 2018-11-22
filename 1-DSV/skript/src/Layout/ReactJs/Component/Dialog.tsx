@@ -134,8 +134,8 @@ namespace Skript.Layout.ReactJs.Component {
             ${this.selector()} .header a.close:hover {
                 color: ${this.theme.dialogTitleTextColor};
             }
-            ${this.selector()} .content > * {
-                margin: 0;
+            ${this.selector()} .content > div > div > div {
+                margin: 0 10px;
             }
             ${this.selector()} .content {
                 height: calc(100% - 50px);

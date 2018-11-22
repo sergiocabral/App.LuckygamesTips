@@ -250,6 +250,8 @@ namespace Skript.Layout.ReactJs {
          * @param {any} ev Informações do evento.
          */
         private onWindowMouseDown(ev: any): void {
+            if (!ev.target) return;
+            
             const targets: any[] = Array.isArray(ev.path) ? ev.path : [ev.target];
             for (const i in MoveAndResize.instances) {
                 const instance = MoveAndResize.checkIfRemoved(MoveAndResize.instances, i); if (!instance) continue;

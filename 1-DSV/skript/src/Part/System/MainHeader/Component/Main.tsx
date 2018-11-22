@@ -16,6 +16,7 @@ namespace Skript.Part.System.MainHeader.Component {
         public stylesheet: string = `
             ${this.selector()} {
                 height: 160px;
+                margin: 0 !important;
             }
             ${this.selector()} > div {
                 text-align: center;
