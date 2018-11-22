@@ -125,6 +125,8 @@ namespace Skript.Layout.Theme {
                 ${selector} button:not(.no-shadow),
                 ${selector} .shadow {
                     box-shadow: 1px 1px 9px rgba(0, 0, 0, 0.5);
+                    position: relative;
+                    top: 0;
                 }
                 ${selector} button:not(.no-shadow):hover,
                 ${selector} .shadow:hover {
@@ -132,7 +134,8 @@ namespace Skript.Layout.Theme {
                 }
                 ${selector} button:not(.no-shadow):active,
                 ${selector} .shadow:active {
-                    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+                    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+                    top: 1px;
                 }
             `);
 
