@@ -87,7 +87,7 @@ namespace Skript.Layout.ReactJs.Component {
                 transition: all 0.4s;
             }
             ${this.selector()} input.shadow:checked + label:before {
-                background-color: #8ce196;
+                background-color: #A5C4DE;
             }
             ${this.selector()} input.shadow:checked + label:after {
                 transform: translateX(25px);
