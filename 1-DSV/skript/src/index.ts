@@ -32,6 +32,9 @@
 /// <reference path="Layout/ReactJs/Visibility.tsx" />
 /// context: react
 
+/// <reference path="Layout/ReactJs/Component/Switch.tsx" />
+/// context: react
+
 /// <reference path="Layout/ReactJs/Component/Dialog.tsx" />
 /// context: react
 
