@@ -37,7 +37,19 @@ namespace Skript.Layout.ReactJs.Component {
          * Modo de fechamento da janela.
          * @type {DialogCloseMode}
          */
-        closeMode: DialogCloseMode
+        closeMode: DialogCloseMode,
+
+        /**
+         * Largura
+         * @type {number}
+         */
+        width?: number,
+
+        /**
+         * Altura
+         * @type {number}
+         */
+        height?: number
     }
 
     /**
@@ -293,6 +305,17 @@ namespace Skript.Layout.ReactJs.Component {
             setTimeout(() => this.adjustTitleWidth(), 1);
 
             this.visibility = new Visibility({ element: this.elContainer.current as HTMLElement });
+
+            (this.elContainer.current as any).style.minWidth = `450px`;
+            if (this.props.width) {
+                (this.elContainer.current as any).style.width = `${this.props.width}px`;
+                (this.elContainer.current as any).style.left = `calc(50% - ${this.props.width / 2}px)`;
+            }
+            (this.elContainer.current as any).style.minHeight = `250px`;
+            if (this.props.height) { 
+                (this.elContainer.current as any).style.height = `${this.props.height}px`;
+                (this.elContainer.current as any).style.top = `calc(50% - ${this.props.height / 2}px)`;
+            }
         }
 
         /**

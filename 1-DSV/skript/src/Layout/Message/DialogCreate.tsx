@@ -9,13 +9,17 @@ namespace Skript.Layout.Message {
          * Construtor.
          * @param {string} title Título na barra.
          * @param {ReactJs.Component.DialogCloseMode} closeMode Modos de fechamento da janela.
-         * @param {any} children Conteúdo da janela.
+         * @param {any} children Opcional. Conteúdo da janela.
+         * @param {number} width Opcional. Largura.
+         * @param {number} height Opcional. Altura.
          */
-        public constructor(title: string, closeMode: ReactJs.Component.DialogCloseMode, children?: any) { 
+        public constructor(title: string, closeMode: ReactJs.Component.DialogCloseMode, children?: any, width?: number, height?: number) { 
             super();
             this.title = title;
             this.closeMode = closeMode;
             this.children = children;
+            this.width = width;
+            this.height = height;
         }
 
         /**
@@ -35,5 +39,17 @@ namespace Skript.Layout.Message {
          * @type {any}
          */
         public children?: any;
+
+        /**
+         * Largura
+         * @type {number}
+         */
+        public width?: number;
+
+        /**
+         * Altura
+         * @type {number}
+         */
+        public height?: number;
     }
 }
