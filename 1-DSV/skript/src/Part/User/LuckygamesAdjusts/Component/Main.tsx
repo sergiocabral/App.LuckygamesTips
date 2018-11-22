@@ -32,6 +32,8 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
         public render(): JSX.Element {            
             return (
                 <div id={this.id()} className={this.className}>
+                    <Layout.ReactJs.Component.Switch checked={true} />
+                    <Layout.ReactJs.Component.Switch checked={true} />
                     LuckygamesAdjusts<br/>
                     WebSocket: on|off|delay<br/>
                     Animation: on|off<br/>

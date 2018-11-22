@@ -36,6 +36,11 @@ namespace Skript.Layout.ReactJs.Component {
          * Código CSS para este componente.
          */
         public stylesheet: string = `
+            ${this.selector()} {
+                display: inline-block;
+                padding: 3px 1px;
+                margin-bottom: -10px;
+            }
             ${this.selector()} input {
                 display: inline-block;
             }
@@ -70,7 +75,7 @@ namespace Skript.Layout.ReactJs.Component {
             }
             ${this.selector()} input.shadow + label:before {
                 right: 1px;
-                background-color: #f1f1f1;
+                background-color: #eeeeee;
                 border-radius: 60px;
                 transition: all 0.4s;
             }
