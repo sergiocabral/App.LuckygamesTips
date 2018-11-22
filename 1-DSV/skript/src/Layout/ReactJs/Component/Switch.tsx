@@ -103,7 +103,8 @@ namespace Skript.Layout.ReactJs.Component {
 
             this.elCheckbox = React.createRef();
 
-            this.onChange = this.onChange.bind(this);
+            this.onChange
+             = this.onChange.bind(this);
 
             this.state = { checked: props.checked };
         }

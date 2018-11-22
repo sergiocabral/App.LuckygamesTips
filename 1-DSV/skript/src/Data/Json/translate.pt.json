@@ -19,8 +19,12 @@
 
     { "Message {0} dispatched and processed by {1}x.":
         "Mensagem {0} despachada e processada por {1}x." },
+    { "Message {0} dispatched and processed by {1}x.":
+        "Mensagem {0} despachada e processada por {1}x." },
     { "Notifier {0} triggered.":
         "Notificador {0} disparado."},
+    { "A MessageHandler {0} was disposed.":
+        "Um MessageHandler {0} foi descartado."},
         
     { "Select language.":
         "Seleção de idioma." },

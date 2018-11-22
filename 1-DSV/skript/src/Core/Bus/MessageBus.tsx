@@ -49,7 +49,11 @@ namespace Skript.Core.Bus {
             const messageToSend = message.constructor.name;
             for (let i = 0; i < MessageBus.list.length; i++) {                
                 if (!MessageBus.list[i]) continue;
-                if (MessageBus.list[i].disposed) { delete MessageBus.list[i]; continue; }
+                if (MessageBus.list[i].disposed) { 
+                    skript.log.post("A MessageHandler {0} was disposed.", MessageBus.list[i].constructor.name, Log.Level.Debug);
+                    delete MessageBus.list[i];
+                    continue; 
+                }
 
                 for (let j = 0; Array.isArray(MessageBus.list[i].handlers) && 
                                 j < MessageBus.list[i].handlers.length; j++) {
