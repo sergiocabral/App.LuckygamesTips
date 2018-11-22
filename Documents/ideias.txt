@@ -1,48 +1,43 @@
-### tradução ser algo fundamental	
+[ok] traduÃ§Ã£o ser algo fundamental	
 
-
-
-
-
-
-Talvez C# ao invés de PHP na API
+Talvez C# ao invÃ©s de PHP na API
 
 WebSocket
 
-No JavaScript usar módulos de componetes para evitar muito código de implemntação de componentes
-Permitir o mesmo componente na mesma tela, sem conflito.
+[ok] No JavaScript usar mÃ³dulos de componetes para evitar muito cÃ³digo de implemntaÃ§Ã£o de componentes
+[parcial] Permitir o mesmo componente na mesma tela, sem conflito.
 Permitir um compoennte referenciar outro. Tipo um componente basico (label: input)
 COmpoenentes graficos: barra/pizza/etc
 
-Os módulos devem ter separação:
-- sistema: estatísticas, etc.
-- automação: bot, etc.
+Os mÃ³dulos devem ter separaÃ§Ã£o:
+- sistema: estatÃ­sticas, etc.
+- automaÃ§Ã£o: bot, etc.
 - informativo: estatistica visual, 
 - etc?
 
-deve ter ambiente de dsv + prod + (ambientes de pelo menos três versõs anteriores que possam permitir rollback da publicação)
+[ok] deve ter ambiente de dsv + prod
+ambientes de pelo menos trÃªs versÃµs anteriores que possam permitir rollback da publicaÃ§Ã£o
 
-estrutura melhor o log javascript
+[ok] estrutura melhor o log javascript
+[ok] suporte a log por niveis: debug|user|error|etc
 
 Criar um bom conceito de ligar/parar/pausar/etc para BOTs
 
 projeto de testes?
 
-olhas as funções existentes e pensar num agrupamento mais adequado a cada modulo
+olhas as funÃ§Ãµes existentes e pensar num agrupamento mais adequado a cada modulo
 
-opção de destacar modulos em outras janelas para arrastar
+opÃ§Ã£o de destacar modulos em outras janelas para arrastar
 
-separar o mais coisas possíveis em arquivos distintos
-
-suporte a log por niveis: debug|user|error|etc
+[ok] separar o mais coisas possÃ­veis em arquivos distintos
 
 compoentne de log para modulos de bot
 
-Fazer layout variável ou com resize.
+[ok] Fazer layout variÃ¡vel ou com resize.
 
 Usar banco noSQL?
 
-botões com conceito de clickAndWait
+botÃµes com conceito de clickAndWait
 
-ser possível dois controles liga/desliga no mesmo modulo
+ser possÃ­vel dois controles liga/desliga no mesmo modulo
 
