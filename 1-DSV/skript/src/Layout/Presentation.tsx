@@ -108,12 +108,20 @@ namespace Skript.Layout {
         }
 
         /**
+         * Exibe uma mensagem ao usuário do tipo log.
+         * @param {Core.Log.Message} message Mensagem.
+         */
+        public message(message: Core.Log.Message): void {
+            if (this.showMessages) this.showMessages.post(message);
+        }
+
+        /**
          * Exibe uma mensagem ao usuário
          * @param {string} text Texto.
          * @param {Level} level Nível do log.
          */
-        public message(text: string, level: Core.Log.Level = Core.Log.Level.Information): void {
-            this.showMessages.post({
+        public toast(text: string, level: Core.Log.Level = Core.Log.Level.Information): void {
+            if (this.showMessages) this.showMessages.post({
                 text: text,
                 level: level,
                 time: new Date()
