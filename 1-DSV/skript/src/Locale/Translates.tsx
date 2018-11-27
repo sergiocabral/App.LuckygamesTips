@@ -21,7 +21,7 @@ namespace Skript.Locale {
             
             this.languageDefault = languageDefault;
 
-            skript.log.post("Language default: {0}", languageDefault);
+            skript.log.post("Language default: {0}", languageDefault, Core.Log.Level.Debug);
         }
 
         /**

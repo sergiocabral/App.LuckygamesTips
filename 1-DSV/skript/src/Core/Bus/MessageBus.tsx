@@ -50,7 +50,7 @@ namespace Skript.Core.Bus {
             for (let i = 0; i < MessageBus.list.length; i++) {                
                 if (!MessageBus.list[i]) continue;
                 if (MessageBus.list[i].disposed) { 
-                    skript.log.post("A MessageHandler {0} was disposed.", MessageBus.list[i].constructor.name, Log.Level.Debug);
+                    skript.log.post("A MessageHandler {0} was disposed.", MessageBus.list[i].constructor.name, Log.Level.DebugBus);
                     delete MessageBus.list[i];
                     continue; 
                 }
@@ -65,7 +65,7 @@ namespace Skript.Core.Bus {
                     }
                 }
             }
-            skript.log.post("Message {0} dispatched and processed by {1}x.", [message.constructor.name, message.handled], Log.Level.Debug);
+            skript.log.post("Message {0} dispatched and processed by {1}x.", [message.constructor.name, message.handled], Log.Level.DebugBus);
             return message;
         }
 
@@ -78,7 +78,7 @@ namespace Skript.Core.Bus {
                 new CustomEvent(
                     object.constructor.name, 
                     { detail: object }));
-            skript.log.post("Notifier {0} triggered.", object.constructor.name, Log.Level.Debug);
+            skript.log.post("Notifier {0} triggered.", object.constructor.name, Log.Level.DebugBus);
         }
 
         /**

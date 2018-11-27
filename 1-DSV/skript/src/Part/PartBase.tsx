@@ -13,7 +13,7 @@ namespace Skript.Part {
 
             new Layout.Message.AppendToMainDialog(this.component()).send();
 
-            this.tools.log.post("Module loaded: {0}", this.name);
+            this.tools.log.post("Module loaded: {0}", this.name, Core.Log.Level.Debug);
 
             this.loaded();
         }

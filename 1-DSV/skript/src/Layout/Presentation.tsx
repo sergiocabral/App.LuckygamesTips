@@ -112,7 +112,11 @@ namespace Skript.Layout {
          * @param {Core.Log.Message} message Mensagem.
          */
         public message(message: Core.Log.Message): void {
-            if (this.showMessages) this.showMessages.post(message);
+            if (!this.showMessages || (
+                message.level != Core.Log.Level.Information &&
+                message.level != Core.Log.Level.Warning &&
+                message.level != Core.Log.Level.Error)) return;
+            this.showMessages.post(message);
         }
 
         /**
@@ -121,7 +125,7 @@ namespace Skript.Layout {
          * @param {Level} level Nível do log.
          */
         public toast(text: string, level: Core.Log.Level = Core.Log.Level.Information): void {
-            if (this.showMessages) this.showMessages.post({
+            return this.message({
                 text: text,
                 level: level,
                 time: new Date()

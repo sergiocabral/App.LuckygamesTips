@@ -36,6 +36,7 @@ namespace Skript.Core.Log {
                 case Level.Error: log = console.error; break;
                 case Level.Warning: log = console.warn; break;
                 case Level.Information: log = console.info; break;
+                case Level.Debug: log = console.log; break;
                 default: log = console.debug;
             }
 

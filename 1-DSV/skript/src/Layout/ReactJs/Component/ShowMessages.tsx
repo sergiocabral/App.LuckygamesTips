@@ -25,21 +25,9 @@ namespace Skript.Layout.ReactJs.Component {
     }
 
     /**
-     * Tipo para state do React deste componente.
-     */
-    type ShowMessagesState = {
-
-        /**
-         * Lista de mensagens
-         * @type {MessageWrapper[]}
-         */
-        messages: MessageWrapper[]
-    }
-
-    /**
      * Janela base que contem outros componentes.
      */
-    export class ShowMessages extends ComponentBase<EmptyProps, Partial<ShowMessagesState>> {
+    export class ShowMessages extends ComponentBase<EmptyProps, Partial<EmptyState>> {
 
         /**
          * Código CSS para este componente.
@@ -70,11 +58,6 @@ namespace Skript.Layout.ReactJs.Component {
                 left: -110%;
                 animation: slide 0.5s forwards;
                 box-shadow: 0 0 10px black;
-            }
-            ${this.selector()} p.${Core.Log.Level[Core.Log.Level.DebugReact]} .text {
-                opacity: 0.5;
-            }
-            ${this.selector()} p.${Core.Log.Level[Core.Log.Level.Debug]} {
             }
             ${this.selector()} p.${Core.Log.Level[Core.Log.Level.Information]} {
                 background-color: #015D88;
@@ -124,18 +107,16 @@ namespace Skript.Layout.ReactJs.Component {
         public constructor(props: EmptyProps) {
             super(props);
 
-            this.elContainer = React.createRef();
-
             this.onCloseClick = this.onCloseClick.bind(this);
             
-            this.state = { messages: [ ] };
+            this.messages = { };
         }
-
+        
         /**
-         * Container.
-         * @type {React.RefObject<HTMLElement>}
+         * Lista de mensagens.
+         * @type {{[key:string]: MessageWrapper}}
          */
-        private elContainer: React.RefObject<HTMLDivElement>;
+        private messages: {[key:string]: MessageWrapper};
 
         /**
          * Posta uma mensagem para exibição.
@@ -147,7 +128,8 @@ namespace Skript.Layout.ReactJs.Component {
                 message: message                
             }
             messageWrapper.idTimeoutRemove = setTimeout(() => this.remove(messageWrapper.id), 5000);
-            this.setState({ messages: (this.state.messages as MessageWrapper[]).concat([messageWrapper]) });            
+            this.messages[messageWrapper.id] = messageWrapper;
+            this.setState({ });
         }
 
         /**
@@ -155,21 +137,15 @@ namespace Skript.Layout.ReactJs.Component {
          * @param {string} id Identificador
          */
         private remove(id: string): void {
-            const container = this.elContainer.current as HTMLElement;
-            const messages = this.state.messages as MessageWrapper[];
-            for (const index in messages) {
-                if (messages[index].id === id) {
-                    clearTimeout(messages[index].idTimeoutRemove as NodeJS.Timeout);
+            clearTimeout(this.messages[id].idTimeoutRemove as NodeJS.Timeout);
 
-                    setTimeout(() => {
-                        messages.splice(parseInt(index), 1);
-                        this.setState({ messages: messages });
-                    }, 300 /* intervalo da animação */);
+            setTimeout(() => {
+                delete this.messages[id];
+                this.setState({  });
+            }, 300 /* intervalo da animação */);
 
-                    container.children[index].classList.add("closing");
-                    break;
-                }
-            }
+            const element = document.querySelector(`#${this.id()} p[data-id="${id}"]`) as HTMLElement;
+            element.classList.add("closing");
         }
 
         /**
@@ -188,8 +164,8 @@ namespace Skript.Layout.ReactJs.Component {
          */
         public render(): JSX.Element {
             return (
-                <div id={this.id()} className={this.className} ref={this.elContainer}>
-                    {(this.state.messages as MessageWrapper[]).map((v) => (
+                <div id={this.id()} className={this.className}>
+                    {Object.values(this.messages).map((v) => (
                         <p key={v.id} data-id={v.id} className={Core.Log.Level[v.message.level]}>
                             <a href="#" onClick={this.onCloseClick}></a>                            
                             <span className="text">{v.message.text}</span>

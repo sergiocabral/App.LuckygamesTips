@@ -43,8 +43,7 @@ namespace Skript.Core.Log {
             };            
             this.messages.push(message);
             
-            if (skript.presentation) if (level == Level.Information || level == Level.Warning || level == Level.Error)
-                skript.presentation.message(message);
+            if (skript.presentation) skript.presentation.message(message);
             
             ConsoleLog.write(message, level, toConsoleLog);
         }

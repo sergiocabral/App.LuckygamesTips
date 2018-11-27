@@ -26,14 +26,14 @@ namespace Skript.Core {
             
             skript.presentation = new Layout.Presentation();
 
-            skript.log.post("Loading system modules.");
+            skript.log.post("Loading system modules.", null, Core.Log.Level.Debug);
             skript.api.loadScript([Api.ScriptContext.SystemPart])
                 .then(() => { 
                     skript.log.post("Great! The Tips were loaded successfully."); 
 
-                    skript.log.post("Loading available modules.");
+                    skript.log.post("Loading available modules.", null, Core.Log.Level.Debug);
                     skript.api.loadScript([Api.ScriptContext.PaidPart])
-                        .then(() => { skript.log.post("Modules loaded successfully."); })
+                        .then(() => { skript.log.post("Modules loaded successfully.", null, Core.Log.Level.Debug); })
                         .catch(() => { skript.log.post("Oops! An internet connection failed. Try again.", null, Log.Level.Error); });
                 });
         }

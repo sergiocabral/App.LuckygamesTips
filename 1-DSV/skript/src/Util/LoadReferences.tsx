@@ -51,7 +51,7 @@ namespace Skript.Util {
                 element.type = "text/javascript";
                 element.src = src;
                 element.onload = () => {
-                    skript.log.post("Uploaded javascript.", null, Core.Log.Level.Debug, element);
+                    skript.log.post("Loaded javascript.", null, Core.Log.Level.DebugRequest, element);
                     resolve();
                 }
                 element.onerror = (e) => {
@@ -82,7 +82,7 @@ namespace Skript.Util {
                 element.href = href;
                 element.media = "all";
                 element.onload = () => {
-                    skript.log.post("Uploaded stylesheet.", null, Core.Log.Level.Debug, element);
+                    skript.log.post("Loaded stylesheet.", null, Core.Log.Level.DebugRequest, element);
                     resolve();
                 }
                 element.onerror = (e) => {

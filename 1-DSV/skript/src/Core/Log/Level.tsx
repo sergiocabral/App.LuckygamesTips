@@ -11,6 +11,16 @@ namespace Skript.Core.Log {
         DebugReact,
         
         /**
+         * Informações de depuração do Bus.
+         */
+        DebugBus,
+        
+        /**
+         * Informações de depuração da request HTTP.
+         */
+        DebugRequest,
+        
+        /**
          * Informações de depuração.
          */
         Debug,
