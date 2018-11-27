@@ -36,6 +36,12 @@ namespace Skript.Layout {
                 handler: (command: Message.AppendToMainDialog) => {
                     command.result = skript.presentation.appendToMainDialog(command.children);
                 }
+            },
+            {
+                message: Core.Message.MessageLogPosted.name,
+                handler: (command: Core.Message.MessageLogPosted) => {
+                    skript.presentation.message(command.message);
+                }
             }
         ];
     }    

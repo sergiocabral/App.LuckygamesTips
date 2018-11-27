@@ -49,8 +49,8 @@ namespace Skript.Core.Bus {
             const messageToSend = message.constructor.name;
             for (let i = 0; i < MessageBus.list.length; i++) {                
                 if (!MessageBus.list[i]) continue;
-                if (MessageBus.list[i].disposed) { 
-                    skript.log.post("A MessageHandler {0} was disposed.", MessageBus.list[i].constructor.name, Log.Level.DebugBus);
+                if (MessageBus.list[i].disposed) {                     
+                    if (!message.silentLog) skript.log.post("A MessageHandler {0} was disposed.", MessageBus.list[i].constructor.name, Log.Level.DebugBus);
                     delete MessageBus.list[i];
                     continue; 
                 }
@@ -65,7 +65,7 @@ namespace Skript.Core.Bus {
                     }
                 }
             }
-            skript.log.post("Message {0} dispatched and processed by {1}x.", [message.constructor.name, message.handled], Log.Level.DebugBus);
+            if (!message.silentLog) skript.log.post("Message {0} dispatched and processed by {1}x.", [message.constructor.name, message.handled], Log.Level.DebugBus);
             return message;
         }
 

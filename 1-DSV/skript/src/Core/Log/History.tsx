@@ -42,8 +42,8 @@ namespace Skript.Core.Log {
                 text: text
             };            
             this.messages.push(message);
-            
-            if (skript.presentation) skript.presentation.message(message);
+
+            new Core.Message.MessageLogPosted(message).send();
             
             ConsoleLog.write(message, level, toConsoleLog);
         }

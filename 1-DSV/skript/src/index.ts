@@ -119,6 +119,9 @@
 /// <reference path="Core/Message/RegisterPart.tsx" />
 /// context: Initialize
 
+/// <reference path="Core/Message/MessageLogPosted.tsx" />
+/// context: Initialize
+
 /// #############################################
 
 /// <reference path="Locale/Format/Number.tsx" />

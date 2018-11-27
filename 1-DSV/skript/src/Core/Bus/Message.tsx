@@ -18,6 +18,12 @@ namespace Skript.Core.Bus {
         public result: any = undefined;
 
         /**
+         * Quando true não posta no log ações dessa mensagem.
+         * @type {boolean}
+         */
+        public silentLog: boolean = false;
+
+        /**
          * Envia uma mensagem para que algum handler possa processar.
          * Mesmo que MessageBus.send();
          * @returns {Message} A própria mensagem enviada.
