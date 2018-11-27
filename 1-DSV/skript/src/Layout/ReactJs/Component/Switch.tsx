@@ -28,11 +28,6 @@ namespace Skript.Layout.ReactJs.Component {
     export class Switch extends ComponentBase<SwitchProps, Partial<SwitchState>> {
 
         /**
-         * Nome da classe CSS deste componente.
-         */
-        public className: string = 'switch';
-
-        /**
          * Código CSS para este componente.
          */
         public stylesheet: string = `

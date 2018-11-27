@@ -69,11 +69,6 @@ namespace Skript.Layout.ReactJs.Component {
      */
     export class Dialog extends ComponentBase<DialogProps, Partial<DialogState>> {
 
-        /**
-         * Nome da classe CSS deste componente.
-         */
-        public className: string = 'dialog';
-
         private defaults: { width: number, height: number } = { 
             width: 500,
             height: 250

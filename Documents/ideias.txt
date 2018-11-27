@@ -1,4 +1,7 @@
-[ok] tradução ser algo fundamental	
+﻿[ok] tradução ser algo fundamental	
+
+Cada modulo deve disponibilizar um get/set de seus parametyros
+usar isso para salvar estado atual e redfinir para um salvo
 
 Talvez C# ao invés de PHP na API
 

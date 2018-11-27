@@ -1,9 +1,9 @@
-namespace Skript.Part.System.MainHeader.Component {
+namespace Skript.Layout.ReactJs.Component {
 
     /**
      * Despachador de mensagens.
      */
-    export class LanguageBus extends Core.Bus.MessageBus<Language> {
+    export class LanguageSelectBus extends Core.Bus.MessageBus<LanguageSelect> {
 
         /**
          * Lista de mensagem possíveis de serem processados.

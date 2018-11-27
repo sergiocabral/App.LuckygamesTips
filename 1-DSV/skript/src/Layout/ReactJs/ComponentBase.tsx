@@ -28,12 +28,6 @@ namespace Skript.Layout.ReactJs {
     export abstract class ComponentBase<P, S> extends React.Component<P, S> {
 
         /**
-         * Nome da classe CSS deste componente.
-         * @type {string}
-         */
-        public abstract className: string;
-
-        /**
          * Código CSS para este componente.
          * @type {string}
          */
@@ -47,6 +41,17 @@ namespace Skript.Layout.ReactJs {
             super(props);
             setTimeout(() => this.loadStylesheet(), 1);
         }
+
+        /**
+         * Usado como prefixo nos nomes de classe CSS.
+         */
+        private static classNamePrefix: string = Util.String.random();
+
+        /**
+         * Nome da classe CSS deste componente.
+         * @type {string}
+         */
+        public className: string = ComponentBase.classNamePrefix + this.constructor.name;
 
         /**
          * Registra o código CSS para este componente.
@@ -101,7 +106,7 @@ namespace Skript.Layout.ReactJs {
         /**
          * Seletor CSS mais alto que engloba o componente.
          */
-        protected selector: Function = () => `.${Presentation.className} .${this.className}`;
+        protected selector: Function = () => `.${Presentation.className} .${this.className}[id]`;
 
         /**
          * Quando um componente é montado.

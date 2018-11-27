@@ -1,10 +1,4 @@
-/// <reference path="Part/System/MainHeader/Component/Language.tsx" />
-/// context: SystemPart
-
-/// <reference path="Part/System/MainHeader/Component/LanguageBus.tsx" />
-/// context: SystemPart
-
-/// <reference path="Part/System/MainHeader/Component/Main.tsx" />
+/// <reference path="Part/System/MainHeader/Component/MainHeader.tsx" />
 /// context: SystemPart
 
 /// <reference path="Part/System/MainHeader/Part.tsx" />
@@ -12,7 +6,7 @@
 
 /// #############################################
 
-/// <reference path="Part/User/LuckygamesAdjusts/Component/Main.tsx" />
+/// <reference path="Part/User/LuckygamesAdjusts/Component/LuckygamesAdjusts.tsx" />
 /// context: PaidPart,LuckygamesAdjusts
 
 /// <reference path="Part/User/LuckygamesAdjusts/Part.tsx" />
@@ -33,6 +27,12 @@
 /// context: react
 
 /// <reference path="Layout/ReactJs/Component/Switch.tsx" />
+/// context: react
+
+/// <reference path="Layout/ReactJs/Component/LanguageSelectBus.tsx" />
+/// context: react
+
+/// <reference path="Layout/ReactJs/Component/LanguageSelect.tsx" />
 /// context: react
 
 /// <reference path="Layout/ReactJs/Component/Dialog.tsx" />

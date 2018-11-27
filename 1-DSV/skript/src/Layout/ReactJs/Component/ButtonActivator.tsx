@@ -6,11 +6,6 @@ namespace Skript.Layout.ReactJs.Component {
     export class ButtonActivator extends ComponentBase<EmptyProps, Partial<EmptyState>> {
 
         /**
-         * Nome da classe CSS deste componente.
-         */
-        public className: string = 'activator';
-
-        /**
          * Código CSS para este componente.
          */
         public stylesheet: string = `

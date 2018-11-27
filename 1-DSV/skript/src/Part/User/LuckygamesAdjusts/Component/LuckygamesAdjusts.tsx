@@ -3,12 +3,7 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
     /**
      * Componente principal do módulo.
      */
-    export class Main extends Layout.ReactJs.ComponentBase<Layout.ReactJs.EmptyProps, Partial<Layout.ReactJs.EmptyState>> {
-
-        /**
-         * Nome da classe CSS deste componente.
-         */
-        public className: string = 'LuckygamesAdjusts';
+    export class LuckygamesAdjusts extends Layout.ReactJs.ComponentBase<Layout.ReactJs.EmptyProps, Partial<Layout.ReactJs.EmptyState>> {
 
         /**
          * Código CSS para este componente.
@@ -39,6 +34,8 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                     Animation: on|off<br/>
                     Sounds: on|off<br/>
                     Counts: on|off<br/>
+                    <Layout.ReactJs.Component.LanguageSelect />
+                    <Layout.ReactJs.Component.LanguageSelect />
                 </div>
             );
         }

@@ -3,12 +3,7 @@ namespace Skript.Part.System.MainHeader.Component {
     /**
      * Componente principal do módulo.
      */
-    export class Main extends Layout.ReactJs.ComponentBase<Layout.ReactJs.EmptyProps, Partial<Layout.ReactJs.EmptyState>> {
-
-        /**
-         * Nome da classe CSS deste componente.
-         */
-        public className: string = 'MainHeader-Main';
+    export class MainHeader extends Layout.ReactJs.ComponentBase<Layout.ReactJs.EmptyProps, Partial<Layout.ReactJs.EmptyState>> {
 
         /**
          * Código CSS para este componente.
@@ -66,8 +61,9 @@ namespace Skript.Part.System.MainHeader.Component {
                 font-family: ${this.theme.dialogTextFont};
                 font-size: 90%;
             }
-            ${this.selector()} .select-language {
-                padding-left: 130px;
+            ${this.selector()} .language-select {
+                text-align: right;
+                margin: 15px 6px 0 0;
             }
         `;
 
@@ -90,7 +86,7 @@ namespace Skript.Part.System.MainHeader.Component {
                             <h1>{this.theme.title.toUpperCase().replaceAll(" ", ".")}</h1>
                             <h2>{this.translate("do more, much more")}</h2>
                             <h3><a href={this.theme.url} target="_blank">{this.theme.url.substr(this.theme.url.indexOf("//") + 2)}</a></h3>
-                            <div className="select-language"><Skript.Part.System.MainHeader.Component.Language /></div>
+                            <div className="language-select"><Layout.ReactJs.Component.LanguageSelect /></div>
                         </div>
                     </div>
                 </div>

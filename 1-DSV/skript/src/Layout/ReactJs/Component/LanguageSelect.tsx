@@ -1,30 +1,22 @@
-namespace Skript.Part.System.MainHeader.Component {
+namespace Skript.Layout.ReactJs.Component {
 
     /**
-     * Componente principal do módulo.
+     * Seleciona o idioma.
      */
-    export class Language extends Layout.ReactJs.ComponentBase<Layout.ReactJs.EmptyProps, Partial<Layout.ReactJs.EmptyState>> {
-
-        /**
-         * Nome da classe CSS deste componente.
-         */
-        public className: string = 'MainHeader-Language';
+    export class LanguageSelect extends ComponentBase<Layout.ReactJs.EmptyProps, Partial<Layout.ReactJs.EmptyState>> {
 
         /**
          * Código CSS para este componente.
          */
         public stylesheet: string = `
             ${this.selector()} {
-                text-align: right;
-                margin: 18px 13px 0 0;
-                min-width: 150px;
+                display: inline-block;
             }
             ${this.selector()} .language {
+                display: inline-block;
                 border-bottom: 2px solid transparent;
                 padding-bottom: 1px;
-                display: inline-block;
-                margin-left: 10px;  
-                margin-bottom: 2px;         
+                margin: 2px 5px;
             }
             ${this.selector()} .language.active {
                 border-bottom-color: ${Util.Drawing.blend(0.3, this.theme.dialogTitleBackground)};
@@ -55,18 +47,10 @@ namespace Skript.Part.System.MainHeader.Component {
         public constructor(props: Layout.ReactJs.EmptyProps) {
             super(props);
 
-            new LanguageBus(this);
+            new LanguageSelectBus(this);
 
             this.onClick = this.onClick.bind(this);
-
-            this.elMessage = React.createRef();
         }
-
-        /**
-         * Mensagem ao usuário.
-         * @type {React.RefObject<HTMLElement>}
-         */
-        private elMessage: React.RefObject<HTMLElement>;
 
         /**
          * Define o idioma neste componente.
@@ -78,9 +62,6 @@ namespace Skript.Part.System.MainHeader.Component {
 
             const defined = document.querySelector(`#${this.id()} .language.${language}`) as HTMLElement;
             defined.classList.add("active");
-
-            const message = this.elMessage.current as HTMLElement;            
-            message.innerHTML = defined.classList.contains("original") ? "" : defined.getAttribute("data-message") as string;
         }
 
         /**
@@ -100,22 +81,13 @@ namespace Skript.Part.System.MainHeader.Component {
          */
         public render(): JSX.Element {            
             return (
-                <div id={this.id()} className={this.className}>
-                    <span className="message" ref={this.elMessage as any}></span>
-                    <span 
-                        className="language en" 
-                        data-language="en"
-                        data-message="Refresh the page to update."><button                         
-                        title={this.translate("Select language.")}
-                        onClick={this.onClick}
-                        >English</button></span>
-                    <span 
-                        className="language pt"
-                        data-language="pt" 
-                        data-message="Atualize a página para atualizar."><button
-                        title={this.translate("Select language.")}
-                        onClick={this.onClick}
-                        >Português</button></span>
+                <div id={this.id()} className={this.className} title={this.translate("Select language.")}>
+                    <span className="language en" data-language="en">
+                        <button onClick={this.onClick}>English</button>
+                    </span>
+                    <span className="language pt" data-language="pt">
+                        <button onClick={this.onClick}>Português</button>
+                    </span>
                 </div>
             );
         }
