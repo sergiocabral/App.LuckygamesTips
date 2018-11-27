@@ -41,6 +41,9 @@
 /// <reference path="Layout/ReactJs/Component/ButtonActivator.tsx" />
 /// context: react
 
+/// <reference path="Layout/ReactJs/Component/ShowMessages.tsx" />
+/// context: react
+
 /// #############################################
 
 /// <reference path="Util/DateTime.tsx" />

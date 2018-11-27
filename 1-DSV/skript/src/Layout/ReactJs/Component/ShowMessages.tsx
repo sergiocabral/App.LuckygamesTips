@@ -1,0 +1,203 @@
+namespace Skript.Layout.ReactJs.Component {
+
+    /**
+     * Dados de uma mensagem de exibição.
+     */
+    type MessageWrapper = {
+
+        /**
+         * Identificador único.
+         * @type {string}
+         */
+        id: string,
+
+        /**
+         * Mensagem de log
+         * @type {Core.Log.Message}
+         */
+        message: Core.Log.Message
+
+        /**
+         * Id do timeout ativo que vai remover a mensagem.
+         * @type {number}
+         */
+        idTimeoutRemove?: NodeJS.Timeout,
+    }
+
+    /**
+     * Tipo para state do React deste componente.
+     */
+    type ShowMessagesState = {
+
+        /**
+         * Lista de mensagens
+         * @type {MessageWrapper[]}
+         */
+        messages: MessageWrapper[]
+    }
+
+    /**
+     * Janela base que contem outros componentes.
+     */
+    export class ShowMessages extends ComponentBase<EmptyProps, Partial<ShowMessagesState>> {
+
+        /**
+         * Código CSS para este componente.
+         */
+        public stylesheet: string = `
+            @keyframes slide {
+                100% { left: 0; }
+            }
+            ${this.selector()} .closing {
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility 0s 0.25s, opacity 0.25s linear;
+            }
+            ${this.selector()} {
+                z-index: ${this.theme.zIndex * 2};
+                position: fixed;
+                bottom: 10px;
+                left: 10px;
+                width: 40%;                
+            }
+            ${this.selector()} p {
+                background-color: #272823;
+                color: lightgrey;
+                padding: 6px 20px 6px 10px;
+                margin: 6px 0 0 0;
+                border-radius: 3px;
+                position: relative;
+                left: -110%;
+                animation: slide 0.5s forwards;
+                box-shadow: 0 0 10px black;
+            }
+            ${this.selector()} p.${Core.Log.Level[Core.Log.Level.DebugReact]} .text {
+                opacity: 0.5;
+            }
+            ${this.selector()} p.${Core.Log.Level[Core.Log.Level.Debug]} {
+            }
+            ${this.selector()} p.${Core.Log.Level[Core.Log.Level.Information]} {
+                background-color: #015D88;
+                color: lightgrey;
+            }            
+            ${this.selector()} p.${Core.Log.Level[Core.Log.Level.Warning]} {
+                background-color: #E96227;
+                color: lightgrey;
+            }            
+            ${this.selector()} p.${Core.Log.Level[Core.Log.Level.Error]} {
+                background-color: #E61A23;
+                color: lightgrey;
+            }
+            ${this.selector()} p .text {
+                display: block;
+                margin-bottom: 10px;
+            }
+            ${this.selector()} p .time {
+                display: block;
+                font-size: 70%;
+                float: right;
+                margin: -12px -14px 0 0;
+                opacity: 0.75;
+            }
+            ${this.selector()} p a {
+                float: right;
+                cursor: pointer;
+                margin-right: -10px;
+                text-decoration: none;
+                border: none;
+            }
+            ${this.selector()} p a:before {
+                color: ${Util.Drawing.blend(0.0, this.theme.dialogTitleBackground)};
+                text-shadow: 0 0 10px ${Util.Drawing.blend(0.5, this.theme.dialogTitleBackground)};
+                content: "\\00D7";
+            }
+            ${this.selector()} p a:hover:before {
+                color: ${Util.Drawing.blend(0.2, this.theme.dialogTitleBackground)};
+                text-shadow: 0 0 3px ${Util.Drawing.blend(0.5, this.theme.dialogTitleBackground)};
+            }
+        `;
+
+        /**
+         * Construtor.
+         * @param {EmptyProps} props Propriedades.
+         */
+        public constructor(props: EmptyProps) {
+            super(props);
+
+            this.elContainer = React.createRef();
+
+            this.onCloseClick = this.onCloseClick.bind(this);
+            
+            this.state = { messages: [ ] };
+        }
+
+        /**
+         * Container.
+         * @type {React.RefObject<HTMLElement>}
+         */
+        private elContainer: React.RefObject<HTMLDivElement>;
+
+        /**
+         * Posta uma mensagem para exibição.
+         * @param {Core.Log.Message} message Mensagem
+         */
+        public post(message: Core.Log.Message): void {
+            const messageWrapper: MessageWrapper = {
+                id: Util.String.random(),
+                message: message                
+            }
+            messageWrapper.idTimeoutRemove = setTimeout(() => this.remove(messageWrapper.id), 5000);
+            this.setState({ messages: (this.state.messages as MessageWrapper[]).concat([messageWrapper]) });            
+        }
+
+        /**
+         * Remove uma mensagem
+         * @param {string} id Identificador
+         */
+        private remove(id: string): void {
+            const container = this.elContainer.current as HTMLElement;
+            const messages = this.state.messages as MessageWrapper[];
+            for (const index in messages) {
+                if (messages[index].id === id) {
+                    clearTimeout(messages[index].idTimeoutRemove as NodeJS.Timeout);
+
+                    setTimeout(() => {
+                        messages.splice(parseInt(index), 1);
+                        this.setState({ messages: messages });
+                    }, 300 /* intervalo da animação */);
+
+                    container.children[index].classList.add("closing");
+                    break;
+                }
+            }
+        }
+
+        /**
+         * Quando o botão fechar é acionado.
+         */
+        private onCloseClick(ev: any): void {
+            const button = ev.target as HTMLElement;
+            const message = button.parentElement as HTMLElement;
+            
+            this.remove(message.getAttribute("data-id") as string);
+        }
+
+        /**
+         * Renderizador do React.
+         * @returns {JSX.Element}
+         */
+        public render(): JSX.Element {
+            return (
+                <div id={this.id()} className={this.className} ref={this.elContainer}>
+                    {(this.state.messages as MessageWrapper[]).map((v) => (
+                        <p key={v.id} data-id={v.id} className={Core.Log.Level[v.message.level]}>
+                            <a href="#" onClick={this.onCloseClick}></a>                            
+                            <span className="text">{v.message.text}</span>
+                            <span className="time">{v.message.time.format({})}</span>
+                        </p>
+                    ))}
+                </div>
+            );
+        }
+    }
+}

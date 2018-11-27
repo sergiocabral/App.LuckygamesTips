@@ -37,6 +37,10 @@ namespace Skript.Layout {
             ReactDOM.render(
                 React.createElement(ReactJs.Component.ButtonActivator, null, null), 
                 this.createContainer());
+                
+            this.showMessages = ReactDOM.render(
+                React.createElement(ReactJs.Component.ShowMessages, null, null), 
+                this.createContainer());
 
             this.mainDialog = 
                 new Message.DialogCreate(
@@ -51,22 +55,37 @@ namespace Skript.Layout {
         /**
          * Container para todo HTML do sistema.
          */
-        public parentContainer: HTMLElement;
+        private parentContainer: HTMLElement;
+
+        /**
+         * Instância do exibidor de mensagens ao usuário.
+         */
+        private showMessages: ReactJs.Component.ShowMessages;
 
         /**
          * Instância da janela principal do sistema.
          */
-        public mainDialog: ReactJs.Component.Dialog;
+        private mainDialog: ReactJs.Component.Dialog;
 
         /**
          * Cria um container para receber um componente independente.
          * @returns {HTMLElement} Container criado.
          */
-        public createContainer(): HTMLElement {
+        private createContainer(): HTMLElement {
             const container: HTMLDivElement = document.createElement('div') as HTMLDivElement;
             container.id = Util.String.random();
             skript.presentation.parentContainer.appendChild(container);
             return container;
+        }
+
+        /**
+         * Define a exibição da janela.
+         * Quando nenhum parâmetro é informado apenas retorna a informação.
+         * @param {boolean} mode Opcional. Exibe ou esconde.
+         * @returns {boolean} Retorna o estado de exibição da janela.
+         */
+        public mainDialogVisible(mode?: boolean): boolean {
+            return this.mainDialog.visible(mode);
         }
 
         /**
@@ -86,6 +105,19 @@ namespace Skript.Layout {
          */
         public appendToMainDialog(children: React.ReactNode): void { 
             if (children) this.mainDialog.append(children);
+        }
+
+        /**
+         * Exibe uma mensagem ao usuário
+         * @param {string} text Texto.
+         * @param {Level} level Nível do log.
+         */
+        public message(text: string, level: Core.Log.Level = Core.Log.Level.Information): void {
+            this.showMessages.post({
+                text: text,
+                level: level,
+                time: new Date()
+            });
         }
     }
 }
