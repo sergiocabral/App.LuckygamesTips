@@ -137,7 +137,7 @@ namespace Skript.Layout.ReactJs.Component {
                             <i className="far fa-window-restore"></i>
                         </span>
                         <span className={(this.props.collapse ? "anchor " : "") + "text no-underline"} onClick={this.props.collapse ? this.onCollapseClick : undefined}>
-                            <span className="graph"><i className={"fas " + (this.props.icon ? this.props.icon : "fa-cogs")}></i></span>
+                            <span className="graph"><i className={this.props.icon ? this.props.icon : "fas fa-cogs"}></i></span>
                             <h1>{this.props.title}</h1>
                         </span>
                     </div>

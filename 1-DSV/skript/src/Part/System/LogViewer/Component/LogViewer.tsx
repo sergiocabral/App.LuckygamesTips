@@ -29,7 +29,7 @@ namespace Skript.Part.System.LogViewer.Component {
                 <div id={this.id()} className={this.className}>
                     <Layout.ReactJs.Component.Container 
                         title={this.translate("Log Viewer")} 
-                        icon="fa-clipboard-list"
+                        icon="far fa-list-alt"
                         collapse={true} 
                         newWindow={true}>
 
