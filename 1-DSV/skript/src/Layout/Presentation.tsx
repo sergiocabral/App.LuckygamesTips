@@ -48,7 +48,7 @@ namespace Skript.Layout {
                     ReactJs.Component.DialogCloseMode.Hide,
                     undefined,
                     Math.trunc((document.documentElement as any).offsetWidth * 0.6),
-                    Math.trunc((document.documentElement as any).offsetHeight * 0.6)).send().result as ReactJs.Component.Dialog;
+                    Math.trunc((document.documentElement as any).offsetHeight * 0.6)).sendSync().result as ReactJs.Component.Dialog;
             this.mainDialog.visible(false);
         }
 

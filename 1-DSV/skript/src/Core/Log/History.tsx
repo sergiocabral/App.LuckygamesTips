@@ -43,7 +43,7 @@ namespace Skript.Core.Log {
             };            
             this.messages.push(message);
 
-            new Core.Message.MessageLogPosted(message).send();
+            new Core.Message.MessageLogPosted(message).sendAsync();
             
             ConsoleLog.write(message, level, toConsoleLog);
         }

@@ -9,9 +9,9 @@ namespace Skript.Part {
          * Rgistra o módulo.
          */
         public register() {
-            this.tools = new Core.Message.RegisterPart(this).send().result;
+            this.tools = new Core.Message.RegisterPart(this).sendSync().result;
 
-            new Layout.Message.AppendToMainDialog(this.component()).send();
+            new Layout.Message.AppendToMainDialog(this.component()).sendAsync();
 
             this.tools.log.post("Module loaded: {0}", this.name, Core.Log.Level.Debug);
 

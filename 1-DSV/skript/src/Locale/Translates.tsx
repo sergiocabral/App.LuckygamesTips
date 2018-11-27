@@ -75,7 +75,7 @@ namespace Skript.Locale {
             skript.storage.data({ language: language });
             skript.log.post("Change language from {old} to {new}. You need to refresh the page to make the change.", { old: old.toUpperCase(), new: language.toUpperCase() });
 
-            new Message.LanguageChanged(old, language).send();
+            new Message.LanguageChanged(old, language).sendAsync();
 
             return old;
         }

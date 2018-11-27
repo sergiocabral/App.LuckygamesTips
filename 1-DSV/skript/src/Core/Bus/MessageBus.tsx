@@ -41,10 +41,11 @@ namespace Skript.Core.Bus {
 
         /**
          * Envia uma mensagem para que algum handler possa processar.
+         * Processamento assíncrono.
          * @param {Message} message Mensagem.
          * @returns {Message} A própria mensagem enviada.
          */
-        public static send(message: Message): Message {
+        public static sendSync(message: Message): Message {
             message.handled = 0;
             const messageToSend = message.constructor.name;
             for (let i = 0; i < MessageBus.list.length; i++) {                
@@ -59,7 +60,7 @@ namespace Skript.Core.Bus {
                                 j < MessageBus.list[i].handlers.length; j++) {
                     const messageOfHandler = MessageBus.list[i].handlers[j].message;                    
                     if (messageOfHandler === messageToSend) {
-                        const handler = MessageBus.list[i].handlers[j].handler.bind(MessageBus.list[i].sponsor);
+                        const handler = MessageBus.list[i].handlers[j].handler.bind(MessageBus.list[i].sponsor);                        
                         handler(message);
                         message.handled++;
                     }
@@ -67,6 +68,18 @@ namespace Skript.Core.Bus {
             }
             if (!message.silentLog) skript.log.post("Message {0} dispatched and processed by {1}x.", [message.constructor.name, message.handled], Log.Level.DebugBus);
             return message;
+        }
+
+        /**
+         * Envia uma mensagem para que algum handler possa processar.
+         * Processamento assíncrono.
+         * @param {Message} message Mensagem.
+         * @returns {Promise<Message>} A própria mensagem enviada.
+         */
+        public static sendAsync(message: Message): Promise<Message> {
+            return new Promise(resolve => {                
+                resolve(this.sendSync(message));
+            });
         }
 
         /**

@@ -72,7 +72,7 @@ namespace Skript.Layout.ReactJs.Component {
             const button = ev.target as HTMLElement;
             const parent = button.parentElement as HTMLElement;
             const language = parent.getAttribute("data-language");
-            new Locale.Message.SetLanguage(language as string).send();
+            new Locale.Message.SetLanguage(language as string).sendAsync();
         }
 
         /**

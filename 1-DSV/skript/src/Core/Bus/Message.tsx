@@ -25,11 +25,22 @@ namespace Skript.Core.Bus {
 
         /**
          * Envia uma mensagem para que algum handler possa processar.
-         * Mesmo que MessageBus.send();
+         * Processamento assíncrono.
+         * Mesmo que MessageBus.sendAsync();
+         * @returns {Promise<Message>} A própria mensagem enviada.
+         */
+        public sendAsync(): Promise<Message> {
+            return MessageBus.sendAsync(this);
+        }
+
+        /**
+         * Envia uma mensagem para que algum handler possa processar.
+         * Processamento síncrono.
+         * Mesmo que MessageBus.sendSync();
          * @returns {Message} A própria mensagem enviada.
          */
-        public send(): Message {
-            return MessageBus.send(this);
+        public sendSync(): Message {
+            return MessageBus.sendSync(this);
         }
     }
 }
