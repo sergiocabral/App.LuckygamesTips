@@ -92,7 +92,7 @@ namespace Skript.Layout.ReactJs.Component {
                 width: ${this.defaults.width}px;
                 height: ${this.defaults.height}px;
             }
-            ${this.selector()} .header {
+            ${this.selector()} > .header {
                 background-color: ${this.theme.dialogTitleBackground};
                 border-bottom: 1px solid ${Util.Drawing.blend(0.5, this.theme.dialogTitleTextColor)};
                 border-radius: 7px 7px 0 0;
@@ -100,7 +100,7 @@ namespace Skript.Layout.ReactJs.Component {
                 cursor: pointer;
                 position: relative;
             }
-            ${this.selector()} .header h1 {
+            ${this.selector()} > .header h1 {
                 color: ${this.theme.dialogTitleTextColor};
                 font-family: ${this.theme.dialogTextFont};
                 white-space: nowrap;
@@ -110,14 +110,14 @@ namespace Skript.Layout.ReactJs.Component {
                 text-overflow: ellipsis;
                 width: 85%;
             }
-            ${this.selector()} .header .icon {
+            ${this.selector()} > .header .graph {
                 color: ${this.theme.dialogTitleTextColor};
                 font-size: 20px;
                 float: left;
                 margin: -4px 9px 0 11px;
                 opacity: 1;
             }
-            ${this.selector()} .header a.close {
+            ${this.selector()} > .header a.close {
                 color: ${Util.Drawing.blend(0.25, this.theme.dialogTitleTextColor)};
                 position: absolute;
                 right: 13px;
@@ -126,18 +126,18 @@ namespace Skript.Layout.ReactJs.Component {
                 border-bottom: none;
                 text-transform: none;
             }
-            ${this.selector()} .header a.close:hover {
+            ${this.selector()} > .header a.close:hover {
                 color: ${this.theme.dialogTitleTextColor};
             }
-            ${this.selector()} .content > div > div > div {
-                margin: 0 10px;
+            ${this.selector()} > .content > div > div > div {
+                margin: 0 20px;
             }
-            ${this.selector()} .content {
+            ${this.selector()} > .content {
                 height: calc(100% - 50px);
                 overflow: auto;
                 overflow-x: hidden;
             }
-            ${this.selector()} .resize {
+            ${this.selector()} > .resize {
                 position: absolute;
                 bottom: 0;
                 right: 0;
@@ -146,7 +146,7 @@ namespace Skript.Layout.ReactJs.Component {
                 background-color: ${Util.Drawing.blend(0.2, this.theme.dialogTitleBackground)};
                 border-top: 1px solid ${Util.Drawing.blend(0.5, this.theme.dialogTitleTextColor)};
             }
-            ${this.selector()} .resize div {
+            ${this.selector()} > .resize div {
                 background-color: transparent;
                 float: right;
                 width: 20px;
@@ -271,7 +271,7 @@ namespace Skript.Layout.ReactJs.Component {
             return (
                 <div id={this.id()} className={this.className} ref={this.elContainer as any}>
                     <div className="header">
-                        <span className="icon"><i className="fas fa-robot"></i></span>
+                        <span className="graph"><i className="fas fa-robot"></i></span>
                         <h1 ref={this.elTitle as any}>{this.props.title}</h1>
                         <a href="#" className="close" onClick={this.onCloseClick}><i className="fas fa-times"></i></a>
                     </div>

@@ -29,5 +29,8 @@
     { "Select language.":
         "Seleção de idioma." },
     { "Change language from {old} to {new}. You need to refresh the page to make the change.":
-        "Trocado idioma de {old} para {new}. É necessário atualizar a página para efetivar a alteração." }
+        "Trocado idioma de {old} para {new}. É necessário atualizar a página para efetivar a alteração." },
+        
+    { "Log Viewer":
+        "Mensagens de Log" }
 ]

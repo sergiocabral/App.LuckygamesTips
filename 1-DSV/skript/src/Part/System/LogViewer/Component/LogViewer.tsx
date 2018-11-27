@@ -27,7 +27,13 @@ namespace Skript.Part.System.LogViewer.Component {
         public render(): JSX.Element {            
             return (
                 <div id={this.id()} className={this.className}>
-                    LogViewer
+                    <Layout.ReactJs.Component.Container 
+                        title={this.translate("Log Viewer")} 
+                        icon="fa-clipboard-list"
+                        collapse={true} 
+                        newWindow={true}>
+                        LogViewer
+                    </Layout.ReactJs.Component.Container>                    
                 </div>
             );
         }

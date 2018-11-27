@@ -84,6 +84,15 @@ namespace Skript.Layout.ReactJs {
         }
 
         /**
+         * Exibe uma mensagem ao usuário
+         * @param {string} text Texto.
+         * @param {Level} level Nível do log.
+         */
+        public toast(text: string, level: Core.Log.Level = Core.Log.Level.Information): void {
+            return skript.presentation.toast(text, level);
+        }
+
+        /**
          * Idioma atual.
          */
         protected language: Function = () => skript.translate.languageDefault;

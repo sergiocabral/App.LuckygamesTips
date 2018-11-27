@@ -110,12 +110,19 @@ namespace Skript.Layout.Theme {
             
             //Elementos <a>
             styles.push(`
-                ${selector} a {
-                    color: ${Util.Drawing.blend(0.2, this.generalTextColor)};
+                ${selector} a:not(.no-underline),
+                ${selector} .anchor:not(.no-underline) {
                     border-bottom: 1px dotted;
-                    padding-bottom: 2px;
+                    padding-bottom: 2px;                    
                 }
-                ${selector} a:hover {
+                ${selector} a,
+                ${selector} .anchor {
+                    color: ${Util.Drawing.blend(0.2, this.generalTextColor)};
+                    cursor: pointer;
+                    transition: all 0.3s ease-out;
+                }
+                ${selector} a:hover,
+                ${selector} .anchor:hover {
                     color: ${Util.Drawing.blend(-0.5, this.generalTextColor)};
                 }
             `);

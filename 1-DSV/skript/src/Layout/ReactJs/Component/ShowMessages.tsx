@@ -83,18 +83,14 @@ namespace Skript.Layout.ReactJs.Component {
                 opacity: 0.75;
             }
             ${this.selector()} p a {
+                color: ${Util.Drawing.blend(0.0, this.theme.dialogTitleBackground)};
+                text-shadow: 0 0 10px ${Util.Drawing.blend(0.5, this.theme.dialogTitleBackground)};
                 float: right;
                 cursor: pointer;
                 margin-right: -10px;
                 text-decoration: none;
-                border: none;
             }
-            ${this.selector()} p a:before {
-                color: ${Util.Drawing.blend(0.0, this.theme.dialogTitleBackground)};
-                text-shadow: 0 0 10px ${Util.Drawing.blend(0.5, this.theme.dialogTitleBackground)};
-                content: "\\00D7";
-            }
-            ${this.selector()} p a:hover:before {
+            ${this.selector()} p a:hover {
                 color: ${Util.Drawing.blend(0.2, this.theme.dialogTitleBackground)};
                 text-shadow: 0 0 3px ${Util.Drawing.blend(0.5, this.theme.dialogTitleBackground)};
             }
@@ -167,7 +163,7 @@ namespace Skript.Layout.ReactJs.Component {
                 <div id={this.id()} className={this.className}>
                     {Object.values(this.messages).map((v) => (
                         <p key={v.id} data-id={v.id} className={Core.Log.Level[v.message.level]}>
-                            <a href="#" onClick={this.onCloseClick}></a>                            
+                            <a href="#" className="no-underline" onClick={this.onCloseClick}>&times;</a>                            
                             <span className="text">{v.message.text}</span>
                             <span className="time">{v.message.time.format({})}</span>
                         </p>

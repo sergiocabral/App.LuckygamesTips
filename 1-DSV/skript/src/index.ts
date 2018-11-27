@@ -37,6 +37,9 @@
 /// <reference path="Layout/ReactJs/Component/Switch.tsx" />
 /// context: react
 
+/// <reference path="Layout/ReactJs/Component/Container.tsx" />
+/// context: react
+
 /// <reference path="Layout/ReactJs/Component/LanguageSelectBus.tsx" />
 /// context: react
 

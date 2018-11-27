@@ -69,6 +69,7 @@ namespace Skript.Layout.ReactJs.Component {
          * @param ev Informações do evento.
          */
         private onClick(ev: any) {
+            ev.preventDefault();
             const button = ev.target as HTMLElement;
             const parent = button.parentElement as HTMLElement;
             const language = parent.getAttribute("data-language");
