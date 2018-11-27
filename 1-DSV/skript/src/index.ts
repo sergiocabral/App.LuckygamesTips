@@ -1,8 +1,16 @@
 /// <reference path="Part/System/MainHeader/Component/MainHeader.tsx" />
-/// context: SystemPart
+/// context: SystemPart,SystemPartPublic
 
 /// <reference path="Part/System/MainHeader/Part.tsx" />
-/// context: SystemPart
+/// context: SystemPart,SystemPartPublic
+
+/// #############################################
+
+/// <reference path="Part/System/LogViewer/Component/LogViewer.tsx" />
+/// context: SystemPart,SystemPartPrivate
+
+/// <reference path="Part/System/LogViewer/Part.tsx" />
+/// context: SystemPart,SystemPartPrivate
 
 /// #############################################
 
