@@ -39,27 +39,36 @@ namespace Skript.Layout.ReactJs.Component {
          * Código CSS para este componente.
          */
         public stylesheet: string = `
-            ${this.selector()} .title {
+            ${this.selector()} > .title {
                 background-color: ${this.theme.dialogTitleBackground};
                 color: ${this.theme.dialogTitleTextColor};
                 border-radius: 4px;
                 padding: 5px 10px;
                 margin: 0 -10px;
             }
-            ${this.selector()} .title .text .graph {
+            ${this.selector()} > .title .text .graph {
                 float: left;
+                margin-right: 8px;
             }
-            ${this.selector()} .title .text h1 {
+            ${this.selector()} > .title .text h1 {
                 font-family: 'Raleway', sans-serif;
                 white-space: nowrap;                
                 font-size: 15px;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                margin: 2px 0 2px 18px;
-                width: calc(100% - 50px);
+                margin: 2px 0;
+                width: calc(100% - 60px);
             }
-            ${this.selector()} .title .window {
+            ${this.selector()} > .title .window {
                 float: right;
+            }
+            ${this.selector()} > .content {
+                padding: 7px 0;
+                transition: max-height 0.25s linear;
+                overflow: hidden;                
+            }
+            ${this.selector()} > .content.hide {
+                max-height: 0 !important;
             }
         </div>            
         `;
@@ -73,6 +82,8 @@ namespace Skript.Layout.ReactJs.Component {
 
             this.elContent = React.createRef();
 
+            this.isMainWindow = true;
+
             this.onCollapseClick = this.onCollapseClick.bind(this);
             this.onNewWindowClick = this.onNewWindowClick.bind(this);            
         }
@@ -84,20 +95,29 @@ namespace Skript.Layout.ReactJs.Component {
         private elContent: React.RefObject<HTMLDivElement>;
 
         /**
-         * Quando o botão é pressionado.
-         * @param ev Informações do evento.
+         * Determina se este container está na janela principal.
          */
-        private onCollapseClick(ev: any) {
-            ev.preventDefault();
-            this.toast("onCollapseClick");
+        private isMainWindow: boolean;
+
+        /**
+         * Quando o botão é pressionado.
+         */
+        private onCollapseClick() {
+            const container = this.elContent.current as HTMLElement;
+            if (container.classList.contains("hide")) {
+                container.classList.remove("hide");
+                setTimeout(() => container.style.maxHeight = "", 300 /* tempo da animação */);
+            }
+            else {
+                container.style.maxHeight = container.offsetHeight + "px";
+                setTimeout(() => container.classList.add("hide"), 1);
+            }
         }
 
         /**
          * Quando o botão é pressionado.
-         * @param ev Informações do evento.
          */
-        private onNewWindowClick(ev: any) {
-            ev.preventDefault();
+        private onNewWindowClick() {
             this.toast("onNewWindowClick");
         }
 
@@ -109,7 +129,11 @@ namespace Skript.Layout.ReactJs.Component {
             return (
                 <div id={this.id()} className={this.className}>
                     <div className="title" style={ { display: this.props.title ? "inherit" : "none" } }>
-                        <span className="anchor window no-underline" style={ { display: this.props.newWindow ? "inherit" : "none" } } onClick={this.props.newWindow ? this.onNewWindowClick : undefined}>
+                        <span 
+                            title={this.isMainWindow ? this.translate("Open in new window") : this.translate("Return to main window")}
+                            className="anchor window no-underline" 
+                            style={ { display: this.props.newWindow ? "inherit" : "none" } } 
+                            onClick={this.props.newWindow ? this.onNewWindowClick : undefined}>
                             <i className="far fa-window-restore"></i>
                         </span>
                         <span className={(this.props.collapse ? "anchor " : "") + "text no-underline"} onClick={this.props.collapse ? this.onCollapseClick : undefined}>

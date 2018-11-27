@@ -32,8 +32,32 @@ namespace Skript.Part.System.LogViewer.Component {
                         icon="fa-clipboard-list"
                         collapse={true} 
                         newWindow={true}>
-                        LogViewer
-                    </Layout.ReactJs.Component.Container>                    
+
+                        LogViewer <br />
+                        LogViewer <br />
+                        LogViewer <br />
+                        LogViewer <br />
+                        LogViewer <br />
+                        LogViewer <br />
+                        LogViewer <br />
+                        LogViewer <br />
+                        
+                    </Layout.ReactJs.Component.Container>       
+                    <Layout.ReactJs.Component.Container 
+                        title={this.translate("Log Viewer")} 
+                        collapse={true} 
+                        newWindow={true}>
+
+                        LogViewer <br />
+                        LogViewer <br />
+                        LogViewer <br />
+                        LogViewer <br />
+                        LogViewer <br />
+                        LogViewer <br />
+                        LogViewer <br />
+                        LogViewer <br />
+                        
+                    </Layout.ReactJs.Component.Container>                
                 </div>
             );
         }
