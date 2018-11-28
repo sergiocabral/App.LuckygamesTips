@@ -226,10 +226,18 @@ namespace Skript.Part.System.LogViewer.Component {
         }
 
         /**
+         * Limpar a lista de log.
+         */
+        public clear() {
+            this.messages.length = 0;
+            this.setState({ messages: 0 });
+        }
+
+        /**
          * Ao limpar log.
          */
         private onClearClick() {
-            console.log("clear");
+            new Core.Message.ClearLogMessages().sendSync();
         }
 
         /**
