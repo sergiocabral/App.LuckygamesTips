@@ -69,7 +69,7 @@ namespace Skript.Part.System.LogViewer.Component {
                 padding: 0;
             }
             ${this.selectorComponent()} .log > div {
-                max-height: 230px;
+                max-height: 260px;
             }            
             ${this.selectorDialog()} .log {
                 position: relative;
@@ -88,7 +88,7 @@ namespace Skript.Part.System.LogViewer.Component {
                 top: 0;                
                 bottom: 0;
                 overflow: hidden;
-                min-height: 260px;
+                min-height: 290px;
                 padding-bottom: 20px;
                 margin-bottom: 0 !important;
             }
@@ -106,7 +106,7 @@ namespace Skript.Part.System.LogViewer.Component {
                 display: block;
                 margin: 3px 0 6px 0;
                 padding: 0 10px;
-                word-break: break-all;
+                word-break: break-word;
                 animation: LogViewer-Blink 1s forwards;
             }
             ${this.selector()} .log .item .level {
@@ -131,6 +131,11 @@ namespace Skript.Part.System.LogViewer.Component {
                 background-color: #dc3545;
                 color: white;
             }
+            ${this.selector()} .controls {
+                padding-top: 10px;
+                text-align: center;
+                height: 100%;
+            }
         `;
 
         /**
@@ -144,6 +149,7 @@ namespace Skript.Part.System.LogViewer.Component {
             this.icon = "far fa-list-alt";
 
             this.onLevelClick = this.onLevelClick.bind(this);
+            this.onClearClick = this.onClearClick.bind(this);
             
             this.elMessages = React.createRef();
 
@@ -220,12 +226,19 @@ namespace Skript.Part.System.LogViewer.Component {
         }
 
         /**
+         * Ao limpar log.
+         */
+        private onClearClick() {
+            console.log("clear");
+        }
+
+        /**
          * Renderizador do React. Conteúdo do container.
          * @returns {JSX.Element}
          */
         protected renderContent(): JSX.Element {            
             return (
-                <table id={this.id()} className={this.className}>
+                <table id={this.id()}>
                     <thead>
                         <tr>
                             <th><h1>Níveis</h1></th>
@@ -239,7 +252,7 @@ namespace Skript.Part.System.LogViewer.Component {
                                     <div><Layout.ReactJs.Component.Switch checked={true} value={Core.Log.Level[v]}>{Core.Log.Level[v]}</Layout.ReactJs.Component.Switch></div>
                                 )}
                             </td>
-                            <td className="log width100">
+                            <td className="log width100" rowSpan={2}>
                                 <div ref={this.elMessages}>
                                     {this.messages.map(v => 
                                         <div key={v.message.id} data-id={v.message.id} className={"item " + Core.Log.Level[v.message.level]} style={ { display: v.hide ? "none" : ""} }>
@@ -249,6 +262,11 @@ namespace Skript.Part.System.LogViewer.Component {
                                         </div>
                                     )}
                                 </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="controls">
+                                <button className="button" onClick={this.onClearClick}>{this.translate("Clear")}</button>
                             </td>
                         </tr>
                     </tbody>
