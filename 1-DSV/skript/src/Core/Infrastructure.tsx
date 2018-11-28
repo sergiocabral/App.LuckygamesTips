@@ -127,7 +127,7 @@ namespace Skript.Core {
                     return result;
                 }
             } else {
-                throw new Error(`ExtractData failure: ${response.length} == ${data.length}`);
+                throw new Core.Errors.InvalidData(`Infrastructure.extractData(), request(${data.length}) === response(${response.length})`);
             }
 
             for (let i = 0; i < data.length; i++) {                

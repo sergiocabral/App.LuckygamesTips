@@ -3,7 +3,7 @@ namespace Skript.Core.Message {
     /**
      * Uma mensagem foi postada no log.
      */
-    export class MessageLogPosted extends Core.Bus.Message { 
+    export class LogMessagePosted extends Core.Bus.Message { 
 
         /**
          * Quando true não posta no log ações dessa mensagem.
@@ -25,5 +25,5 @@ namespace Skript.Core.Message {
          * @type {Core.Log.Message}
          */
         public message: Core.Log.Message;
-    }
+   }
 }

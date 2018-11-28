@@ -198,12 +198,14 @@ namespace Skript.Layout.ReactJs.Component {
          */
         private getOrCreateDialog(): Component.Dialog {
             if (!this.instanceDialog) {                
-                this.instanceDialog = new Message.DialogCreate(
+                const messageBus = new Message.DialogCreate(
                     this.props.title ? this.props.title : "",
                     DialogCloseMode.Hide,
                     this.props.icon,
                     <div id={this.contextId(IdContext.Dialog)} className={HeaderContainer.classNameDialog()}></div>,
-                    this.props.dialogSize).sendSync().result as Component.Dialog;
+                    this.props.dialogSize).sendSync() as Message.DialogCreate;
+                if (!messageBus.result) throw new Core.Errors.NullNotExpected("Message.result");
+                this.instanceDialog = messageBus.result.dialog;
                 
                 this.instanceDialog.onClose.push(() => {
                     this.moveContentToDialog(false);

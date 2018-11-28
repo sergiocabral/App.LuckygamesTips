@@ -69,12 +69,30 @@ namespace Skript.Part.System.LogViewer.Component {
          * @param {Layout.ReactJs.EmptyProps} props Propriedades.
          */
         public constructor(props: Layout.ReactJs.EmptyProps) {
-            super(props);      
+            super(props);
+
+            new LogViewerBus(this);
+
+            this.elMessages = React.createRef();
 
             this.title = this.translate("Log Viewer");
             this.icon = "far fa-list-alt";
         }
 
+        /**
+         * Container das mensagens
+         * @type {React.RefObject<HTMLDivElement>}
+         */
+        private elMessages: React.RefObject<HTMLDivElement>;
+
+        /**
+         * Nova mensagem de log recebida.
+         * @param {Core.Log.Message} message Mensagem
+         */
+        post(message: Core.Log.Message): void {
+            console.log(message);
+        }
+        
         /**
          * Níveis disponíveis para visualizar.
          * @type {Core.Log.Level[]} Lista de níveis.
@@ -118,38 +136,7 @@ namespace Skript.Part.System.LogViewer.Component {
                                 )}
                             </td>
                             <td className="log width100">
-                                <div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                <div className="item">Log aqui</div>
-                                </div>
+                                <div ref={this.elMessages}></div>
                             </td>
                         </tr>
                     </tbody>

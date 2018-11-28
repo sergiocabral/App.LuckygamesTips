@@ -42,16 +42,17 @@ namespace Skript.Layout {
                 React.createElement(ReactJs.Component.ShowMessages, null, null), 
                 this.createContainer());
 
-            this.mainDialog = 
-                new Message.DialogCreate(
-                    skript.configuration.name, 
-                    ReactJs.Component.DialogCloseMode.Hide,
-                    "fas fa-robot",
-                    undefined,
-                    {
-                        width: Math.trunc((document.documentElement as any).offsetWidth * 0.6),
-                        height: Math.trunc((document.documentElement as any).offsetHeight * 0.6)
-                    }).sendSync().result as ReactJs.Component.Dialog;
+            const messageBus = new Message.DialogCreate(
+                skript.configuration.name, 
+                ReactJs.Component.DialogCloseMode.Hide,
+                "fas fa-robot",
+                undefined,
+                {
+                    width: Math.trunc((document.documentElement as any).offsetWidth * 0.6),
+                    height: Math.trunc((document.documentElement as any).offsetHeight * 0.6)
+                }).sendSync() as Message.DialogCreate;
+            if (!messageBus.result) throw new Core.Errors.NullNotExpected("Message.result");
+            this.mainDialog = messageBus.result.dialog;
             this.mainDialog.visible(false);
         }
 

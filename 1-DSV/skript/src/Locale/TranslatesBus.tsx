@@ -16,9 +16,7 @@ namespace Skript.Locale {
         public handlers: Core.Bus.MessageHandler[] = [ 
             {
                 message: Message.SetLanguage.name,
-                handler: (command: Message.SetLanguage) => {
-                    command.result = skript.translate.setLanguage(command.language);
-                }
+                handler: (command: Message.SetLanguage) => command.result = { oldLanguage: skript.translate.setLanguage(command.language) }
             }
         ];
     }    

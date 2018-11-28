@@ -73,7 +73,7 @@ namespace Skript.Util {
                     bringTo = element.parentElement.children[element.parentElement.childNodes.length - 1] !== element;
                     if (bringTo) element.parentElement.append(element);                    
                     break;
-                default: throw new Error("Invalid BringTo.");
+                default: throw new Core.Errors.InvalidArgument("BringTo");
             }
             
             logInfo.children = element.parentElement.children.length;

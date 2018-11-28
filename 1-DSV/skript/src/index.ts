@@ -9,6 +9,9 @@
 /// <reference path="Part/System/LogViewer/Component/LogViewer.tsx" />
 /// context: SystemPart,SystemPartPrivate
 
+/// <reference path="Part/System/LogViewer/Component/LogViewerBus.tsx" />
+/// context: SystemPart,SystemPartPrivate
+
 /// <reference path="Part/System/LogViewer/Part.tsx" />
 /// context: SystemPart,SystemPartPrivate
 
@@ -100,6 +103,9 @@
 /// <reference path="Core/Log/ConsoleLog.tsx" />
 /// context: Initialize
 
+/// <reference path="Core/Log/HistoryBus.tsx" />
+/// context: Initialize
+
 /// <reference path="Core/Log/History.tsx" />
 /// context: Initialize
 
@@ -125,7 +131,10 @@
 /// <reference path="Core/Message/RegisterPart.tsx" />
 /// context: Initialize
 
-/// <reference path="Core/Message/MessageLogPosted.tsx" />
+/// <reference path="Core/Message/LogMessagePosted.tsx" />
+/// context: Initialize
+
+/// <reference path="Core/Message/GetLogMessages.tsx" />
 /// context: Initialize
 
 /// <reference path="Core/Message/SystemLoaded.tsx" />
@@ -208,6 +217,20 @@
 /// context: Initialize
 
 /// <reference path="Part/PartBase.tsx" />
+/// context: Initialize
+
+/// #############################################
+
+/// <reference path="Core/Errors/ErrorBase.tsx" />
+/// context: Initialize
+
+/// <reference path="Core/Errors/NullNotExpected.tsx" />
+/// context: Initialize
+
+/// <reference path="Core/Errors/InvalidData.tsx" />
+/// context: Initialize
+
+/// <reference path="Core/Errors/InvalidArgument.tsx" />
 /// context: Initialize
 
 /// #############################################

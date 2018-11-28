@@ -58,5 +58,17 @@ namespace Skript.Layout.Message {
          * @type {Core.Size}
          */
         public size?: Core.Size;
+
+        /**
+         * Resultados.
+         */
+        public result?: { 
+            
+            /**
+             * Janela base que contem outros componentes.
+             * @type {ReactJs.Component.Dialog}
+             */
+            dialog: ReactJs.Component.Dialog 
+        }
     }
 }

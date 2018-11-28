@@ -19,5 +19,17 @@ namespace Skript.Locale.Message {
          * @type {string}
          */
         public language: string;
+
+        /**
+         * Resultados.
+         */
+        public result?: { 
+            
+            /**
+             * Idioma anterior.
+             * @type {string}
+             */
+            oldLanguage: string 
+        };
     }
 }

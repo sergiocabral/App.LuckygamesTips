@@ -9,7 +9,9 @@ namespace Skript.Part {
          * Rgistra o módulo.
          */
         public register() {
-            this.tools = new Core.Message.RegisterPart(this).sendSync().result;
+            const messageBus = new Core.Message.RegisterPart(this).sendSync() as Core.Message.RegisterPart;
+            if (!messageBus.result) throw new Core.Errors.NullNotExpected("Message.result");
+            this.tools = messageBus.result.tools;
 
             new Layout.Message.AppendToMainDialog(this.component()).sendAsync();
 

@@ -17,12 +17,12 @@ namespace Skript.Layout {
             {                
                 message: Message.DialogCreate.name,
                 handler: (command: Message.DialogCreate) => {
-                    command.result = skript.presentation.createDialog({ 
+                    command.result = { dialog: skript.presentation.createDialog({ 
                         title: command.title, 
                         icon: command.icon,
                         closeMode: command.closeMode,
                         size: command.size
-                    }, command.children);
+                    }, command.children) };
                 }
             },
             {                
@@ -34,12 +34,12 @@ namespace Skript.Layout {
             {
                 message: Message.AppendToMainDialog.name,
                 handler: (command: Message.AppendToMainDialog) => {
-                    command.result = skript.presentation.appendToMainDialog(command.children);
+                    skript.presentation.appendToMainDialog(command.children);
                 }
             },
             {
-                message: Core.Message.MessageLogPosted.name,
-                handler: (command: Core.Message.MessageLogPosted) => {
+                message: Core.Message.LogMessagePosted.name,
+                handler: (command: Core.Message.LogMessagePosted) => {
                     skript.presentation.message(command.message);
                 }
             }

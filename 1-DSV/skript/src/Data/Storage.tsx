@@ -38,7 +38,7 @@ namespace Skript.Data {
             const dataText = localStorage.getItem(this.name);
             try {
                 data = JSON.parse(dataText as string);
-                if (!data) throw new Error();
+                if (!data) throw new Core.Errors.InvalidData("localStorage.getItem()");
             } catch (error) {
                 data = defaults;
             }            

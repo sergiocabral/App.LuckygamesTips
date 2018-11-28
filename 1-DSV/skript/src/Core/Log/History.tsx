@@ -15,14 +15,20 @@ namespace Skript.Core.Log {
          */
         public constructor() {
             skript.log = skript.log ? skript.log : this;
+            new HistoryBus(this);
         }
 
         /**
          * Lista de mensagens de log.
          * @type {Message[]}
          */
-        private messages: Message[] = [];
-        
+        private allMessages: Message[] = [];
+
+        /**
+         * Retorna uma cópia de todas as mensagens.
+         */
+        public messages(): Message[] { return this.allMessages.slice() }
+
         /**
          * Registra uma mensagem de log
          * @param {string} message Mensagem.
@@ -41,9 +47,9 @@ namespace Skript.Core.Log {
                 level: level,
                 text: text
             };            
-            this.messages.push(message);
+            this.allMessages.push(message);
 
-            new Core.Message.MessageLogPosted(message).sendAsync();
+            new Core.Message.LogMessagePosted(message).sendAsync();
             
             ConsoleLog.write(message, level, toConsoleLog);
         }

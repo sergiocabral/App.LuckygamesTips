@@ -198,7 +198,7 @@ namespace Skript.Layout.Theme {
          * @returns {Translate[]} Objeto.
          */
         public static parse(json: string): Colors {
-            if (!json || !eval(`!!${json};`)) throw new Error("JSON is null.");
+            if (!json || !eval(`!!${json};`)) throw new Core.Errors.NullNotExpected("JSON");
             return JSON.parse(json) as Colors;
         }
     }

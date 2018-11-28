@@ -12,10 +12,10 @@ namespace Skript.Core.Bus {
         public handled: number = 0;
 
         /**
-         * O handler pode armazenar valores aqui no final do processamento.
+         * Resultados.
          * @type {any}
          */
-        public result: any = undefined;
+        public result?: any;
 
         /**
          * Quando true não posta no log ações dessa mensagem.

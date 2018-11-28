@@ -3,8 +3,8 @@ namespace Skript.Core.Message {
     /**
      * Registra um módulo.
      */
-    export class RegisterPart extends Core.Bus.Message { 
-
+    export class RegisterPart extends Core.Bus.Message {
+        
         /**
          * Construtor.
          * @param {PartBase} part Parte.
@@ -19,5 +19,17 @@ namespace Skript.Core.Message {
          * @type {PartBase}
          */
         public part: Part.PartBase;
+
+        /**
+         * Resultados
+         */
+        public result?: { 
+
+            /**
+             * Conjunto de ferramentas para uso do módulo.
+             * @type {Part.Tools}
+             */
+            tools: Part.Tools 
+        }
     }
 }
