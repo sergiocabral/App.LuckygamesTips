@@ -62,12 +62,8 @@
         ],
         "MessageBus.tsx": [
             { 
-                "Message {0} dispatched and processed by {1}x.":
-                "Mensagem {0} despachada e processada por {1}x." 
-            },
-            { 
-                "Message {0} dispatched and processed by {1}x.":
-                "Mensagem {0} despachada e processada por {1}x." 
+                "Message {0} dispatched and processed by {1}x: {2}":
+                "Mensagem {0} despachada e processada por {1}x: {2}" 
             },
             { 
                 "Notifier {0} triggered.":

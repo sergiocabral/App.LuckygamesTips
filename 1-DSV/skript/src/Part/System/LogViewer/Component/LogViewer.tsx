@@ -1,9 +1,21 @@
 namespace Skript.Part.System.LogViewer.Component {
 
     /**
+     * Consjute para State deste componente.
+     */
+    type LogViewerState = {
+
+        /**
+         * Total de mensagens
+         * @type {number}
+         */
+        messages: number;
+    }
+
+    /**
      * Componente principal do módulo.
      */
-    export class LogViewer extends Layout.ReactJs.DialogComponentBase<Layout.ReactJs.EmptyProps, Partial<Layout.ReactJs.EmptyState>> {
+    export class LogViewer extends Layout.ReactJs.DialogComponentBase<Layout.ReactJs.EmptyProps, Partial<LogViewerState>> {
         
         /**
          * Código CSS para este componente.
@@ -71,26 +83,36 @@ namespace Skript.Part.System.LogViewer.Component {
         public constructor(props: Layout.ReactJs.EmptyProps) {
             super(props);
 
-            new LogViewerBus(this);
+            this.title = this.translate("Log Viewer");
+            this.icon = "far fa-list-alt";
 
             this.elMessages = React.createRef();
 
-            this.title = this.translate("Log Viewer");
-            this.icon = "far fa-list-alt";
+            const messageBus = new Core.Message.GetLogMessages().sendSync() as Core.Message.GetLogMessages;
+            this.messages = messageBus.result ? messageBus.result.messages.reverse() : [];
+            this.state = { messages: this.messages.length };
+            new LogViewerBus(this);
         }
 
         /**
-         * Container das mensagens
+         * Objeto que contem as mensagens.
          * @type {React.RefObject<HTMLDivElement>}
          */
         private elMessages: React.RefObject<HTMLDivElement>;
+
+        /**
+         * Lista de todas as mensagens de log.
+         * @type {Core.Log.Message[]}
+         */
+        private messages: Core.Log.Message[];
 
         /**
          * Nova mensagem de log recebida.
          * @param {Core.Log.Message} message Mensagem
          */
         post(message: Core.Log.Message): void {
-            console.log(message);
+            this.messages.unshift(message);
+            if (this.elMessages.current) this.setState({ messages: this.messages.length });
         }
         
         /**
@@ -136,7 +158,15 @@ namespace Skript.Part.System.LogViewer.Component {
                                 )}
                             </td>
                             <td className="log width100">
-                                <div ref={this.elMessages}></div>
+                                <div ref={this.elMessages}>
+                                    {this.messages.map(v => 
+                                        <div key={v.id} data-id={v.id} className={"item " + Core.Log.Level[v.level]}>
+                                            <span>{Core.Log.Level[v.level]}</span>
+                                            <span>{v.text}</span>
+                                            <span>{v.time.format({})}</span>
+                                        </div>
+                                    )}
+                                </div>
                             </td>
                         </tr>
                     </tbody>

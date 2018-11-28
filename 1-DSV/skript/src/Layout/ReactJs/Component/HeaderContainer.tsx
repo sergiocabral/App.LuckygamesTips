@@ -204,7 +204,7 @@ namespace Skript.Layout.ReactJs.Component {
                     this.props.icon,
                     <div id={this.contextId(IdContext.Dialog)} className={HeaderContainer.classNameDialog()}></div>,
                     this.props.dialogSize).sendSync() as Message.DialogCreate;
-                if (!messageBus.result) throw new Core.Errors.NullNotExpected("Message.result");
+                if (!messageBus.result) throw new Core.Errors.NullNotExpected("Message.DialogCreate.result");
                 this.instanceDialog = messageBus.result.dialog;
                 
                 this.instanceDialog.onClose.push(() => {

@@ -6,6 +6,12 @@ namespace Skript.Core.Log {
     export type Message = { 
         
         /**
+         * Identificado.
+         * @type {number}
+         */
+        id: number,
+
+        /**
          * Momento do log.
          * @type {Date}
          */

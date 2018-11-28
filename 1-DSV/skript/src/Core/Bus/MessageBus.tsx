@@ -46,12 +46,14 @@ namespace Skript.Core.Bus {
          * @returns {Message} A própria mensagem enviada.
          */
         public static sendSync(message: Message): Message {
+            let handles = "";
             message.handled = 0;
             const messageToSend = message.constructor.name;
             for (let i = 0; i < MessageBus.list.length; i++) {                
                 if (!MessageBus.list[i]) continue;
                 if (MessageBus.list[i].disposed) {                     
                     if (!message.silentLog) skript.log.post("A MessageHandler {0} was disposed.", MessageBus.list[i].constructor.name, Log.Level.DebugBus);
+                    else Core.Log.ConsoleLog.write(skript.log.mountMessage("A MessageHandler {0} was disposed.", MessageBus.list[i].constructor.name, Log.Level.DebugBus), Log.Level.NotLogged);
                     delete MessageBus.list[i];
                     continue; 
                 }
@@ -62,11 +64,13 @@ namespace Skript.Core.Bus {
                     if (messageOfHandler === messageToSend) {
                         const handler = MessageBus.list[i].handlers[j].handler.bind(MessageBus.list[i].sponsor);                        
                         handler(message);
-                        message.handled++;
+                        message.handled++;                        
+                        handles += (handles ? ", " : "") + MessageBus.list[i].constructor.name;
                     }
                 }
             }
-            if (!message.silentLog) skript.log.post("Message {0} dispatched and processed by {1}x.", [message.constructor.name, message.handled], Log.Level.DebugBus);
+            if (!message.silentLog) skript.log.post("Message {0} dispatched and processed by {1}x: {2}", [message.constructor.name, message.handled, handles], Log.Level.DebugBus);
+            else Core.Log.ConsoleLog.write(skript.log.mountMessage("Message {0} dispatched and processed by {1}x: {2}", [message.constructor.name, message.handled, handles], Log.Level.DebugBus), Log.Level.NotLogged);
             return message;
         }
 

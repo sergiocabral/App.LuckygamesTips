@@ -6,18 +6,15 @@ namespace Skript.Core.Message {
     export class GetLogMessages extends Core.Bus.Message { 
 
         /**
-         * Construtor.
-         * @param {Core.Log.Message} message Mensagem de log.
+         * Resultados
          */
-        public constructor() {
-            super();
-            this.messages = [];
-        }
+        public result?: { 
 
-        /**
-         * Mensagem de log.
-         * @type {Core.Log.Message[]}
-         */
-        public messages: Core.Log.Message[];
+            /**
+             * Mensagem de log.
+             * @type {Core.Log.Message[]}
+             */
+            messages: Core.Log.Message[]
+        }
    }
 }

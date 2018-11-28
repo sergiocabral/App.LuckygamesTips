@@ -8,11 +8,10 @@ namespace Skript.Part.System.LogViewer.Component {
         /**
          * Lista de mensagem possíveis de serem processados.
          */
-        public handlers: Core.Bus.MessageHandler[] = [ 
+        public handlers: Core.Bus.MessageHandler[] = [
             {
                 message: Core.Message.LogMessagePosted.name,
                 handler: (command: Core.Message.LogMessagePosted) => {
-                    if (!this.sponsor.exists()) return this.dispose();
                     this.sponsor.post(command.message);
                 }
             }

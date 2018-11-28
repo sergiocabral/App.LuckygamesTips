@@ -86,7 +86,7 @@ namespace Skript.Locale {
          * @returns {Translate[]} Objeto.
          */
         public static parse(json: string): Translate[] {
-            if (!json || !eval(`!!${json};`)) throw new Core.Errors.NullNotExpected("JSON");
+            if (!json || !eval(`!!${json};`)) throw new Core.Errors.NullNotExpected("parse(JSON)");
             
             const process = (object: any, translates: Translate[]): Translate[] => {
                 for (const key in object) {

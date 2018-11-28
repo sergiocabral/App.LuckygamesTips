@@ -63,6 +63,26 @@
 
 /// #############################################
 
+/// <reference path="Core/Bus/Message.tsx" />
+/// context: Initialize
+
+/// <reference path="Core/Bus/MessageHandler.tsx" />
+/// context: Initialize
+
+/// <reference path="Core/Bus/MessageBus.tsx" />
+/// context: Initialize
+
+/// <reference path="Core/Message/RegisterPart.tsx" />
+/// context: Initialize
+
+/// <reference path="Core/Message/LogMessagePosted.tsx" />
+/// context: Initialize
+
+/// <reference path="Core/Message/GetLogMessages.tsx" />
+/// context: Initialize
+
+/// #############################################
+
 /// <reference path="Util/DateTime.tsx" />
 /// context: Initialize
 
@@ -115,26 +135,6 @@
 /// context: Initialize
 
 /// <reference path="Core/Data.tsx" />
-/// context: Initialize
-
-/// #############################################
-
-/// <reference path="Core/Bus/Message.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Bus/MessageHandler.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Bus/MessageBus.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Message/RegisterPart.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Message/LogMessagePosted.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Message/GetLogMessages.tsx" />
 /// context: Initialize
 
 /// <reference path="Core/Message/SystemLoaded.tsx" />

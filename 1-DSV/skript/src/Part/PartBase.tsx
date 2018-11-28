@@ -10,7 +10,7 @@ namespace Skript.Part {
          */
         public register() {
             const messageBus = new Core.Message.RegisterPart(this).sendSync() as Core.Message.RegisterPart;
-            if (!messageBus.result) throw new Core.Errors.NullNotExpected("Message.result");
+            if (!messageBus.result) throw new Core.Errors.NullNotExpected("Message.RegisterPart.result");
             this.tools = messageBus.result.tools;
 
             new Layout.Message.AppendToMainDialog(this.component()).sendAsync();

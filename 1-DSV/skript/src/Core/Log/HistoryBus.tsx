@@ -12,7 +12,7 @@ namespace Skript.Core.Log {
             {
                 message: Core.Message.GetLogMessages.name,
                 handler: (command: Core.Message.GetLogMessages) => {
-                    command.messages = this.sponsor.messages();
+                    command.result = { messages: this.sponsor.messages() };
                 }
             }
         ];

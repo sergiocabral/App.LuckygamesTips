@@ -6,6 +6,17 @@ namespace Skript.Util {
     export class Number {
 
         /**
+         * Retorna um valor randômico 
+         * @param {number} length Dígitos inteiros
+         */
+        public static random(length: number = 10): number {
+            do {
+                const result = Math.trunc(Math.random() * Math.pow(10, length));
+                if (result.toString().length === length) return result;
+            } while (true);
+        }
+
+        /**
          * Configurações padrão de formatação de número.
          */
         public static defaultNumberFormat: Locale.Format.Number = {

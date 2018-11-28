@@ -51,7 +51,7 @@ namespace Skript.Layout {
                     width: Math.trunc((document.documentElement as any).offsetWidth * 0.6),
                     height: Math.trunc((document.documentElement as any).offsetHeight * 0.6)
                 }).sendSync() as Message.DialogCreate;
-            if (!messageBus.result) throw new Core.Errors.NullNotExpected("Message.result");
+            if (!messageBus.result) throw new Core.Errors.NullNotExpected("Message.DialogCreate.result");
             this.mainDialog = messageBus.result.dialog;
             this.mainDialog.visible(false);
         }
@@ -130,6 +130,7 @@ namespace Skript.Layout {
          */
         public toast(text: string, level: Core.Log.Level = Core.Log.Level.Information): void {
             return this.message({
+                id: Util.Number.random(),
                 text: text,
                 level: level,
                 time: new Date()
