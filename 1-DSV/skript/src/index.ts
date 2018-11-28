@@ -209,6 +209,9 @@
 
 /// #############################################
 
+/// <reference path="Core/Types.tsx" />
+/// context: Initialize
+
 /// <reference path="Core/MainBus.tsx" />
 /// context: Initialize
 

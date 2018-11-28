@@ -19,9 +19,9 @@ namespace Skript.Layout {
                 handler: (command: Message.DialogCreate) => {
                     command.result = skript.presentation.createDialog({ 
                         title: command.title, 
+                        icon: command.icon,
                         closeMode: command.closeMode,
-                        width: command.width,
-                        height: command.height,
+                        size: command.size
                     }, command.children);
                 }
             },

@@ -52,41 +52,15 @@ namespace Skript.Layout.ReactJs {
 
         /**
          * Informações de posicionamento.
-         * @type {{horizontal: number, vertical: number}}
+         * @type {Core.Position}
          */
-        offset: { 
-
-            /**
-             * Informações de posicionamento horizontal.
-             * @type {number}
-             */
-            horizontal: number,
-
-            /**
-             * Informações de posicionamento vertical.
-             * @type {number}
-             */
-            vertical: number
-        },
+        offset: Core.Position,
 
         /**
          * Posição do mouse.
-         * @type {{x: number, y: number}}
+         * @type {Core.Position}
          */
-        mouse: { 
-
-            /**
-             * Posição horizontal.
-             * @type {number}
-             */
-            x: number, 
-
-            /**
-             * Posição vertical.
-             * @type {number}
-             */
-            y: number
-        },
+        mouse: Core.Position,
 
         /**
          * Identificado da última solicitação de FrameAnimation
@@ -202,8 +176,8 @@ namespace Skript.Layout.ReactJs {
                 moving: false,
                 clicked: false,
                 offset: { 
-                    horizontal: 0,
-                    vertical: 0
+                    x: 0,
+                    y: 0
                 },
                 mouse: { 
                     x: 0, 
@@ -348,8 +322,8 @@ namespace Skript.Layout.ReactJs {
             const clientY = ev.changedTouches !== undefined ? ev.changedTouches[0].clientY : ev.clientY;
 
             this.control.offset = {
-                horizontal: this.configuration.elContainer.offsetLeft - clientX,
-                vertical: this.configuration.elContainer.offsetTop - clientY
+                x: this.configuration.elContainer.offsetLeft - clientX,
+                y: this.configuration.elContainer.offsetTop - clientY
             };
         }
 
@@ -364,8 +338,8 @@ namespace Skript.Layout.ReactJs {
 
                 switch (instance.control.action) {
                     case Action.Move:
-                        instance.configuration.elContainer.style.left = (instance.control.mouse.x + instance.control.offset.horizontal) + 'px';
-                        instance.configuration.elContainer.style.top = (instance.control.mouse.y + instance.control.offset.vertical) + 'px';
+                        instance.configuration.elContainer.style.left = (instance.control.mouse.x + instance.control.offset.x) + 'px';
+                        instance.configuration.elContainer.style.top = (instance.control.mouse.y + instance.control.offset.y) + 'px';
                         instance.configuration.elContainer.style.right = "auto";
                         instance.configuration.elContainer.style.bottom = "auto";
                         break;

@@ -8,18 +8,25 @@ namespace Skript.Layout.Message {
         /**
          * Construtor.
          * @param {string} title Título na barra.
+         * @param {string} icon Ícone no formato FontAwesome.
          * @param {ReactJs.Component.DialogCloseMode} closeMode Modos de fechamento da janela.
          * @param {any} children Opcional. Conteúdo da janela.
-         * @param {number} width Opcional. Largura.
-         * @param {number} height Opcional. Altura.
+         * @param {Core.Size} size Opcional. Dimensão.
          */
-        public constructor(title: string, closeMode: ReactJs.Component.DialogCloseMode, children?: any, width?: number, height?: number) { 
+        public constructor(
+            title: string, 
+            closeMode: ReactJs.Component.DialogCloseMode, 
+            icon?: string, 
+            children?: any, 
+            size?: Core.Size) { 
+
             super();
+            
             this.title = title;
-            this.closeMode = closeMode;
+            this.closeMode = closeMode;            
+            this.icon = icon;
             this.children = children;
-            this.width = width;
-            this.height = height;
+            this.size = size;
         }
 
         /**
@@ -35,21 +42,21 @@ namespace Skript.Layout.Message {
         public closeMode: ReactJs.Component.DialogCloseMode;
 
         /**
+         * Ícone.
+         * @type {string}
+         */
+        public icon?: string;
+
+        /**
          * Conteúdo da janela.
          * @type {any}
          */
         public children?: any;
 
         /**
-         * Largura
-         * @type {number}
+         * Dimensão
+         * @type {Core.Size}
          */
-        public width?: number;
-
-        /**
-         * Altura
-         * @type {number}
-         */
-        public height?: number;
+        public size?: Core.Size;
     }
 }

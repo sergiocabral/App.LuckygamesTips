@@ -46,9 +46,12 @@ namespace Skript.Layout {
                 new Message.DialogCreate(
                     skript.configuration.name, 
                     ReactJs.Component.DialogCloseMode.Hide,
+                    "fas fa-robot",
                     undefined,
-                    Math.trunc((document.documentElement as any).offsetWidth * 0.6),
-                    Math.trunc((document.documentElement as any).offsetHeight * 0.6)).sendSync().result as ReactJs.Component.Dialog;
+                    {
+                        width: Math.trunc((document.documentElement as any).offsetWidth * 0.6),
+                        height: Math.trunc((document.documentElement as any).offsetHeight * 0.6)
+                    }).sendSync().result as ReactJs.Component.Dialog;
             this.mainDialog.visible(false);
         }
 

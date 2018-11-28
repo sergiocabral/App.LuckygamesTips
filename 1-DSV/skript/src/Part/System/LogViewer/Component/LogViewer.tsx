@@ -20,7 +20,7 @@ namespace Skript.Part.System.LogViewer.Component {
         public constructor(props: Layout.ReactJs.EmptyProps) {
             super(props);      
 
-            this.title = this.translate("Log Viwer");
+            this.title = this.translate("Log Viewer");
             this.icon = "far fa-list-alt";
         }
 

@@ -34,22 +34,22 @@ namespace Skript.Layout.ReactJs.Component {
         title: string,
 
         /**
+         * Ícone da janela. Formato FontAwesome.
+         * @type {string}
+         */
+        icon?: string,
+
+        /**
          * Modo de fechamento da janela.
          * @type {DialogCloseMode}
          */
         closeMode: DialogCloseMode,
 
         /**
-         * Largura
-         * @type {number}
+         * Dimensão.
+         * @type {Core.Size}
          */
-        width?: number,
-
-        /**
-         * Altura
-         * @type {number}
-         */
-        height?: number
+        size?: Core.Size,
     }
 
     /**
@@ -69,7 +69,7 @@ namespace Skript.Layout.ReactJs.Component {
      */
     export class Dialog extends ComponentBase<DialogProps, Partial<DialogState>> {
 
-        private defaults: { width: number, height: number } = { 
+        private defaults: Core.Size = { 
             width: 500,
             height: 250
         };
@@ -121,7 +121,7 @@ namespace Skript.Layout.ReactJs.Component {
                 color: ${Util.Drawing.blend(0.25, this.theme.dialogTitleTextColor)};
                 position: absolute;
                 right: 13px;
-                top: 12px;
+                top: 10px;
                 font-size: 13px;
                 border-bottom: none;
                 text-transform: none;
@@ -271,7 +271,7 @@ namespace Skript.Layout.ReactJs.Component {
             return (
                 <div id={this.id()} className={this.className} ref={this.elContainer as any}>
                     <div className="header">
-                        <span className="graph"><i className="fas fa-robot"></i></span>
+                        <span className="graph"><i className={this.props.icon ? this.props.icon : "far fa-window-restore"}></i></span>
                         <h1 ref={this.elTitle as any}>{this.props.title}</h1>
                         <a href="#" className="close" onClick={this.onCloseClick}><i className="fas fa-times"></i></a>
                     </div>
@@ -302,14 +302,14 @@ namespace Skript.Layout.ReactJs.Component {
             this.visibility = new Visibility({ element: this.elContainer.current as HTMLElement });
 
             (this.elContainer.current as any).style.minWidth = `450px`;
-            if (this.props.width) {
-                (this.elContainer.current as any).style.width = `${this.props.width}px`;
-                (this.elContainer.current as any).style.left = `calc(50% - ${this.props.width / 2}px)`;
+            if (this.props.size && this.props.size.width) {
+                (this.elContainer.current as any).style.width = `${this.props.size.width}px`;
+                (this.elContainer.current as any).style.left = `calc(50% - ${this.props.size.width / 2}px)`;
             }
             (this.elContainer.current as any).style.minHeight = `250px`;
-            if (this.props.height) { 
-                (this.elContainer.current as any).style.height = `${this.props.height}px`;
-                (this.elContainer.current as any).style.top = `calc(50% - ${this.props.height / 2}px)`;
+            if (this.props.size && this.props.size.height) { 
+                (this.elContainer.current as any).style.height = `${this.props.size.height}px`;
+                (this.elContainer.current as any).style.top = `calc(50% - ${this.props.size.height / 2}px)`;
             }
         }
 
