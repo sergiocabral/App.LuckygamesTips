@@ -3,12 +3,12 @@ namespace Skript.Part.System.LogViewer.Component {
     /**
      * Componente principal do módulo.
      */
-    export class LogViewer extends Layout.ReactJs.ComponentBase<Layout.ReactJs.EmptyProps, Partial<Layout.ReactJs.EmptyState>> {
-
+    export class LogViewer extends Layout.ReactJs.DialogComponentBase<Layout.ReactJs.EmptyProps, Partial<Layout.ReactJs.EmptyState>> {
+        
         /**
          * Código CSS para este componente.
          */
-        public stylesheet: string = `
+        protected stylesheet: string = `
             ${this.selector()} {
             }
         `;
@@ -18,46 +18,27 @@ namespace Skript.Part.System.LogViewer.Component {
          * @param {Layout.ReactJs.EmptyProps} props Propriedades.
          */
         public constructor(props: Layout.ReactJs.EmptyProps) {
-            super(props);            
+            super(props);      
+
+            this.title = this.translate("Log Viwer");
+            this.icon = "far fa-list-alt";
         }
+
         /**
-         * Renderizador do React.
+         * Renderizador do React. Conteúdo do container.
          * @returns {JSX.Element}
          */
-        public render(): JSX.Element {            
+        protected renderContent(): JSX.Element {            
             return (
-                <div id={this.id()} className={this.className}>
-                    <Layout.ReactJs.Component.Container 
-                        title={this.translate("Log Viewer")} 
-                        icon="far fa-list-alt"
-                        collapse={true} 
-                        newWindow={true}>
-
-                        LogViewer <br />
-                        LogViewer <br />
-                        LogViewer <br />
-                        LogViewer <br />
-                        LogViewer <br />
-                        LogViewer <br />
-                        LogViewer <br />
-                        LogViewer <br />
-                        
-                    </Layout.ReactJs.Component.Container>       
-                    <Layout.ReactJs.Component.Container 
-                        title={this.translate("Log Viewer")} 
-                        collapse={true} 
-                        newWindow={true}>
-
-                        LogViewer <br />
-                        LogViewer <br />
-                        LogViewer <br />
-                        LogViewer <br />
-                        LogViewer <br />
-                        LogViewer <br />
-                        LogViewer <br />
-                        LogViewer <br />
-                        
-                    </Layout.ReactJs.Component.Container>                
+                <div>
+                    LogViewer <br />
+                    LogViewer <br />
+                    LogViewer <br />
+                    LogViewer <br />
+                    LogViewer <br />
+                    LogViewer <br />
+                    LogViewer <br />
+                    LogViewer <br />
                 </div>
             );
         }

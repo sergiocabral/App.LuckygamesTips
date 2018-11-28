@@ -3,12 +3,12 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
     /**
      * Componente principal do módulo.
      */
-    export class LuckygamesAdjusts extends Layout.ReactJs.ComponentBase<Layout.ReactJs.EmptyProps, Partial<Layout.ReactJs.EmptyState>> {
+    export class LuckygamesAdjusts extends Layout.ReactJs.DialogComponentBase<Layout.ReactJs.EmptyProps, Partial<Layout.ReactJs.EmptyState>> {
 
         /**
          * Código CSS para este componente.
          */
-        public stylesheet: string = `
+        protected stylesheet: string = `
             ${this.selector()} {
             }
         `;
@@ -19,12 +19,14 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
          */
         public constructor(props: Layout.ReactJs.EmptyProps) {
             super(props);            
+            this.title = this.translate("Luckygames Adjusts");
         }
+        
         /**
-         * Renderizador do React.
+         * Renderizador do React. Conteúdo do container.
          * @returns {JSX.Element}
          */
-        public render(): JSX.Element {            
+        protected renderContent(): JSX.Element {         
             return (
                 <div id={this.id()} className={this.className}>
                     <Layout.ReactJs.Component.Switch checked={false} />

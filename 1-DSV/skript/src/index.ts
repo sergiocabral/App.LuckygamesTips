@@ -28,6 +28,9 @@
 /// <reference path="Layout/ReactJs/ComponentBase.tsx" />
 /// context: react
 
+/// <reference path="Layout/ReactJs/DialogComponentBase.tsx" />
+/// context: react
+
 /// <reference path="Layout/ReactJs/MoveAndResize.tsx" />
 /// context: react
 

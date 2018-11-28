@@ -31,7 +31,7 @@ namespace Skript.Layout.ReactJs {
          * Código CSS para este componente.
          * @type {string}
          */
-        public abstract stylesheet: string;
+        protected abstract stylesheet: string;
 
         /**
          * Construtor.
@@ -51,7 +51,7 @@ namespace Skript.Layout.ReactJs {
          * Nome da classe CSS deste componente.
          * @type {string}
          */
-        public className: string = ComponentBase.classNamePrefix + this.constructor.name;
+        protected className: string = ComponentBase.classNamePrefix + this.constructor.name;
 
         /**
          * Registra o código CSS para este componente.
@@ -88,7 +88,7 @@ namespace Skript.Layout.ReactJs {
          * @param {string} text Texto.
          * @param {Level} level Nível do log.
          */
-        public toast(text: string, level: Core.Log.Level = Core.Log.Level.Information): void {
+        protected toast(text: string, level: Core.Log.Level = Core.Log.Level.Information): void {
             return skript.presentation.toast(text, level);
         }
 

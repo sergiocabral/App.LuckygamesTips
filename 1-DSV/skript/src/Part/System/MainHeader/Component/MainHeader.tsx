@@ -8,7 +8,7 @@ namespace Skript.Part.System.MainHeader.Component {
         /**
          * Código CSS para este componente.
          */
-        public stylesheet: string = `
+        protected stylesheet: string = `
             ${this.selector()} {
                 height: 160px;
                 margin: 0 !important;
@@ -74,6 +74,7 @@ namespace Skript.Part.System.MainHeader.Component {
         public constructor(props: Layout.ReactJs.EmptyProps) {
             super(props);            
         }
+        
         /**
          * Renderizador do React.
          * @returns {JSX.Element}

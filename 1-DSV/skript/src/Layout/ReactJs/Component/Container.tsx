@@ -24,10 +24,10 @@ namespace Skript.Layout.ReactJs.Component {
         collapse?: boolean
 
         /**
-         * Indica se deve haver evento para nova janela.
-         * @type {boolean}
+         * Função para quando clicar em nova janela.
+         * @type {Function}
          */
-        newWindow?: boolean
+        onNewWindow?: Function
     }
 
     /**
@@ -63,7 +63,7 @@ namespace Skript.Layout.ReactJs.Component {
                 float: right;
             }
             ${this.selector()} > .content {
-                padding: 7px 0;
+                margin: 7px 0;
                 transition: max-height 0.25s linear;
                 overflow: hidden;                
             }
@@ -117,8 +117,9 @@ namespace Skript.Layout.ReactJs.Component {
         /**
          * Quando o botão é pressionado.
          */
-        private onNewWindowClick() {
-            this.toast("onNewWindowClick");
+        private onNewWindowClick() {                        
+            if (!(this.props.onNewWindow instanceof Function)) return;
+            this.props.onNewWindow(new CustomEvent("onNewWindow", { detail: this }));
         }
 
         /**
@@ -132,8 +133,8 @@ namespace Skript.Layout.ReactJs.Component {
                         <span 
                             title={this.isMainWindow ? this.translate("Open in new window") : this.translate("Return to main window")}
                             className="anchor window no-underline" 
-                            style={ { display: this.props.newWindow ? "inherit" : "none" } } 
-                            onClick={this.props.newWindow ? this.onNewWindowClick : undefined}>
+                            style={ { display: this.props.onNewWindow instanceof Function ? "inherit" : "none" } } 
+                            onClick={this.props.onNewWindow instanceof Function ? this.onNewWindowClick : undefined}>
                             <i className="far fa-window-restore"></i>
                         </span>
                         <span className={(this.props.collapse ? "anchor " : "") + "text no-underline"} onClick={this.props.collapse ? this.onCollapseClick : undefined}>
