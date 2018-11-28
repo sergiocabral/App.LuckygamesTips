@@ -12,23 +12,8 @@ namespace Skript.Layout.ReactJs {
         public constructor(props: P) {
             super(props);           
             
-            this.elContainer = React.createRef();
-            this.elContent = React.createRef();
-
             this.onNewWindow = this.onNewWindow.bind(this);
         }
-
-        /**
-         * Container.
-         * @type {React.RefObject<HTMLDivElement>}
-         */
-        private elContainer: React.RefObject<HTMLDivElement>;
-
-        /**
-         * Conteúdo do componente.
-         * @type {React.RefObject<Layout.ReactJs.Component.Container>}
-         */
-        private elContent: React.RefObject<Layout.ReactJs.Component.Container>;
 
         /**
          * Título da seção.
@@ -55,6 +40,12 @@ namespace Skript.Layout.ReactJs {
         protected newWindowSize: Core.Size|undefined = undefined;
 
         /**
+         * Id para o conteúdo.
+         * @type {() => string}
+         */
+        private idContent: () => string = () => "c" + this.id();
+
+        /**
          * Id para a janela criada.
          * @type {() => string}
          */
@@ -64,20 +55,25 @@ namespace Skript.Layout.ReactJs {
          * Ao mover para nova janela.
          */
         private onNewWindow() {
-            //const container = this.elContainer.current as HTMLElement;
-            //const content = this.elContent.current as Layout.ReactJs.Component.Container;
-
             const dialog = new Message.DialogCreate(
                 this.title, 
                 ReactJs.Component.DialogCloseMode.Remove,
                 this.icon,
-                <div id={this.idWindow()}>teste</div>,
+                <div id={this.idWindow()}></div>,
                 this.newWindowSize).sendSync().result as ReactJs.Component.Dialog;
            
-            const containerWindow = dialog.elContainerContent.current as HTMLElement;
-            containerWindow.innerHTML = "Hahahaha";
+            const component = document.querySelector(`#${this.id()}`) as HTMLElement;
+            const content = document.querySelector(`#${this.idContent()}`) as HTMLElement;
+            const contentParent = content.parentElement as HTMLElement;
+            const window = document.querySelector(`#${this.idWindow()}`) as HTMLElement;
+            
+            component.style.display = "none";
+            window.appendChild(content);
 
-            console.log();
+            dialog.onClose.push(() => {
+                contentParent.appendChild(content);
+                component.style.display = "";
+            });
 
             dialog.visible(true);
         }
@@ -88,14 +84,15 @@ namespace Skript.Layout.ReactJs {
          */
         public render(): JSX.Element {            
             return (
-                <div id={this.id()} className={this.className} ref={this.elContainer}>
+                <div id={this.id()} className={this.className}>
                     <Layout.ReactJs.Component.Container 
-                        ref={this.elContent}
                         title={this.title} 
                         icon={this.icon} 
                         collapse={true}
                         onNewWindow={this.newWindow ? this.onNewWindow : undefined}>
-                        {this.renderContent()}
+                        <div id={this.idContent()}>
+                            {this.renderContent()}
+                        </div>
                     </Layout.ReactJs.Component.Container>                    
                 </div>
             );
