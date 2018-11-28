@@ -10,7 +10,7 @@ namespace Skript.Part.System.MainHeader.Component {
          */
         protected stylesheet: string = `
             ${this.selector()} {
-                height: 160px;
+                height: 150px;
                 margin: 0 !important;
             }
             ${this.selector()} > div {

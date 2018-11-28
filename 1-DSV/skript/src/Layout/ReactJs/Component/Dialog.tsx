@@ -132,6 +132,12 @@ namespace Skript.Layout.ReactJs.Component {
             ${this.selector()} > .content > div > div > div {
                 margin: 0 20px;
             }
+            ${this.selector()} > .content > div > div:first-child > div {
+                margin-top: 12px;
+            }
+            ${this.selector()} > .content > div > div:last-child > div {
+                margin-bottom: 12px;
+            }
             ${this.selector()} > .content {
                 height: calc(100% - 50px);
                 overflow: auto;
@@ -170,7 +176,7 @@ namespace Skript.Layout.ReactJs.Component {
             this.elTitle = React.createRef();
             this.elResize = React.createRef();
 
-            this.onCloseClick = this.onCloseClick.bind(this);
+            this.close = this.close.bind(this);
         }
 
         /**
@@ -218,9 +224,19 @@ namespace Skript.Layout.ReactJs.Component {
         public onClose: ((mode: DialogCloseMode) => void)[] = [];
 
         /**
-         * Quando o botão de fecha é clicado.
+         * Abre a janela.
+         * @returns {Dialog} Auto referência.
          */
-        private onCloseClick(): void {
+        public open(): Dialog {
+            this.visible(true);
+            return this;
+        }
+
+        /**
+         * Fecha a janela.
+         * @returns {Dialog} Auto referência.
+         */
+        public close(): Dialog {
             const component = this.elContainer.current as HTMLElement;
             const container = component.parentNode as HTMLElement;
 
@@ -239,6 +255,8 @@ namespace Skript.Layout.ReactJs.Component {
                     }, (this.visibility as Visibility).fade() * 1000 + 500);
                     break;
             }
+            
+            return this;
         }
 
         /**
@@ -282,9 +300,11 @@ namespace Skript.Layout.ReactJs.Component {
         /**
          * Move a janela de diálogo pra frente ou pra trás das outras.
          * @param {BringTo} to Optional. Direção. 
+         * @returns {Dialog} Auto referência.
          */
-        public bring(to: Util.BringTo = Util.BringTo.Front): void {
+        public bring(to: Util.BringTo = Util.BringTo.Front): Dialog {
             Util.DOM.bring((this.elContainer.current as HTMLElement).parentElement as HTMLElement, to);
+            return this;
         }
 
         /**
@@ -297,7 +317,7 @@ namespace Skript.Layout.ReactJs.Component {
                     <div className="header">
                         <span className="graph"><i className={this.props.icon ? this.props.icon : "fas fa-cog"}></i></span>
                         <h1 ref={this.elTitle}>{this.props.title}</h1>
-                        <a href="#" className="close action" onClick={this.onCloseClick}><i className="fas fa-times"></i></a>
+                        <a href="#" className="close action" onClick={this.close}><i className="fas fa-times"></i></a>
                     </div>
                     <div className="content">
                         <div ref={this.elContainerContent}></div>

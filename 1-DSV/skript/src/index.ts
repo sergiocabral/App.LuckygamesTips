@@ -40,7 +40,7 @@
 /// <reference path="Layout/ReactJs/Component/Switch.tsx" />
 /// context: react
 
-/// <reference path="Layout/ReactJs/Component/Container.tsx" />
+/// <reference path="Layout/ReactJs/Component/HeaderContainer.tsx" />
 /// context: react
 
 /// <reference path="Layout/ReactJs/Component/LanguageSelectBus.tsx" />

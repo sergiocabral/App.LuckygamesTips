@@ -114,14 +114,10 @@
                 "Inserido: <{tagName} id=\"{id}\" />" 
             }
         ],
-        "DialogComponentBase.tsx": [
+        "HeaderContainer.tsx": [
             { 
-                "Open window: {0}":
-                "Aberto janela: {0}" 
-            },
-            { 
-                "Closed window: {0}":
-                "Fechado janela: {0}" 
+                "HeaderContainer \"{title}\". Content moved from [{from}] to [{to}].":
+                "HeaderContainer \"{title}\". Conteúdo movido de [{from}] para [{to}]." 
             }
         ]
     },
@@ -148,8 +144,8 @@
         ],
         "Container.tsx": [
             { 
-                "Open in new window":
-                "Abrir em nova janela" 
+                "Toggle the view as a window.":
+                "Alternar a visualização como janela." 
             }
         ]
     },
