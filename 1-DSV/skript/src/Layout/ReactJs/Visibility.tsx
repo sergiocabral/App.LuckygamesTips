@@ -64,7 +64,7 @@ namespace Skript.Layout.ReactJs {
 
             this.fade(configuration.fade);
 
-            configuration.element.style.visibility = "hidden";
+            configuration.element.style.display = "none";
             configuration.element.classList.add("visibility");
             configuration.element.classList.add("hidden");
             if (configuration.show) setTimeout(() => this.visible(true), 1);
