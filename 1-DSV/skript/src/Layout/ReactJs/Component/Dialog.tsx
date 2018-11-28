@@ -302,12 +302,12 @@ namespace Skript.Layout.ReactJs.Component {
             this.visibility = new Visibility({ element: this.elContainer.current as HTMLElement });
 
             (this.elContainer.current as any).style.minWidth = `450px`;
-            if (this.props.size && this.props.size.width) {
+            if (this.props.size && this.props.size.width > 0) {
                 (this.elContainer.current as any).style.width = `${this.props.size.width}px`;
                 (this.elContainer.current as any).style.left = `calc(50% - ${this.props.size.width / 2}px)`;
             }
             (this.elContainer.current as any).style.minHeight = `250px`;
-            if (this.props.size && this.props.size.height) { 
+            if (this.props.size && this.props.size.height > 0) { 
                 (this.elContainer.current as any).style.height = `${this.props.size.height}px`;
                 (this.elContainer.current as any).style.top = `calc(50% - ${this.props.size.height / 2}px)`;
             }
