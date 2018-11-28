@@ -91,7 +91,7 @@ namespace Skript.Part.System.LogViewer.Component {
             const messageBus = new Core.Message.GetLogMessages().sendSync() as Core.Message.GetLogMessages;
             this.messages = messageBus.result ? messageBus.result.messages.reverse() : [];
             this.state = { messages: this.messages.length };
-            new LogViewerBus(this);
+            this.myMessageBus.push(new LogViewerBus(this));
         }
 
         /**

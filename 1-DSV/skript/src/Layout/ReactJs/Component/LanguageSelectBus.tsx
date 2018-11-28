@@ -12,7 +12,6 @@ namespace Skript.Layout.ReactJs.Component {
             {
                 message: Locale.Message.LanguageChanged.name,
                 handler: (command: Locale.Message.LanguageChanged) => {
-                    if (!this.sponsor.exists()) return this.dispose();
                     this.sponsor.setLanguage(command.newLanguage);
                 }
             }

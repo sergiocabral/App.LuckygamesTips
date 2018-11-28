@@ -130,6 +130,11 @@ namespace Skript.Layout.ReactJs {
         protected debug: () => boolean = () => skript.configuration.debug;
 
         /**
+         * Definir instâncias de Bus aqui para serem liberadas quando o componente for desmontado.
+         */
+        protected myMessageBus: Core.Bus.MessageBus<any>[] = [];
+
+        /**
          * Quando um componente é montado.
          */
         public componentWillMount() {
@@ -141,6 +146,7 @@ namespace Skript.Layout.ReactJs {
          */
         public componentWillUnmount() {
             skript.log.post(`Triggered componentWillUnmount: {component} id="{id}"`, { component: this.constructor.name, id: this.id() }, Core.Log.Level.DebugReact);
+            for (const index in this.myMessageBus) this.myMessageBus[index].dispose();
         }
     }
 }

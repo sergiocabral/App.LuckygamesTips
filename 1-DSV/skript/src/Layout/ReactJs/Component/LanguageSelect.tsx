@@ -47,7 +47,7 @@ namespace Skript.Layout.ReactJs.Component {
         public constructor(props: Layout.ReactJs.EmptyProps) {
             super(props);
 
-            new LanguageSelectBus(this);
+            this.myMessageBus.push(new LanguageSelectBus(this));
 
             this.onClick = this.onClick.bind(this);
         }
