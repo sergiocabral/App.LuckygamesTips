@@ -21,7 +21,7 @@ namespace Skript.Core.Bus {
          * Quando true não posta no log ações dessa mensagem.
          * @type {boolean}
          */
-        public silentLog: boolean = false;
+        public skipLogMessagePosted: boolean = false;
 
         /**
          * Envia uma mensagem para que algum handler possa processar.

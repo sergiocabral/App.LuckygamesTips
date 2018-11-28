@@ -55,14 +55,15 @@ namespace Skript.Core.Log {
          * @param {string} message Mensagem.
          * @param {any} values Opcional. Conjunto de valores para substituição na string.
          * @param {Level} level Nível da mensagem.
-         * @param {any} toConsoleLog Qualquer coisas para ser passado como parâmetro para console.log
+         * @param {any} toConsoleLog Opcional. Qualquer coisas para ser passado como parâmetro para console.log
+         * @param {boolean} cancelLogMessagePosted Opcional. Usado para evitar mensagem pelo MessageBus. Usado para evitar recursividade infinita.
          */
-        public post(text: string, values: any = { }, level: Level = Level.Information, toConsoleLog: any = undefined): void {
+        public post(text: string, values: any = { }, level: Level = Level.Information, toConsoleLog: any = undefined, skipLogMessagePosted: boolean = false): void {
             const message = this.mountMessage(text, values, level);
             
             this.allMessages.push(message);
 
-            new Core.Message.LogMessagePosted(message).sendAsync();
+            if (!skipLogMessagePosted) new Core.Message.LogMessagePosted(message).sendAsync();
             
             ConsoleLog.write(message, level, toConsoleLog);
         }

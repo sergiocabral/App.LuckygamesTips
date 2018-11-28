@@ -58,10 +58,7 @@ namespace Skript.Util {
                 parentElement: element.parentElement,
             }
 
-            if (!element.parentElement) {
-                skript.log.post('Canceled BringTo {direction}: <{tagName} id="{id}" />', { tagName: element.tagName, id: element.id, direction: BringTo[to] }, Core.Log.Level.DebugDOM, logInfo);
-                return;
-            }
+            if (!element.parentElement) return;
 
             let bringTo = false;
             switch (to) {
@@ -80,7 +77,6 @@ namespace Skript.Util {
             logInfo.childrenFirst = element.parentElement.children[0];
             logInfo.childrenLast = element.parentElement.children[element.parentElement.children.length - 1];
             if (bringTo) skript.log.post('Applied BringTo {direction}: <{tagName} id="{id}" />', { tagName: element.tagName, id: element.id, direction: BringTo[to] }, Core.Log.Level.DebugDOM, logInfo);
-            else skript.log.post('Canceled BringTo {direction}: <{tagName} id="{id}" />', { tagName: element.tagName, id: element.id, direction: BringTo[to] }, Core.Log.Level.DebugDOM, logInfo);
         }
 
         /**

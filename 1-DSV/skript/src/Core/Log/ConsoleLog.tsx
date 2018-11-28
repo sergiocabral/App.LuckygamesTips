@@ -29,8 +29,7 @@ namespace Skript.Core.Log {
             if (!skript.configuration.debug) return;
 
             const style = this.getStyle(level);
-            const notLogged = level === Level.NotLogged ? `[${Level[level]}]` : "";
-            const text = `%c[${Level[message.level]}]${notLogged} ${message.time.format({ mask: "y-M-d h:m:s,z" })}: ${message.text}`;
+            const text = `%c[${Level[message.level]}] ${message.time.format({ mask: "y-M-d h:m:s,z" })}: ${message.text}`;
 
             let log;
             switch (level) {
@@ -55,7 +54,6 @@ namespace Skript.Core.Log {
                 case Level.Warning: return "color: #ffc107; font-weight: bold;";
                 case Level.Information: return "color: #007bff;";
                 case Level.Debug: return "color: #6c757d;";
-                case Level.NotLogged: return "color: #C9CBCB; background-color: #F2F2F2;";
                 default: return "color: #C9CBCB;";
             }
         }

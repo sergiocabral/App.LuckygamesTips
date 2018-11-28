@@ -33,7 +33,7 @@ namespace Skript.Layout.ReactJs.Component {
          * Código CSS para este componente.
          */
         protected stylesheet: string = `
-            @keyframes slide {
+            @keyframes ShowMessage-Slide {
                 100% { left: 0; }
             }
             ${this.selector()} .closing {
@@ -56,7 +56,7 @@ namespace Skript.Layout.ReactJs.Component {
                 border-radius: 3px;
                 position: relative;
                 left: -110%;
-                animation: slide 0.5s forwards;
+                animation: ShowMessage-Slide 0.5s forwards;
                 box-shadow: 0 0 10px black;
             }
             ${this.selector()} p.${Core.Log.Level[Core.Log.Level.Information]} {

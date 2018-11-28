@@ -152,7 +152,7 @@ namespace Skript.Layout.ReactJs.Component {
             return (
                 <div id={this.id()} className={this.className}>
                     <div className="input">
-                        <input id={this.id() + "-input"} type="checkbox" className="shadow" ref={this.elCheckbox} checked={this.state.checked} onChange={this.onChange}/>
+                        <input id={this.id() + "-input"} type="checkbox" className="shadow" ref={this.elCheckbox} value={this.props.value} checked={this.state.checked} onChange={this.onChange}/>
                         <label htmlFor={this.id() + "-input"}></label>
                     </div>
                     <label className="children" htmlFor={this.id() + "-input"}>{this.props.children}</label>

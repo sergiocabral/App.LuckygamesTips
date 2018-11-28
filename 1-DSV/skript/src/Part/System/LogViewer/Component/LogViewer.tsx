@@ -13,6 +13,24 @@ namespace Skript.Part.System.LogViewer.Component {
     }
 
     /**
+     * Mensagem do log enriquecida.
+     */
+    type MessageWrapper = {
+
+        /**
+         * Mensagem do log.
+         * @type {Core.Log.Message}
+         */
+        message: Core.Log.Message,
+
+        /**
+         * Determina se deve ser exibido ou não.
+         * @type {boolean}
+         */
+        hide: boolean
+    }
+
+    /**
      * Componente principal do módulo.
      */
     export class LogViewer extends Layout.ReactJs.DialogComponentBase<Layout.ReactJs.EmptyProps, Partial<LogViewerState>> {
@@ -25,7 +43,7 @@ namespace Skript.Part.System.LogViewer.Component {
                 width: 100%;
                 height: 100%;
             }
-            ${this.selector()} table td,
+            ${this.selector()} table td:not(.log),
             ${this.selector()} table th {
                 white-space: nowrap;
             }
@@ -74,6 +92,45 @@ namespace Skript.Part.System.LogViewer.Component {
                 padding-bottom: 20px;
                 margin-bottom: 0 !important;
             }
+            @keyframes LogViewer-Blink {
+                from { background-color: lightslategrey; }
+	            to { background-color: transparent; }
+            }
+            ${this.selector()} .log .item .time {
+                background-color: rgba(255,255,255,0.1);
+                color: silver;
+                display: block;
+                text-align: right;
+            }
+            ${this.selector()} .log .item .text {
+                display: block;
+                margin: 3px 0 6px 0;
+                padding: 0 10px;
+                word-break: break-all;
+                animation: LogViewer-Blink 1s forwards;
+            }
+            ${this.selector()} .log .item .level {
+                background-color: rgba(255, 255, 255, 0.8);
+                color: black;
+                padding: 0 10px;                
+                border-radius: 2px;
+                float: left;
+                margin-right: 5px;
+            }                  
+            ${this.selector()} .log .item.Information .level {
+                background-color: #0062C9;
+                color: white;
+            }          
+            ${this.selector()} .log .item.Debug .level {
+                color: gray;
+            }          
+            ${this.selector()} .log .item.Warning .level {
+                background-color: #ffc107;
+            }          
+            ${this.selector()} .log .item.Error .level {
+                background-color: #dc3545;
+                color: white;
+            }
         `;
 
         /**
@@ -86,11 +143,13 @@ namespace Skript.Part.System.LogViewer.Component {
             this.title = this.translate("Log Viewer");
             this.icon = "far fa-list-alt";
 
+            this.onLevelClick = this.onLevelClick.bind(this);
+            
             this.elMessages = React.createRef();
 
             const messageBus = new Core.Message.GetLogMessages().sendSync() as Core.Message.GetLogMessages;
-            this.messages = messageBus.result ? messageBus.result.messages.reverse() : [];
-            this.state = { messages: this.messages.length };
+            this.messages = [];
+            if (messageBus.result) messageBus.result.messages.reverse().map(v => this.post(v));            
             this.myMessageBus.push(new LogViewerBus(this));
         }
 
@@ -102,16 +161,19 @@ namespace Skript.Part.System.LogViewer.Component {
 
         /**
          * Lista de todas as mensagens de log.
-         * @type {Core.Log.Message[]}
+         * @type {MessageWrapper[]}
          */
-        private messages: Core.Log.Message[];
+        private messages: MessageWrapper[];
 
         /**
          * Nova mensagem de log recebida.
          * @param {Core.Log.Message} message Mensagem
          */
         post(message: Core.Log.Message): void {
-            this.messages.unshift(message);
+            this.messages.unshift({
+                message: message,
+                hide: this.levelToHide.indexOf(Core.Log.Level[message.level]) >= 0
+            });
             if (this.elMessages.current) this.setState({ messages: this.messages.length });
         }
         
@@ -138,12 +200,32 @@ namespace Skript.Part.System.LogViewer.Component {
         };
 
         /**
+         * Lista de levels para não exibir.
+         */
+        private levelToHide: string[] = [];
+
+        /**
+         * Quando clica em um nível de log para filtrar.
+         */
+        private onLevelClick(evt: any): void {
+            const input = evt.target as HTMLInputElement;
+            const checked = input.checked;
+            const level = input.value;
+            const elements = document.querySelectorAll(`#${this.id()} .${level}`);
+            
+            for (let i = 0; i < elements.length; i++) (elements[i] as HTMLElement).style.display = checked ? "" : "none";
+            
+            if (!checked && this.levelToHide.indexOf(level) < 0) this.levelToHide.push(level);
+            else if (checked && this.levelToHide.indexOf(level) >= 0) this.levelToHide.splice(this.levelToHide.indexOf(level), 1);
+        }
+
+        /**
          * Renderizador do React. Conteúdo do container.
          * @returns {JSX.Element}
          */
         protected renderContent(): JSX.Element {            
             return (
-                <table>
+                <table id={this.id()} className={this.className}>
                     <thead>
                         <tr>
                             <th><h1>Níveis</h1></th>
@@ -152,18 +234,18 @@ namespace Skript.Part.System.LogViewer.Component {
                     </thead>
                     <tbody>
                         <tr>
-                            <td className="levels">
+                            <td className="levels" onClick={this.onLevelClick}>
                                 {this.levels().map(v => 
-                                    <div><Layout.ReactJs.Component.Switch checked={true} value={v}>{Core.Log.Level[v]}</Layout.ReactJs.Component.Switch></div>
+                                    <div><Layout.ReactJs.Component.Switch checked={true} value={Core.Log.Level[v]}>{Core.Log.Level[v]}</Layout.ReactJs.Component.Switch></div>
                                 )}
                             </td>
                             <td className="log width100">
                                 <div ref={this.elMessages}>
                                     {this.messages.map(v => 
-                                        <div key={v.id} data-id={v.id} className={"item " + Core.Log.Level[v.level]}>
-                                            <span>{Core.Log.Level[v.level]}</span>
-                                            <span>{v.text}</span>
-                                            <span>{v.time.format({})}</span>
+                                        <div key={v.message.id} data-id={v.message.id} className={"item " + Core.Log.Level[v.message.level]} style={ { display: v.hide ? "none" : ""} }>
+                                            <span className="level">{Core.Log.Level[v.message.level]}</span>
+                                            <span className="time">{v.message.time.format({})}</span>
+                                            <span className="text">{v.message.text}</span>
                                         </div>
                                     )}
                                 </div>

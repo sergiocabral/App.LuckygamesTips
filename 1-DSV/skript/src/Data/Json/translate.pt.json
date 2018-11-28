@@ -102,10 +102,6 @@
                 "Aplicado BringTo {direction}: <{tagName} id=\"{id}\" />" 
             },
             { 
-                "Canceled BringTo {direction}: <{tagName} id=\"{id}\" />":
-                "Cancelado BringTo {direction}: <{tagName} id=\"{id}\" />" 
-            },
-            { 
                 "Inserted: <{tagName} id=\"{id}\" />":
                 "Inserido: <{tagName} id=\"{id}\" />" 
             }

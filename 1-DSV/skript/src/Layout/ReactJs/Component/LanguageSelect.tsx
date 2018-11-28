@@ -84,10 +84,10 @@ namespace Skript.Layout.ReactJs.Component {
             return (
                 <div id={this.id()} className={this.className} title={this.translate("Select language.")}>
                     <span className="language en" data-language="en">
-                        <button onClick={this.onClick}>English</button>
+                        <button onClick={this.onClick} className="action">English</button>
                     </span>
                     <span className="language pt" data-language="pt">
-                        <button onClick={this.onClick}>Português</button>
+                        <button onClick={this.onClick} className="action">Português</button>
                     </span>
                 </div>
             );

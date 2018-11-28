@@ -9,7 +9,7 @@ namespace Skript.Core.Message {
          * Quando true não posta no log ações dessa mensagem.
          * @type {boolean}
          */
-        public silentLog: boolean = true;
+        public skipLogMessagePosted: boolean = true;
 
         /**
          * Construtor.

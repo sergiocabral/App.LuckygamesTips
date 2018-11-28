@@ -52,8 +52,7 @@ namespace Skript.Core.Bus {
             for (let i = 0; i < MessageBus.list.length; i++) {                
                 if (!MessageBus.list[i]) continue;
                 if (MessageBus.list[i].disposed) {                     
-                    if (!message.silentLog) skript.log.post("A MessageHandler {0} was disposed.", MessageBus.list[i].constructor.name, Log.Level.DebugBus);
-                    else Core.Log.ConsoleLog.write(skript.log.mountMessage("A MessageHandler {0} was disposed.", MessageBus.list[i].constructor.name, Log.Level.DebugBus), Log.Level.NotLogged);
+                    skript.log.post("A MessageHandler {0} was disposed.", MessageBus.list[i].constructor.name, Log.Level.DebugBus, undefined, message.skipLogMessagePosted);
                     delete MessageBus.list[i];
                     continue; 
                 }
@@ -69,8 +68,7 @@ namespace Skript.Core.Bus {
                     }
                 }
             }
-            if (!message.silentLog) skript.log.post("Message {0} dispatched and processed by {1}x: {2}", [message.constructor.name, message.handled, handles], Log.Level.DebugBus);
-            else Core.Log.ConsoleLog.write(skript.log.mountMessage("Message {0} dispatched and processed by {1}x: {2}", [message.constructor.name, message.handled, handles], Log.Level.DebugBus), Log.Level.NotLogged);
+            skript.log.post("Message {0} dispatched and processed by {1}x: {2}", [message.constructor.name, message.handled, handles], Log.Level.DebugBus, undefined, message.skipLogMessagePosted);
             return message;
         }
 

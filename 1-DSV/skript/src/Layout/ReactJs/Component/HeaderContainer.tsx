@@ -307,12 +307,5 @@ namespace Skript.Layout.ReactJs.Component {
                 </div>
             );
         }
-
-        /**
-         * Quando o componente é montado.
-         */
-        public componentDidMount(): void {
-            (this.elContent.current as HTMLElement).style.maxHeight = "200px";
-        }
     }
 }

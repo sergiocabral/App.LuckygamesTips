@@ -6,11 +6,6 @@ namespace Skript.Core.Log {
     export enum Level { 
         
         /**
-         * Mensagem não entrou no log por motivos de recursividade infinita.
-         */
-        NotLogged,
-        
-        /**
          * Informações de depuração do React.
          */
         DebugReact,
