@@ -77,7 +77,7 @@ namespace Skript.Layout.ReactJs.Component {
         /**
          * Código CSS para este componente.
          */
-        public stylesheet: string = `
+        protected stylesheet: string = `
             ${this.selector()} {
                 z-index: ${this.theme.zIndex};
                 background: ${this.theme.generalBackground};
@@ -173,21 +173,21 @@ namespace Skript.Layout.ReactJs.Component {
 
         /**
          * Referência ao container pai de todos.
-         * @type {React.RefObject<HTMLElement>}
+         * @type {React.RefObject<HTMLDivElement>}
          */
-        private elContainer: React.RefObject<HTMLElement>;
+        private elContainer: React.RefObject<HTMLDivElement>;
 
         /**
          * Referência para o título na barra.
-         * @type {React.RefObject<HTMLElement>}
+         * @type {React.RefObject<HTMLHeadingElement>}
          */
-        private elTitle: React.RefObject<HTMLElement>;
+        private elTitle: React.RefObject<HTMLHeadingElement>;
 
         /**
          * Referência para o botão de resize.
-         * @type {React.RefObject<HTMLElement>}
+         * @type {React.RefObject<HTMLDivElement>}
          */
-        private elResize: React.RefObject<HTMLElement>;
+        private elResize: React.RefObject<HTMLDivElement>;
 
         /**
          * Implementa a exibição/esconder suave do elemento.
@@ -269,10 +269,10 @@ namespace Skript.Layout.ReactJs.Component {
          */
         public render(): JSX.Element {
             return (
-                <div id={this.id()} className={this.className} ref={this.elContainer as any}>
+                <div id={this.id()} className={this.className} ref={this.elContainer}>
                     <div className="header">
                         <span className="graph"><i className={this.props.icon ? this.props.icon : "far fa-window-restore"}></i></span>
-                        <h1 ref={this.elTitle as any}>{this.props.title}</h1>
+                        <h1 ref={this.elTitle}>{this.props.title}</h1>
                         <a href="#" className="close" onClick={this.onCloseClick}><i className="fas fa-times"></i></a>
                     </div>
                     <div className="content">
@@ -280,7 +280,7 @@ namespace Skript.Layout.ReactJs.Component {
                             {(this.state.children as React.ReactNode[]).map(child => !child ? "" : <div key={Util.String.random()}>{child}</div>)}
                         </div>
                     </div>  
-                    <div className="resize"><div ref={this.elResize as any}>&nbsp;</div></div>
+                    <div className="resize"><div ref={this.elResize}>&nbsp;</div></div>
                 </div>
             );
         }

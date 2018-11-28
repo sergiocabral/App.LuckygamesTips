@@ -8,7 +8,7 @@ namespace Skript.Layout.ReactJs.Component {
         /**
          * Código CSS para este componente.
          */
-        public stylesheet: string = `
+        protected stylesheet: string = `
             ${this.selector()} {
                 display: inline-block;
             }

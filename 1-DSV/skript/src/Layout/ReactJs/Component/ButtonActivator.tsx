@@ -8,7 +8,7 @@ namespace Skript.Layout.ReactJs.Component {
         /**
          * Código CSS para este componente.
          */
-        public stylesheet: string = `
+        protected stylesheet: string = `
             ${this.selector()} {
                 z-index: ${skript.stylesheet.zIndex * 2};
                 background-color: transparent;
@@ -49,9 +49,9 @@ namespace Skript.Layout.ReactJs.Component {
 
         /**
          * Referência ao botão.
-         * @type {React.RefObject<HTMLElement>}
+         * @type {React.RefObject<HTMLButtonElement>}
          */
-        private elButton: React.RefObject<HTMLElement>;
+        private elButton: React.RefObject<HTMLButtonElement>;
 
         /**
          * Implementa a exibição/esconder suave do elemento.
@@ -73,7 +73,7 @@ namespace Skript.Layout.ReactJs.Component {
          */
         public render(): JSX.Element {            
             return (
-                <button id={this.id()} className={this.className + " no-shadow"} ref={this.elButton as any} onClick={this.onClick}>
+                <button id={this.id()} className={this.className + " no-shadow"} ref={this.elButton} onClick={this.onClick}>
                     <i className="fas fa-robot"></i>
                 </button>
             );

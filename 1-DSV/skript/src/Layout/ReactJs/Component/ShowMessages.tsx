@@ -32,7 +32,7 @@ namespace Skript.Layout.ReactJs.Component {
         /**
          * Código CSS para este componente.
          */
-        public stylesheet: string = `
+        protected stylesheet: string = `
             @keyframes slide {
                 100% { left: 0; }
             }

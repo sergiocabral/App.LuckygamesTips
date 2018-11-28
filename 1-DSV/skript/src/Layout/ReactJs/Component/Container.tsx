@@ -38,7 +38,7 @@ namespace Skript.Layout.ReactJs.Component {
         /**
          * Código CSS para este componente.
          */
-        public stylesheet: string = `
+        protected stylesheet: string = `
             ${this.selector()} > .title {
                 background-color: ${this.theme.dialogTitleBackground};
                 color: ${this.theme.dialogTitleTextColor};

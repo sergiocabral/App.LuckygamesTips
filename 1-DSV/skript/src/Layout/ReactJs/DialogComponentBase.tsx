@@ -67,6 +67,7 @@ namespace Skript.Layout.ReactJs {
                 this.icon,
                 "content",
                 this.newWindowSize).sendSync().result as ReactJs.Component.Dialog;
+                
             dialog.visible(true);
         }
         

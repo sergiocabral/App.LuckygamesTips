@@ -30,7 +30,7 @@ namespace Skript.Layout.ReactJs.Component {
         /**
          * Código CSS para este componente.
          */
-        public stylesheet: string = `
+        protected stylesheet: string = `
             ${this.selector()} {
                 display: inline-block;
                 padding: 3px 1px;
@@ -106,9 +106,9 @@ namespace Skript.Layout.ReactJs.Component {
 
         /**
          * Checkbox.
-         * @type {React.RefObject<HTMLElement>}
+         * @type {React.RefObject<HTMLInputElement>}
          */
-        private elCheckbox: React.RefObject<HTMLElement>;
+        private elCheckbox: React.RefObject<HTMLInputElement>;
 
         /**
          * Retorna e/ou define o estado do controle.
@@ -139,7 +139,7 @@ namespace Skript.Layout.ReactJs.Component {
             const _this = this;eval("window._this = _this"); _this;
             return (
                 <div id={this.id()} className={this.className}>
-                    <input id={this.id() + "-input"} type="checkbox" className="shadow" ref={this.elCheckbox as any} checked={this.state.checked} onChange={this.onChange}/>
+                    <input id={this.id() + "-input"} type="checkbox" className="shadow" ref={this.elCheckbox} checked={this.state.checked} onChange={this.onChange}/>
                     <label htmlFor={this.id() + "-input"}></label>
                 </div>
             );
