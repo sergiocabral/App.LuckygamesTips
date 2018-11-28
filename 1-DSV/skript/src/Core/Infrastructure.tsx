@@ -38,9 +38,9 @@ namespace Skript.Core {
                     ];
 
                     skript.api.loadData(data).then((response) => {
-
                         try {
                             skript.data = this.extractData(response, data);
+                            skript.log.post("The configuration data has been loaded.", null, Log.Level.Debug, skript.data);
                             new Main();
                         } catch (error) {
                             this.fatalError("System error: " + error);

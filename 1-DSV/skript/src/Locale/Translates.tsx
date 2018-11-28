@@ -90,18 +90,13 @@ namespace Skript.Locale {
             
             const process = (object: any, translates: Translate[]): Translate[] => {
                 for (const key in object) {
-                    if (Array.isArray(object[key])) {
-                        for (let i = 0; i < object[key].length; i++) {
-                            translates.push({
-                                language: skript.translate.languageDefault,
-                                id: Object.keys(object[key][i])[0] as string,
-                                translated: object[key][i][Object.keys(object[key][i])[0]] as string
-                            });
-                        }
-                    }
-                    else {
-                        translates = translates.concat(process(object[key], translates));
-                    }
+                    if (!Array.isArray(object[key])) process(object[key], translates);
+                    else for (let i = 0; i < object[key].length; i++)
+                        translates.push({
+                            language: skript.translate.languageDefault,
+                            id: Object.keys(object[key][i])[0] as string,
+                            translated: object[key][i][Object.keys(object[key][i])[0]] as string
+                        });
                 }
                 return translates;
             }

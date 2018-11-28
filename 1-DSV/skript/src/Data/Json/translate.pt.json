@@ -13,6 +13,14 @@
             }
         ],
         "Main.tsx": [
+            {
+                "Using from this point translated texts.":
+                "Usando a partir deste ponto textos traduzidos."
+            },
+            {
+                "The configuration data has been loaded.":
+                "Os dados de configuração foram carregados."
+            },
             { 
                 "Oops! An internet connection failed. Try again.":
                 "Ops! Ocorreu uma falha na conexão com a internet. Tente novamente."

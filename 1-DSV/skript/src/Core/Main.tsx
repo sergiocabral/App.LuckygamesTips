@@ -23,6 +23,7 @@ namespace Skript.Core {
             Util.Number.defaultNumberFormat = skript.data.locale.number;
 
             skript.translate.load(skript.data.translates);
+            skript.log.post("Using from this point translated texts.", null, Core.Log.Level.Debug);
             
             skript.presentation = new Layout.Presentation();
 
