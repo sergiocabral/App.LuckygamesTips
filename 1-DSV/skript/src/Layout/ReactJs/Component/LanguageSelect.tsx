@@ -19,7 +19,7 @@ namespace Skript.Layout.ReactJs.Component {
                 margin: 2px 5px;
             }
             ${this.selector()} .language.active {
-                border-bottom-color: ${Util.Drawing.blend(0.3, this.theme.dialogTitleBackground)};
+                border-bottom-color: ${Util.Drawing.blend(0.3, this.theme.dialogTitleBackgroundColor)};
             }
             ${this.selector()} button {
                 background: transparent;

@@ -80,7 +80,7 @@ namespace Skript.Layout.ReactJs.Component {
         protected stylesheet: string = `
             ${this.selector()} {
                 z-index: ${this.theme.zIndex};
-                background: ${this.theme.generalBackground};
+                background: ${this.theme.generalBackgroundColor};
                 box-shadow: 0 0 20px black;
                 border-radius: 7px;
                 overflow: hidden;
@@ -93,7 +93,7 @@ namespace Skript.Layout.ReactJs.Component {
                 height: ${this.defaults.height}px;
             }
             ${this.selector()} > .header {
-                background-color: ${this.theme.dialogTitleBackground};
+                background-color: ${this.theme.dialogTitleBackgroundColor};
                 border-bottom: 1px solid ${Util.Drawing.blend(0.5, this.theme.dialogTitleTextColor)};
                 border-radius: 7px 7px 0 0;
                 padding: 9px 0 8px 0;
@@ -142,6 +142,7 @@ namespace Skript.Layout.ReactJs.Component {
                 height: calc(100% - 50px);
                 overflow: auto;
                 overflow-x: hidden;
+                position: relative;
             }
             ${this.selector()} > .resize {
                 position: absolute;
@@ -149,7 +150,7 @@ namespace Skript.Layout.ReactJs.Component {
                 right: 0;
                 width: 100%;
                 overflow: hidden;
-                background-color: ${Util.Drawing.blend(0.2, this.theme.dialogTitleBackground)};
+                background-color: ${Util.Drawing.blend(0.2, this.theme.dialogTitleBackgroundColor)};
                 border-top: 1px solid ${Util.Drawing.blend(0.5, this.theme.dialogTitleTextColor)};
             }
             ${this.selector()} > .resize div {
@@ -170,20 +171,12 @@ namespace Skript.Layout.ReactJs.Component {
 
             this.state = { children: [this.props.children] };
 
-            this.elContainerContent = React.createRef();
-
             this.elContainer = React.createRef();
             this.elTitle = React.createRef();
             this.elResize = React.createRef();
 
             this.close = this.close.bind(this);
         }
-
-        /**
-         * Container do conteúdo.
-         * @type {React.RefObject<HTMLDivElement>}
-         */
-        public elContainerContent: React.RefObject<HTMLDivElement>;
         
         /**
          * Referência ao container pai de todos.
@@ -320,10 +313,7 @@ namespace Skript.Layout.ReactJs.Component {
                         <a href="#" className="close action" onClick={this.close}><i className="fas fa-times"></i></a>
                     </div>
                     <div className="content">
-                        <div ref={this.elContainerContent}></div>
-                        <div>
-                            {(this.state.children as React.ReactNode[]).map(child => !child ? "" : <div key={Util.String.random()}>{child}</div>)}
-                        </div>
+                        {(this.state.children as React.ReactNode[]).map(child => !child ? "" : <div key={Util.String.random()}>{child}</div>)}
                     </div>  
                     <div className="resize"><div ref={this.elResize}>&nbsp;</div></div>
                 </div>

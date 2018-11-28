@@ -6,9 +6,14 @@ namespace Skript.Layout.ReactJs.Component {
     export type SwitchProps = {
 
         /**
-         * Estatdo do controle.
+         * Estado do controle.
          */
-        checked: boolean
+        checked?: boolean
+
+        /**
+         * Valor.
+         */
+        value?: any
     }
 
     /**
@@ -31,36 +36,39 @@ namespace Skript.Layout.ReactJs.Component {
          * Código CSS para este componente.
          */
         protected stylesheet: string = `
-            ${this.selector()} {
+            ${this.selector()} > .input {
                 display: inline-block;
                 padding: 3px 1px;
                 margin-bottom: -10px;
-            }
-            ${this.selector()} input {
+            }            
+            ${this.selector()} > .input {
                 display: inline-block;
             }
-            ${this.selector()} input {
+            ${this.selector()} > .input > input {
+                display: inline-block;
+            }
+            ${this.selector()} > .input > input {
                 display: inline-block;
                 position: absolute;
                 margin-left: -9999px;
                 visibility: hidden;
             }
-            ${this.selector()} input + label {
+            ${this.selector()} > .input > input + label {
                 display: block;
                 position: relative;
                 cursor: pointer;
                 outline: none;
                 user-select: none;
             }
-            ${this.selector()} input.shadow + label {
+            ${this.selector()} > .input > input.shadow + label {
                 padding: 2px;
                 width: 45px;
                 height: 20px;
                 background-color: #dddddd;
                 border-radius: 60px;
             }
-            ${this.selector()} input.shadow + label:before,
-            ${this.selector()} input.shadow + label:after {
+            ${this.selector()} > .input > input.shadow + label:before,
+            ${this.selector()} > .input > input.shadow + label:after {
                 display: block;
                 position: absolute;
                 top: 1px;
@@ -68,24 +76,29 @@ namespace Skript.Layout.ReactJs.Component {
                 bottom: 0.5px;
                 content: "";
             }
-            ${this.selector()} input.shadow + label:before {
+            ${this.selector()} > .input > input.shadow + label:before {
                 right: 1px;
                 background-color: #eeeeee;
                 border-radius: 60px;
                 transition: all 0.4s;
             }
-            ${this.selector()} input.shadow + label:after {
+            ${this.selector()} > .input > input.shadow + label:after {
                 width: 22px;
                 background-color: #fff;
                 border-radius: 100%;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
                 transition: all 0.4s;
             }
-            ${this.selector()} input.shadow:checked + label:before {
+            ${this.selector()} > .input > input.shadow:checked + label:before {
                 background-color: #A5C4DE;
             }
-            ${this.selector()} input.shadow:checked + label:after {
+            ${this.selector()} > .input > input.shadow:checked + label:after {
                 transform: translateX(25px);
+            }
+            ${this.selector()} > .children {
+                display: inline-block;
+                margin-left: 5px;
+                cursor: pointer;
             }
         `;
 
@@ -98,10 +111,9 @@ namespace Skript.Layout.ReactJs.Component {
 
             this.elCheckbox = React.createRef();
 
-            this.onChange
-             = this.onChange.bind(this);
+            this.onChange = this.onChange.bind(this);
 
-            this.state = { checked: props.checked };
+            this.state = { checked: !!props.checked };
         }
 
         /**
@@ -139,8 +151,11 @@ namespace Skript.Layout.ReactJs.Component {
             const _this = this;eval("window._this = _this"); _this;
             return (
                 <div id={this.id()} className={this.className}>
-                    <input id={this.id() + "-input"} type="checkbox" className="shadow" ref={this.elCheckbox} checked={this.state.checked} onChange={this.onChange}/>
-                    <label htmlFor={this.id() + "-input"}></label>
+                    <div className="input">
+                        <input id={this.id() + "-input"} type="checkbox" className="shadow" ref={this.elCheckbox} checked={this.state.checked} onChange={this.onChange}/>
+                        <label htmlFor={this.id() + "-input"}></label>
+                    </div>
+                    <label className="children" htmlFor={this.id() + "-input"}>{this.props.children}</label>
                 </div>
             );
         }

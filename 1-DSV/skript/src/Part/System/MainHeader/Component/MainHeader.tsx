@@ -36,15 +36,15 @@ namespace Skript.Part.System.MainHeader.Component {
                 padding-top: 9px;
                 white-space: nowrap;
                 text-shadow: 
-                    0 0 20px ${this.theme.generalBackground},
-                    0 0 20px ${this.theme.generalBackground},
-                    0 0 40px ${this.theme.generalBackground},
-                    0 0 40px ${this.theme.generalBackground},
-                    0 0 40px ${this.theme.generalBackground},
-                    0 0 60px ${this.theme.generalBackground},
-                    0 0 60px ${this.theme.generalBackground},
-                    0 0 60px ${this.theme.generalBackground}, 
-                    0 0 60px ${this.theme.generalBackground};
+                    0 0 20px ${this.theme.generalBackgroundColor},
+                    0 0 20px ${this.theme.generalBackgroundColor},
+                    0 0 40px ${this.theme.generalBackgroundColor},
+                    0 0 40px ${this.theme.generalBackgroundColor},
+                    0 0 40px ${this.theme.generalBackgroundColor},
+                    0 0 60px ${this.theme.generalBackgroundColor},
+                    0 0 60px ${this.theme.generalBackgroundColor},
+                    0 0 60px ${this.theme.generalBackgroundColor}, 
+                    0 0 60px ${this.theme.generalBackgroundColor};
             }
             ${this.selector()} h1 {
                 color: ${Util.Drawing.blend(-0.5, this.theme.generalTextColor)};                

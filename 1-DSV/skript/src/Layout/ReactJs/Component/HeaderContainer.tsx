@@ -59,7 +59,7 @@ namespace Skript.Layout.ReactJs.Component {
          * Dimensão padrão da janela se estiver habilitada.
          * @type {Core.Size|undefined}
          */
-        dialogSize?: Core.Size
+        dialogSize?: Core.Size,
     }
 
     /**
@@ -72,13 +72,13 @@ namespace Skript.Layout.ReactJs.Component {
          */
         protected stylesheet: string = `
             ${this.selector()} > .title {
-                background-color: ${this.theme.dialogTitleBackground};
+                background-color: ${this.theme.dialogTitleBackgroundColor};
                 color: ${this.theme.dialogTitleTextColor};
                 border-radius: 4px;
                 padding: 5px 10px;
                 margin: 0 -10px;
                 box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-                border: 1px solid ${Util.Drawing.blend(-0.1, this.theme.dialogTitleBackground)};
+                border: 1px solid ${Util.Drawing.blend(-0.1, this.theme.dialogTitleBackgroundColor)};
             }
             ${this.selector()} > .title .text .graph {
                 float: left;
@@ -125,6 +125,24 @@ namespace Skript.Layout.ReactJs.Component {
             this.onHeaderClick = this.onHeaderClick.bind(this);
             this.onDialogClick = this.onDialogClick.bind(this);            
         }
+
+        /**
+         * Marca para Class CSS para tornar o conteúdo com o mesmo estilo dentro e fora da janela.
+         * @type {string}
+         */
+        private static classNameMark: string = Util.String.random()
+
+        /**
+         * No conteúdo. Class CSS para tornar o conteúdo com o mesmo estilo dentro e fora da janela.
+         * @type {string}
+         */
+        public static classNameContent: () => string = () => HeaderContainer.classNameMark + "-" + IdContext[IdContext.Content];
+
+        /**
+         * Conteúdo na janela. Class CSS para tornar o conteúdo com o mesmo estilo dentro e fora da janela.
+         * @type {string}
+         */
+        public static classNameDialog: () => string = () => HeaderContainer.classNameMark + "-" + IdContext[IdContext.Dialog];
 
         /**
          * Conteúdo.
@@ -184,7 +202,7 @@ namespace Skript.Layout.ReactJs.Component {
                     this.props.title ? this.props.title : "",
                     DialogCloseMode.Hide,
                     this.props.icon,
-                    <div id={this.contextId(IdContext.Dialog)}></div>,
+                    <div id={this.contextId(IdContext.Dialog)} className={HeaderContainer.classNameDialog()}></div>,
                     this.props.dialogSize).sendSync().result as Component.Dialog;
                 
                 this.instanceDialog.onClose.push(() => {
@@ -280,7 +298,7 @@ namespace Skript.Layout.ReactJs.Component {
                         </span>
                     </div>
                     <div className="content hide" id={this.contextId(IdContext.Component)} ref={this.elContent}>
-                        <div id={this.contextId(IdContext.Content)}>
+                        <div id={this.contextId(IdContext.Content)} className={HeaderContainer.classNameContent()}>
                             {this.props.children}
                         </div>
                     </div>

@@ -83,16 +83,16 @@ namespace Skript.Layout.ReactJs.Component {
                 opacity: 0.75;
             }
             ${this.selector()} p a {
-                color: ${Util.Drawing.blend(0.0, this.theme.dialogTitleBackground)};
-                text-shadow: 0 0 10px ${Util.Drawing.blend(0.5, this.theme.dialogTitleBackground)};
+                color: ${Util.Drawing.blend(0.0, this.theme.dialogTitleBackgroundColor)};
+                text-shadow: 0 0 10px ${Util.Drawing.blend(0.5, this.theme.dialogTitleBackgroundColor)};
                 float: right;
                 cursor: pointer;
                 margin-right: -10px;
                 text-decoration: none;
             }
             ${this.selector()} p a:hover {
-                color: ${Util.Drawing.blend(0.2, this.theme.dialogTitleBackground)};
-                text-shadow: 0 0 3px ${Util.Drawing.blend(0.5, this.theme.dialogTitleBackground)};
+                color: ${Util.Drawing.blend(0.2, this.theme.dialogTitleBackgroundColor)};
+                text-shadow: 0 0 3px ${Util.Drawing.blend(0.5, this.theme.dialogTitleBackgroundColor)};
             }
         `;
 

@@ -21,10 +21,10 @@ namespace Skript.Layout.Theme {
             this.zIndex = 1000;
             this.generalTextFont = "'Hind Siliguri', sans-serif";
             this.generalTextColor = Util.Drawing.blend(-0.5, colors.primary);
-            this.generalBackground = "#ffffff";
+            this.generalBackgroundColor = "#ffffff";
             this.dialogTextFont = "'Raleway', sans-serif";
             this.dialogTitleTextColor = Util.Drawing.blend(-0.5, colors.secondary);
-            this.dialogTitleBackground = Util.Drawing.blend(0.5, colors.secondary);
+            this.dialogTitleBackgroundColor = Util.Drawing.blend(0.5, colors.secondary);
 
             this.generalStylesheet();
         }
@@ -57,7 +57,7 @@ namespace Skript.Layout.Theme {
          * Fundo em geral.
          * @type {string}
          */
-        public generalBackground: string;
+        public generalBackgroundColor: string;
 
         /**
          * Fonte de texto do título das janelas de diálogo.
@@ -75,7 +75,7 @@ namespace Skript.Layout.Theme {
          * Fundo do título das janelas de diálogo.
          * @type {string}
          */
-        public dialogTitleBackground: string;
+        public dialogTitleBackgroundColor: string;
 
         /**
          * Cores padrão para o tema.
@@ -107,6 +107,49 @@ namespace Skript.Layout.Theme {
         public generalStylesheet(): void {
             const selector = `.${Presentation.className}`;
             const styles: string[] = [];
+            
+            //Classes de uso geral
+            styles.push(`
+                ${selector} .width100 { width: 100%; }
+                ${selector} .width90 { width: 90%; }
+                ${selector} .width80 { width: 80%; }
+                ${selector} .width70 { width: 70%; }
+                ${selector} .width60 { width: 60%; }
+                ${selector} .width50 { width: 50%; }
+                ${selector} .width40 { width: 40%; }
+                ${selector} .width30 { width: 30%; }
+                ${selector} .width20 { width: 20%; }
+                ${selector} .width10 { width: 10%; }
+                ${selector} .alignLeft { text-align: left; }
+                ${selector} .alignCenter { text-align: center; }
+                ${selector} .alignRight { text-align: right; }
+                ${selector} .valignTop { vertical-align: top; }
+                ${selector} .valignMiddle { vertical-align: middle; }
+                ${selector} .valignBottom { vertical-align: bottom; }
+                ${selector} .nowrap { white-space: nowrap; }
+            `);
+
+            //Elementos de tabela
+            styles.push(`
+                ${selector} table th { vertical-align: middle; }
+                ${selector} table td { vertical-align: top; }
+            `);
+
+            //Elementos <h1>, <h2>, ...
+            styles.push(`
+                ${selector} h1 {
+                    font-family: 'Raleway', sans-serif;
+                    font-size: 100%;
+                    margin: 0;
+                    padding: 0;                    
+                }
+                ${selector} h1 { font-size: 124%; }
+                ${selector} h2 { font-size: 118%; }
+                ${selector} h3 { font-size: 112%; }
+                ${selector} h4 { font-size: 108%; }
+                ${selector} h5 { font-size: 104%; }
+                ${selector} h6 { font-size: 100%; }
+            `);
             
             //Elementos <a>
             styles.push(`

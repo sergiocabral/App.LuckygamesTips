@@ -125,6 +125,11 @@ namespace Skript.Layout.ReactJs {
         protected selector: () => string = () => `.${Presentation.className} .${this.className}[id]`;
 
         /**
+         * Determina se o sistema está em modo debug.
+         */
+        protected debug: () => boolean = () => skript.configuration.debug;
+
+        /**
          * Quando um componente é montado.
          */
         public componentWillMount() {
