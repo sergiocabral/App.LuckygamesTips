@@ -51,6 +51,15 @@ namespace Skript.Core.Log {
         }
 
         /**
+         * Limpa todas as mensagens do log.
+         */
+        public clear(): void {
+            this.allMessages.length = 0;
+            new Core.Message.LogMessageCleared().sendAsync();
+            this.post("The log list has been cleared.", null, Level.Information);
+        }
+
+        /**
          * Registra uma mensagem de log
          * @param {string} message Mensagem.
          * @param {any} values Opcional. Conjunto de valores para substituição na string.

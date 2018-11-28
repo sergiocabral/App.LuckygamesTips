@@ -125,6 +125,12 @@
                 "Change language from {old} to {new}. You need to refresh the page to make the change.":
                 "Trocado idioma de {old} para {new}. É necessário atualizar a página para efetivar a alteração." 
             }
+        ],
+        "History.txt": [
+            {
+                "The log list has been cleared.":
+                "A lista de log foi limpa."
+            }
         ]
     },
     "Componentes do sistema": {

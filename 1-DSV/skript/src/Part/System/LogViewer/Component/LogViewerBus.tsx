@@ -11,9 +11,11 @@ namespace Skript.Part.System.LogViewer.Component {
         public handlers: Core.Bus.MessageHandler[] = [
             {
                 message: Core.Message.LogMessagePosted.name,
-                handler: (command: Core.Message.LogMessagePosted) => {
-                    this.sponsor.post(command.message);
-                }
+                handler: (command: Core.Message.LogMessagePosted) => this.sponsor.post(command.message)
+            },
+            {
+                message: Core.Message.LogMessageCleared.name,
+                handler: () => this.sponsor.clear()
             }
         ];
     }

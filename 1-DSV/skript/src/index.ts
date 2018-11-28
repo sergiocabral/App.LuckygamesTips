@@ -81,6 +81,12 @@
 /// <reference path="Core/Message/GetLogMessages.tsx" />
 /// context: Initialize
 
+/// <reference path="Core/Message/ClearLogMessages.tsx" />
+/// context: Initialize
+
+/// <reference path="Core/Message/LogMessageCleared.tsx" />
+/// context: Initialize
+
 /// #############################################
 
 /// <reference path="Util/DateTime.tsx" />
