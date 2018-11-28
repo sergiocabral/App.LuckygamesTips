@@ -21,6 +21,11 @@ namespace Skript.Core.Log {
         DebugRequest,
         
         /**
+         * Informações de depuração relacionadas ao DOM.
+         */
+        DebugDOM,
+        
+        /**
          * Informações de depuração.
          */
         Debug,

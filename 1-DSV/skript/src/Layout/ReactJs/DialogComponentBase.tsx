@@ -1,4 +1,9 @@
 namespace Skript.Layout.ReactJs {
+    
+    /**
+     * Repositório de todas as instâncias principais do sistema.
+     */
+    declare const skript: Core.All;
 
     /**
      * Botão que ativa o sistema.
@@ -52,30 +57,49 @@ namespace Skript.Layout.ReactJs {
         private idWindow: () => string = () => "w" + this.id();
 
         /**
+         * Referência para a janela deste componente.
+         * @type {ReactJs.Component.Dialog|undefined}
+         */
+        private dialog: ReactJs.Component.Dialog|undefined;
+
+        /**
          * Ao mover para nova janela.
          */
         private onNewWindow() {
-            const dialog = new Message.DialogCreate(
-                this.title, 
-                ReactJs.Component.DialogCloseMode.Remove,
-                this.icon,
-                <div id={this.idWindow()}></div>,
-                this.newWindowSize).sendSync().result as ReactJs.Component.Dialog;
+            if (!this.dialog) {
+                this.dialog = new Message.DialogCreate(
+                    this.title, 
+                    ReactJs.Component.DialogCloseMode.Hide,
+                    this.icon,
+                    <div id={this.idWindow()}></div>,
+                    this.newWindowSize).sendSync().result as ReactJs.Component.Dialog;
+
+                this.dialog.onClose.push(() => {
+                    elements.contentParent.appendChild(elements.content);
+                    elements.component.style.display = "";
+                    skript.log.post("Closed window: {0}", this.title, Core.Log.Level.DebugDOM, elements);
+                });
+            } else {
+                this.dialog.bring();
+            }
            
-            const component = document.querySelector(`#${this.id()}`) as HTMLElement;
-            const content = document.querySelector(`#${this.idContent()}`) as HTMLElement;
-            const contentParent = content.parentElement as HTMLElement;
-            const window = document.querySelector(`#${this.idWindow()}`) as HTMLElement;
+            const elements: {
+                component: HTMLElement,
+                content: HTMLElement,
+                contentParent: HTMLElement,
+                dialog: HTMLElement
+            } = { 
+                component: document.querySelector(`#${this.id()}`) as HTMLElement,
+                content: document.querySelector(`#${this.idContent()}`) as HTMLElement,
+                contentParent: (document.querySelector(`#${this.idContent()}`) as HTMLElement).parentElement as HTMLElement,
+                dialog: document.querySelector(`#${this.idWindow()}`) as HTMLElement
+            };
             
-            component.style.display = "none";
-            window.appendChild(content);
+            elements.component.style.display = "none";
+            elements.dialog.appendChild(elements.content);
+            skript.log.post("Open window: {0}", this.title, Core.Log.Level.DebugDOM, elements);            
 
-            dialog.onClose.push(() => {
-                contentParent.appendChild(content);
-                component.style.display = "";
-            });
-
-            dialog.visible(true);
+            this.dialog.visible(true);
         }
         
         /**

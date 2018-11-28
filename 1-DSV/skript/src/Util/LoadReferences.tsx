@@ -51,11 +51,11 @@ namespace Skript.Util {
                 element.type = "text/javascript";
                 element.src = src;
                 element.onload = () => {
-                    skript.log.post("Loaded javascript.", null, Core.Log.Level.DebugRequest, element);
+                    skript.log.post("Loaded {type}: {url}", { type: "javascript", url: src }, Core.Log.Level.DebugRequest, element);
                     resolve();
                 }
                 element.onerror = (e) => {
-                    skript.log.post("Failed to load javascript.", null, Core.Log.Level.Error, [e, element]);
+                    skript.log.post("Failed loading {type}: {url}", { type: "javascript", url: src }, Core.Log.Level.Error, [e, element]);
                     reject({ error: e, url: src });
                 };
                 document.body.prepend(element);
@@ -82,11 +82,11 @@ namespace Skript.Util {
                 element.href = href;
                 element.media = "all";
                 element.onload = () => {
-                    skript.log.post("Loaded stylesheet.", null, Core.Log.Level.DebugRequest, element);
+                    skript.log.post("Loaded {type}: {url}", { type: "stylesheet", url: href }, Core.Log.Level.DebugRequest, element);
                     resolve();
                 }
                 element.onerror = (e) => {
-                    skript.log.post("Failed loading stylesheet.", null, Core.Log.Level.Error, [e, element]);
+                    skript.log.post("Failed loading {type}: {url}", { type: "stylesheet", url: href }, Core.Log.Level.Error, [e, element]);
                     reject({ error: e, url: href });
                 };
                 document.body.prepend(element);

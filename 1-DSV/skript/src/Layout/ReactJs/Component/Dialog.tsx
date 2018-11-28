@@ -229,6 +229,7 @@ namespace Skript.Layout.ReactJs.Component {
             switch (this.props.closeMode) {
                 case DialogCloseMode.Hide:
                     this.visible(false);
+                    this.bring(Util.BringTo.Back);
                     break;
                 case DialogCloseMode.Remove:
                     this.visible(false);
@@ -272,10 +273,18 @@ namespace Skript.Layout.ReactJs.Component {
             this.appendDelay.push(children);
 
             this.appendIdTimeout = setTimeout(() => { 
-                skript.log.post(`Dialog.append(ReactNode[${this.appendDelay.length}])`, null, Core.Log.Level.DebugReact);
+                skript.log.post(`Added to Dialog \"{title}\": {count} itens.`, { title: this.props.title, count: this.appendDelay.length }, Core.Log.Level.DebugReact);
                 this.setState({ children: (this.state.children as React.ReactNode[]).concat(this.appendDelay) });
                 this.appendDelay.length = 0;
             }, delay) as any;
+        }
+
+        /**
+         * Move a janela de diálogo pra frente ou pra trás das outras.
+         * @param {BringTo} to Optional. Direção. 
+         */
+        public bring(to: Util.BringTo = Util.BringTo.Front): void {
+            Util.DOM.bring((this.elContainer.current as HTMLElement).parentElement as HTMLElement, to);
         }
 
         /**
@@ -286,9 +295,9 @@ namespace Skript.Layout.ReactJs.Component {
             return (
                 <div id={this.id()} className={this.className} ref={this.elContainer}>
                     <div className="header">
-                        <span className="graph"><i className={this.props.icon ? this.props.icon : "far fa-window-restore"}></i></span>
+                        <span className="graph"><i className={this.props.icon ? this.props.icon : "fas fa-cog"}></i></span>
                         <h1 ref={this.elTitle}>{this.props.title}</h1>
-                        <a href="#" className="close" onClick={this.onCloseClick}><i className="fas fa-times"></i></a>
+                        <a href="#" className="close action" onClick={this.onCloseClick}><i className="fas fa-times"></i></a>
                     </div>
                     <div className="content">
                         <div ref={this.elContainerContent}></div>

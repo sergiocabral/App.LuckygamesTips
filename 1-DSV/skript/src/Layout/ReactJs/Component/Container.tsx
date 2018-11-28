@@ -82,8 +82,6 @@ namespace Skript.Layout.ReactJs.Component {
 
             this.elContent = React.createRef();
 
-            this.isMainWindow = true;
-
             this.onCollapseClick = this.onCollapseClick.bind(this);
             this.onNewWindowClick = this.onNewWindowClick.bind(this);            
         }
@@ -93,11 +91,6 @@ namespace Skript.Layout.ReactJs.Component {
          * @type {React.RefObject<HTMLDivElement>}
          */
         private elContent: React.RefObject<HTMLDivElement>;
-
-        /**
-         * Determina se este container está na janela principal.
-         */
-        private isMainWindow: boolean;
 
         /**
          * Quando o botão é pressionado.
@@ -131,14 +124,14 @@ namespace Skript.Layout.ReactJs.Component {
                 <div id={this.id()} className={this.className}>
                     <div className="title" style={ { display: this.props.title ? "inherit" : "none" } }>
                         <span 
-                            title={this.isMainWindow ? this.translate("Open in new window") : this.translate("Return to main window")}
-                            className="anchor window no-underline" 
+                            title={this.translate("Open in new window")}
+                            className="anchor window no-underline action" 
                             style={ { display: this.props.onNewWindow ? "inherit" : "none" } } 
                             onClick={this.props.onNewWindow ? this.onNewWindowClick : undefined}>
                             <i className="far fa-window-restore"></i>
                         </span>
                         <span className={(this.props.collapse ? "anchor " : "") + "text no-underline"} onClick={this.props.collapse ? this.onCollapseClick : undefined}>
-                            <span className="graph"><i className={this.props.icon ? this.props.icon : "fas fa-cogs"}></i></span>
+                            <span className="graph"><i className={this.props.icon ? this.props.icon : "fas fa-cog"}></i></span>
                             <h1>{this.props.title}</h1>
                         </span>
                     </div>

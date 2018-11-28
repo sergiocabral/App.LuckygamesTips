@@ -128,14 +128,14 @@ namespace Skript.Layout.ReactJs {
          * Quando um componente é montado.
          */
         public componentWillMount() {
-            skript.log.post(`componentWillMount: ${this.constructor.name} id="${this.id()}".`, null, Core.Log.Level.DebugReact);
+            skript.log.post(`Triggered componentWillMount: {component} id="{id}"`, { component: this.constructor.name, id: this.id() }, Core.Log.Level.DebugReact);
         }
 
         /**
          * Quando um componente é desmontado.
          */
         public componentWillUnmount() {
-            skript.log.post(`componentWillUnmount: ${this.constructor.name} id="${this.id()}".`, null, Core.Log.Level.DebugReact);
+            skript.log.post(`Triggered componentWillUnmount: {component} id="{id}"`, { component: this.constructor.name, id: this.id() }, Core.Log.Level.DebugReact);
         }
     }
 }

@@ -102,7 +102,7 @@ namespace Skript.Layout.ReactJs {
          * Retorna true para indicar que o container não precisa ser movido para frente ao mover.
          * @type {(evt: any) => void}
          */
-        ignoreBringToFront?: (evt: any) => void,
+        ignoreBringToFront?: (evt: any) => boolean,
 
         /**
          * Retorna true para indicar que qualquer ação de mover ou redimensionar deve ser ignorada.
@@ -225,7 +225,7 @@ namespace Skript.Layout.ReactJs {
          */
         private onWindowMouseDown(evt: any): void {
             if (!evt.target) return;
-            
+        
             const targets: any[] = Array.isArray(evt.path) ? evt.path : [evt.target];
             for (const i in MoveAndResize.instances) {
                 const instance = MoveAndResize.checkIfRemoved(MoveAndResize.instances, i); if (!instance) continue;
@@ -233,10 +233,9 @@ namespace Skript.Layout.ReactJs {
                 if (instance.configuration.ignoreEventClick &&
                     instance.configuration.ignoreEventClick.bind(instance.configuration.owner)(evt)) continue;
 
-                if (targets.indexOf(instance.configuration.elContainer) >= 0) {
-                    instance.onContainerMouseDown(evt);
-                }
-
+                if (targets.indexOf(instance.configuration.elContainer) >= 0)
+                    instance.onContainerActivate(evt);
+        
                 instance.control.action = MoveAndResize.determineAction(instance, targets);
                 instance.control.clicking = instance.control.action !== Action.None;
                 instance.control.clicked = true;
@@ -253,7 +252,6 @@ namespace Skript.Layout.ReactJs {
 
         /**
          * Evento: mouse ou toque liberado em toda a tela.
-         * @param {any} ev Informações do evento.
          */
         private onWindowMouseUp(): void {
             for (const i in MoveAndResize.instances) {
@@ -305,9 +303,11 @@ namespace Skript.Layout.ReactJs {
          * Quando o elemento container é ativado.
          * @param {any} evt Informações do evento.
          */
-        private onContainerMouseDown(evt: any): void {
-            if (this.configuration.ignoreBringToFront &&
-                this.configuration.ignoreBringToFront(evt)) return;
+        private onContainerActivate(evt: any): void {
+            const ignoreBringToFront = this.configuration.ignoreBringToFront ? this.configuration.ignoreBringToFront : (evt: any): boolean => {
+                return !!evt.path.reduce((a: any, c: any) => c.classList && c.classList.contains("action") ? c : a, null);
+            };
+            if (ignoreBringToFront(evt)) return;
 
             Util.DOM.bring(this.configuration.elContainer.parentElement as HTMLElement, Util.BringTo.Front);
         }

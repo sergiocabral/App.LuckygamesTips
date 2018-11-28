@@ -1,4 +1,9 @@
 namespace Skript.Util {
+    
+    /**
+     * Repositório de todas as instâncias principais do sistema.
+     */
+    declare const skript: Core.All;
 
     /**
      * Opções para move um elemento.
@@ -38,6 +43,8 @@ namespace Skript.Util {
             element.id = id;
             element.innerHTML = code;
             document.body.prepend(element);
+
+            skript.log.post('Inserted: <{tagName} id=\"{id}\" />', element, Core.Log.Level.DebugDOM, element);
         }
 
         /**
@@ -46,14 +53,34 @@ namespace Skript.Util {
          * @param {BringTo} to Direção
          */
         public static bring(element: HTMLElement, to: BringTo): void {
-            if (!element.parentElement || 
-                element.parentElement.children[element.parentElement.childNodes.length - 1] === element) return;
-            
+            const logInfo: any = {
+                element: element,
+                parentElement: element.parentElement,
+            }
+
+            if (!element.parentElement) {
+                skript.log.post('Canceled BringTo {direction}: <{tagName} id="{id}" />', { tagName: element.tagName, id: element.id, direction: BringTo[to] }, Core.Log.Level.DebugDOM, logInfo);
+                return;
+            }
+
+            let bringTo = false;
             switch (to) {
-                case BringTo.Back: element.parentElement.prepend(element); break;
-                case BringTo.Front: element.parentElement.append(element); break;
+                case BringTo.Back:
+                    bringTo = element.parentElement.children[0] !== element;
+                    if (bringTo) element.parentElement.prepend(element); 
+                    break;
+                case BringTo.Front: 
+                    bringTo = element.parentElement.children[element.parentElement.childNodes.length - 1] !== element;
+                    if (bringTo) element.parentElement.append(element);                    
+                    break;
                 default: throw new Error("Invalid BringTo.");
             }
+            
+            logInfo.children = element.parentElement.children.length;
+            logInfo.childrenFirst = element.parentElement.children[0];
+            logInfo.childrenLast = element.parentElement.children[element.parentElement.children.length - 1];
+            if (bringTo) skript.log.post('BringTo {direction}: <{tagName} id="{id}" />', { tagName: element.tagName, id: element.id, direction: BringTo[to] }, Core.Log.Level.DebugDOM, logInfo);
+            else skript.log.post('Canceled BringTo {direction}: <{tagName} id="{id}" />', { tagName: element.tagName, id: element.id, direction: BringTo[to] }, Core.Log.Level.DebugDOM, logInfo);
         }
 
         /**
