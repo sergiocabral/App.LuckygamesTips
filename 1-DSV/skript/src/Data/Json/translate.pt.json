@@ -1,63 +1,156 @@
-[
-    { "do more, much more":
-        "faça mais, muito mais" },
-
-    { "Failed to load data: {0}":
-        "Falha ao carregar dados: {0}" },
-    { "Oops! An internet connection failed. Try again.":
-        "Ops! Ocorreu uma falha na conexão com a internet. Tente novamente."},
-    { "Great! The Tips were loaded successfully.":
-        "Ótimo! O Tips foi carregado com sucesso." },
-    { "Modules loaded successfully.":
-        "Módulos carregados com sucesso." },
-    { "Loading system modules.":
-        "Carregando módulos do sistema." },
-    { "Loading available modules.": 
-        "Carregando módulos disponíveis." },
-    { "Module loaded: {0}":
-        "Módulo carregado: {0}" },
-    { "Created main container: <{tagName} id=\"{id}\" />":
-        "Criado container principal: <{tagName} id=\"{id}\" />" },
-    { "Loaded {type}: {url}":
-        "Carregado {type}: {url}" },
-    { "Failed loading {type}: {url}":
-        "Falha ao carregar {type}: {url}" },
-    { "API returned status {status}. Url: {responseURL}":
-        "API retornou status {status}. Url: {responseURL}" },
-    { "Message {0} dispatched and processed by {1}x.":
-        "Mensagem {0} despachada e processada por {1}x." },
-    { "Message {0} dispatched and processed by {1}x.":
-        "Mensagem {0} despachada e processada por {1}x." },
-    { "Notifier {0} triggered.":
-        "Notificador {0} disparado."},
-    { "A MessageHandler {0} was disposed.":
-        "Um MessageHandler {0} foi descartado."},
-    { "Triggered componentWillMount: {component} id=\"{id}\"":
-        "Disparado componentWillMount: {component} id=\"{id}\"" },
-    { "Triggered componentWillUnmount: {component} id=\"{id}\"":
-        "Disparado componentWillUnmount: {component} id=\"{id}\"" },
-    { "Added to Dialog \"{title}\": {count} itens.":
-        "Adicionado no Dialog \"{title}\": {count} itens." },
-    { "BringTo {direction}: <{tagName} id=\"{id}\" />":
-        "BringTo {direction}: <{tagName} id=\"{id}\" />" },
-    { "Canceled BringTo {{direction}: <{tagName} id=\"{id}\" />":
-        "Cancelado BringTo {direction}: <{tagName} id=\"{id}\" />" },
-    { "Inserted: <{tagName} id=\"{id}\" />":
-        "Inserido: <{tagName} id=\"{id}\" />" },
-
-    { "Open window: {0}":
-        "Aberto janela: {0}" },
-    { "Closed window: {0}":
-        "Fechado janela: {0}" },
-        
-    { "Select language.":
-        "Seleção de idioma." },
-    { "Change language from {old} to {new}. You need to refresh the page to make the change.":
-        "Trocado idioma de {old} para {new}. É necessário atualizar a página para efetivar a alteração." },
-
-    { "Open in new window":
-        "Abrir em nova janela" },
-
-    { "Log Viewer":
-        "Mensagens de Log" }
-]
+{
+    "Frases em geral": [
+        { 
+            "do more, much more":
+            "faça mais, muito mais" 
+        }
+    ],
+    "Mensagens de log": {
+        "Infrastructure.tsx": [
+            { 
+                "Failed to load data: {0}":
+                "Falha ao carregar dados: {0}" 
+            }
+        ],
+        "Main.tsx": [
+            { 
+                "Oops! An internet connection failed. Try again.":
+                "Ops! Ocorreu uma falha na conexão com a internet. Tente novamente."
+            },
+            { 
+                "Modules loaded successfully.":
+                "Módulos carregados com sucesso." 
+            },
+            { 
+                "Loading system modules.":
+                "Carregando módulos do sistema." 
+            },
+            { 
+                "Loading available modules.": 
+                "Carregando módulos disponíveis." 
+            }
+        ],
+        "Presentation.tsx": [
+            { 
+                "Created main container: <{tagName} id=\"{id}\" />":
+                "Criado container principal: <{tagName} id=\"{id}\" />" 
+            }
+        ],
+        "LoadReferences.tsx": [
+            {
+                "Loaded {type}: {url}":
+                "Carregado {type}: {url}" 
+            },
+            { 
+                "Failed loading {type}: {url}":
+                "Falha ao carregar {type}: {url}" 
+            }
+        ],
+        "Request.tsx": [
+            { 
+                "API returned status {status}. Url: {responseURL}":
+                "API retornou status {status}. Url: {responseURL}" 
+            }
+        ],
+        "MessageBus.tsx": [
+            { 
+                "Message {0} dispatched and processed by {1}x.":
+                "Mensagem {0} despachada e processada por {1}x." 
+            },
+            { 
+                "Message {0} dispatched and processed by {1}x.":
+                "Mensagem {0} despachada e processada por {1}x." 
+            },
+            { 
+                "Notifier {0} triggered.":
+                "Notificador {0} disparado."
+            },
+            { 
+                "A MessageHandler {0} was disposed.":
+                "Um MessageHandler {0} foi descartado."
+            }
+        ],
+        "PartBase.tsx": [
+            { 
+                "Module loaded: {0}":
+                "Módulo carregado: {0}" 
+            }
+        ],
+        "ComponentBase.tsx": [
+            { 
+                "Triggered componentWillMount: {component} id=\"{id}\"":
+                "Disparado componentWillMount: {component} id=\"{id}\"" 
+            },
+            { 
+                "Triggered componentWillUnmount: {component} id=\"{id}\"":
+                "Disparado componentWillUnmount: {component} id=\"{id}\"" 
+            }
+        ],
+        "Dialog.tsx": [
+            { 
+                "Added to Dialog \"{title}\": {count} itens.":
+                "Adicionado no Dialog \"{title}\": {count} itens." 
+            }
+        ],
+        "DOM.tsx": [
+            { 
+                "Applied BringTo {direction}: <{tagName} id=\"{id}\" />":
+                "Aplicado BringTo {direction}: <{tagName} id=\"{id}\" />" 
+            },
+            { 
+                "Canceled BringTo {direction}: <{tagName} id=\"{id}\" />":
+                "Cancelado BringTo {direction}: <{tagName} id=\"{id}\" />" 
+            },
+            { 
+                "Inserted: <{tagName} id=\"{id}\" />":
+                "Inserido: <{tagName} id=\"{id}\" />" 
+            }
+        ],
+        "DialogComponentBase.tsx": [
+            { 
+                "Open window: {0}":
+                "Aberto janela: {0}" 
+            },
+            { 
+                "Closed window: {0}":
+                "Fechado janela: {0}" 
+            }
+        ]
+    },
+    "Mensagens do Bus": {
+        "MainBus.tsx": [
+            { 
+                "Great! The Tips were loaded successfully.":
+                "Ótimo! O Tips foi carregado com sucesso." 
+            }
+        ],
+        "Translates.tsx": [
+            { 
+                "Change language from {old} to {new}. You need to refresh the page to make the change.":
+                "Trocado idioma de {old} para {new}. É necessário atualizar a página para efetivar a alteração." 
+            }
+        ]
+    },
+    "Componentes do sistema": {
+        "LanguageSelect.tsx": [        
+            { 
+                "Select language.":
+                "Seleção de idioma." 
+            }
+        ],
+        "Container.tsx": [
+            { 
+                "Open in new window":
+                "Abrir em nova janela" 
+            }
+        ]
+    },
+    "Módulos": {
+        "LogViewer.tsx": [
+            { 
+                "Log Viewer":
+                "Mensagens de Log" 
+            }
+        ]
+    }
+}

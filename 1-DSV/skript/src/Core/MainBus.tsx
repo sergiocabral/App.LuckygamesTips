@@ -15,10 +15,12 @@ namespace Skript.Core {
          */
         public handlers: Core.Bus.MessageHandler[] = [ 
             {
+                message: Message.SystemLoaded.name,
+                handler: () => skript.log.post("Great! The Tips were loaded successfully.")
+            },
+            {
                 message: Message.RegisterPart.name,
-                handler: (command: Message.RegisterPart) => {
-                    command.result = skript.main.registerPart(command.part);
-                }
+                handler: (command: Message.RegisterPart) => command.result = skript.main.registerPart(command.part)
             }
         ];
     }    

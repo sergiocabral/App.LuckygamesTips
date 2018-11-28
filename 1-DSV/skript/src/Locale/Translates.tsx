@@ -88,13 +88,24 @@ namespace Skript.Locale {
         public static parse(json: string): Translate[] {
             if (!json || !eval(`!!${json};`)) throw new Error("JSON is null.");
             
-            return (JSON.parse(json) as any[]).map(val => { 
-                return { 
-                    language: skript.translate.languageDefault,
-                    id: Object.keys(val)[0] as string,
-                    translated: val[Object.keys(val)[0]] as string
+            const process = (object: any, translates: Translate[]): Translate[] => {
+                for (const key in object) {
+                    if (Array.isArray(object[key])) {
+                        for (let i = 0; i < object[key].length; i++) {
+                            translates.push({
+                                language: skript.translate.languageDefault,
+                                id: Object.keys(object[key][i])[0] as string,
+                                translated: object[key][i][Object.keys(object[key][i])[0]] as string
+                            });
+                        }
+                    }
+                    else {
+                        translates = translates.concat(process(object[key], translates));
+                    }
                 }
-            });
+                return translates;
+            }
+            return process(JSON.parse(json), []);
         }
     }
 }
