@@ -164,6 +164,8 @@ namespace Skript.Layout.ReactJs.Component {
 
             this.state = { children: [this.props.children] };
 
+            this.elContainerContent = React.createRef();
+
             this.elContainer = React.createRef();
             this.elTitle = React.createRef();
             this.elResize = React.createRef();
@@ -172,11 +174,17 @@ namespace Skript.Layout.ReactJs.Component {
         }
 
         /**
+         * Container do conteúdo.
+         * @type {React.RefObject<HTMLDivElement>}
+         */
+        public elContainerContent: React.RefObject<HTMLDivElement>;
+        
+        /**
          * Referência ao container pai de todos.
          * @type {React.RefObject<HTMLDivElement>}
          */
         private elContainer: React.RefObject<HTMLDivElement>;
-
+        
         /**
          * Referência para o título na barra.
          * @type {React.RefObject<HTMLHeadingElement>}
@@ -205,12 +213,19 @@ namespace Skript.Layout.ReactJs.Component {
         }
 
         /**
+         * Lista de funções chamadas ao fechar a janela.
+         */
+        public onClose: ((mode: DialogCloseMode) => void)[] = [];
+
+        /**
          * Quando o botão de fecha é clicado.
          */
         private onCloseClick(): void {
             const component = this.elContainer.current as HTMLElement;
             const container = component.parentNode as HTMLElement;
 
+            for (const index in this.onClose) this.onClose[index](this.props.closeMode);
+            
             switch (this.props.closeMode) {
                 case DialogCloseMode.Hide:
                     this.visible(false);
@@ -276,6 +291,7 @@ namespace Skript.Layout.ReactJs.Component {
                         <a href="#" className="close" onClick={this.onCloseClick}><i className="fas fa-times"></i></a>
                     </div>
                     <div className="content">
+                        <div ref={this.elContainerContent}></div>
                         <div>
                             {(this.state.children as React.ReactNode[]).map(child => !child ? "" : <div key={Util.String.random()}>{child}</div>)}
                         </div>
@@ -316,14 +332,14 @@ namespace Skript.Layout.ReactJs.Component {
         /**
          * Ignora o evento de clica se o botão clicado foi para fechar a janela.
          */
-        public ignoreEventClick(ev: any) {
-            return ev.target.className === "close" || ev.target.parentElement.className === "close";
+        private ignoreEventClick(evt: any) {
+            return evt.target.className === "close" || evt.target.parentElement.className === "close";
         }
 
         /**
          * Quando o componente é redimensionado.
          */
-        public onResize() {
+        private onResize() {
             this.adjustTitleWidth();
         }
     }

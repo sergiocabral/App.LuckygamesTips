@@ -125,10 +125,10 @@ namespace Skript.Layout.ReactJs.Component {
 
         /**
          * Ao definir checked.
-         * @param ev Informações sobre o evento.
+         * @param evt Informações sobre o evento.
          */
-        private onChange(ev: any): void {
-            this.setState({ checked: ev.target.checked });
+        private onChange(evt: any): void {
+            this.setState({ checked: evt.target.checked });
         }
 
         /**

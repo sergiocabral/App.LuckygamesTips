@@ -44,6 +44,7 @@ namespace Skript.Layout.ReactJs {
 
         /**
          * Usado como prefixo nos nomes de classe CSS.
+         * @type {string}
          */
         private static classNamePrefix: string = Util.String.random();
 
@@ -70,6 +71,7 @@ namespace Skript.Layout.ReactJs {
 
         /**
          * Tema de cores para configurar o layout
+         * @type {Theme.Stylesheet}
          */
         protected theme: Theme.Stylesheet = new Theme.Stylesheet(skript.data.colors);
 
@@ -94,28 +96,33 @@ namespace Skript.Layout.ReactJs {
 
         /**
          * Idioma atual.
+         * @type {() => string}
          */
-        protected language: Function = () => skript.translate.languageDefault;
+        protected language: () => string = () => skript.translate.languageDefault;
 
         /**
          * Id randômico determinado para a instância.
+         * @type {string}
          */
         private randomId: string = Util.String.random();
 
         /**
          * Determina o id para o elemento.
+         * @type {() => string}
          */
-        protected id: Function = () => (this.props as any).id ? (this.props as any).id : this.randomId;
+        protected id: () => string = () => (this.props as any).id ? (this.props as any).id : this.randomId;
 
         /**
          * Verifica pelo id se o componente existe.
+         * @type {() => Element|null}
          */
-        public exists: Function = () => document.querySelector(`#${this.id()}`);
+        public exists: () => Element|null = () => document.querySelector(`#${this.id()}`);
 
         /**
          * Seletor CSS mais alto que engloba o componente.
+         * @type {() => string}
          */
-        protected selector: Function = () => `.${Presentation.className} .${this.className}[id]`;
+        protected selector: () => string = () => `.${Presentation.className} .${this.className}[id]`;
 
         /**
          * Quando um componente é montado.

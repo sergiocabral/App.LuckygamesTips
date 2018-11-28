@@ -88,14 +88,14 @@ namespace Skript.Core.Api {
                     const request = new XMLHttpRequest();
                     request.open("GET", urls[index]);
                     request.send();                    
-                    request.onloadend = (ev: any) => {
+                    request.onloadend = (evt: any) => {
                         response.push(request.responseText);
 
                         if (++index < urls.length) load(index);
                         else resolve(response);
                         
-                        const result = ev.currentTarget.status === 200 ? "Success" : "Fail";
-                        skript.log.post(`API. ${result}. Status {status}. Url: {responseURL}`, ev.currentTarget, ev.currentTarget.status === 200 ? Core.Log.Level.DebugRequest : Core.Log.Level.Warning, ev.currentTarget);
+                        const result = evt.currentTarget.status === 200 ? "Success" : "Fail";
+                        skript.log.post(`API. ${result}. Status {status}. Url: {responseURL}`, evt.currentTarget, evt.currentTarget.status === 200 ? Core.Log.Level.DebugRequest : Core.Log.Level.Warning, evt.currentTarget);
                     };
                 }
                 load(0);

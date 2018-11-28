@@ -25,9 +25,9 @@ namespace Skript.Layout.ReactJs.Component {
 
         /**
          * Função para quando clicar em nova janela.
-         * @type {Function}
+         * @type {(evt: any) => void}
          */
-        onNewWindow?: Function
+        onNewWindow?: (evt: any) => void
     }
 
     /**
@@ -118,7 +118,7 @@ namespace Skript.Layout.ReactJs.Component {
          * Quando o botão é pressionado.
          */
         private onNewWindowClick() {                        
-            if (!(this.props.onNewWindow instanceof Function)) return;
+            if (!this.props.onNewWindow) return;
             this.props.onNewWindow(new CustomEvent("onNewWindow", { detail: this }));
         }
 
@@ -133,8 +133,8 @@ namespace Skript.Layout.ReactJs.Component {
                         <span 
                             title={this.isMainWindow ? this.translate("Open in new window") : this.translate("Return to main window")}
                             className="anchor window no-underline" 
-                            style={ { display: this.props.onNewWindow instanceof Function ? "inherit" : "none" } } 
-                            onClick={this.props.onNewWindow instanceof Function ? this.onNewWindowClick : undefined}>
+                            style={ { display: this.props.onNewWindow ? "inherit" : "none" } } 
+                            onClick={this.props.onNewWindow ? this.onNewWindowClick : undefined}>
                             <i className="far fa-window-restore"></i>
                         </span>
                         <span className={(this.props.collapse ? "anchor " : "") + "text no-underline"} onClick={this.props.collapse ? this.onCollapseClick : undefined}>

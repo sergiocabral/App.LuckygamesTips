@@ -55,6 +55,12 @@ namespace Skript.Layout.ReactJs {
         protected newWindowSize: Core.Size|undefined = undefined;
 
         /**
+         * Id para a janela criada.
+         * @type {() => string}
+         */
+        private idWindow: () => string = () => "w" + this.id();
+
+        /**
          * Ao mover para nova janela.
          */
         private onNewWindow() {
@@ -65,9 +71,14 @@ namespace Skript.Layout.ReactJs {
                 this.title, 
                 ReactJs.Component.DialogCloseMode.Remove,
                 this.icon,
-                "content",
+                <div id={this.idWindow()}>teste</div>,
                 this.newWindowSize).sendSync().result as ReactJs.Component.Dialog;
-                
+           
+            const containerWindow = dialog.elContainerContent.current as HTMLElement;
+            containerWindow.innerHTML = "Hahahaha";
+
+            console.log();
+
             dialog.visible(true);
         }
         

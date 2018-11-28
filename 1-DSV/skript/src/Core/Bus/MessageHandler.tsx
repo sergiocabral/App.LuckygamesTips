@@ -13,6 +13,6 @@ namespace Skript.Core.Bus {
         /**
          * Função (handler) que faz o processamento.
          */
-        handler: Function
+        handler: (command: any) => void
     }
 }

@@ -100,21 +100,21 @@ namespace Skript.Layout.ReactJs {
 
         /**
          * Retorna true para indicar que o container não precisa ser movido para frente ao mover.
-         * @type {Function}
+         * @type {(evt: any) => void}
          */
-        ignoreBringToFront?: Function,
+        ignoreBringToFront?: (evt: any) => void,
 
         /**
          * Retorna true para indicar que qualquer ação de mover ou redimensionar deve ser ignorada.
-         * @type {Function}
+         * @type {(evt: any) => void}
          */
-        ignoreEventClick?: Function,
+        ignoreEventClick?: (evt: any) => void,
 
         /**
          * Função chamada sempre que redimensionar.
-         * @type {Function}
+         * @type {() => void}
          */
-        onResize?: Function
+        onResize?: () => void
     }
 
     /**
@@ -221,20 +221,20 @@ namespace Skript.Layout.ReactJs {
 
         /**
          * Evento: mouse ou toque apertado qualquer área da janela.
-         * @param {any} ev Informações do evento.
+         * @param {any} evt Informações do evento.
          */
-        private onWindowMouseDown(ev: any): void {
-            if (!ev.target) return;
+        private onWindowMouseDown(evt: any): void {
+            if (!evt.target) return;
             
-            const targets: any[] = Array.isArray(ev.path) ? ev.path : [ev.target];
+            const targets: any[] = Array.isArray(evt.path) ? evt.path : [evt.target];
             for (const i in MoveAndResize.instances) {
                 const instance = MoveAndResize.checkIfRemoved(MoveAndResize.instances, i); if (!instance) continue;
 
-                if (instance.configuration.ignoreEventClick instanceof Function &&
-                    instance.configuration.ignoreEventClick.bind(instance.configuration.owner)(ev)) continue;
+                if (instance.configuration.ignoreEventClick &&
+                    instance.configuration.ignoreEventClick.bind(instance.configuration.owner)(evt)) continue;
 
                 if (targets.indexOf(instance.configuration.elContainer) >= 0) {
-                    instance.onContainerMouseDown(ev);
+                    instance.onContainerMouseDown(evt);
                 }
 
                 instance.control.action = MoveAndResize.determineAction(instance, targets);
@@ -244,7 +244,7 @@ namespace Skript.Layout.ReactJs {
                 const elements = instance.configuration.elMove.concat(instance.configuration.elResize);
                 for (const j in elements) {
                     if (targets.indexOf(elements[j]) >= 0) {
-                        instance.onElementsMouseDown(ev);
+                        instance.onElementsMouseDown(evt);
                         break;
                     }
                 }
@@ -269,9 +269,9 @@ namespace Skript.Layout.ReactJs {
 
         /**
          * Evento: mouse ou toque em movimento.
-         * @param {any} ev Informações do evento.
+         * @param {any} evt Informações do evento.
          */
-        private onWindowMouseMove(ev: any): void {
+        private onWindowMouseMove(evt: any): void {
             let processed = false;
 
             for (const i in MoveAndResize.instances) {
@@ -279,11 +279,11 @@ namespace Skript.Layout.ReactJs {
 
                 if (!instance.control.clicking) continue;
 
-                ev.preventDefault();
+                evt.preventDefault();
     
                 instance.control.mouse = {        
-                    x: ev.changedTouches !== undefined ? ev.changedTouches[0].clientX : ev.clientX,
-                    y: ev.changedTouches !== undefined ? ev.changedTouches[0].clientY : ev.clientY
+                    x: evt.changedTouches !== undefined ? evt.changedTouches[0].clientX : evt.clientX,
+                    y: evt.changedTouches !== undefined ? evt.changedTouches[0].clientY : evt.clientY
                 };
 
                 if (instance.control.moving) {
@@ -303,11 +303,11 @@ namespace Skript.Layout.ReactJs {
 
         /**
          * Quando o elemento container é ativado.
-         * @param {any} ev Informações do evento.
+         * @param {any} evt Informações do evento.
          */
-        private onContainerMouseDown(ev: any): void {
-            if (this.configuration.ignoreBringToFront instanceof Function &&
-                this.configuration.ignoreBringToFront(ev)) return;
+        private onContainerMouseDown(evt: any): void {
+            if (this.configuration.ignoreBringToFront &&
+                this.configuration.ignoreBringToFront(evt)) return;
 
             Util.DOM.bring(this.configuration.elContainer.parentElement as HTMLElement, Util.BringTo.Front);
         }
@@ -315,11 +315,11 @@ namespace Skript.Layout.ReactJs {
         /**
          * Lógica para mouse ou toque apertado.
          * Evento individual para cada instância dessa classe.
-         * @param {any} ev Informações do evento.
+         * @param {any} evt Informações do evento.
          */
-        private onElementsMouseDown(ev: any): void {
-            const clientX = ev.changedTouches !== undefined ? ev.changedTouches[0].clientX : ev.clientX;
-            const clientY = ev.changedTouches !== undefined ? ev.changedTouches[0].clientY : ev.clientY;
+        private onElementsMouseDown(evt: any): void {
+            const clientX = evt.changedTouches !== undefined ? evt.changedTouches[0].clientX : evt.clientX;
+            const clientY = evt.changedTouches !== undefined ? evt.changedTouches[0].clientY : evt.clientY;
 
             this.control.offset = {
                 x: this.configuration.elContainer.offsetLeft - clientX,
@@ -347,9 +347,7 @@ namespace Skript.Layout.ReactJs {
                         const diff = 4;
                         instance.configuration.elContainer.style.width = diff + (instance.control.mouse.x - instance.configuration.elContainer.offsetLeft) + 'px';
                         instance.configuration.elContainer.style.height = diff + (instance.control.mouse.y - instance.configuration.elContainer.offsetTop) + 'px';
-                        if (instance.configuration.onResize instanceof Function) {
-                            instance.configuration.onResize.bind(instance.configuration.owner)();
-                        }
+                        if (instance.configuration.onResize) instance.configuration.onResize.bind(instance.configuration.owner)();
                         break;
                     default:
                         return;

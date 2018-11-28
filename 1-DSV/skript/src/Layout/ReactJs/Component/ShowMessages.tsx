@@ -147,8 +147,8 @@ namespace Skript.Layout.ReactJs.Component {
         /**
          * Quando o botão fechar é acionado.
          */
-        private onCloseClick(ev: any): void {
-            const button = ev.target as HTMLElement;
+        private onCloseClick(evt: any): void {
+            const button = evt.target as HTMLElement;
             const message = button.parentElement as HTMLElement;
             
             this.remove(message.getAttribute("data-id") as string);

@@ -66,11 +66,11 @@ namespace Skript.Layout.ReactJs.Component {
 
         /**
          * Quando o botão é pressionado.
-         * @param ev Informações do evento.
+         * @param evt Informações do evento.
          */
-        private onClick(ev: any) {
-            ev.preventDefault();
-            const button = ev.target as HTMLElement;
+        private onClick(evt: any) {
+            evt.preventDefault();
+            const button = evt.target as HTMLElement;
             const parent = button.parentElement as HTMLElement;
             const language = parent.getAttribute("data-language");
             new Locale.Message.SetLanguage(language as string).sendAsync();
