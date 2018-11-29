@@ -82,12 +82,12 @@ namespace Skript.Layout.ReactJs.Component {
          */
         public render(): JSX.Element {            
             return (
-                <div id={this.id()} className={this.className} title={this.translate("Select language.")}>
+                <div id={this.id()} className={this.className()} title={this.translate("Select language.")}>
                     <span className="language en" data-language="en">
-                        <button onClick={this.onClick} className="action">English</button>
+                        <button onClick={this.onClick} className="shadow action">English</button>
                     </span>
                     <span className="language pt" data-language="pt">
-                        <button onClick={this.onClick} className="action">Português</button>
+                        <button onClick={this.onClick} className="shadow action">Português</button>
                     </span>
                 </div>
             );

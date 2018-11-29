@@ -122,10 +122,10 @@ namespace Skript.Layout.ReactJs {
         public visible(mode?: boolean): boolean {
             if (mode === true) {
                 this.configuration.element.style.display = "";
-                setTimeout(() => this.configuration.element.classList.remove("hidden"), 1);
+                setTimeout(() => this.configuration.element.classList.remove("hidden"), 10);
             } else if (mode === false) {
-                this.configuration.element.classList.add("hidden");
                 this.configuration.element.classList.add("hiding");                
+                this.configuration.element.classList.add("hidden");
                 setTimeout(() => {
                     if (!this.visible()) {
                         this.configuration.element.style.display = "none";

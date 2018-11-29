@@ -42,7 +42,7 @@ namespace Skript.Layout.ReactJs.Component {
                 transition: visibility 0s 0.25s, opacity 0.25s linear;
             }
             ${this.selector()} {
-                z-index: ${this.theme.zIndex * 2};
+                z-index: ${this.theme.zIndex * 1.5};
                 position: fixed;
                 bottom: 10px;
                 left: 10px;
@@ -160,7 +160,7 @@ namespace Skript.Layout.ReactJs.Component {
          */
         public render(): JSX.Element {
             return (
-                <div id={this.id()} className={this.className}>
+                <div id={this.id()} className={this.className()}>
                     {Object.values(this.messages).map((v) => (
                         <p key={v.id} data-id={v.id} className={Core.Log.Level[v.message.level]}>
                             <a href="#" className="no-underline" onClick={this.onCloseClick}>&times;</a>                            

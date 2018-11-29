@@ -37,37 +37,28 @@ namespace Skript.Layout.ReactJs {
          */
         public render(): JSX.Element {            
             return (
-                <div id={this.id()} className={this.className}>
-                    <Layout.ReactJs.Component.HeaderContainer 
-                        title={this.title} 
-                        icon={this.icon} 
-                        collapsible={true}
-                        dialog={true}
-                        dialogSize={this.dialogSize}>
-                        {this.renderContent()}
-                    </Layout.ReactJs.Component.HeaderContainer>                    
-                </div>
+                <Layout.ReactJs.Component.HeaderContainer 
+                    title={this.title} 
+                    icon={this.icon} 
+                    collapsible={true}
+                    dialog={true}
+                    dialogSize={this.dialogSize}>
+                    {this.renderContent()}
+                </Layout.ReactJs.Component.HeaderContainer>                    
             );
         }
 
         /**
-         * Componente e Janela. Seletor CSS mais alto que engloba o componente.
+         * Aplicado quando não tem janela. Seletor CSS mais alto que engloba o componente.
          * @type {() => string}
          */
-        protected selector: () => string = () => `.${Presentation.className} .${Layout.ReactJs.Component.HeaderContainer.classNameContent()}`;
-
-
-        /**
-         * Somente Componente. Seletor CSS mais alto que engloba o componente.
-         * @type {() => string}
-         */
-        protected selectorComponent: () => string = () => `.${Presentation.className} .${this.className}[id]`;
+        protected selectorOutDialog: () => string = () => `.${Presentation.className} .${Layout.ReactJs.Component.HeaderContainer.classNameInDialog()} .${this.className()}[id]`;
 
         /**
-         * Somente diálogo. Seletor CSS mais alto que engloba o componente.
+         * Aplicado quando está na janela. Seletor CSS mais alto que engloba o componente.
          * @type {() => string}
          */
-        protected selectorDialog: () => string = () => `.${Presentation.className} .${Layout.ReactJs.Component.HeaderContainer.classNameDialog()}`;
+        protected selectorInDialog: () => string = () => `.${Presentation.className} .${Layout.ReactJs.Component.HeaderContainer.classNameOutDialog()} .${this.className()}[id]`;
 
         /**
          * Renderizador do React. Conteúdo do container.

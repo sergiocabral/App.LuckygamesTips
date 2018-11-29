@@ -132,10 +132,10 @@ namespace Skript.Layout.ReactJs {
         /**
          * Determina a ação do usuário com base nas informações de controle.
          * @param {MoveAndResize} instance Instância.
-         * @param {HTMLElement[]} targets Lista de elementos que aceitam mover ou redimensionar.
+         * @param {Element[]} targets Lista de elementos que aceitam mover ou redimensionar.
          * @returns {Action} Ação determinada.
          */
-        private static determineAction(instance: MoveAndResize, targets: HTMLElement[]): Action {
+        private static determineAction(instance: MoveAndResize, targets: Element[]): Action {
             for (const j in instance.configuration.elResize) {
                 if (targets.indexOf(instance.configuration.elResize[j]) >= 0) {
                     return Action.Resize;
@@ -226,7 +226,7 @@ namespace Skript.Layout.ReactJs {
         private onWindowMouseDown(evt: any): void {
             if (!evt.target) return;
         
-            const targets: any[] = Array.isArray(evt.path) ? evt.path : [evt.target];
+            const targets: Element[] = Array.isArray(evt.path) ? evt.path : Util.DOM.path(evt.target);
             for (const i in MoveAndResize.instances) {
                 const instance = MoveAndResize.checkIfRemoved(MoveAndResize.instances, i); if (!instance) continue;
 
@@ -304,8 +304,11 @@ namespace Skript.Layout.ReactJs {
          * @param {any} evt Informações do evento.
          */
         private onContainerActivate(evt: any): void {
+            if (Util.DOM.isBring(this.configuration.elContainer.parentElement as HTMLElement, Util.BringTo.Front)) return;
+
             const ignoreBringToFront = this.configuration.ignoreBringToFront ? this.configuration.ignoreBringToFront : (evt: any): boolean => {
-                return !!evt.path.reduce((a: any, c: any) => c.classList && c.classList.contains("action") ? c : a, null);
+                const targets: Element[] = Array.isArray(evt.path) ? evt.path : Util.DOM.path(evt.target);
+                return !!targets.reduce((a: any, c: any) => c.classList && c.classList.contains("action") ? c : a, null);
             };
             if (ignoreBringToFront(evt)) return;
 

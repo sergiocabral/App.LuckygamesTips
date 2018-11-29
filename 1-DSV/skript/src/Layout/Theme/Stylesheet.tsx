@@ -137,18 +137,18 @@ namespace Skript.Layout.Theme {
 
             //Elementos <h1>, <h2>, ...
             styles.push(`
-                ${selector} h1 {
+                ${selector} h1, h2, h3, h4, h5, h6 {
                     font-family: 'Raleway', sans-serif;
                     font-size: 100%;
                     margin: 0;
                     padding: 0;                    
                 }
-                ${selector} h1 { font-size: 124%; }
-                ${selector} h2 { font-size: 118%; }
-                ${selector} h3 { font-size: 112%; }
-                ${selector} h4 { font-size: 108%; }
-                ${selector} h5 { font-size: 104%; }
-                ${selector} h6 { font-size: 100%; }
+                ${selector} h1 { font-size: 120%; }
+                ${selector} h2 { font-size: 110%; }
+                ${selector} h3 { font-size: 100%; }
+                ${selector} h4 { font-size: 90%; }
+                ${selector} h5 { font-size: 80%; }
+                ${selector} h6 { font-size: 70%; }
             `);
             
             //Elementos <a>
@@ -172,35 +172,26 @@ namespace Skript.Layout.Theme {
             
             //Elemento tipo botão para mostrar diferença quando o mouse passa por cima.
             styles.push(`
-                ${selector} button:not(.no-shadow),
                 ${selector} .shadow {
-                    box-shadow: 1px 1px 9px rgba(0, 0, 0, 0.5);
+                    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
                     position: relative;
-                    top: 0;
                 }
-                ${selector} button:not(.no-shadow):hover,
                 ${selector} .shadow:hover {
-                    box-shadow: 1px 1px 9px rgba(0, 0, 0, 0.6);
+                    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
                 }
-                ${selector} button:not(.no-shadow):active,
                 ${selector} .shadow:active {
-                    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+                    box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+                    border-top: 1px solid transparent;
                     top: 1px;
                 }
             `);
 
-            styles.push(`
-                ${selector} .centered {
-                    margin:50px auto;
-                    text-align:center;
-                }
-              
-                ${selector} .button::-moz-focus-inner{
+            styles.push(`   
+                ${selector} .button::-moz-focus-inner {
                     border: 0;
                     padding: 0;
-                }
-              
-                ${selector} .button{
+                }              
+                ${selector} .button {
                     display: inline-block;
                     *display: inline;
                     zoom: 1;
@@ -213,223 +204,141 @@ namespace Skript.Layout.Theme {
                     text-decoration: none;
                     white-space: nowrap;
                     color: #555;
-                    
                     background-color: #ddd;
-                    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,1)), to(rgba(255,255,255,0)));
-                    background-image: -webkit-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
-                    background-image: -moz-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
-                    background-image: -ms-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
-                    background-image: -o-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
                     background-image: linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
-                    
-                    -webkit-transition: background-color .2s ease-out;
-                    -moz-transition: background-color .2s ease-out;
-                    -ms-transition: background-color .2s ease-out;
-                    -o-transition: background-color .2s ease-out;
                     transition: background-color .2s ease-out;
                     background-clip: padding-box; /* Fix bleeding */
-                    -moz-border-radius: 3px;
-                    -webkit-border-radius: 3px;
                     border-radius: 3px;
-                    -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 2px 2px -1px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .3) inset;
-                    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 2px 2px -1px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .3) inset;
                     box-shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 2px 2px -1px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .3) inset;
                     text-shadow: 0 1px 0 rgba(255,255,255, .9);
-                    
-                    -webkit-touch-callout: none;
-                    -webkit-user-select: none;
-                    -khtml-user-select: none;
-                    -moz-user-select: none;
-                    -ms-user-select: none;
                     user-select: none;
-                }
-              
-                ${selector} .button:hover{
+                }              
+                ${selector} .button:hover {
                     background-color: #eee;
                     color: #555;
                 }
-              
-                ${selector} .button:active{
+                ${selector} .button:active {
                     background: #e9e9e9;
                     position: relative;
                     top: 1px;
                     text-shadow: none;
-                    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .3) inset;
-                    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .3) inset;
                     box-shadow: 0 1px 1px rgba(0, 0, 0, .3) inset;
-                }
-              
-                ${selector} .button[disabled], .button[disabled]:hover, .button[disabled]:active{
+                }              
+                ${selector} .button[disabled], .button[disabled]:hover, .button[disabled]:active {
                     border-color: #eaeaea;
                     background: #fafafa;
                     cursor: default;
                     position: static;
                     color: #999;
                     /* Usually, !important should be avoided but here it's really needed :) */
-                    -moz-box-shadow: none !important;
-                    -webkit-box-shadow: none !important;
                     box-shadow: none !important;
                     text-shadow: none !important;
-                }
-              
-                /* Smaller buttons styles */
-              
-                ${selector} .button.small{
+                }              
+                /* Smaller buttons styles */              
+                ${selector} .button.small {
                     padding: 4px 12px;
-                }
-              
-                /* Larger buttons styles */
-              
-                ${selector} .button.large{
+                }              
+                /* Larger buttons styles */              
+                ${selector} .button.large {
                     padding: 12px 30px;
                     text-transform: uppercase;
-                }
-              
-                ${selector} .button.large:active{
+                }              
+                ${selector} .button.large:active {
                     top: 2px;
-                }
-              
-                /* Colored buttons styles */
-              
+                }              
+                /* Colored buttons styles */              
                 ${selector} .button.green, .button.red, .button.blue {
                     color: #fff;
-                    text-shadow: 0 1px 0 rgba(0,0,0,.2);
-                    
-                    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.3)), to(rgba(255,255,255,0)));
-                    background-image: -webkit-linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
-                    background-image: -moz-linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
-                    background-image: -ms-linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
-                    background-image: -o-linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
+                    text-shadow: 0 1px 0 rgba(0,0,0,.2);                    
                     background-image: linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
-                }
-              
-                /* */
-              
-                ${selector} .button.green{
+                }              
+                /* */              
+                ${selector} .button.green {
                     background-color: #57a957;
                     border-color: #57a957;
-                }
-              
-                ${selector} .button.green:hover{
+                }              
+                ${selector} .button.green:hover {
                     background-color: #62c462;
-                }
-              
-                ${selector} .button.green:active{
+                }              
+                ${selector} .button.green:active {
                     background: #57a957;
-                }
-              
-                /* */
-              
-                ${selector} .button.red{
+                }              
+                /* */              
+                ${selector} .button.red {
                     background-color: #ca3535;
                     border-color: #c43c35;
-                }
-              
-                ${selector} .button.red:hover{
+                }              
+                ${selector} .button.red:hover {
                     background-color: #ee5f5b;
-                }
-              
-                ${selector} .button.red:active{
+                }              
+                ${selector} .button.red:active {
                     background: #c43c35;
-                }
-              
-                /* */
-              
-                ${selector} .button.blue{
+                }              
+                /* */              
+                ${selector} .button.blue {
                     background-color: #269CE9;
                     border-color: #269CE9;
-                }
-              
-                ${selector} .button.blue:hover{
+                }              
+                ${selector} .button.blue:hover {
                     background-color: #70B9E8;
-                }
-              
-                ${selector} .button.blue:active{
+                }              
+                ${selector} .button.blue:active {
                     background: #269CE9;
-                }
-              
-                /* */
-              
-                ${selector} .green[disabled], .green[disabled]:hover, .green[disabled]:active{
+                }              
+                /* */              
+                ${selector} .button.green[disabled], .button.green[disabled]:hover, .button.green[disabled]:active {
                     border-color: #57A957;
                     background: #57A957;
                     color: #D2FFD2;
-                }
-              
-                ${selector} .red[disabled], .red[disabled]:hover, .red[disabled]:active{
+                }              
+                ${selector} .button.red[disabled], .button.red[disabled]:hover, .button.red[disabled]:active {
                     border-color: #C43C35;
                     background: #C43C35;
                     color: #FFD3D3;
-                }
-              
-                ${selector} .blue[disabled], .blue[disabled]:hover, .blue[disabled]:active{
+                }              
+                ${selector} .button.blue[disabled], .button.blue[disabled]:hover, .button.blue[disabled]:active {
                     border-color: #269CE9;
                     background: #269CE9;
                     color: #93D5FF;
-                }
-                
-                /* Group buttons */
-              
+                }                
+                /* Group buttons */              
                 ${selector} .button-group,
-                ${selector} .button-group li{
+                ${selector} .button-group li {
                     display: inline-block;
-                    *display: inline;
                     zoom: 1;
-                }
-                
-                ${selector} .button-group{
+                }                
+                ${selector} .button-group {
                     font-size: 0; /* Inline block elements gap - fix */
                     margin: 0;
                     padding: 0;
                     background: rgba(0, 0, 0, .1);
                     border-bottom: 1px solid rgba(0, 0, 0, .1);
                     padding: 7px;
-                    -moz-border-radius: 7px;
-                    -webkit-border-radius: 7px;
                     border-radius: 7px;
-                }
-              
-                ${selector} .button-group li{
+                }              
+                ${selector} .button-group li {
                     margin-right: -1px; /* Overlap each right button border */
-                }
-              
-                ${selector} .button-group .button{
+                }              
+                ${selector} .button-group .button {
                     font-size: 13px; /* Set the font size, different from inherited 0 */
-                    -moz-border-radius: 0;
-                    -webkit-border-radius: 0;
                     border-radius: 0;
-                }
-                
-                ${selector} .button-group .button:active{
-                    -moz-box-shadow: 0 0 1px rgba(0, 0, 0, .2) inset, 5px 0 5px -3px rgba(0, 0, 0, .2) inset, -5px 0 5px -3px rgba(0, 0, 0, .2) inset;
-                    -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, .2) inset, 5px 0 5px -3px rgba(0, 0, 0, .2) inset, -5px 0 5px -3px rgba(0, 0, 0, .2) inset;
+                }                
+                ${selector} .button-group .button:active {
                     box-shadow: 0 0 1px rgba(0, 0, 0, .2) inset, 5px 0 5px -3px rgba(0, 0, 0, .2) inset, -5px 0 5px -3px rgba(0, 0, 0, .2) inset;
-                }
-              
-                ${selector} .button-group li:first-child .button{
-                    -moz-border-radius: 3px 0 0 3px;
-                    -webkit-border-radius: 3px 0 0 3px;
+                }              
+                ${selector} .button-group li:first-child .button {
                     border-radius: 3px 0 0 3px;
-                }
-              
-                ${selector} .button-group li:first-child .button:active{
-                    -moz-box-shadow: 0 0 1px rgba(0, 0, 0, .2) inset, -5px 0 5px -3px rgba(0, 0, 0, .2) inset;
-                    -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, .2) inset, -5px 0 5px -3px rgba(0, 0, 0, .2) inset;
+                }              
+                ${selector} .button-group li:first-child .button:active {
                     box-shadow: 0 0 1px rgba(0, 0, 0, .2) inset, -5px 0 5px -3px rgba(0, 0, 0, .2) inset;
-                }
-                
-                ${selector} .button-group li:last-child .button{
-                    -moz-border-radius: 0 3px 3px 0;
-                    -webkit-border-radius: 0 3px 3px 0;
+                }                
+                ${selector} .button-group li:last-child .button {
                     border-radius: 0 3px 3px 0;
-                }
-                
-                ${selector} .button-group li:last-child .button:active{
-                    -moz-box-shadow: 0 0 1px rgba(0, 0, 0, .2) inset, 5px 0 5px -3px rgba(0, 0, 0, .2) inset;
-                    -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, .2) inset, 5px 0 5px -3px rgba(0, 0, 0, .2) inset;
+                }                
+                ${selector} .button-group li:last-child .button:active {
                     box-shadow: 0 0 1px rgba(0, 0, 0, .2) inset, 5px 0 5px -3px rgba(0, 0, 0, .2) inset;
                 }
-              `);
+            `);
 
             Util.DOM.stylesheetCode(styles.join(""));
         }

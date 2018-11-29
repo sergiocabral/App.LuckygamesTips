@@ -10,30 +10,21 @@ namespace Skript.Part.System.MainHeader.Component {
          */
         protected stylesheet: string = `
             ${this.selector()} {
-                height: 150px;
-                margin: 0 !important;
+                position: relative;
             }
-            ${this.selector()} > div {
+            ${this.selector()} > .header {
                 text-align: center;
                 background-image: url(https://dsv.luckygames.tips/media/header-background.jpg);
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center;
                 border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-                height: 105px;
+                padding: 5px 0 5px 150px;
             }
-            ${this.selector()} > div > div {
-                background-image: url(https://dsv.luckygames.tips/media/r2d2.png);
-                background-size: 200px;
-                background-repeat: no-repeat;
-                background-position: 0 0;
-                height: 180px;
-            }
-            ${this.selector()} h1,
-            ${this.selector()} h2,
-            ${this.selector()} h3 {
-                margin: 0 0 0 130px;
-                padding-top: 9px;
+            ${this.selector()} > .header h1,
+            ${this.selector()} > .header h2,
+            ${this.selector()} > .header h3 {
+                margin: 5px 0;
                 white-space: nowrap;
                 text-shadow: 
                     0 0 20px ${this.theme.generalBackgroundColor},
@@ -46,24 +37,32 @@ namespace Skript.Part.System.MainHeader.Component {
                     0 0 60px ${this.theme.generalBackgroundColor}, 
                     0 0 60px ${this.theme.generalBackgroundColor};
             }
-            ${this.selector()} h1 {
+            ${this.selector()} > .header h1 {
                 color: ${Util.Drawing.blend(-0.5, this.theme.generalTextColor)};                
                 font-family: fast-forward;
-                font-size: 120%;
+                font-size: 100%;
             }
-            ${this.selector()} h2 {
-                color: ${Util.Drawing.blend(0.25, this.theme.generalTextColor)};                
-                font-family: ${this.theme.dialogTextFont};
-                font-size: 120%;
+            ${this.selector()} > .header h2 {
+                font-size: 100%;
             }
-            ${this.selector()} h3 {
-                color: ${Util.Drawing.blend(0.5, this.theme.generalTextColor)};
-                font-family: ${this.theme.dialogTextFont};
-                font-size: 90%;
+            ${this.selector()} > .header h3 {
+                font-size: 80%;
+            }      
+            ${this.selector()} > .bot {
+                background-image: url(https://dsv.luckygames.tips/media/r2d2.png);
+                background-size: 93%;
+                background-repeat: no-repeat;
+                background-position: 10px 5px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 30%;
+                height: 100%;
             }
-            ${this.selector()} .language-select {
+            ${this.selector()} > .language {
+                width: calc(100% - 6px);
                 text-align: right;
-                margin: 15px 6px 0 0;
+                margin: 2px 0 5px 0;
             }
         `;
 
@@ -81,15 +80,14 @@ namespace Skript.Part.System.MainHeader.Component {
          */
         public render(): JSX.Element {            
             return (
-                <div id={this.id()} className={this.className}>
-                    <div>
-                        <div>
-                            <h1>{this.theme.title.toUpperCase().replaceAll(" ", ".")}</h1>
-                            <h2>{this.translate("do more, much more")}</h2>
-                            <h3><a href={this.theme.url} target="_blank">{this.theme.url.substr(this.theme.url.indexOf("//") + 2)}</a></h3>
-                            <div className="language-select"><Layout.ReactJs.Component.LanguageSelect /></div>
-                        </div>
+                <div id={this.id()} className={this.className()}>
+                    <div className="header">
+                        <h1>{this.theme.title.toUpperCase().replaceAll(" ", ".")}</h1>
+                        <h2>{this.translate("do more, much more")}</h2>
+                        <h3><a href={this.theme.url} target="_blank">{this.theme.url.substr(this.theme.url.indexOf("//") + 2)}</a></h3>
                     </div>
+                    <div className="bot"></div>
+                    <Layout.ReactJs.Component.LanguageSelect className="language" />
                 </div>
             );
         }

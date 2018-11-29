@@ -71,6 +71,9 @@ namespace Skript.Layout.ReactJs.Component {
          * Código CSS para este componente.
          */
         protected stylesheet: string = `
+            ${this.selector()} {
+                margin: 0px 20px 10px 20px;
+            }
             ${this.selector()} > .title {
                 background-color: ${this.theme.dialogTitleBackgroundColor};
                 color: ${this.theme.dialogTitleTextColor};
@@ -86,24 +89,23 @@ namespace Skript.Layout.ReactJs.Component {
             }
             ${this.selector()} > .title .text h1 {
                 font-family: 'Raleway', sans-serif;
-                white-space: nowrap;                
-                font-size: 15px;
+                white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 margin: 2px 0;
                 width: calc(100% - 60px);
             }
-            ${this.selector()} > .title .window {
+            ${this.selector()} > .title .showDialog {
                 float: right;
             }
             ${this.selector()} > .content {
-                margin: 7px 0;
+                margin-top: 10px;
                 transition: max-height 0.25s linear;
                 overflow: hidden;                
             }
             ${this.selector()} > .content.hide {
                 max-height: 0 !important;
-            }
+            }            
         </div>            
         `;
 
@@ -133,16 +135,16 @@ namespace Skript.Layout.ReactJs.Component {
         private static classNameMark: string = Util.String.random()
 
         /**
-         * No conteúdo. Class CSS para tornar o conteúdo com o mesmo estilo dentro e fora da janela.
+         * Aplicado quando não tem janela. Class CSS para tornar o conteúdo com o mesmo estilo dentro e fora da janela.
          * @type {string}
          */
-        public static classNameContent: () => string = () => HeaderContainer.classNameMark + "-" + IdContext[IdContext.Content];
+        public static classNameOutDialog: () => string = () => HeaderContainer.classNameMark + "-" + IdContext[IdContext.Component];
 
         /**
-         * Conteúdo na janela. Class CSS para tornar o conteúdo com o mesmo estilo dentro e fora da janela.
+         * Aplicado quando está na janela. Class CSS para tornar o conteúdo com o mesmo estilo dentro e fora da janela.
          * @type {string}
          */
-        public static classNameDialog: () => string = () => HeaderContainer.classNameMark + "-" + IdContext[IdContext.Dialog];
+        public static classNameInDialog: () => string = () => HeaderContainer.classNameMark + "-" + IdContext[IdContext.Dialog];
 
         /**
          * Conteúdo.
@@ -202,7 +204,7 @@ namespace Skript.Layout.ReactJs.Component {
                     this.props.title ? this.props.title : "",
                     DialogCloseMode.Hide,
                     this.props.icon,
-                    <div id={this.contextId(IdContext.Dialog)} className={HeaderContainer.classNameDialog()}></div>,
+                    <div id={this.contextId(IdContext.Dialog)} className={HeaderContainer.classNameInDialog()} style={{ margin: "10px" }}></div>,
                     this.props.dialogSize).sendSync() as Message.DialogCreate;
                 if (!messageBus.result) throw new Core.Errors.NullNotExpected("Message.DialogCreate.result");
                 this.instanceDialog = messageBus.result.dialog;
@@ -235,7 +237,6 @@ namespace Skript.Layout.ReactJs.Component {
          */
         public dialog(mode?: boolean): boolean {
             let state = !!this.instanceDialog && this.instanceDialog.visible();
-
             if (mode !== undefined) {
                 if (!mode && state) {
                     this.getOrCreateDialog().close();
@@ -245,13 +246,12 @@ namespace Skript.Layout.ReactJs.Component {
                     setTimeout(() => {
                         const dialog = this.getOrCreateDialog();
                         this.moveContentToDialog(true);
-                        dialog.open().bring();
+                        setTimeout(() => dialog.open().bring(), 1); //setTimeout para fazer a transição CSS.
                     }, this.content() ? this.intervalAnimation : 0);
                     this.content(false);
                 }
                 state = mode;
             }
-
             return state;
         } 
 
@@ -270,6 +270,7 @@ namespace Skript.Layout.ReactJs.Component {
                     container.style.maxHeight = container.offsetHeight + "px";
                     setTimeout(() => container.classList.add("hide"), 1);
                 } else if (mode && !state) {
+                    if (!container.style.maxHeight) container.style.maxHeight = "100px"; //Apenas para garantir a animação.
                     container.classList.remove("hide");
                     setTimeout(() => container.style.maxHeight = "", this.intervalAnimation);
                 }
@@ -285,11 +286,11 @@ namespace Skript.Layout.ReactJs.Component {
          */
         public render(): JSX.Element {            
             return (
-                <div id={this.id()} className={this.className}>
+                <div id={this.id()} className={this.className()}>
                     <div className="title" style={ { display: this.props.title ? "inherit" : "none" } }>
                         <span 
                             title={this.translate("Toggle the view as a window.")}
-                            className="anchor window no-underline action" 
+                            className="anchor showDialog no-underline action" 
                             style={ { display: this.props.dialog ? "inherit" : "none" } } 
                             onClick={this.props.dialog ? this.onDialogClick : undefined}>
                             <i className="far fa-window-restore"></i>
@@ -299,8 +300,8 @@ namespace Skript.Layout.ReactJs.Component {
                             <h1>{this.props.title}</h1>
                         </span>
                     </div>
-                    <div className="content hide" id={this.contextId(IdContext.Component)} ref={this.elContent}>
-                        <div id={this.contextId(IdContext.Content)} className={HeaderContainer.classNameContent()}>
+                    <div className={HeaderContainer.classNameOutDialog() + " content hide"} id={this.contextId(IdContext.Component)} ref={this.elContent}>
+                        <div id={this.contextId(IdContext.Content)}>
                             {this.props.children}
                         </div>
                     </div>

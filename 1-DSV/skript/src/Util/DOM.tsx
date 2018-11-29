@@ -48,6 +48,30 @@ namespace Skript.Util {
         }
 
         /**
+         * Monta a lista de elementos ancestrais.
+         * @param element Elemento.
+         * @returns {Element[]} Lista. O index 0 é o próprio elemento passado.
+         */
+        public static path(element: Element): Element[] {
+            const elements = [element];
+            while (elements[elements.length - 1].parentElement) elements.push(elements[elements.length - 1].parentElement as Element);
+            return elements;
+        }
+
+        /**
+         * Determina se um elemento está na frente ou atrás de todos os irmãos.
+         * @param {HTMLElement} element Elemento
+         * @param {BringTo} where Direção
+         * @returns {boolean} Quando passa na validação.
+         */
+        public static isBring(element: HTMLElement, where: BringTo): boolean {
+            return !!element.parentElement && (
+                (where === BringTo.Back && element.parentElement.children[0] === element) ||
+                (where === BringTo.Front && element.parentElement.children[element.parentElement.children.length - 1] === element)
+            );
+        }
+
+        /**
          * Move um elemento dentro do seu parent.
          * @param {HTMLElement} element Elemento
          * @param {BringTo} to Direção

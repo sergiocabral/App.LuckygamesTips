@@ -73,7 +73,7 @@ namespace Skript.Layout.ReactJs.Component {
          */
         public render(): JSX.Element {            
             return (
-                <button id={this.id()} className={this.className + " no-shadow"} ref={this.elButton} onClick={this.onClick}>
+                <button id={this.id()} className={this.className() + " no-shadow"} ref={this.elButton} onClick={this.onClick}>
                     <i className="fas fa-robot"></i>
                 </button>
             );

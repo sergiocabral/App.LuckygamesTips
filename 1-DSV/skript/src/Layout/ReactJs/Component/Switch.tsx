@@ -150,7 +150,7 @@ namespace Skript.Layout.ReactJs.Component {
         public render(): JSX.Element {
             const _this = this;eval("window._this = _this"); _this;
             return (
-                <div id={this.id()} className={this.className}>
+                <div id={this.id()} className={this.className()}>
                     <div className="input">
                         <input id={this.id() + "-input"} type="checkbox" className="shadow" ref={this.elCheckbox} value={this.props.value} checked={this.state.checked} onChange={this.onChange}/>
                         <label htmlFor={this.id() + "-input"} className="action"></label>

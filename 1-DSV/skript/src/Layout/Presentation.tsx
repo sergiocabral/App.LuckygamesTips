@@ -89,7 +89,9 @@ namespace Skript.Layout {
          * @returns {boolean} Retorna o estado de exibição da janela.
          */
         public mainDialogVisible(mode?: boolean): boolean {
-            return this.mainDialog.visible(mode);
+            const visible = this.mainDialog.visible(mode);
+            if (visible) this.mainDialog.bring();
+            return visible;
         }
 
         /**

@@ -15,6 +15,12 @@ namespace Skript.Layout.ReactJs {
          * @type {string}
          */
         id?: string
+
+        /**
+         * Class CSS do elemento.
+         * @type {string}
+         */
+        className?: string
     }
 
     /**
@@ -52,7 +58,25 @@ namespace Skript.Layout.ReactJs {
          * Nome da classe CSS deste componente.
          * @type {string}
          */
-        protected className: string = ComponentBase.classNamePrefix + this.constructor.name;
+        private classNameValue: string = ComponentBase.classNamePrefix + this.constructor.name;
+
+        /**
+         * Determina o id para o elemento.
+         * @type {() => string}
+         */
+        protected className: () => string = () => this.classNameValue + ((this.props as any).className ? " " + (this.props as any).className : "");
+
+        /**
+         * Id randômico determinado para a instância.
+         * @type {string}
+         */
+        private randomId: string = Util.String.random();
+
+        /**
+         * Determina o id para o elemento.
+         * @type {() => string}
+         */
+        protected id: () => string = () => (this.props as any).id ? (this.props as any).id : this.randomId;
 
         /**
          * Registra o código CSS para este componente.
@@ -101,18 +125,6 @@ namespace Skript.Layout.ReactJs {
         protected language: () => string = () => skript.translate.languageDefault;
 
         /**
-         * Id randômico determinado para a instância.
-         * @type {string}
-         */
-        private randomId: string = Util.String.random();
-
-        /**
-         * Determina o id para o elemento.
-         * @type {() => string}
-         */
-        protected id: () => string = () => (this.props as any).id ? (this.props as any).id : this.randomId;
-
-        /**
          * Verifica pelo id se o componente existe.
          * @type {() => Element|null}
          */
@@ -122,7 +134,7 @@ namespace Skript.Layout.ReactJs {
          * Seletor CSS mais alto que engloba o componente.
          * @type {() => string}
          */
-        protected selector: () => string = () => `.${Presentation.className} .${this.className}[id]`;
+        protected selector: () => string = () => `.${Presentation.className} .${this.className()}[id]`;
 
         /**
          * Determina se o sistema está em modo debug.

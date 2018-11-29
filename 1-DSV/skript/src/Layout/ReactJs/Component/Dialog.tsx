@@ -79,7 +79,7 @@ namespace Skript.Layout.ReactJs.Component {
          */
         protected stylesheet: string = `
             ${this.selector()} {
-                z-index: ${this.theme.zIndex};
+                z-index: ${this.theme.zIndex * 0.9};
                 background: ${this.theme.generalBackgroundColor};
                 box-shadow: 0 0 20px black;
                 border-radius: 7px;
@@ -128,15 +128,6 @@ namespace Skript.Layout.ReactJs.Component {
             }
             ${this.selector()} > .header a.close:hover {
                 color: ${this.theme.dialogTitleTextColor};
-            }
-            ${this.selector()} > .content > div > div > div {
-                margin: 0 20px;
-            }
-            ${this.selector()} > .content > div > div:first-child > div {
-                margin-top: 12px;
-            }
-            ${this.selector()} > .content > div > div:last-child > div {
-                margin-bottom: 12px;
             }
             ${this.selector()} > .content {
                 height: calc(100% - 50px);
@@ -238,7 +229,7 @@ namespace Skript.Layout.ReactJs.Component {
             switch (this.props.closeMode) {
                 case DialogCloseMode.Hide:
                     this.visible(false);
-                    this.bring(Util.BringTo.Back);
+                    setTimeout(() => { if (!this.visible()) this.bring(Util.BringTo.Back); }, 1000);
                     break;
                 case DialogCloseMode.Remove:
                     this.visible(false);
@@ -306,7 +297,7 @@ namespace Skript.Layout.ReactJs.Component {
          */
         public render(): JSX.Element {
             return (
-                <div id={this.id()} className={this.className} ref={this.elContainer}>
+                <div id={this.id()} className={this.className()} ref={this.elContainer}>
                     <div className="header">
                         <span className="graph"><i className={this.props.icon ? this.props.icon : "fas fa-cog"}></i></span>
                         <h1 ref={this.elTitle}>{this.props.title}</h1>
@@ -352,7 +343,7 @@ namespace Skript.Layout.ReactJs.Component {
          * Ignora o evento de clica se o botão clicado foi para fechar a janela.
          */
         private ignoreEventClick(evt: any) {
-            return evt.target.className === "close" || evt.target.parentElement.className === "close";
+            return evt.target.className === "close" || (evt.target.parentElement && evt.target.parentElement.className === "close");
         }
 
         /**

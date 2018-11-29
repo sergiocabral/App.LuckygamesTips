@@ -28,7 +28,7 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
          */
         protected renderContent(): JSX.Element {         
             return (
-                <div id={this.id()} className={this.className}>
+                <div id={this.id()} className={this.className()}>
                     <Layout.ReactJs.Component.Switch checked={false} />
                     <Layout.ReactJs.Component.Switch checked={true} />
                     LuckygamesAdjusts<br/>
