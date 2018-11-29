@@ -6,6 +6,9 @@
 
 /// #############################################
 
+/// <reference path="Part/System/LogViewer/Component/LogLevels.tsx" />
+/// context: SystemPart,SystemPartPrivate
+
 /// <reference path="Part/System/LogViewer/Component/LogViewer.tsx" />
 /// context: SystemPart,SystemPartPrivate
 
