@@ -104,8 +104,10 @@ namespace Skript.Luckygames {
         private static socketClose(): void {
             const ws = WebSocketControl.websocket();
             if (!ws) return;
-            ws.close();
-            skript.log.post("WebSocket was closed.", null, Core.Log.Level.DebugLuckygames, ws);
+            if (ws.readyState != WebSocket.CLOSED) {
+                ws.close();
+                skript.log.post("WebSocket was closed.", null, Core.Log.Level.DebugLuckygames, ws);
+            }
         }
 
         /**

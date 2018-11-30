@@ -34,9 +34,31 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
 
             this.title = this.translate("Website adjusts");
             this.icon = "far fa-list-alt";
-            
+
+            this.elOptionWebsocket = React.createRef();
+            this.elOptionAnimation = React.createRef();
+            this.elOptionVisual = React.createRef();
+
             this.onAdjustChange = this.onAdjustChange.bind(this);
         }
+
+        /**
+         * Opção: Websocket
+         * @type {React.RefObject<Adjusts>}
+         */
+        private elOptionWebsocket: React.RefObject<Adjusts>;
+
+        /**
+         * Opção: Animation
+         * @type {React.RefObject<Adjusts>}
+         */
+        private elOptionAnimation: React.RefObject<Adjusts>;
+
+        /**
+         * Opção: Visual
+         * @type {React.RefObject<Adjusts>}
+         */
+        private elOptionVisual: React.RefObject<Adjusts>;
         
         /**
          * Ao alterar o valor de algum ajuste.
@@ -44,7 +66,7 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
          */
         private onAdjustChange(adjusts: Core.KeyValue<Core.KeyValue<string>[]>): void {
             if (adjusts.value.length !== 1) throw new Core.Errors.InvalidArgument(`LuckygamesAdjusts.options(${adjusts.key}).length == ${adjusts.value.length}`);
-
+            
             switch (adjusts.key) {
                 case "websocket":
                     switch (adjusts.value[0].key) {
@@ -78,6 +100,7 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
             return (
                 <div id={this.id()} className={this.className()}>
                     <Adjusts 
+                        ref={this.elOptionWebsocket}
                         className="adjust"
                         onChange={this.onAdjustChange}
                         exclusive={true}
@@ -94,6 +117,7 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                         <p>{this.translate("Off increases performance by reducing internet bandwidth consumption.")}</p>
                     </Adjusts>
                     <Adjusts 
+                        ref={this.elOptionAnimation}
                         className="adjust"
                         onChange={this.onAdjustChange}
                         exclusive={true}
@@ -109,6 +133,7 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                         <p>{this.translate("Off increases performance by reducing processor and memory consumption on your computer.")}</p>
                     </Adjusts>
                     <Adjusts 
+                        ref={this.elOptionVisual}
                         className="adjust"
                         onChange={this.onAdjustChange}
                         exclusive={true}
