@@ -182,6 +182,7 @@ namespace Skript.Part.System.LogViewer.Component {
         private onLogLevelsChange(level: Core.Log.Level, checked: boolean): void {
             if (checked && this.uncheckeds.indexOf(level) >= 0) this.uncheckeds.splice(this.uncheckeds.indexOf(level), 1);
             else if (!checked && this.uncheckeds.indexOf(level) < 0) this.uncheckeds.push(level);
+            this.update();
         }
 
         /**
@@ -195,7 +196,7 @@ namespace Skript.Part.System.LogViewer.Component {
          * Renderizador do React. Conteúdo do container.
          * @returns {JSX.Element}
          */
-        protected renderContent(): JSX.Element {            
+        protected renderContent(): JSX.Element {
             return (
                 <div id={this.id()} className={this.className()} ref={this.elContainer}>
                     <div className="controls">
@@ -207,7 +208,7 @@ namespace Skript.Part.System.LogViewer.Component {
                     </div>
                     <div className="messages">
                         <div>
-                            {this.messages.filter(v => this.uncheckeds.indexOf(v.message.level) < 0).map(v =>
+                            {this.messages.filter(v => this.uncheckeds.indexOf(Number(v.message.level)) < 0).map(v =>
                                 <div key={v.message.id} className={"level " + Core.Log.Level[v.message.level]}>
                                     <div className="type">{Core.Log.Level[v.message.level]}</div>
                                     <div className="time">{v.message.time.format({})}</div>

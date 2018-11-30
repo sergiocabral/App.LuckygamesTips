@@ -108,7 +108,7 @@ namespace Skript.Part.System.LogViewer.Component {
          */
         private onChange(evt: any, value: string, checked: boolean) {
             evt;
-            const level = (value as any) as Core.Log.Level;
+            const level = Number(value) as Core.Log.Level;
             for (let i = 0; i < this.levels.length; i++) {
                 if (this.levels[i].level == level) {
                     this.levels[i].checked = checked;
