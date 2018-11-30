@@ -29,37 +29,37 @@ namespace Skript.Layout.ReactJs.Component {
     /**
      * Conjunto de dados props para este compoenente.
      */
-    type HeaderContainerProps = {
+    class HeaderContainerProps extends Layout.ReactJs.EmptyProps {
 
         /**
          * Título.
          * @type {string}
          */
-        title?: string,
+        title?: string;
 
         /**
          * Ícone. Opcional.
          * @type {string}
          */
-        icon?: string,
+        icon?: string;
 
         /**
          * Indica se deve haver opção de colapsar.
          * @type {boolean}
          */
-        collapsible?: boolean,
+        collapsible?: boolean;
 
         /**
          * Indica se deve haver opção de janela de diálogo
          * @type {boolean}
          */
-        dialog?: boolean,
+        dialog?: boolean;
 
         /**
          * Dimensão padrão da janela se estiver habilitada.
          * @type {Core.Size|undefined}
          */
-        dialogSize?: Core.Size,
+        dialogSize?: Core.Size;
     }
 
     /**

@@ -8,7 +8,7 @@ namespace Skript.Layout.ReactJs {
     /**
      * Tipo para props vazio do React deste componente.
      */
-    export type EmptyProps = { 
+    export class EmptyProps { 
 
         /**
          * Id do elemento.
@@ -61,7 +61,7 @@ namespace Skript.Layout.ReactJs {
         private classNameValue: string = ComponentBase.classNamePrefix + this.constructor.name;
 
         /**
-         * Determina o id para o elemento.
+         * Determina as class CSS para o elemento.
          * @type {() => string}
          */
         protected className: () => string = () => this.classNameValue + ((this.props as any).className ? " " + (this.props as any).className : "");
@@ -134,7 +134,7 @@ namespace Skript.Layout.ReactJs {
          * Seletor CSS mais alto que engloba o componente.
          * @type {() => string}
          */
-        protected selector: () => string = () => `.${Presentation.className} .${this.className()}[id]`;
+        protected selector: () => string = () => `.${Presentation.className} .${this.classNameValue}[id]`;
 
         /**
          * Determina se o sistema está em modo debug.

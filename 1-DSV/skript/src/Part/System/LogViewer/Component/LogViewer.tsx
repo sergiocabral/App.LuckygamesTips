@@ -27,8 +27,8 @@ namespace Skript.Part.System.LogViewer.Component {
                 top: 0;
                 left: 0;
                 height: 100%;
-                width: calc(30% - 10px);
-                overflow: auto;
+                width: calc(35% - 5px);
+                overflow-x: hidden;
             }
             ${this.selector()} > .controls > div {
                 margin-right: 5px;
@@ -42,8 +42,8 @@ namespace Skript.Part.System.LogViewer.Component {
             }            
             ${this.selector()} > .messages {
                 position: absolute;
-                left: 30%;
-                width: 70%;
+                left: 35%;
+                right: 0;
                 height: 100%;
                 overflow: auto;
                 border-left: 1px solid gainsboro;

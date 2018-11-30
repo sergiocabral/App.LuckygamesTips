@@ -19,37 +19,31 @@ namespace Skript.Layout.ReactJs.Component {
     /**
      * Tipo para props do React deste componente.
      */
-    export type DialogProps = {
-
-        /**
-         * Id do elemento.
-         * @type {string}
-         */
-        id?: string,
+    export class DialogProps extends Layout.ReactJs.EmptyProps {
 
         /**
          * Título da janela.
          * @type {string}
          */
-        title: string,
+        title: string = "Dialog title here";
 
         /**
          * Ícone da janela. Formato FontAwesome.
          * @type {string}
          */
-        icon?: string,
+        icon?: string;
 
         /**
          * Modo de fechamento da janela.
          * @type {DialogCloseMode}
          */
-        closeMode: DialogCloseMode,
+        closeMode: DialogCloseMode = DialogCloseMode.Remove;
 
         /**
          * Dimensão.
          * @type {Core.Size}
          */
-        size?: Core.Size,
+        size?: Core.Size;
     }
 
     /**

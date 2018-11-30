@@ -3,17 +3,17 @@ namespace Skript.Layout.ReactJs.Component {
     /**
      * Props para Switch.
      */
-    export type SwitchProps = {
+    export class SwitchProps extends Layout.ReactJs.EmptyProps {
 
         /**
          * Estado do controle.
          */
-        checked?: boolean
+        checked?: boolean;
 
         /**
          * Valor.
          */
-        value?: any
+        value?: any;
     }
 
     /**
@@ -24,7 +24,7 @@ namespace Skript.Layout.ReactJs.Component {
         /**
          * Estatdo do controle.
          */
-        checked: boolean
+        checked: boolean;
     }
 
     /**
