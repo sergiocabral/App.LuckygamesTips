@@ -7,15 +7,16 @@ namespace Skript.Part.System.LogViewer.Component {
 
         /**
          * Retorna a lista de níveis de log completa.
+         * @param {(id: string) => string} translate Função de tradução.
          * @param {boolean} includeDebug Inclui níveis de log de debug.
          */
-        public static mount(includeDebug: boolean): LevelWrapper[] {
+        public static mount(translate: (id: string) => string, includeDebug: boolean): LevelWrapper[] {
             const levels: LevelWrapper[] = [];
 
             Object
                 .values(Core.Log.Level)
                 .filter(v => typeof(v) === "number" && (includeDebug || Core.Log.Level[v].indexOf("Debug") < 0))
-                .map(v => levels.push(new LevelWrapper(v as Core.Log.Level)));
+                .map(v => levels.push(new LevelWrapper(v as Core.Log.Level, translate)));
 
             return levels;
         }
@@ -23,10 +24,11 @@ namespace Skript.Part.System.LogViewer.Component {
         /**
          * Construtor.
          * @param {Core.Log.Level} level Nível de log.
+         * @param {(id: string) => string} translate Função de tradução.
          */
-        public constructor(level: Core.Log.Level) {
+        public constructor(level: Core.Log.Level, translate: (id: string) => string) {
             this.level = level;
-            this.name = Core.Log.Level[level];
+            this.name = translate(Core.Log.Level[level]);
             this.checked = true;
         }
 
@@ -82,7 +84,7 @@ namespace Skript.Part.System.LogViewer.Component {
          */
         public constructor(props: Layout.ReactJs.EmptyProps) {
             super(props);
-            this.state = { levels: LevelWrapper.mount(this.debug()) };
+            this.state = { levels: LevelWrapper.mount(this.translate, this.debug()) };
         }
 
         /**

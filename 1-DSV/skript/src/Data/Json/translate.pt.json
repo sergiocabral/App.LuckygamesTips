@@ -133,6 +133,42 @@
             }
         ]
     },
+    "Enums": {
+        "Level.tsx": [
+            {
+                "Information":
+                "Informação"
+            },
+            {
+                "Warning":
+                "Alerta"
+            },
+            {
+                "Error":
+                "Erro"
+            },
+            {
+                "Debug":
+                "Debug"
+            },
+            {
+                "DebugBus":
+                "Bus"
+            },
+            {
+                "DebugDOM":
+                "DOM"
+            },
+            {
+                "DebugReact":
+                "React"
+            },
+            {
+                "DebugRequest":
+                "Request"
+            }
+        ]
+    },
     "Componentes do sistema": {
         "LanguageSelect.tsx": [        
             { 

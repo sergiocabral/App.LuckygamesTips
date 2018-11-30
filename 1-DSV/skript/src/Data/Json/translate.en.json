@@ -1,1 +1,38 @@
-[ ]
+{
+    "Enums": {
+        "Level.tsx": [
+            {
+                "Information":
+                "Information"
+            },
+            {
+                "Warning":
+                "Warning"
+            },
+            {
+                "Error":
+                "Error"
+            },
+            {
+                "Debug":
+                "Debug"
+            },
+            {
+                "DebugBus":
+                "Bus"
+            },
+            {
+                "DebugDOM":
+                "DOM"
+            },
+            {
+                "DebugReact":
+                "React"
+            },
+            {
+                "DebugRequest":
+                "Request"
+            }
+        ]
+    }
+}
