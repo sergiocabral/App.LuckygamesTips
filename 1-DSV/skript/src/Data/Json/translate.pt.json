@@ -194,6 +194,10 @@
             { 
                 "Log Viewer":
                 "Mensagens de Log" 
+            },
+            { 
+                "Clear log":
+                "Limpar log" 
             }
         ]
     }

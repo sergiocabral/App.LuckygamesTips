@@ -202,7 +202,7 @@ namespace Skript.Part.System.LogViewer.Component {
                     <div className="controls">
                         <div>
                             <LogLevels className="levels" onChange={this.onLogLevelsChange}></LogLevels>
-                            <button className="button" onClick={this.onClearLogClick}>Clear log</button>
+                            <button className="button" onClick={this.onClearLogClick}>{this.translate("Clear log")}</button>
                             <div className="height10"></div>
                         </div>
                     </div>
@@ -210,7 +210,7 @@ namespace Skript.Part.System.LogViewer.Component {
                         <div>
                             {this.messages.filter(v => this.uncheckeds.indexOf(Number(v.message.level)) < 0).map(v =>
                                 <div key={v.message.id} className={"level " + Core.Log.Level[v.message.level]}>
-                                    <div className="type">{Core.Log.Level[v.message.level]}</div>
+                                    <div className="type">{this.translate(Core.Log.Level[v.message.level])}</div>
                                     <div className="time">{v.message.time.format({})}</div>
                                     <div className="text">{v.message.text}</div>
                                 </div>
