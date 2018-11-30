@@ -161,7 +161,6 @@ namespace Skript.Layout.ReactJs.Component {
             input.setAttribute("data-checked", checked === "true" ? "false" : "true");
 
             if (this.props.radio) {
-                console.log(`${this.selectorBase()} .${this.props.radio} input[type="text"]`);
                 const radioGroup = document.querySelectorAll(`${this.selectorBase()} .${this.props.radio} input[type="text"]`);
                 for (let i = 0; i < radioGroup.length; i++)
                     setTimeout(() => { if (input != radioGroup[i]) (radioGroup[i] as HTMLInputElement).setAttribute("data-checked", "false"); }, 1);
@@ -169,9 +168,6 @@ namespace Skript.Layout.ReactJs.Component {
             }
 
             this.setState({ checked: input.getAttribute("data-checked") === "true" });
-
-            console.log("input[data-checked]", input.value, input.getAttribute("data-checked"), input);
-            eval("window.input = input");
 
             if (this.props.onChange instanceof Function) this.props.onChange(evt, input.value, input.getAttribute("data-checked") === "true");
         }
