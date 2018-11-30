@@ -68,6 +68,11 @@ namespace Skript.Core.Log {
          * @param {boolean} cancelLogMessagePosted Opcional. Usado para evitar mensagem pelo MessageBus. Usado para evitar recursividade infinita.
          */
         public post(text: string, values: any = { }, level: Level = Level.Information, toConsoleLog: any = undefined, skipLogMessagePosted: boolean = false): void {
+            if (!skript.configuration.debug &&
+                level != Core.Log.Level.Information &&
+                level != Core.Log.Level.Warning &&
+                level != Core.Log.Level.Error) return;
+                
             const message = this.mountMessage(text, values, level);
             
             this.allMessages.push(message);
