@@ -31,7 +31,7 @@ namespace Skript.Core {
             skript.api.loadScript([Api.ScriptContext.SystemPart])
                 .then(() => { 
                     skript.log.post("Loading available modules.", null, Core.Log.Level.Debug);
-                    skript.api.loadScript([Api.ScriptContext.PaidPart])
+                    skript.api.loadScript([Api.ScriptContext.FreePart, Api.ScriptContext.PaidPart])
                         .then(() => { 
                             skript.log.post("Modules loaded successfully.", null, Core.Log.Level.Debug); 
                             new Message.SystemLoaded().sendAsync();                            

@@ -1,22 +1,8 @@
 /// <reference path="Part/System/MainHeader/Component/MainHeader.tsx" />
-/// context: SystemPart,SystemPartPublic
+/// context: SystemPart
 
 /// <reference path="Part/System/MainHeader/Part.tsx" />
-/// context: SystemPart,SystemPartPublic
-
-/// #############################################
-
-/// <reference path="Part/System/LogViewer/Component/LogLevels.tsx" />
-/// context: SystemPart,SystemPartPrivate
-
-/// <reference path="Part/System/LogViewer/Component/LogViewer.tsx" />
-/// context: SystemPart,SystemPartPrivate
-
-/// <reference path="Part/System/LogViewer/Component/LogViewerBus.tsx" />
-/// context: SystemPart,SystemPartPrivate
-
-/// <reference path="Part/System/LogViewer/Part.tsx" />
-/// context: SystemPart,SystemPartPrivate
+/// context: SystemPart
 
 /// #############################################
 
@@ -28,6 +14,20 @@
 
 /// <reference path="Part/User/LuckygamesAdjusts/Part.tsx" />
 /// context: PaidPart,LuckygamesAdjusts
+
+/// #############################################
+
+/// <reference path="Part/System/LogViewer/Component/LogLevels.tsx" />
+/// context: FreePart
+
+/// <reference path="Part/System/LogViewer/Component/LogViewer.tsx" />
+/// context: FreePart
+
+/// <reference path="Part/System/LogViewer/Component/LogViewerBus.tsx" />
+/// context: FreePart
+
+/// <reference path="Part/System/LogViewer/Part.tsx" />
+/// context: FreePart
 
 /// #############################################
 
