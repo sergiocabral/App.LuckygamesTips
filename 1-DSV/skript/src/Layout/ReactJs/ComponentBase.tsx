@@ -83,7 +83,7 @@ namespace Skript.Layout.ReactJs {
          */
         protected loadStylesheet(): void {
             Util.DOM.stylesheetCode(`
-                .${Presentation.className} {
+                .${this.classNameBase} {
                     font-family: ${this.theme.generalTextFont};
                     font-size: 14px;              
                 }
@@ -134,13 +134,19 @@ namespace Skript.Layout.ReactJs {
          * Seletor CSS mais alto que engloba o componente.
          * @type {() => string}
          */
-        protected selector: () => string = () => `.${Presentation.className} .${this.myClassName}[id]`;
+        protected selector: () => string = () => `.${this.classNameBase} .${this.myClassName}[id]`;
+
+        /**
+         * Class CSS mais alto que engloba todo o sistema.
+         * @type {string}
+         */
+        protected classNameBase: string = Presentation.className;
 
         /**
          * Seletor CSS mais alto que engloba todo o sistema.
          * @type {() => string}
          */
-        protected selectorBase: () => string = () => `.${Presentation.className}`;
+        protected selectorBase: () => string = () => `.${this.classNameBase}`;
 
         /**
          * Determina se o sistema está em modo debug.

@@ -52,13 +52,13 @@ namespace Skript.Layout.ReactJs {
          * Aplicado quando não tem janela. Seletor CSS mais alto que engloba o componente.
          * @type {() => string}
          */
-        protected selectorOutDialog: () => string = () => `.${Presentation.className} .${Layout.ReactJs.Component.HeaderContainer.classNameInDialog()} .${this.className()}[id]`;
+        protected selectorInDialog: () => string = () => `.${Presentation.className} .${Layout.ReactJs.Component.HeaderContainer.classNameInDialog()} .${this.className()}[id]`;
 
         /**
          * Aplicado quando está na janela. Seletor CSS mais alto que engloba o componente.
          * @type {() => string}
          */
-        protected selectorInDialog: () => string = () => `.${Presentation.className} .${Layout.ReactJs.Component.HeaderContainer.classNameOutDialog()} .${this.className()}[id]`;
+        protected selectorOutDialog: () => string = () => `.${Presentation.className} .${Layout.ReactJs.Component.HeaderContainer.classNameOutDialog()} .${this.className()}[id]`;
 
         /**
          * Renderizador do React. Conteúdo do container.

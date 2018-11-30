@@ -39,7 +39,7 @@ namespace Skript.Part.System.LogViewer.Component {
                 position: relative;
                 min-height: 150px;
             }
-            ${this.selectorOutDialog()} {
+            ${this.selectorInDialog()} {
                 position: absolute;
                 left: 10px;
                 top: 10px;

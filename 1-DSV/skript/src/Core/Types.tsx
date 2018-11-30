@@ -55,5 +55,18 @@ namespace Skript.Core {
     /**
      * Conjunto de chave e valor.
      */
-    export type KeyValue<T> = { [key: string]: T }
+    export type KeyValue<T> = { 
+
+        /**
+         * Chave.
+         * @type {string}
+         */
+        key: string,
+
+        /**
+         * Valor.
+         * @type {T}
+         */
+        value: T 
+    }
 }

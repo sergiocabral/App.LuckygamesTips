@@ -7,11 +7,19 @@ namespace Skript.Layout.ReactJs.Component {
 
         /**
          * Estado do controle.
+         * @type {boolean}
          */
         checked?: boolean;
 
         /**
+         * Class CSS todos Switch que fazem parte de uma conjunto radio.
+         * @type {string}
+         */
+        radio?: string;
+
+        /**
          * Valor.
+         * @type {any}
          */
         value?: any;
 
@@ -148,8 +156,18 @@ namespace Skript.Layout.ReactJs.Component {
          * @param evt Informações sobre o evento.
          */
         private onChange(evt: any): void {
-            this.setState({ checked: evt.target.checked });
-            if (this.props.onChange instanceof Function) this.props.onChange(evt, evt.target.value, evt.target.checked);
+            const input = evt.target;
+
+            if (this.props.radio) {
+                const radioGroup = document.querySelectorAll(`${this.selectorBase()} .${this.props.radio} input[type="checkbox"]`);
+                for (let i = 0; i < radioGroup.length; i++)
+                    setTimeout(() => { if (input != radioGroup[i]) (radioGroup[i] as HTMLInputElement).checked = false; }, 1);
+                    input.checked = true;
+            }
+
+            this.setState({ checked: input.checked });
+
+            if (this.props.onChange instanceof Function) this.props.onChange(evt, input.value, input.checked);
         }
 
         /**
@@ -159,7 +177,7 @@ namespace Skript.Layout.ReactJs.Component {
         public render(): JSX.Element {
             const _this = this;eval("window._this = _this"); _this;
             return (
-                <div id={this.id()} className={this.className()}>
+                <div id={this.id()} className={this.className() + (this.props.radio ? " " + this.props.radio : "")}>
                     <div className="input">
                         <input id={this.id() + "-input"} type="checkbox" className="shadow" ref={this.elCheckbox} value={this.props.value} checked={this.state.checked} onChange={this.onChange}/>
                         <label htmlFor={this.id() + "-input"} className="action"></label>

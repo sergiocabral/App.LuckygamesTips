@@ -13,8 +13,12 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                 position: relative;
                 min-height: 150px;
                 background-color: red;
+                overflow: auto;
             }
             ${this.selectorOutDialog()} {
+                max-height: 150px;
+            }
+            ${this.selectorInDialog()} {
                 position: absolute;
                 left: 10px;
                 top: 10px;
@@ -39,11 +43,10 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
         
         /**
          * Ao alterar o valor de algum ajuste.
-         * @param {Core.KeyValue<any>} djust Ajuste acionado.
-         * @param {Core.KeyValue<any>} value Valor definido.
+         * @param {Core.KeyValue<Core.KeyValue<string>[]>} adjusts Valores definidos.
          */
-        private onAdjustChange(adjust: Core.KeyValue<any>, value: Core.KeyValue<any>): void {
-            console.log("onAdjustChange", adjust, value);
+        private onAdjustChange(adjusts: Core.KeyValue<Core.KeyValue<string>[]>): void {
+            console.log("onAdjustChange", adjusts);
         }
 
         /**
@@ -56,12 +59,14 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                     <Adjusts 
                         className="adjust"
                         onChange={this.onAdjustChange}
+                        exclusive={true}
                         title="Atualizações de dados"
                         options={{
-                            "receiveData": [
-                                { "normal": "Frequência normal" },
-                                { "reduce": "Frequência reduzida" },
-                                { "off": "Desligado" }
+                            key: "websocket",
+                            value: [
+                                { key: "normal", value: "Frequência normal" },
+                                { key: "reduce", value: "Frequência reduzida" },
+                                { key: "off", value: "Desligado" }
                             ]
                         }}>
                         <p>Recebimento de informações globais da luckygames.io, como All Bets, High Rollers, Rare Wins, Bets Made, Total Won, etc.</p>
@@ -70,11 +75,13 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                     <Adjusts 
                         className="adjust"
                         onChange={this.onAdjustChange}
+                        exclusive={true}
                         title="Atualizações de dados"
                         options={{
-                            "receiveData": [
-                                { "on": "Ligado" },
-                                { "off": "Desligado" }
+                            key: "animation",
+                            value: [
+                                { key: "on", value: "Ligado" },
+                                { key: "off", value: "Desligado" }
                             ]
                         }}>
                         <p>Efeitos áudio visuais na atualização do saldo. Exibição do LuckyNumber tipo roleta giratória.</p>
@@ -83,11 +90,13 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                     <Adjusts 
                         className="adjust"
                         onChange={this.onAdjustChange}
+                        exclusive={true}
                         title="Visual"
                         options={{
-                            "receiveData": [
-                                { "dark": "Escuro" },
-                                { "light": "Claro" }
+                            key: "visual",
+                            value: [
+                                { key: "dark", value: "Escuro" },
+                                { key: "light", value: "Claro" }
                             ]
                         }}>
                         <p>Layout com visual claro ou escuro do site luckygames.io.</p>
