@@ -21,7 +21,8 @@ namespace Skript.Layout {
                         title: command.title, 
                         icon: command.icon,
                         closeMode: command.closeMode,
-                        size: command.size
+                        size: command.size,
+                        position: command.position
                     }, command.children) };
                 }
             },

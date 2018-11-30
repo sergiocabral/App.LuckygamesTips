@@ -18,7 +18,8 @@ namespace Skript.Layout.Message {
             closeMode: ReactJs.Component.DialogCloseMode, 
             icon?: string, 
             children?: any, 
-            size?: Core.Size) { 
+            size?: Core.Size,
+            position?: Core.Position) { 
 
             super();
             
@@ -27,6 +28,7 @@ namespace Skript.Layout.Message {
             this.icon = icon;
             this.children = children;
             this.size = size;
+            this.position = position;
         }
 
         /**
@@ -58,6 +60,12 @@ namespace Skript.Layout.Message {
          * @type {Core.Size}
          */
         public size?: Core.Size;
+
+        /**
+         * Posição
+         * @type {Core.Position}
+         */
+        public position?: Core.Position;
 
         /**
          * Resultados.

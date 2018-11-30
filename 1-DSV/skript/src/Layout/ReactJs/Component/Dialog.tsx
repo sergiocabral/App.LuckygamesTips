@@ -44,6 +44,12 @@ namespace Skript.Layout.ReactJs.Component {
          * @type {Core.Size}
          */
         size?: Core.Size;
+
+        /**
+         * Posição.
+         * @type {Core.Position}
+         */
+        position?: Core.Position;
     }
 
     /**
@@ -330,6 +336,13 @@ namespace Skript.Layout.ReactJs.Component {
             if (this.props.size && this.props.size.height > 0) { 
                 (this.elContainer.current as any).style.height = `${this.props.size.height}px`;
                 (this.elContainer.current as any).style.top = `calc(50% - ${this.props.size.height / 2}px)`;
+            }
+
+            if (this.props.position && this.props.position.x > 0) { 
+                (this.elContainer.current as any).style.left = `${this.props.position.x}px`;
+            }
+            if (this.props.position && this.props.position.y > 0) { 
+                (this.elContainer.current as any).style.top = `${this.props.position.y}px`;
             }
         }
 

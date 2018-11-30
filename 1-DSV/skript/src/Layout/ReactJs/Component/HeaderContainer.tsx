@@ -60,6 +60,12 @@ namespace Skript.Layout.ReactJs.Component {
          * @type {Core.Size|undefined}
          */
         dialogSize?: Core.Size;
+
+        /**
+         * Posição padrão da janela se estiver habilitada.
+         * @type {Core.Position|undefined}
+         */
+        dialogPosition?: Core.Position;
     }
 
     /**
@@ -195,17 +201,36 @@ namespace Skript.Layout.ReactJs.Component {
         private instanceDialog: Component.Dialog|undefined;
 
         /**
+         * Últimas posições de janela utilizadas.
+         */
+        private static lastPosition: Core.Position = {
+            x: 0,
+            y: 0
+        };
+
+        /**
          * Cria a janela de diálogo.
          * @returns {Component.Dialog} Janela criada.
          */
         private getOrCreateDialog(): Component.Dialog {
             if (!this.instanceDialog) {                
+                
+                const positionIncrement = 50;
+                const position: Core.Position = this.props.dialogPosition ? this.props.dialogPosition : (HeaderContainer.lastPosition = {
+                    x: HeaderContainer.lastPosition.x + positionIncrement,
+                    y: HeaderContainer.lastPosition.x + positionIncrement
+                });
+                if (HeaderContainer.lastPosition.y > window.innerHeight * 0.6) {
+                    HeaderContainer.lastPosition.x = HeaderContainer.lastPosition.y = positionIncrement;
+                }
+
                 const messageBus = new Message.DialogCreate(
                     this.props.title ? this.props.title : "",
                     DialogCloseMode.Hide,
                     this.props.icon,
                     <div id={this.contextId(IdContext.Dialog)} className={HeaderContainer.classNameInDialog()} style={{ margin: "10px" }}></div>,
-                    this.props.dialogSize).sendSync() as Message.DialogCreate;
+                    this.props.dialogSize,
+                    position).sendSync() as Message.DialogCreate;
                 if (!messageBus.result) throw new Core.Errors.NullNotExpected("Message.DialogCreate.result");
                 this.instanceDialog = messageBus.result.dialog;
                 
