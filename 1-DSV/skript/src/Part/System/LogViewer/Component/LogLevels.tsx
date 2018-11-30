@@ -51,20 +51,24 @@ namespace Skript.Part.System.LogViewer.Component {
     }
 
     /**
-     * State para este componente.
+     * Props para este componente.
      */
-    type LogLevelsState = {
+    class LogLevelsProps extends Layout.ReactJs.EmptyProps {
 
         /**
-         * Lista de níveis de log.
+         * Ao trocar a seleção.
+         * @param {Core.Log.Level} level Valor acionado.
+         * @param {boolean} checked Novo estado do valor acionado.
+         * @param {Core.Log.Level[]} checkeds Valores atualmente selecionados.
+         * @param {Core.Log.Level[]} uncheckeds Valores atualmente não selecionados.
          */
-        levels: LevelWrapper[]
+        onChange?: (level: Core.Log.Level, checked: boolean, checkeds: Core.Log.Level[], uncheckeds: Core.Log.Level[]) => void
     }
 
     /**
      * Lista os levels de log para seleção
      */
-    export class LogLevels extends Layout.ReactJs.ComponentBase<Layout.ReactJs.EmptyProps, Partial<LogLevelsState>> {
+    export class LogLevels extends Layout.ReactJs.ComponentBase<LogLevelsProps, Partial<Layout.ReactJs.EmptyState>> {
         
         /**
          * Código CSS para este componente.
@@ -84,7 +88,39 @@ namespace Skript.Part.System.LogViewer.Component {
          */
         public constructor(props: Layout.ReactJs.EmptyProps) {
             super(props);
-            this.state = { levels: LevelWrapper.mount(this.translate, this.debug()) };
+            
+            this.onChange = this.onChange.bind(this);
+
+            this.levels = LevelWrapper.mount(this.translate, this.debug());
+        }
+
+        /**
+         * Lista de níveis de log.
+         * @type {LevelWrapper[]}
+         */
+        private levels: LevelWrapper[];
+
+        /**
+         * Evento ao marcar o nível de log.
+         * @param {any} evt Informações do evento.
+         * @param {string} value Valor selecionador.
+         * @param {boolean} checked Marcado ou não.
+         */
+        private onChange(evt: any, value: string, checked: boolean) {
+            evt;
+            const level = (value as any) as Core.Log.Level;
+            for (let i = 0; i < this.levels.length; i++) {
+                if (this.levels[i].level == level) {
+                    this.levels[i].checked = checked;
+                    break;
+                }
+            }
+            if (this.props.onChange instanceof Function) 
+                this.props.onChange(
+                    level, 
+                    checked,
+                    this.levels.filter(v => v.checked).map(v => v.level),
+                    this.levels.filter(v => v.checked).map(v => v.level));
         }
 
         /**
@@ -94,8 +130,8 @@ namespace Skript.Part.System.LogViewer.Component {
         public render(): JSX.Element {            
             return (
                 <div id={this.id()} className={this.className()}>
-                    {(this.state.levels ? this.state.levels : []).map(v => 
-                        <Layout.ReactJs.Component.Switch className="switch" key={v.level} value={v.level} checked={v.checked}>{v.name}</Layout.ReactJs.Component.Switch>
+                    {this.levels.map(v => 
+                        <Layout.ReactJs.Component.Switch className="switch" key={v.level} value={v.level} checked={v.checked} onChange={this.onChange}>{v.name}</Layout.ReactJs.Component.Switch>
                     )}
                 </div>
             );

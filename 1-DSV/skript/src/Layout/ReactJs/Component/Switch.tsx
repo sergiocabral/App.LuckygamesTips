@@ -14,6 +14,14 @@ namespace Skript.Layout.ReactJs.Component {
          * Valor.
          */
         value?: any;
+
+        /**
+         * Evento ao marcar.
+         * @param {any} evt Informações do evento.
+         * @param {string} value Valor selecionador.
+         * @param {boolean} checked Marcado ou não.
+         */
+        onChange?: (evt: any, value: string, checked: boolean) => void;
     }
 
     /**
@@ -141,6 +149,7 @@ namespace Skript.Layout.ReactJs.Component {
          */
         private onChange(evt: any): void {
             this.setState({ checked: evt.target.checked });
+            if (this.props.onChange instanceof Function) this.props.onChange(evt, evt.target.value, evt.target.checked);
         }
 
         /**

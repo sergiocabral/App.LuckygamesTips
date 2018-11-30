@@ -1,10 +1,30 @@
 namespace Skript.Part.System.LogViewer.Component {
 
     /**
+     * Mensagens de log enriquecida.
+     */
+    class MessageWrapper {
+
+        /**
+         * Construtor.
+         * @param {Core.Log.Message} message Mensagem de log.
+         */
+        public constructor(message: Core.Log.Message) {
+            this.message = message;
+        }
+
+        /**
+         * Mensagem de log.
+         * @type {Core.Log.Message}
+         */
+        message: Core.Log.Message;
+    }
+
+    /**
      * Componente principal do módulo.
      */
     export class LogViewer extends Layout.ReactJs.DialogComponentBase<Layout.ReactJs.EmptyProps, Partial<Layout.ReactJs.EmptyState>> {
-        
+
         /**
          * Código CSS para este componente.
          */
@@ -50,6 +70,43 @@ namespace Skript.Part.System.LogViewer.Component {
             }
             ${this.selector()} > .messages > div {
                 margin-left: 5px;
+                font-size: 80%;
+            }
+            ${this.selector()} > .messages > div > .level {
+                background-color: ${Util.Drawing.blend(-0.05, this.theme.generalBackgroundColor)};
+                margin: 0 5px 5px 0;
+                padding: 3px 6px;
+                border-radius: 5px;
+            }
+            ${this.selector()} > .messages > div > .level.Information {
+                background-color: #B9E3F2;
+            }
+            ${this.selector()} > .messages > div > .level.Warning {
+                background-color: #FFE3A7;
+            }
+            ${this.selector()} > .messages > div > .level.Error {
+                background-color: #FFCBD1;
+            }
+            ${this.selector()} > .messages > div > .level.Debug {
+                background-color: ${Util.Drawing.blend(-0.1, this.theme.generalBackgroundColor)};
+            }
+            ${this.selector()} > .messages > div > .level .type {
+                display: inline-block;
+                background-color: rgba(0, 0, 0, 0.25);
+                color: white;
+                border-radius: 4px;
+                padding: 1px 5px 0px 5px;
+            }
+            ${this.selector()} > .messages > div > .level .time {
+                color: ${Util.Drawing.blend(0.5, this.theme.generalTextColor)};
+                display: inline-block;
+                float: right;
+            }
+            ${this.selector()} > .messages > div > .level .text {
+                word-break: break-word;
+                font-family: 'Share Tech Mono', monospace;
+                line-height: 13px;
+                margin-top: 3px;
             }
         `;
 
@@ -60,23 +117,63 @@ namespace Skript.Part.System.LogViewer.Component {
         public constructor(props: Layout.ReactJs.EmptyProps) {
             super(props);
 
+            this.myMessageBus.push(new LogViewerBus(this));
+
             this.title = this.translate("Log Viewer");
             this.icon = "far fa-list-alt";
+
+            this.onLogLevelsChange = this.onLogLevelsChange.bind(this);
+            this.onClearLogClick = this.onClearLogClick.bind(this);            
+
+            const message = new Core.Message.GetLogMessages().sendSync() as Core.Message.GetLogMessages;
+            if (!message.result) throw new Core.Errors.NullNotExpected("Message.GetLogMessages.result");
+            message.result.messages.map(v => this.messages.unshift(new MessageWrapper(v)));
         }
+        
+        /**
+         * Lista de mensagens de log.
+         * @type {MessageWrapper[]}
+         */
+        private messages: MessageWrapper[] = [];
 
         /**
          * Nova mensagem de log recebida.
          * @param {Core.Log.Message} message Mensagem
          */
         post(message: Core.Log.Message): void {
-            message;
+            this.messages.unshift(new MessageWrapper(message));
+            this.forceUpdate();
         }
 
         /**
          * Limpar a lista de log.
          */
         public clear() {
-            return;
+            this.messages.length = 0;
+            this.forceUpdate();
+        }
+
+        /**
+         * Lista de níveis de log não marcados para exibição.
+         * @type {Core.Log.Level[]}
+         */
+        private uncheckeds: Core.Log.Level[] = [];
+
+        /**
+         * Ao trocar a seleção.
+         * @param {Core.Log.Level} level Valor acionado.
+         * @param {boolean} checked Novo estado do valor acionado.
+         */
+        private onLogLevelsChange(level: Core.Log.Level, checked: boolean): void {
+            if (checked && this.uncheckeds.indexOf(level) >= 0) this.uncheckeds.splice(this.uncheckeds.indexOf(level), 1);
+            else if (!checked && this.uncheckeds.indexOf(level) < 0) this.uncheckeds.push(level);
+        }
+
+        /**
+         * Evento para limpar a lista de log.
+         */
+        private onClearLogClick(): void {
+            new Core.Message.ClearLogMessages().sendSync();
         }
 
         /**
@@ -88,50 +185,20 @@ namespace Skript.Part.System.LogViewer.Component {
                 <div id={this.id()} className={this.className()}>
                     <div className="controls">
                         <div>
-                            <LogLevels className="levels"></LogLevels>
-                            <button className="button">Clear log</button>
+                            <LogLevels className="levels" onChange={this.onLogLevelsChange}></LogLevels>
+                            <button className="button" onClick={this.onClearLogClick}>Clear log</button>
                             <div className="height10"></div>
                         </div>
                     </div>
                     <div className="messages">
                         <div>
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
-                            messages<br />
+                            {this.messages.map(v => 
+                                <div key={v.message.id} className={"level " + Core.Log.Level[v.message.level]}>
+                                    <div className="type">{Core.Log.Level[v.message.level]}</div>
+                                    <div className="time">{v.message.time.format({})}</div>
+                                    <div className="text">{v.message.text}</div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
