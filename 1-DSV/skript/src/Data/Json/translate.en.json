@@ -18,6 +18,10 @@
                 "Debug"
             },
             {
+                "DebugLuckygames":
+                "Luckygames"
+            },
+            {
                 "DebugBus":
                 "Bus"
             },

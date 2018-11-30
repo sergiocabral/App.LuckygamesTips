@@ -43,7 +43,31 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
          * @param {Core.KeyValue<Core.KeyValue<string>[]>} adjusts Valores definidos.
          */
         private onAdjustChange(adjusts: Core.KeyValue<Core.KeyValue<string>[]>): void {
-            console.log("onAdjustChange", adjusts);
+            if (adjusts.value.length !== 1) throw new Core.Errors.InvalidArgument(`LuckygamesAdjusts.options(${adjusts.key}).length == ${adjusts.value.length}`);
+
+            switch (adjusts.key) {
+                case "websocket":
+                    switch (adjusts.value[0].key) {
+                        case "normal": 
+                            Luckygames.WebSocketControl.mode(Luckygames.WebSocketMode.Normal);
+                            break;
+                        case "reduce": 
+                            Luckygames.WebSocketControl.mode(Luckygames.WebSocketMode.Reduce);
+                            break;
+                        case "off": 
+                            Luckygames.WebSocketControl.mode(Luckygames.WebSocketMode.Off);
+                            break;
+                        default:
+                            throw new Core.Errors.InvalidArgument(`LuckygamesAdjusts.options(${adjusts.key})(${adjusts.value[0].key})`);
+                    }
+                    break;
+                case "animation":
+                    break;
+                case "visual":
+                    break;
+                default:
+                    throw new Core.Errors.InvalidArgument(`LuckygamesAdjusts.options(${adjusts.key})`);
+            }
         }
 
         /**

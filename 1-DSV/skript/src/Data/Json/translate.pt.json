@@ -111,6 +111,36 @@
                 "HeaderContainer \"{title}\". Content moved from [{from}] to [{to}].":
                 "HeaderContainer \"{title}\". Conteúdo movido de [{from}] para [{to}]." 
             }
+        ],
+        "WebSocketControl.tsx": [
+            { 
+                "Could not adjust WebSockets operation of luckygames.io.":
+                "Não foi possível ajustar o funcionamento do WebSockets do luckygames.io." 
+            },
+            {
+                "Trying to intercept WebSocket.":
+                "Tentando interceptar o WebSocket."
+            },
+            {
+                "WebSocket successfully intercepted.":
+                "WebSocket interceptado com sucesso."
+            },
+            {
+                "Request to reconnect WebSocket was accepted. Current interceptor mode: {0}":
+                "Solicitação para reconectar o WebSocket foi aceita. Modo interceptador atual: {0}"
+            },
+            {
+                "Request to reconnect WebSocket was ignored. Current interceptor mode: {0}":
+                "Solicitação para reconectar o WebSocket foi ignorada. Modo interceptador atual: {0}"
+            },
+            {
+                "Change WebSocket mode to: {0}":
+                "Ajustado modo WebSocket para: {0}"
+            },
+            {
+                "WebSocket was closed.":
+                "WebSocket foi fechado."
+            }
         ]
     },
     "Mensagens do Bus": {
@@ -150,6 +180,10 @@
             {
                 "Debug":
                 "Depuração"
+            },
+            {
+                "DebugLuckygames":
+                "Luckygames"
             },
             {
                 "DebugBus":

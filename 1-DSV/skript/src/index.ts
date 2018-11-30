@@ -69,7 +69,13 @@
 
 /// #############################################
 
+/// <reference path="Luckygames/Types.tsx" />
+/// context: Initialize
+
 /// <reference path="Luckygames/Dice.tsx" />
+/// context: Initialize
+
+/// <reference path="Luckygames/WebSocketControl.tsx" />
 /// context: Initialize
 
 /// <reference path="Luckygames/General.tsx" />
