@@ -105,10 +105,10 @@ namespace Skript.Layout.ReactJs.Component {
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
                 transition: all 0.4s;
             }
-            ${this.selector()} > .input > input.shadow:checked + label:before {
+            ${this.selector()} > .input > input.shadow[data-checked="true"] + label:before {
                 background-color: #A5C4DE;
             }
-            ${this.selector()} > .input > input.shadow:checked + label:after {
+            ${this.selector()} > .input > input.shadow[data-checked="true"] + label:after {
                 transform: translateX(25px);
             }
             ${this.selector()} > .children {
@@ -125,7 +125,7 @@ namespace Skript.Layout.ReactJs.Component {
         public constructor(props: SwitchProps) {
             super(props);
 
-            this.elCheckbox = React.createRef();
+            this.elInput = React.createRef();
 
             this.onChange = this.onChange.bind(this);
 
@@ -133,10 +133,10 @@ namespace Skript.Layout.ReactJs.Component {
         }
 
         /**
-         * Checkbox.
+         * Input.
          * @type {React.RefObject<HTMLInputElement>}
          */
-        private elCheckbox: React.RefObject<HTMLInputElement>;
+        private elInput: React.RefObject<HTMLInputElement>;
 
         /**
          * Retorna e/ou define o estado do controle.
@@ -146,7 +146,7 @@ namespace Skript.Layout.ReactJs.Component {
         public checked(value?: boolean): boolean {            
             if (value !== undefined) {
                 this.setState({ checked: value });
-                (this.elCheckbox.current as HTMLInputElement).checked = value;
+                (this.elInput.current as HTMLInputElement).checked = value;
             }
             return this.state.checked as boolean;            
         }
@@ -156,18 +156,24 @@ namespace Skript.Layout.ReactJs.Component {
          * @param evt Informações sobre o evento.
          */
         private onChange(evt: any): void {
-            const input = evt.target;
+            const input = evt.target as HTMLInputElement;            
+            const checked = input.getAttribute("data-checked");
+            input.setAttribute("data-checked", checked === "true" ? "false" : "true");
 
             if (this.props.radio) {
-                const radioGroup = document.querySelectorAll(`${this.selectorBase()} .${this.props.radio} input[type="checkbox"]`);
+                console.log(`${this.selectorBase()} .${this.props.radio} input[type="text"]`);
+                const radioGroup = document.querySelectorAll(`${this.selectorBase()} .${this.props.radio} input[type="text"]`);
                 for (let i = 0; i < radioGroup.length; i++)
-                    setTimeout(() => { if (input != radioGroup[i]) (radioGroup[i] as HTMLInputElement).checked = false; }, 1);
-                    input.checked = true;
+                    setTimeout(() => { if (input != radioGroup[i]) (radioGroup[i] as HTMLInputElement).setAttribute("data-checked", "false"); }, 1);
+                    input.setAttribute("data-checked", "true");
             }
 
-            this.setState({ checked: input.checked });
+            this.setState({ checked: input.getAttribute("data-checked") === "true" });
 
-            if (this.props.onChange instanceof Function) this.props.onChange(evt, input.value, input.checked);
+            console.log("input[data-checked]", input.value, input.getAttribute("data-checked"), input);
+            eval("window.input = input");
+
+            if (this.props.onChange instanceof Function) this.props.onChange(evt, input.value, input.getAttribute("data-checked") === "true");
         }
 
         /**
@@ -179,7 +185,7 @@ namespace Skript.Layout.ReactJs.Component {
             return (
                 <div id={this.id()} className={this.className() + (this.props.radio ? " " + this.props.radio : "")}>
                     <div className="input">
-                        <input id={this.id() + "-input"} type="text" className="shadow" ref={this.elCheckbox} value={this.props.value} checked={this.state.checked} onChange={this.onChange}/>
+                        <input id={this.id() + "-input"} type="text" className="shadow" ref={this.elInput} value={this.props.value} data-checked={String(this.state.checked)} onClick={this.onChange} readOnly />
                         <label htmlFor={this.id() + "-input"} className="dialog-action"></label>
                     </div>
                     <label className="children dialog-action" htmlFor={this.id() + "-input"}>{this.props.children}</label>
