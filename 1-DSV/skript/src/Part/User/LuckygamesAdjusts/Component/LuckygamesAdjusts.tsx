@@ -36,8 +36,6 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
             this.icon = "far fa-list-alt";
             
             this.onAdjustChange = this.onAdjustChange.bind(this);
-
-            this.title = this.translate("Luckygames Adjusts");
         }
         
         /**
