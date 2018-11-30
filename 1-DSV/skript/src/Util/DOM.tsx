@@ -35,7 +35,7 @@ namespace Skript.Util {
             if (typeof(code) !== "string" || !code.length) return;
             
             const hash: number = code.hash();
-            const id = `style_${hash}`;
+            const id = `style-${hash}`.replace("--", "-");
             
             if (document.getElementById(id)) return;
 

@@ -41,7 +41,7 @@ namespace Skript.Util {
          */
         public static javaScript(src: string): Promise<void> {
             const hash: number = src.hash();
-            const id = `script_${hash}`;
+            const id = `script-${hash}`.replace("--", "-");
 
             if (document.getElementById(id)) return new Promise(resolve => resolve());
 
@@ -70,7 +70,7 @@ namespace Skript.Util {
          */
         public static stylesheet(href: string): Promise<void> {
             const hash: number = href.hash();
-            const id = `link_${hash}`;
+            const id = `link-${hash}`.replace("--", "-");
 
             if (document.getElementById(id)) return new Promise(resolve => resolve());
 

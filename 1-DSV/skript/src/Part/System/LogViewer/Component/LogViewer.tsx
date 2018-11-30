@@ -73,7 +73,7 @@ namespace Skript.Part.System.LogViewer.Component {
                 font-size: 80%;
             }
             ${this.selector()} > .messages > div > .level {
-                background-color: ${Util.Drawing.blend(-0.05, this.theme.generalBackgroundColor)};
+                background-color: ${Util.Drawing.blend(-0.02, this.theme.generalBackgroundColor)};
                 margin: 0 5px 5px 0;
                 padding: 3px 6px;
                 border-radius: 5px;
@@ -88,7 +88,7 @@ namespace Skript.Part.System.LogViewer.Component {
                 background-color: #FFCBD1;
             }
             ${this.selector()} > .messages > div > .level.Debug {
-                background-color: ${Util.Drawing.blend(-0.1, this.theme.generalBackgroundColor)};
+                background-color: ${Util.Drawing.blend(-0.05, this.theme.generalBackgroundColor)};
             }
             ${this.selector()} > .messages > div > .level .type {
                 display: inline-block;
@@ -122,6 +122,8 @@ namespace Skript.Part.System.LogViewer.Component {
             this.title = this.translate("Log Viewer");
             this.icon = "far fa-list-alt";
 
+            this.elContainer = React.createRef();
+
             this.onLogLevelsChange = this.onLogLevelsChange.bind(this);
             this.onClearLogClick = this.onClearLogClick.bind(this);            
 
@@ -129,6 +131,12 @@ namespace Skript.Part.System.LogViewer.Component {
             if (!message.result) throw new Core.Errors.NullNotExpected("Message.GetLogMessages.result");
             message.result.messages.map(v => this.messages.unshift(new MessageWrapper(v)));
         }
+        
+        /**
+         * Referência ao container pai de todos.
+         * @type {React.RefObject<HTMLDivElement>}
+         */
+        private elContainer: React.RefObject<HTMLDivElement>;
         
         /**
          * Lista de mensagens de log.
@@ -142,7 +150,7 @@ namespace Skript.Part.System.LogViewer.Component {
          */
         post(message: Core.Log.Message): void {
             this.messages.unshift(new MessageWrapper(message));
-            this.forceUpdate();
+            this.update();
         }
 
         /**
@@ -150,7 +158,14 @@ namespace Skript.Part.System.LogViewer.Component {
          */
         public clear() {
             this.messages.length = 0;
-            this.forceUpdate();
+            this.update();
+        }
+
+        /**
+         * Solicita ao React a atualização do componente se já for possível.
+         */
+        private update(): void {
+            if (this.elContainer.current) this.forceUpdate();
         }
 
         /**
@@ -182,7 +197,7 @@ namespace Skript.Part.System.LogViewer.Component {
          */
         protected renderContent(): JSX.Element {            
             return (
-                <div id={this.id()} className={this.className()}>
+                <div id={this.id()} className={this.className()} ref={this.elContainer}>
                     <div className="controls">
                         <div>
                             <LogLevels className="levels" onChange={this.onLogLevelsChange}></LogLevels>
@@ -192,7 +207,7 @@ namespace Skript.Part.System.LogViewer.Component {
                     </div>
                     <div className="messages">
                         <div>
-                            {this.messages.map(v => 
+                            {this.messages.filter(v => this.uncheckeds.indexOf(v.message.level) < 0).map(v =>
                                 <div key={v.message.id} className={"level " + Core.Log.Level[v.message.level]}>
                                     <div className="type">{Core.Log.Level[v.message.level]}</div>
                                     <div className="time">{v.message.time.format({})}</div>

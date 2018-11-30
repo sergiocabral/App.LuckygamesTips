@@ -114,9 +114,15 @@
         ]
     },
     "Mensagens do Bus": {
+        "Infrastructure.tsx": [
+            { 
+                "Loading Tips...":
+                "Carregando o Tips..." 
+            }
+        ],
         "MainBus.tsx": [
             { 
-                "Great! The Tips were loaded successfully.":
+                "Great! Tips were loaded successfully.":
                 "Ótimo! O Tips foi carregado com sucesso." 
             }
         ],

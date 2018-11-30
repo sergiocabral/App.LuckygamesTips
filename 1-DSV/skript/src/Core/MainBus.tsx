@@ -16,7 +16,7 @@ namespace Skript.Core {
         public handlers: Core.Bus.MessageHandler[] = [ 
             {
                 message: Message.SystemLoaded.name,
-                handler: () => skript.log.post("Great! The Tips were loaded successfully.")
+                handler: () => skript.log.post("Great! Tips were loaded successfully.")
             },
             {
                 message: Message.RegisterPart.name,
