@@ -63,8 +63,15 @@ namespace Skript.Data {
          * @returns {Packet} Dados.
          */
         private defaults(): Packet {
+            let language;
+            switch (Luckygames.General.language().trim().toLowerCase()) {
+                case "pt":
+                case "br": language = "pt"; break;
+                default:   language = "en";
+            }
+
             return {
-                language: "en"
+                language: language
             };
         }
     }

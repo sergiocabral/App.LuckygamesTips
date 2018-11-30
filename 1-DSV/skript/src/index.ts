@@ -69,6 +69,14 @@
 
 /// #############################################
 
+/// <reference path="Luckygames/Dice.tsx" />
+/// context: Initialize
+
+/// <reference path="Luckygames/General.tsx" />
+/// context: Initialize
+
+/// #############################################
+
 /// <reference path="Core/Bus/Message.tsx" />
 /// context: Initialize
 
