@@ -32,6 +32,8 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
         public constructor(props: Layout.ReactJs.EmptyProps) {
             super(props);      
 
+            this.myMessageBus.push(new LuckygamesAdjustsBus(this));
+
             this.title = this.translate("Website adjusts");
             this.icon = "far fa-list-alt";
 
@@ -61,6 +63,16 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
         private elOptionVisual: React.RefObject<Adjusts>;
         
         /**
+         * Definir valor de propriedade.
+         * @param {WebSocketMode} mode Modo WebSocket.
+         */
+        public setOptionWebsocket(mode: Luckygames.WebSocketMode): void {
+            if (!this.elOptionWebsocket.current) return;
+            this.elOptionWebsocket.current.uncheckedAll();
+            this.elOptionWebsocket.current.value(Luckygames.WebSocketMode[mode], true);
+        }
+
+        /**
          * Ao alterar o valor de algum ajuste.
          * @param {Core.KeyValue<Core.KeyValue<string>[]>} adjusts Valores definidos.
          */
@@ -69,19 +81,8 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
             
             switch (adjusts.key) {
                 case "websocket":
-                    switch (adjusts.value[0].key) {
-                        case "normal": 
-                            Luckygames.WebSocketControl.mode(Luckygames.WebSocketMode.Normal);
-                            break;
-                        case "reduce": 
-                            Luckygames.WebSocketControl.mode(Luckygames.WebSocketMode.Reduce);
-                            break;
-                        case "off": 
-                            Luckygames.WebSocketControl.mode(Luckygames.WebSocketMode.Off);
-                            break;
-                        default:
-                            throw new Core.Errors.InvalidArgument(`LuckygamesAdjusts.options(${adjusts.key})(${adjusts.value[0].key})`);
-                    }
+                    const mode = Luckygames.WebSocketMode[adjusts.value[0].key as any] as any as Luckygames.WebSocketMode;
+                    new Luckygames.Message.SetWebSocketMode(mode).sendSync();
                     break;
                 case "animation":
                     break;
@@ -108,9 +109,9 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                         options={{
                             key: "websocket",
                             value: [
-                                { key: "normal", value: this.translate("Normal frequency"), state: true },
-                                { key: "reduce", value: this.translate("Reduced frequency") },
-                                { key: "off", value: this.translate("Off") }
+                                { key: Luckygames.WebSocketMode[Luckygames.WebSocketMode.Normal], value: this.translate("Normal frequency"), state: true },
+                                { key: Luckygames.WebSocketMode[Luckygames.WebSocketMode.Reduce], value: this.translate("Reduced frequency") },
+                                { key: Luckygames.WebSocketMode[Luckygames.WebSocketMode.Off], value: this.translate("Off") }
                             ]
                         }}>
                         <p>{this.translate("Receiving global information from luckygames.io, such as All Bets, High Rollers, Rare Wins, Bets Made, Total Won, etc.")}</p>

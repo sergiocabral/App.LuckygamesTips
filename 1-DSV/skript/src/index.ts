@@ -9,6 +9,9 @@
 /// <reference path="Part/User/LuckygamesAdjusts/Component/Adjust.tsx" />
 /// context: PaidPart,LuckygamesAdjusts
 
+/// <reference path="Part/User/LuckygamesAdjusts/Component/LuckygamesAdjustsBus.tsx" />
+/// context: PaidPart,LuckygamesAdjusts
+
 /// <reference path="Part/User/LuckygamesAdjusts/Component/LuckygamesAdjusts.tsx" />
 /// context: PaidPart,LuckygamesAdjusts
 
@@ -69,20 +72,6 @@
 
 /// #############################################
 
-/// <reference path="Luckygames/Types.tsx" />
-/// context: Initialize
-
-/// <reference path="Luckygames/Dice.tsx" />
-/// context: Initialize
-
-/// <reference path="Luckygames/WebSocketControl.tsx" />
-/// context: Initialize
-
-/// <reference path="Luckygames/General.tsx" />
-/// context: Initialize
-
-/// #############################################
-
 /// <reference path="Core/Bus/Message.tsx" />
 /// context: Initialize
 
@@ -105,6 +94,32 @@
 /// context: Initialize
 
 /// <reference path="Core/Message/LogMessageCleared.tsx" />
+/// context: Initialize
+
+/// #############################################
+
+/// <reference path="Luckygames/Message/GetWebSocketMode.tsx" />
+/// context: Initialize
+
+/// <reference path="Luckygames/Message/SetWebSocketMode.tsx" />
+/// context: Initialize
+
+/// <reference path="Luckygames/Message/WebSocketModeWasChanged.tsx" />
+/// context: Initialize
+
+/// <reference path="Luckygames/WebSocketControlBus.tsx" />
+/// context: Initialize
+
+/// <reference path="Luckygames/Types.tsx" />
+/// context: Initialize
+
+/// <reference path="Luckygames/Dice.tsx" />
+/// context: Initialize
+
+/// <reference path="Luckygames/WebSocketControl.tsx" />
+/// context: Initialize
+
+/// <reference path="Luckygames/General.tsx" />
 /// context: Initialize
 
 /// #############################################
@@ -251,6 +266,9 @@
 /// context: Initialize
 
 /// <reference path="Core/Errors/NullNotExpected.tsx" />
+/// context: Initialize
+
+/// <reference path="Core/Errors/InvalidCommand.tsx" />
 /// context: Initialize
 
 /// <reference path="Core/Errors/InvalidData.tsx" />

@@ -127,7 +127,7 @@ namespace Skript.Layout.ReactJs.Component {
 
             this.elInput = React.createRef();
 
-            this.onChange = this.onChange.bind(this);
+            this.onClick = this.onClick.bind(this);
 
             this.state = { checked: !!props.checked };
         }
@@ -155,7 +155,7 @@ namespace Skript.Layout.ReactJs.Component {
          * Ao definir checked.
          * @param evt Informações sobre o evento.
          */
-        private onChange(evt: any): void {
+        private onClick(evt: any): void {
             const input = evt.target as HTMLInputElement;            
             const checked = input.getAttribute("data-checked");
             input.setAttribute("data-checked", checked === "true" ? "false" : "true");
@@ -181,7 +181,7 @@ namespace Skript.Layout.ReactJs.Component {
             return (
                 <div id={this.id()} className={this.className() + (this.props.radio ? " " + this.props.radio : "")}>
                     <div className="input">
-                        <input id={this.id() + "-input"} type="text" className="shadow" ref={this.elInput} value={this.props.value} data-checked={String(this.state.checked)} onClick={this.onChange} readOnly />
+                        <input id={this.id() + "-input"} type="text" className="shadow" ref={this.elInput} value={this.props.value} data-checked={String(this.state.checked)} onClick={this.onClick} readOnly />
                         <label htmlFor={this.id() + "-input"} className="dialog-action"></label>
                     </div>
                     <label className="children dialog-action" htmlFor={this.id() + "-input"}>{this.props.children}</label>
