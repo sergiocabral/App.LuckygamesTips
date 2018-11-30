@@ -2,22 +2,23 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
 
     class OptionWrapper {
 
-        public constructor(option: Core.KeyValue<string>) {
+        public constructor(option: Core.KeyValue<string, boolean>) {
             this.option = option;
+            this.checked = !!option.state;
         }
 
-        option: Core.KeyValue<string>;
+        option: Core.KeyValue<string, boolean>;
 
-        checked: boolean = false;
+        checked: boolean;
     }
 
     class AdjustsProps extends Layout.ReactJs.EmptyProps {
         
         title?: string;
 
-        onChange?: (options: Core.KeyValue<Core.KeyValue<string>[]>) => void;
+        onChange?: (options: Core.KeyValue<Core.KeyValue<string, boolean>[]>) => void;
 
-        options?: Core.KeyValue<Core.KeyValue<string>[]>;
+        options?: Core.KeyValue<Core.KeyValue<string, boolean>[]>;
 
         /**
          * Indica se a seleção da opção desmarca as outras.
@@ -100,10 +101,10 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
 
         /**
          * Retorna os valores atuais.
-         * @returns {Core.KeyValue<Core.KeyValue<string>[]>} Key com Value em lista de valores marcados.
+         * @returns {Core.KeyValue<Core.KeyValue<string, boolean>[]>} Key com Value em lista de valores marcados.
          */
-        public getValues(): Core.KeyValue<Core.KeyValue<string>[]> {
-            const result: Core.KeyValue<Core.KeyValue<string>[]> = {
+        public getValues(): Core.KeyValue<Core.KeyValue<string, boolean>[]> {
+            const result: Core.KeyValue<Core.KeyValue<string, boolean>[]> = {
                 key: this.key,
                 value: []
             };
@@ -159,7 +160,7 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                             key={v.option.key} 
                             value={v.option.key} 
                             checked={v.checked}
-                            radio={this.classNameForRadio}
+                            radio={this.props.exclusive ? this.classNameForRadio : undefined}
                             onChange={this.onOptionChange}>
                             {v.option.value}
                         </Layout.ReactJs.Component.Switch>

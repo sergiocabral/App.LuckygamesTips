@@ -55,7 +55,7 @@ namespace Skript.Core {
     /**
      * Conjunto de chave e valor.
      */
-    export type KeyValue<T> = { 
+    export type KeyValue<T, U = any> = { 
 
         /**
          * Chave.
@@ -67,6 +67,12 @@ namespace Skript.Core {
          * Valor.
          * @type {T}
          */
-        value: T 
+        value: T,
+        
+        /**
+         * Informação extra vinculada
+         * @type {U}
+         */
+        state?: U
     }
 }

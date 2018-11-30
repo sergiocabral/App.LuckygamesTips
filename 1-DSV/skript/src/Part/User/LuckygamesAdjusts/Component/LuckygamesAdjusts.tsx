@@ -64,7 +64,7 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                         options={{
                             key: "websocket",
                             value: [
-                                { key: "normal", value: "Frequência normal" },
+                                { key: "normal", value: "Frequência normal", state: true },
                                 { key: "reduce", value: "Frequência reduzida" },
                                 { key: "off", value: "Desligado" }
                             ]
@@ -80,7 +80,7 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                         options={{
                             key: "animation",
                             value: [
-                                { key: "on", value: "Ligado" },
+                                { key: "on", value: "Ligado", state: true },
                                 { key: "off", value: "Desligado" }
                             ]
                         }}>
@@ -95,7 +95,7 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                         options={{
                             key: "visual",
                             value: [
-                                { key: "dark", value: "Escuro" },
+                                { key: "dark", value: "Escuro", state: true },
                                 { key: "light", value: "Claro" }
                             ]
                         }}>
