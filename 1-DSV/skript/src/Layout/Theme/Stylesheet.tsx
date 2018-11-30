@@ -201,14 +201,14 @@ namespace Skript.Layout.Theme {
             
             //Elemento tipo botão para mostrar diferença quando o mouse passa por cima.
             styles.push(`
-                ${selector} .shadow {
+                ${selector} .button-shadow {
                     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
                     position: relative;
                 }
-                ${selector} .shadow:hover {
+                ${selector} .button-shadow:hover {
                     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
                 }
-                ${selector} .shadow:active {
+                ${selector} .button-shadow:active {
                     box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
                     border-top: 1px solid transparent;
                     top: 1px;

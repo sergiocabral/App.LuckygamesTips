@@ -301,7 +301,7 @@ namespace Skript.Layout.ReactJs.Component {
                     <div className="header">
                         <span className="graph"><i className={this.props.icon ? this.props.icon : "fas fa-cog"}></i></span>
                         <h1 ref={this.elTitle}>{this.props.title}</h1>
-                        <a href="#" className="close action" onClick={this.close}><i className="fas fa-times"></i></a>
+                        <a href="#" className="close dialog-action" onClick={this.close}><i className="fas fa-times"></i></a>
                     </div>
                     <div className="content">
                         {(this.state.children as React.ReactNode[]).map(child => !child ? "" : <div key={Util.String.random()}>{child}</div>)}

@@ -308,7 +308,7 @@ namespace Skript.Layout.ReactJs {
 
             const ignoreBringToFront = this.configuration.ignoreBringToFront ? this.configuration.ignoreBringToFront : (evt: any): boolean => {
                 const targets: Element[] = Array.isArray(evt.path) ? evt.path : Util.DOM.path(evt.target);
-                return !!targets.reduce((a: any, c: any) => c.classList && c.classList.contains("action") ? c : a, null);
+                return !!targets.reduce((a: any, c: any) => c.classList && c.classList.contains("dialog-action") ? c : a, null);
             };
             if (ignoreBringToFront(evt)) return;
 

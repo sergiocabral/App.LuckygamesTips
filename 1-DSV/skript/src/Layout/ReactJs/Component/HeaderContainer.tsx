@@ -315,12 +315,12 @@ namespace Skript.Layout.ReactJs.Component {
                     <div className="title" style={ { display: this.props.title ? "inherit" : "none" } }>
                         <span 
                             title={this.translate("Toggle the view as a window.")}
-                            className="anchor showDialog no-underline action" 
+                            className="anchor showDialog no-underline dialog-action" 
                             style={ { display: this.props.dialog ? "inherit" : "none" } } 
                             onClick={this.props.dialog ? this.onDialogClick : undefined}>
                             <i className="far fa-window-restore"></i>
                         </span>
-                        <span className={(this.props.collapsible ? "anchor " : "") + "text no-underline action"} onClick={this.props.collapsible ? this.onHeaderClick : undefined}>
+                        <span className={(this.props.collapsible ? "anchor " : "") + "text no-underline dialog-action"} onClick={this.props.collapsible ? this.onHeaderClick : undefined}>
                             <span className="graph"><i className={this.props.icon ? this.props.icon : "fas fa-cog"}></i></span>
                             <h1>{this.props.title}</h1>
                         </span>

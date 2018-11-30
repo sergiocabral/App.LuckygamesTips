@@ -179,10 +179,10 @@ namespace Skript.Layout.ReactJs.Component {
             return (
                 <div id={this.id()} className={this.className() + (this.props.radio ? " " + this.props.radio : "")}>
                     <div className="input">
-                        <input id={this.id() + "-input"} type="checkbox" className="shadow" ref={this.elCheckbox} value={this.props.value} checked={this.state.checked} onChange={this.onChange}/>
-                        <label htmlFor={this.id() + "-input"} className="action"></label>
+                        <input id={this.id() + "-input"} type="text" className="shadow" ref={this.elCheckbox} value={this.props.value} checked={this.state.checked} onChange={this.onChange}/>
+                        <label htmlFor={this.id() + "-input"} className="dialog-action"></label>
                     </div>
-                    <label className="children action" htmlFor={this.id() + "-input"}>{this.props.children}</label>
+                    <label className="children dialog-action" htmlFor={this.id() + "-input"}>{this.props.children}</label>
                 </div>
             );
         }
