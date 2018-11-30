@@ -54,8 +54,8 @@ namespace Skript.Layout.ReactJs.Component {
         protected stylesheet: string = `
             ${this.selector()} > .input {
                 display: inline-block;
-                padding: 3px 1px;
-                margin-bottom: -10px;
+                padding: 5px 1px;
+                margin-bottom: -12px;
             }            
             ${this.selector()} > .input {
                 display: inline-block;

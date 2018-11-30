@@ -36,8 +36,27 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
          * Código CSS para este componente.
          */
         protected stylesheet: string = `
-            ${this.selector()} {
-                
+            ${this.selector()} > * {
+                margin: 0 ${this.theme.spacing}px;
+            }
+            ${this.selector()} > h1 {
+                margin: 0;
+            }            
+            ${this.selector()} > h1 {
+                margin-bottom: 5px;
+            }
+            ${this.selector()} > .description {
+                margin-bottom: 3px;
+            }
+            ${this.selector()} > .description > * {
+                opacity: 0.6;
+                display: inline;
+            }       
+            ${this.selector()} > .description > *:after {
+                content: " ";
+            }
+            ${this.selector()} > .description > *:first-child {
+                opacity: 1;
             }
         `;
 
@@ -152,8 +171,8 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
          */
         public render(): JSX.Element {         
             return (
-                <div id={this.id()} className={this.className()} ref={this.elContainer}>
-                    <h1>{this.props.title}</h1>
+                <div id={this.id()} className={this.className()} ref={this.elContainer}>                
+                    <h1 className="line">{this.props.title}</h1>
                     <div className="description">{this.props.children}</div>
                     {this.values.map(v => 
                         <Layout.ReactJs.Component.Switch 
@@ -165,6 +184,7 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                             {v.option.value}
                         </Layout.ReactJs.Component.Switch>
                     )}
+                    <div className="spacing"></div>
                 </div>
             );
         }

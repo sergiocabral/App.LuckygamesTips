@@ -21,6 +21,7 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                 overflow: auto;
             }
             ${this.selector()} > .adjust {
+                display: inline-block;
             }
         `;
 
@@ -71,7 +72,7 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                         className="adjust"
                         onChange={this.onAdjustChange}
                         exclusive={true}
-                        title="Atualizações de dados"
+                        title="Animações"
                         options={{
                             key: "animation",
                             value: [

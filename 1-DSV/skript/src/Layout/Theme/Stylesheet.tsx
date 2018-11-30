@@ -136,19 +136,41 @@ namespace Skript.Layout.Theme {
                 ${selector} .nowrap { white-space: nowrap; }
             `);
 
+            //Linha para títulos
+            styles.push(`
+                ${selector} .line {
+                    display: table;
+                    position: relative;
+                    overflow: hidden;
+                    width: calc(100% - 10px);
+                }
+                ${selector} .line:after { 
+                    content: " ";
+                    position: absolute;
+                    width: 99999px;
+                    display: inline-block;
+                    border-bottom: 7px dotted;
+                    margin-top: 0.5em;
+                    margin-left: 10px;
+                    opacity: 0.15;
+                }
+            `);
+
             //Elementos de tabela
             styles.push(`
                 ${selector} table th { vertical-align: middle; }
                 ${selector} table td { vertical-align: top; }
             `);
 
-            //Elementos <h1>, <h2>, ...
+            //Elementos <p>, <h1>, <h2>, ...
             styles.push(`
-                ${selector} h1, h2, h3, h4, h5, h6 {
-                    font-family: 'Raleway', sans-serif;
-                    font-size: 100%;
+                ${selector} p, h1, h2, h3, h4, h5, h6 {
                     margin: 0;
                     padding: 0;                    
+                    font-size: 100%;
+                }
+                ${selector} h1, h2, h3, h4, h5, h6 {
+                    font-family: 'Raleway', sans-serif;
                 }
                 ${selector} h1 { font-size: 120%; }
                 ${selector} h2 { font-size: 110%; }
