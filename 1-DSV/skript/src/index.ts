@@ -20,6 +20,9 @@
 
 /// #############################################
 
+/// <reference path="Part/User/LuckygamesAdjusts/Component/Adjust.tsx" />
+/// context: PaidPart,LuckygamesAdjusts
+
 /// <reference path="Part/User/LuckygamesAdjusts/Component/LuckygamesAdjusts.tsx" />
 /// context: PaidPart,LuckygamesAdjusts
 
