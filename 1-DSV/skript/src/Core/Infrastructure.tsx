@@ -21,7 +21,7 @@ namespace Skript.Core {
             skript.infrastructure = skript.infrastructure ? skript.infrastructure : this;
 
             skript.configuration = configuration;
-            new Log.History(); skript.log.post("Loading Tips...", null, Log.Level.Information);
+            new Log.History(); skript.log.post("Loading Tips...", null, Log.Level.Debug);
             new Data.Storage("luckygames.tips");
             new Api.Request(configuration.server);
             new Locale.Translates(skript.storage.data().language);

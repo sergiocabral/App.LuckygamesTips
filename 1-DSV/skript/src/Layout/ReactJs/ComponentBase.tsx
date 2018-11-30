@@ -58,13 +58,13 @@ namespace Skript.Layout.ReactJs {
          * Nome da classe CSS deste componente.
          * @type {string}
          */
-        private classNameValue: string = ComponentBase.classNamePrefix + this.constructor.name;
+        protected myClassName: string = ComponentBase.classNamePrefix + this.constructor.name;
 
         /**
          * Determina as class CSS para o elemento.
          * @type {() => string}
          */
-        protected className: () => string = () => this.classNameValue + ((this.props as any).className ? " " + (this.props as any).className : "");
+        protected className: () => string = () => this.myClassName + ((this.props as any).className ? " " + (this.props as any).className : "");
 
         /**
          * Id randômico determinado para a instância.
@@ -134,7 +134,13 @@ namespace Skript.Layout.ReactJs {
          * Seletor CSS mais alto que engloba o componente.
          * @type {() => string}
          */
-        protected selector: () => string = () => `.${Presentation.className} .${this.classNameValue}[id]`;
+        protected selector: () => string = () => `.${Presentation.className} .${this.myClassName}[id]`;
+
+        /**
+         * Seletor CSS mais alto que engloba todo o sistema.
+         * @type {() => string}
+         */
+        protected selectorBase: () => string = () => `.${Presentation.className}`;
 
         /**
          * Determina se o sistema está em modo debug.

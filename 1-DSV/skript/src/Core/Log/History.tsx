@@ -71,8 +71,9 @@ namespace Skript.Core.Log {
             if (!skript.configuration.debug &&
                 level != Core.Log.Level.Information &&
                 level != Core.Log.Level.Warning &&
-                level != Core.Log.Level.Error) return;
-                
+                level != Core.Log.Level.Error &&
+                level != Core.Log.Level.Debug) return;
+                    
             const message = this.mountMessage(text, values, level);
             
             this.allMessages.push(message);

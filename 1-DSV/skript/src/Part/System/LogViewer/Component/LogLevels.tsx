@@ -15,7 +15,7 @@ namespace Skript.Part.System.LogViewer.Component {
 
             Object
                 .values(Core.Log.Level)
-                .filter(v => typeof(v) === "number" && (includeDebug || Core.Log.Level[v].indexOf("Debug") < 0))
+                .filter(v => typeof(v) === "number" && (includeDebug || Core.Log.Level[v] === "Debug" || Core.Log.Level[v].indexOf("Debug") < 0))
                 .map(v => levels.push(new LevelWrapper(v as Core.Log.Level, translate)));
 
             return levels;

@@ -75,8 +75,9 @@ namespace Skript.Util {
          * Move um elemento dentro do seu parent.
          * @param {HTMLElement} element Elemento
          * @param {BringTo} to Direção
+         * @param {boolean} cssFlag Opcional. Aplica no elemento classes css "bringTo" e ("bringToFront" ou "bringToBack").
          */
-        public static bring(element: HTMLElement, to: BringTo): void {
+        public static bring(element: HTMLElement, to: BringTo, cssFlag: boolean = false): void {
             const logInfo: any = {
                 element: element,
                 parentElement: element.parentElement,
@@ -84,15 +85,31 @@ namespace Skript.Util {
 
             if (!element.parentElement) return;
 
+            /**
+             * Sinaliza o elemento com flag de class css indicnaod que sofreu bringTo.
+             * @param {number} interval Tempo para remoção das classCss para sinalização.
+             */
+            const cssFlagApply = (interval: number = 1000): void => {
+                const classCss = ["bringTo", "bringTo" + BringTo[to]];
+                classCss.map(v => element.classList.add(v));
+                setTimeout(() => classCss.map(v => element.classList.remove(v)), interval);
+            };
+
             let bringTo = false;
             switch (to) {
                 case BringTo.Back:
                     bringTo = element.parentElement.children[0] !== element;
-                    if (bringTo) element.parentElement.prepend(element); 
+                    if (bringTo) { 
+                        if (cssFlag) cssFlagApply();
+                        setTimeout(() => (element as any).parentElement.prepend(element), 1);
+                    }
                     break;
                 case BringTo.Front: 
                     bringTo = element.parentElement.children[element.parentElement.childNodes.length - 1] !== element;
-                    if (bringTo) element.parentElement.append(element);                    
+                    if (bringTo) {
+                        if (cssFlag) cssFlagApply();
+                        setTimeout(() => (element as any).parentElement.append(element), 1);
+                    }
                     break;
                 default: throw new Core.Errors.InvalidArgument("BringTo");
             }

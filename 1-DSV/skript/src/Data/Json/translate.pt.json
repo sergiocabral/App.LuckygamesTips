@@ -114,12 +114,6 @@
         ]
     },
     "Mensagens do Bus": {
-        "Infrastructure.tsx": [
-            { 
-                "Loading Tips...":
-                "Carregando o Tips..." 
-            }
-        ],
         "MainBus.tsx": [
             { 
                 "Great! Tips were loaded successfully.":
@@ -155,7 +149,7 @@
             },
             {
                 "Debug":
-                "Debug"
+                "Depuração"
             },
             {
                 "DebugBus":

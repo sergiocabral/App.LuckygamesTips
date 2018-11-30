@@ -14,6 +14,12 @@ namespace Skript.Part.System.LogViewer.Component {
         }
 
         /**
+         * Indica que é uma nova mensagem
+         * @type {boolean}
+         */
+        new: boolean = true;
+
+        /**
          * Mensagem de log.
          * @type {Core.Log.Message}
          */
@@ -39,8 +45,6 @@ namespace Skript.Part.System.LogViewer.Component {
                 top: 10px;
                 right: 10px;
                 bottom: 10px;
-            }
-            ${this.selectorInDialog()} {     
             }
             ${this.selector()} > .controls {   
                 position: absolute;
@@ -72,11 +76,19 @@ namespace Skript.Part.System.LogViewer.Component {
                 margin-left: 5px;
                 font-size: 80%;
             }
+            @keyframes LogViewer-Slide {
+                100% { left: 0; }
+            }
             ${this.selector()} > .messages > div > .level {
                 background-color: ${Util.Drawing.blend(-0.02, this.theme.generalBackgroundColor)};
                 margin: 0 5px 5px 0;
                 padding: 3px 6px;
                 border-radius: 5px;
+            }
+            ${this.selector()} > .messages > div > .level.new {
+                position: relative;
+                left: -110%;
+                animation: LogViewer-Slide 0.5s forwards;
             }
             ${this.selector()} > .messages > div > .level.Information {
                 background-color: #B9E3F2;
@@ -197,6 +209,14 @@ namespace Skript.Part.System.LogViewer.Component {
          * @returns {JSX.Element}
          */
         protected renderContent(): JSX.Element {
+            const messages = this.messages.filter(v => this.uncheckeds.indexOf(Number(v.message.level)) < 0).slice();
+            
+            setTimeout(() => { 
+                let needUpdate = false;
+                messages.map(v => { if (v.new) { v.new = false; needUpdate = true; } });
+                if (needUpdate) this.update();
+            }, 500);
+
             return (
                 <div id={this.id()} className={this.className()} ref={this.elContainer}>
                     <div className="controls">
@@ -208,8 +228,8 @@ namespace Skript.Part.System.LogViewer.Component {
                     </div>
                     <div className="messages">
                         <div>
-                            {this.messages.filter(v => this.uncheckeds.indexOf(Number(v.message.level)) < 0).map(v =>
-                                <div key={v.message.id} className={"level " + Core.Log.Level[v.message.level]}>
+                            {messages.map(v =>                                
+                                <div key={v.message.id} className={"level " + Core.Log.Level[v.message.level] + (v.new ? " new" : "")}>
                                     <div className="type">{this.translate(Core.Log.Level[v.message.level])}</div>
                                     <div className="time">{v.message.time.format({})}</div>
                                     <div className="text">{v.message.text}</div>
