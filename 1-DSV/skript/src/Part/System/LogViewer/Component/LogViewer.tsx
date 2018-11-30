@@ -100,7 +100,7 @@ namespace Skript.Part.System.LogViewer.Component {
                 background-color: #FFCBD1;
             }
             ${this.selector()} > .messages > div > .level.Debug {
-                background-color: ${Util.Drawing.blend(-0.05, this.theme.generalBackgroundColor)};
+                background-color: ${Util.Drawing.blend(-0.1, this.theme.generalBackgroundColor)};
             }
             ${this.selector()} > .messages > div > .level .type {
                 display: inline-block;
