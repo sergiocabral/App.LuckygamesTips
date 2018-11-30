@@ -28,7 +28,7 @@ namespace Skript.Layout.ReactJs.Component {
      * Janela base que contem outros componentes.
      */
     export class ShowMessages extends ComponentBase<EmptyProps, Partial<EmptyState>> {
-
+        
         /**
          * Código CSS para este componente.
          */

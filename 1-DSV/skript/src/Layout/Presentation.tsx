@@ -41,6 +41,7 @@ namespace Skript.Layout {
             this.showMessages = ReactDOM.render(
                 React.createElement(ReactJs.Component.ShowMessages, null, null), 
                 this.createContainer());
+            this.showPastMessages();            
 
             const messageBus = new Message.DialogCreate(
                 skript.configuration.name, 
@@ -123,6 +124,15 @@ namespace Skript.Layout {
                 message.level != Core.Log.Level.Warning &&
                 message.level != Core.Log.Level.Error)) return;
             this.showMessages.post(message);
+        }
+
+        /**
+         * Exibe todas as mensagens passadas do log.
+         */
+        private showPastMessages(): void {
+            const message = new Core.Message.GetLogMessages().sendSync() as Core.Message.GetLogMessages;
+            if (!message.result) throw new Core.Errors.NullNotExpected("Message.GetLogMessages.result");
+            message.result.messages.map(v => this.message(v));
         }
 
         /**
