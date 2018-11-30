@@ -31,6 +31,9 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
          */
         public constructor(props: Layout.ReactJs.EmptyProps) {
             super(props);      
+
+            this.title = this.translate("Website adjusts");
+            this.icon = "far fa-list-alt";
             
             this.onAdjustChange = this.onAdjustChange.bind(this);
 
@@ -56,47 +59,47 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                         className="adjust"
                         onChange={this.onAdjustChange}
                         exclusive={true}
-                        title="Atualizações de dados"
+                        title={this.translate("Data updates")}
                         options={{
                             key: "websocket",
                             value: [
-                                { key: "normal", value: "Frequência normal", state: true },
-                                { key: "reduce", value: "Frequência reduzida" },
-                                { key: "off", value: "Desligado" }
+                                { key: "normal", value: this.translate("Normal frequency"), state: true },
+                                { key: "reduce", value: this.translate("Reduced frequency") },
+                                { key: "off", value: this.translate("Off") }
                             ]
                         }}>
-                        <p>Recebimento de informações globais da luckygames.io, como All Bets, High Rollers, Rare Wins, Bets Made, Total Won, etc.</p>
-                        <p>Desativar aumenta a performance por reduzir o consumo de banda de internet.</p>
+                        <p>{this.translate("Receiving global information from luckygames.io, such as All Bets, High Rollers, Rare Wins, Bets Made, Total Won, etc.")}</p>
+                        <p>{this.translate("Off increases performance by reducing internet bandwidth consumption.")}</p>
                     </Adjusts>
                     <Adjusts 
                         className="adjust"
                         onChange={this.onAdjustChange}
                         exclusive={true}
-                        title="Animações"
+                        title={this.translate("Animations")}
                         options={{
                             key: "animation",
                             value: [
-                                { key: "on", value: "Ligado", state: true },
-                                { key: "off", value: "Desligado" }
+                                { key: "on", value: this.translate("On"), state: true },
+                                { key: "off", value: this.translate("Off") }
                             ]
                         }}>
-                        <p>Efeitos áudio visuais na atualização do saldo. Exibição do LuckyNumber tipo roleta giratória.</p>
-                        <p>Desativar aumenta a performance por reduzir o consumo de processador e memória do seu computador.</p>
+                        <p>{this.translate("Audiovisual effects on the update of the balance, the Lucky Number type turnstile display, etc.")}</p>
+                        <p>{this.translate("Off increases performance by reducing processor and memory consumption on your computer.")}</p>
                     </Adjusts>
                     <Adjusts 
                         className="adjust"
                         onChange={this.onAdjustChange}
                         exclusive={true}
-                        title="Visual"
+                        title={this.translate("Theme")}
                         options={{
                             key: "visual",
                             value: [
-                                { key: "dark", value: "Escuro", state: true },
-                                { key: "light", value: "Claro" }
+                                { key: "dark", value: this.translate("Dark"), state: true },
+                                { key: "light", value: this.translate("Light") }
                             ]
                         }}>
-                        <p>Layout com visual claro ou escuro do site luckygames.io.</p>
-                        <p>É uma escolha meramente pessoal. Não interfere na performance.</p>
+                        <p>{this.translate("Layout with light or dark visual of the site luckygames.io.")}</p>
+                        <p>{this.translate("It is a purely personal choice. Does not interfere with performance.")}</p>
                     </Adjusts>
                 </div>
             );
