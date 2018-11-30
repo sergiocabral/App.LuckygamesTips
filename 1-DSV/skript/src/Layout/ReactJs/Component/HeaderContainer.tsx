@@ -78,14 +78,14 @@ namespace Skript.Layout.ReactJs.Component {
          */
         protected stylesheet: string = `
             ${this.selector()} {
-                margin: 0px 20px 10px 20px;
+                margin: 0px ${this.theme.spacing * 2}px ${this.theme.spacing}px ${this.theme.spacing * 2}px;
             }
             ${this.selector()} > .title {
                 background-color: ${this.theme.dialogTitleBackgroundColor};
                 color: ${this.theme.dialogTitleTextColor};
                 border-radius: 4px;
                 padding: 5px 10px;
-                margin: 0 -10px;
+                margin: 0 -${this.theme.spacing}px;
                 box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
                 border: 1px solid ${Util.Drawing.blend(-0.1, this.theme.dialogTitleBackgroundColor)};
             }
@@ -105,7 +105,7 @@ namespace Skript.Layout.ReactJs.Component {
                 float: right;
             }
             ${this.selector()} > .content {
-                margin-top: 10px;
+                margin-top: ${this.theme.spacing}px;
                 transition: max-height 0.25s linear;
                 overflow: hidden;                
             }
@@ -228,7 +228,7 @@ namespace Skript.Layout.ReactJs.Component {
                     this.props.title ? this.props.title : "",
                     DialogCloseMode.Hide,
                     this.props.icon,
-                    <div id={this.contextId(IdContext.Dialog)} className={HeaderContainer.classNameInDialog()} style={{ margin: "10px" }}></div>,
+                    <div id={this.contextId(IdContext.Dialog)} className={HeaderContainer.classNameInDialog()} style={{ margin: `${this.theme.spacing}px` }}></div>,
                     this.props.dialogSize,
                     position).sendSync() as Message.DialogCreate;
                 if (!messageBus.result) throw new Core.Errors.NullNotExpected("Message.DialogCreate.result");

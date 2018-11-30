@@ -37,31 +37,33 @@ namespace Skript.Part.System.LogViewer.Component {
         protected stylesheet: string = `
             ${this.selector()} {
                 position: relative;
-                min-height: 150px;
             }
+            ${this.selectorOutDialog()} {                
+                min-height: ${this.debug ? "270px" : "170px"};
+            }            
             ${this.selectorInDialog()} {
                 position: absolute;
-                left: 10px;
-                top: 10px;
-                right: 10px;
-                bottom: 10px;
+                left: ${this.theme.spacing}px;
+                top: ${this.theme.spacing}px;
+                right: ${this.theme.spacing}px;
+                bottom: ${this.theme.spacing}px;
             }
             ${this.selector()} > .controls {   
                 position: absolute;
                 top: 0;
                 left: 0;
                 height: 100%;
-                width: calc(35% - 5px);
+                width: calc(35% - ${this.theme.spacing / 2}px);
                 overflow-x: hidden;
             }
             ${this.selector()} > .controls > div {
-                margin-right: 5px;
+                margin-right: ${this.theme.spacing / 2}px;
                 text-align: center;
             }
             ${this.selector()} > .controls > div > .levels {   
                 border-bottom: 1px solid gainsboro;
-                padding-bottom: 10px;
-                margin-bottom: 10px;
+                padding-bottom: ${this.theme.spacing}px;
+                margin-bottom: ${this.theme.spacing}px;
                 text-align: left;
             }            
             ${this.selector()} > .messages {
@@ -73,7 +75,7 @@ namespace Skript.Part.System.LogViewer.Component {
                 border-left: 1px solid gainsboro;
             }
             ${this.selector()} > .messages > div {
-                margin-left: 5px;
+                margin-left: ${this.theme.spacing / 2}px;
                 font-size: 80%;
             }
             @keyframes LogViewer-Slide {
@@ -81,7 +83,7 @@ namespace Skript.Part.System.LogViewer.Component {
             }
             ${this.selector()} > .messages > div > .level {
                 background-color: ${Util.Drawing.blend(-0.02, this.theme.generalBackgroundColor)};
-                margin: 0 5px 5px 0;
+                margin: 0 ${this.theme.spacing / 2}px 5px 0;
                 padding: 3px 6px;
                 border-radius: 5px;
             }
@@ -223,7 +225,7 @@ namespace Skript.Part.System.LogViewer.Component {
                         <div>
                             <LogLevels className="levels" onChange={this.onLogLevelsChange}></LogLevels>
                             <button className="button" onClick={this.onClearLogClick}>{this.translate("Clear log")}</button>
-                            <div className="height10"></div>
+                            <div className="spacing"></div>
                         </div>
                     </div>
                     <div className="messages">

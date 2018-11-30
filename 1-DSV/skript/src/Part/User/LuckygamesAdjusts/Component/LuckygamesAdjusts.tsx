@@ -10,20 +10,15 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
          */
         protected stylesheet: string = `
             ${this.selector()} {
-                position: relative;
-                min-height: 150px;
-                background-color: red;
-                overflow: auto;
-            }
-            ${this.selectorOutDialog()} {
-                max-height: 150px;
+                position: relative;                
             }
             ${this.selectorInDialog()} {
                 position: absolute;
-                left: 10px;
-                top: 10px;
-                right: 10px;
-                bottom: 10px;
+                left: ${this.theme.spacing}px;
+                top: ${this.theme.spacing}px;
+                right: ${this.theme.spacing}px;
+                bottom: ${this.theme.spacing}px;
+                overflow: auto;
             }
             ${this.selector()} > .adjust {
             }

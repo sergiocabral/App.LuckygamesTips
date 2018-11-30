@@ -21,8 +21,8 @@ namespace Skript.Layout.ReactJs.Component {
                 position: fixed;
                 width: 75px;
                 height: 75px;
-                right: 10px;
-                bottom: 10px;
+                right: ${this.theme.spacing}px;
+                bottom: ${this.theme.spacing}px;
             }
             ${this.selector()}:focus {
                 outline: none;

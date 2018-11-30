@@ -44,8 +44,8 @@ namespace Skript.Layout.ReactJs.Component {
             ${this.selector()} {
                 z-index: ${this.theme.zIndex * 1.5};
                 position: fixed;
-                bottom: 10px;
-                left: 10px;
+                bottom: ${this.theme.spacing}px;
+                left: ${this.theme.spacing}px;
                 width: 40%;                
             }
             ${this.selector()} p {
@@ -73,7 +73,7 @@ namespace Skript.Layout.ReactJs.Component {
             }
             ${this.selector()} p .text {
                 display: block;
-                margin-bottom: 10px;
+                margin-bottom: ${this.theme.spacing}px;
             }
             ${this.selector()} p .time {
                 display: block;

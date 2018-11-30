@@ -30,6 +30,12 @@ namespace Skript.Layout.Theme {
         }
 
         /**
+         * Espaçamento padrão.
+         * @type {Colors}
+         */
+        public spacing: number = 10;
+
+        /**
          * Tema de cores para configurar o layout.
          * @type {Colors}
          */
@@ -120,10 +126,7 @@ namespace Skript.Layout.Theme {
                 ${selector} .width30 { width: 30%; }
                 ${selector} .width20 { width: 20%; }
                 ${selector} .width10 { width: 10%; }
-                ${selector} .height5 { display: block; height: 5px; }
-                ${selector} .height10 { display: block; height: 10px; }
-                ${selector} .height15 { display: block; height: 15px; }
-                ${selector} .height20 { display: block; height: 20px; }
+                ${selector} .spacing { display: block; height: ${this.spacing}px; }
                 ${selector} .alignLeft { text-align: left; }
                 ${selector} .alignCenter { text-align: center; }
                 ${selector} .alignRight { text-align: right; }

@@ -104,7 +104,7 @@ namespace Skript.Layout.ReactJs.Component {
                 color: ${this.theme.dialogTitleTextColor};
                 font-family: ${this.theme.dialogTextFont};
                 white-space: nowrap;
-                margin: 1px 10px -1px 10px;                
+                margin: 1px ${this.theme.spacing}px -1px ${this.theme.spacing}px;                
                 font-size: 18px;
                 overflow: hidden;
                 text-overflow: ellipsis;
