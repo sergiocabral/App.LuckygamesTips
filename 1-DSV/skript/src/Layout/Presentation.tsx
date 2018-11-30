@@ -32,7 +32,7 @@ namespace Skript.Layout {
             document.body.appendChild(container);
             this.parentContainer = container;
 
-            skript.log.post("Created main container: <{tagName} id=\"{id}\" />", container, Core.Log.Level.Debug, container);
+            skript.log.post("Created main container: <{tagName} id=\"{id}\" />", container, Core.Log.Level.DebugDOM, container);
                 
             ReactDOM.render(
                 React.createElement(ReactJs.Component.ButtonActivator, null, null), 
