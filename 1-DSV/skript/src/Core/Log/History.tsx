@@ -56,7 +56,7 @@ namespace Skript.Core.Log {
         public clear(): void {
             this.allMessages.length = 0;
             new Core.Message.LogMessageCleared().sendAsync();
-            this.post("The log list has been cleared.", null, Level.Information);
+            this.post("The log message list has been cleared.", null, Level.Information);
         }
 
         /**
