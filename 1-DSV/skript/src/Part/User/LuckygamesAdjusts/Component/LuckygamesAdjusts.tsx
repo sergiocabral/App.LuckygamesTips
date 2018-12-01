@@ -45,6 +45,10 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
             if (!messageWebSocket.result) throw new Core.Errors.NullNotExpected("Message.GetWebSocketMode.result");            
             this.valueOptionWebsocket = messageWebSocket.result.mode;
 
+            const messageAnimation = new Luckygames.Message.GetAnimationMode().sendSync();
+            if (!messageAnimation.result) throw new Core.Errors.NullNotExpected("Message.GetAnimationMode.result");
+            this.valueOptionAnimation = messageAnimation.result.mode;
+
             const messageTheme = new Luckygames.Message.GetThemeMode().sendSync();
             if (!messageTheme.result) throw new Core.Errors.NullNotExpected("Message.GetThemeMode.result");            
             this.valueOptionTheme = messageTheme.result.mode;
@@ -77,6 +81,12 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
         private valueOptionWebsocket: Luckygames.WebSocketMode;
 
         /**
+         * Valor para option: Animation.
+         * @type {string}
+         */
+        private valueOptionAnimation: Core.OffOn;
+
+        /**
          * Valor para option: Theme.
          * @type {string}
          */
@@ -84,9 +94,10 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
         
         /**
          * Definir valor de propriedade.
-         * @param {WebSocketMode} mode Modo WebSocket.
+         * @param {Luckygames.WebSocketMode} mode Modo WebSocket.
          */
         public setOptionWebsocket(mode: Luckygames.WebSocketMode): void {
+            console.log("setOptionWebsocket", mode);
             if (!this.elOptionWebsocket.current) return;
             this.valueOptionWebsocket = mode;
             this.elOptionWebsocket.current.uncheckedAll();
@@ -95,9 +106,22 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
         
         /**
          * Definir valor de propriedade.
-         * @param {ThemeMode} mode Modo Theme.
+         * @param {Core.OffOn} mode Modo Animation.
+         */
+        public setOptionAnimation(mode: Core.OffOn): void {
+            console.log("setOptionAnimation", mode);
+            if (!this.elOptionAnimation.current) return;
+            this.valueOptionAnimation = mode;
+            this.elOptionAnimation.current.uncheckedAll();
+            this.elOptionAnimation.current.value(Core.OffOn[mode], true);
+        }
+        
+        /**
+         * Definir valor de propriedade.
+         * @param {Luckygames.ThemeMode} mode Modo Theme.
          */
         public setOptionTheme(mode: Luckygames.ThemeMode): void {
+            console.log("setOptionTheme", mode);
             if (!this.elOptionTheme.current) return;
             this.valueOptionTheme = mode;
             this.elOptionTheme.current.uncheckedAll();
@@ -123,6 +147,12 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                     }
                     break;
                 case "animation":
+                    mode = Core.OffOn[adjusts.value[0].key as any] as any as Core.OffOn;
+                    message = new Luckygames.Message.SetAnimationMode(mode).sendSync();
+                    if (message.result && message.result.mode !== mode) {
+                        this.setOptionAnimation(message.result.mode);
+                        return false;
+                    }
                     break;
                 case "theme":
                     mode = Luckygames.ThemeMode[adjusts.value[0].key as any] as any as Luckygames.ThemeMode;
@@ -172,8 +202,8 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                         options={{
                             key: "animation",
                             value: [
-                                { key: "on", value: this.translate("On"), state: true },
-                                { key: "off", value: this.translate("Off") }
+                                { key: Core.OffOn[Core.OffOn.Off], value: this.translate(Core.OffOn[Core.OffOn.Off]), state: this.valueOptionAnimation === Core.OffOn.Off },
+                                { key: Core.OffOn[Core.OffOn.On], value: this.translate(Core.OffOn[Core.OffOn.On]), state: this.valueOptionAnimation === Core.OffOn.On },
                             ]
                         }}>
                         <p>{this.translate("Audiovisual effects on the update of the balance, the Lucky Number type turnstile display, etc.")}</p>

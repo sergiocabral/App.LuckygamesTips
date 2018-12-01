@@ -150,16 +150,24 @@
                 "WebSocket foi fechado."
             }
         ],
-        "Luckygames/General.tsx": [
-            { 
-                "It was not possible to change the look between light and dark.":
-                "Não foi possível alterar o visual entre claro e escuro." 
-            },
-            {
-                "Site theme changed to {0}":
-                "O visual do site foi trocado para {0}"
-            }
-        ]
+        "Luckygames/General.tsx": {
+            "Theme": [
+                { 
+                    "It was not possible to change the look between light and dark.":
+                    "Não foi possível alterar o visual entre claro e escuro." 
+                },
+                {
+                    "Site theme changed to {0}":
+                    "O visual do site foi trocado para {0}"
+                }
+            ],
+            "Animation": [
+                {
+                    "Site animation: {0}":
+                    "Animação do site: {0}"
+                }
+            ]
+        }
     },
     "Mensagens do Bus": {
         "MainBus.tsx": [
@@ -218,6 +226,16 @@
             {
                 "DebugRequest":
                 "Request"
+            }
+        ],
+        "OffOn": [
+            {
+                "Off":
+                "Desligado"
+            },
+            {
+                "On":
+                "Ligado"
             }
         ],
         "Luckygames/Types.tsx": {

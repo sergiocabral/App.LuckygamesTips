@@ -12,6 +12,14 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
             {                
                 message: Luckygames.Message.WebSocketModeWasChanged.name,
                 handler: (command: Luckygames.Message.WebSocketModeWasChanged) => this.sponsor.setOptionWebsocket(command.mode)
+            },
+            {                
+                message: Luckygames.Message.AnimationModeWasChanged.name,
+                handler: (command: Luckygames.Message.AnimationModeWasChanged) => this.sponsor.setOptionAnimation(command.mode)
+            },
+            {                
+                message: Luckygames.Message.ThemeModeWasChanged.name,
+                handler: (command: Luckygames.Message.ThemeModeWasChanged) => this.sponsor.setOptionTheme(command.mode)
             }
         ];
     }    

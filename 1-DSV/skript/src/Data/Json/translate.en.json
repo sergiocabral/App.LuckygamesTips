@@ -38,6 +38,16 @@
                 "Request"
             }
         ],
+        "OffOn": [
+            {
+                "Off":
+                "Off"
+            },
+            {
+                "On":
+                "On"
+            }
+        ],
         "Luckygames/Types.tsx": {
             "WebSocketMode": [
                 {

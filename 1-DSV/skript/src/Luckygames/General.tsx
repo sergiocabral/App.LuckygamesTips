@@ -36,6 +36,32 @@ namespace Skript.Luckygames {
             }
             return document.body.classList.contains("light") ? ThemeMode.Light : ThemeMode.Dark;
         }
+
+        private static animationValue: boolean = true;
+        /**
+         * Define ou retorna o estado da animação do website.
+         * @param {Core.OffOn} mode Modo da animacao.
+         * @returns {Core.OffOn} Estado atual.
+         */
+        public static animation(mode?: Core.OffOn): Core.OffOn {
+            if (mode !== undefined && mode !== General.animation()) {
+                // $.fn.animateAmount = () => {};
+                // $.fn.animateBalance = function(e) { 
+                //     "text" == this.attr("type") ? 
+                //     this.val(e) : this.html(e);
+                //     return this;
+                // }
+                // Game.sound = "on"; Game.uSound();
+                if (mode === Core.OffOn.On) {
+                    General.animationValue = true;
+                } else {
+                    General.animationValue = false;
+                }
+                skript.log.post("Site animation: {0}", skript.translate.get(Core.OffOn[mode]));
+                new Message.AnimationModeWasChanged(mode).sendAsync();
+            }
+            return General.animationValue ? Core.OffOn.On : Core.OffOn.Off;
+        }
     }
     
     new GeneralBus(General);

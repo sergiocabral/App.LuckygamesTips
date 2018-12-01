@@ -116,6 +116,15 @@
 /// <reference path="Luckygames/Message/WebSocketModeWasChanged.tsx" />
 /// context: Initialize
 
+/// <reference path="Luckygames/Message/GetAnimationMode.tsx" />
+/// context: Initialize
+
+/// <reference path="Luckygames/Message/SetAnimationMode.tsx" />
+/// context: Initialize
+
+/// <reference path="Luckygames/Message/AnimationModeWasChanged.tsx" />
+/// context: Initialize
+
 /// <reference path="Luckygames/GeneralBus.tsx" />
 /// context: Initialize
 

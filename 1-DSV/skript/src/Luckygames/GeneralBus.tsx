@@ -16,6 +16,14 @@ namespace Skript.Luckygames {
             {                
                 message: Message.GetThemeMode.name,
                 handler: (command: Message.GetThemeMode) => command.result = { mode: this.sponsor.theme() }
+            },
+            {                
+                message: Message.SetAnimationMode.name,
+                handler: (command: Message.SetAnimationMode) => command.result = { mode: this.sponsor.animation(command.mode) }
+            },
+            {                
+                message: Message.GetAnimationMode.name,
+                handler: (command: Message.GetAnimationMode) => command.result = { mode: this.sponsor.animation() }
             }
         ];
     }    
