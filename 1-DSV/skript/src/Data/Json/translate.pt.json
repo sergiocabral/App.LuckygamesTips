@@ -114,12 +114,16 @@
         ],
         "WebSocketControl.tsx": [
             { 
-                "Could not adjust WebSockets operation of luckygames.io.":
-                "Não foi possível ajustar o funcionamento do WebSockets do luckygames.io." 
+                "Failed to set up receiving global information from luckygames.io. But do not worry. This is not a serious problem.":
+                "Não foi possível configurar o recebimento de informações globais da luckygames.io. Mas não se preocupe. Isso não representa um problema grave." 
             },
             { 
-                "Could not adjust WebSockets operation of luckygames.io after {0} tentatives.":
-                "Não foi possível ajustar o funcionamento do WebSockets do luckygames.io depois de {0} tentativas." 
+                "After {0] attempts it was not possible to set up global information for luckygames.io. But do not worry. This is not a serious problem.":
+                "Depois de {0} tentativas não foi possível configurar o recebimento de informações globais da luckygames.io. Mas não se preocupe. Isso não representa um problema grave." 
+            },
+            {
+                "Defined as \"{0}\" receiving global information from luckygames.io.":
+                "Definido como \"{0}\" o recebimento de informações globais da luckygames.io."
             },
             {
                 "Trying to intercept WebSocket.":
@@ -205,7 +209,23 @@
                 "DebugRequest":
                 "Request"
             }
-        ]
+        ],
+        "Luckygames/Types.tsx": {
+            "WebSocketMode": [
+                {
+                    "Normal":
+                    "Frequência normal"
+                },
+                {
+                    "Reduce":
+                    "Frequência reduzida"
+                },
+                {
+                    "Normal":
+                    "Desligado"
+                }
+            ]
+        }
     },
     "Componentes do sistema": {
         "LanguageSelect.tsx": [        
