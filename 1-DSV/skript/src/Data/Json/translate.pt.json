@@ -112,7 +112,7 @@
                 "HeaderContainer \"{title}\". Conteúdo movido de [{from}] para [{to}]." 
             }
         ],
-        "WebSocketControl.tsx": [
+        "Luckygames/WebSocketControl.tsx": [
             { 
                 "Failed to set up receiving global information from luckygames.io. But do not worry. This is not a serious problem.":
                 "Não foi possível configurar o recebimento de informações globais da luckygames.io. Mas não se preocupe. Isso não representa um problema grave." 
@@ -148,6 +148,16 @@
             {
                 "WebSocket was closed.":
                 "WebSocket foi fechado."
+            }
+        ],
+        "Luckygames/General.tsx": [
+            { 
+                "It was not possible to change the look between light and dark.":
+                "Não foi possível alterar o visual entre claro e escuro." 
+            },
+            {
+                "Site theme changed to {0}":
+                "O visual do site foi trocado para {0}"
             }
         ]
     },
@@ -224,6 +234,16 @@
                     "Normal":
                     "Desligado"
                 }
+            ],
+            "ThemeMode": [
+                {
+                    "Dark":
+                    "Escuro"
+                },
+                {
+                    "Light":
+                    "Claro"
+                }
             ]
         }
     },
@@ -271,18 +291,6 @@
                 { 
                     "Off increases performance by reducing internet bandwidth consumption.":
                     "Desligar aumenta a performance por reduzir o consumo de banda de internet." 
-                },
-                { 
-                    "Normal frequency":
-                    "Frequência normal" 
-                },
-                { 
-                    "Reduced frequency":
-                    "Frequência reduzida" 
-                },
-                { 
-                    "Off":
-                    "Desligado" 
                 }
             ],
             "Ajuste: animation": [
@@ -297,14 +305,6 @@
                 { 
                     "Off increases performance by reducing processor and memory consumption on your computer.":
                     "Desligar aumenta a performance por reduzir o consumo de processador e memória do seu computador." 
-                },
-                { 
-                    "On":
-                    "Ligado" 
-                },
-                { 
-                    "Off":
-                    "Desligado" 
                 }
             ],
             "Ajuste: visual": [
@@ -319,14 +319,6 @@
                 { 
                     "It is a purely personal choice. Does not interfere with performance.":
                     "É uma escolha meramente pessoal. Não interfere na performance." 
-                },
-                { 
-                    "Dark":
-                    "Escuro" 
-                },
-                { 
-                    "Light":
-                    "Claro" 
                 }
             ]
         }

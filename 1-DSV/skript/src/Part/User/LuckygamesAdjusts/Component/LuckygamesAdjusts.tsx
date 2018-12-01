@@ -39,11 +39,15 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
 
             this.elOptionWebsocket = React.createRef();
             this.elOptionAnimation = React.createRef();
-            this.elOptionVisual = React.createRef();
+            this.elOptionTheme = React.createRef();
 
-            const message = new Luckygames.Message.GetWebSocketMode().sendSync();
-            if (!message.result) throw new Core.Errors.NullNotExpected("Message.GetWebSocketMode.result");            
-            this.valueOptionWebsocket = message.result.mode;
+            const messageWebSocket = new Luckygames.Message.GetWebSocketMode().sendSync();
+            if (!messageWebSocket.result) throw new Core.Errors.NullNotExpected("Message.GetWebSocketMode.result");            
+            this.valueOptionWebsocket = messageWebSocket.result.mode;
+
+            const messageTheme = new Luckygames.Message.GetThemeMode().sendSync();
+            if (!messageTheme.result) throw new Core.Errors.NullNotExpected("Message.GetThemeMode.result");            
+            this.valueOptionTheme = messageTheme.result.mode;
 
             this.onAdjustChange = this.onAdjustChange.bind(this);
         }
@@ -61,16 +65,22 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
         private elOptionAnimation: React.RefObject<Adjusts>;
 
         /**
-         * Opção: Visual
+         * Opção: Theme
          * @type {React.RefObject<Adjusts>}
          */
-        private elOptionVisual: React.RefObject<Adjusts>;
+        private elOptionTheme: React.RefObject<Adjusts>;
 
         /**
          * Valor para option: Websocket.
          * @type {string}
          */
         private valueOptionWebsocket: Luckygames.WebSocketMode;
+
+        /**
+         * Valor para option: Theme.
+         * @type {string}
+         */
+        private valueOptionTheme: Luckygames.ThemeMode;
         
         /**
          * Definir valor de propriedade.
@@ -82,6 +92,17 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
             this.elOptionWebsocket.current.uncheckedAll();
             this.elOptionWebsocket.current.value(Luckygames.WebSocketMode[mode], true);
         }
+        
+        /**
+         * Definir valor de propriedade.
+         * @param {ThemeMode} mode Modo Theme.
+         */
+        public setOptionTheme(mode: Luckygames.ThemeMode): void {
+            if (!this.elOptionTheme.current) return;
+            this.valueOptionTheme = mode;
+            this.elOptionTheme.current.uncheckedAll();
+            this.elOptionTheme.current.value(Luckygames.ThemeMode[mode], true);
+        }
 
         /**
          * Ao alterar o valor de algum ajuste.
@@ -90,10 +111,12 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
         private onAdjustChange(adjusts: Core.KeyValue<Core.KeyValue<string>[]>): boolean|undefined {
             if (adjusts.value.length !== 1) throw new Core.Errors.InvalidArgument(`LuckygamesAdjusts.options(${adjusts.key}).length == ${adjusts.value.length}`);
             
+            let mode, message;
+
             switch (adjusts.key) {
                 case "websocket":
-                    const mode = Luckygames.WebSocketMode[adjusts.value[0].key as any] as any as Luckygames.WebSocketMode;
-                    const message = new Luckygames.Message.SetWebSocketMode(mode).sendSync();
+                    mode = Luckygames.WebSocketMode[adjusts.value[0].key as any] as any as Luckygames.WebSocketMode;
+                    message = new Luckygames.Message.SetWebSocketMode(mode).sendSync();
                     if (message.result && message.result.mode !== mode) {
                         this.setOptionWebsocket(message.result.mode);
                         return false;
@@ -101,7 +124,13 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                     break;
                 case "animation":
                     break;
-                case "visual":
+                case "theme":
+                    mode = Luckygames.ThemeMode[adjusts.value[0].key as any] as any as Luckygames.ThemeMode;
+                    message = new Luckygames.Message.SetThemeMode(mode).sendSync();
+                    if (message.result && message.result.mode !== mode) {
+                        this.setOptionTheme(message.result.mode);
+                        return false;
+                    }
                     break;
                 default:
                     throw new Core.Errors.InvalidArgument(`LuckygamesAdjusts.options(${adjusts.key})`);
@@ -126,9 +155,9 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                         options={{
                             key: "websocket",
                             value: [
-                                { key: Luckygames.WebSocketMode[Luckygames.WebSocketMode.Normal], value: this.translate("Normal frequency"), state: this.valueOptionWebsocket === Luckygames.WebSocketMode.Normal },
-                                { key: Luckygames.WebSocketMode[Luckygames.WebSocketMode.Reduce], value: this.translate("Reduced frequency"), state: this.valueOptionWebsocket === Luckygames.WebSocketMode.Reduce },
-                                { key: Luckygames.WebSocketMode[Luckygames.WebSocketMode.Off], value: this.translate("Off"), state: this.valueOptionWebsocket === Luckygames.WebSocketMode.Off }
+                                { key: Luckygames.WebSocketMode[Luckygames.WebSocketMode.Normal], value: this.translate(Luckygames.WebSocketMode[Luckygames.WebSocketMode.Normal]), state: this.valueOptionWebsocket === Luckygames.WebSocketMode.Normal },
+                                { key: Luckygames.WebSocketMode[Luckygames.WebSocketMode.Reduce], value: this.translate(Luckygames.WebSocketMode[Luckygames.WebSocketMode.Reduce]), state: this.valueOptionWebsocket === Luckygames.WebSocketMode.Reduce },
+                                { key: Luckygames.WebSocketMode[Luckygames.WebSocketMode.Off], value: this.translate(Luckygames.WebSocketMode[Luckygames.WebSocketMode.Off]), state: this.valueOptionWebsocket === Luckygames.WebSocketMode.Off }
                             ]
                         }}>
                         <p>{this.translate("Receiving global information from luckygames.io, such as All Bets, High Rollers, Rare Wins, Bets Made, Total Won, etc.")}</p>
@@ -151,16 +180,16 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                         <p>{this.translate("Off increases performance by reducing processor and memory consumption on your computer.")}</p>
                     </Adjusts>
                     <Adjusts 
-                        ref={this.elOptionVisual}
+                        ref={this.elOptionTheme}
                         className="adjust"
                         onChange={this.onAdjustChange}
                         exclusive={true}
                         title={this.translate("Theme")}
                         options={{
-                            key: "visual",
+                            key: "theme",
                             value: [
-                                { key: "dark", value: this.translate("Dark"), state: true },
-                                { key: "light", value: this.translate("Light") }
+                                { key: Luckygames.ThemeMode[Luckygames.ThemeMode.Dark], value: this.translate(Luckygames.ThemeMode[Luckygames.ThemeMode.Dark]), state: this.valueOptionTheme === Luckygames.ThemeMode.Dark },
+                                { key: Luckygames.ThemeMode[Luckygames.ThemeMode.Light], value: this.translate(Luckygames.ThemeMode[Luckygames.ThemeMode.Light]), state: this.valueOptionTheme === Luckygames.ThemeMode.Light },
                             ]
                         }}>
                         <p>{this.translate("Layout with light or dark visual of the site luckygames.io.")}</p>

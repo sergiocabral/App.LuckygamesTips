@@ -24,8 +24,6 @@ namespace Skript.Luckygames {
         public static initialize(tentatives: number = 5, interval: number = 5000): Promise<boolean> {
             if (WebSocketControl.initialized !== undefined) throw new Core.Errors.InvalidCommand("WebSocketControl.initialize() more than 1x");
             WebSocketControl.initialized = false;
-
-            new WebSocketControlBus(this);
             
             return new Promise(resolve => {
                 const check = (tentativesCount: number) => {
@@ -204,4 +202,6 @@ namespace Skript.Luckygames {
             return WebSocketControl.currentMode;
         }
     }
+    
+    new WebSocketControlBus(WebSocketControl);
 }

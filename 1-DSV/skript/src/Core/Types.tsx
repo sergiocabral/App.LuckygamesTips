@@ -39,7 +39,7 @@ namespace Skript.Core {
     /**
      * Estado de aberto e fechado.
      */
-    export enum OpenClose {
+    export enum CloseOpen {
 
         /**
          * Fechado.
@@ -50,6 +50,22 @@ namespace Skript.Core {
          * Aberto.
          */
         Open
+    }
+
+    /**
+     * Estado de desligado e ligado
+     */
+    export enum OffOn {
+
+        /**
+         * Desligado.
+         */
+        Off,
+
+        /**
+         * Ligado
+         */
+        On
     }
 
     /**

@@ -98,6 +98,15 @@
 
 /// #############################################
 
+/// <reference path="Luckygames/Message/GetThemeMode.tsx" />
+/// context: Initialize
+
+/// <reference path="Luckygames/Message/SetThemeMode.tsx" />
+/// context: Initialize
+
+/// <reference path="Luckygames/Message/ThemeModeWasChanged.tsx" />
+/// context: Initialize
+
 /// <reference path="Luckygames/Message/GetWebSocketMode.tsx" />
 /// context: Initialize
 
@@ -105,6 +114,9 @@
 /// context: Initialize
 
 /// <reference path="Luckygames/Message/WebSocketModeWasChanged.tsx" />
+/// context: Initialize
+
+/// <reference path="Luckygames/GeneralBus.tsx" />
 /// context: Initialize
 
 /// <reference path="Luckygames/WebSocketControlBus.tsx" />

@@ -20,4 +20,20 @@ namespace Skript.Luckygames {
          */
         Reduce
     }
+
+    /**
+     * Estado de Tema Claro e Tema Escuro.
+     */
+    export enum ThemeMode {
+
+        /**
+         * Escuro.
+         */
+        Dark,
+
+        /**
+         * Claro
+         */
+        Light
+    }
 }
