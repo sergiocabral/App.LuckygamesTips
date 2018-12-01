@@ -30,9 +30,12 @@ namespace Skript.Util {
          * Carrega um código CSS dinamicamente.
          * Carregamentos repetidos são evitados com verificação de hash.
          * @param {string} code Código CSS.
+         * @param {boolean} minify Minifica o código.
          */
-        public static stylesheetCode(code: string): void {
+        public static stylesheetCode(code: string, minify: boolean = true): void {
             if (typeof(code) !== "string" || !code.length) return;
+
+            if (minify) while ((code = code.replaceAll("\n", " ").replaceAll("\r", " ").replaceAll("  ", " ")).indexOf("  ") >= 0);
             
             const hash: number = code.hash();
             const id = `style-${hash}`.replace("--", "-");
