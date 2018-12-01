@@ -130,7 +130,20 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
          */
         private registerParameters(): any {
             if (!this.title) return;
-            this.parameters = Automation.Parameters.getInstance(this.title);
+            this.parameters = Automation.Parameters.getInstance(this.title);            
+            
+            this.parameters.set(
+                new Automation.Parameter<Luckygames.WebSocketMode>("Data updates", 
+                () => this.valueOptionWebsocket,
+                (value: Luckygames.WebSocketMode) => { this.setOptionWebsocket(value); }))
+            this.parameters.set(
+                new Automation.Parameter<Core.OffOn>("Animations", 
+                () => this.valueOptionAnimation,
+                (value: Core.OffOn) => { this.setOptionAnimation(value); }))
+            this.parameters.set(
+                new Automation.Parameter<Luckygames.ThemeMode>("Theme", 
+                () => this.valueOptionTheme,
+                (value: Luckygames.ThemeMode) => { this.setOptionTheme(value); }))
         }
 
         /**

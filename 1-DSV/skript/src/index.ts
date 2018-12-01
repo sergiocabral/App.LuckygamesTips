@@ -176,6 +176,9 @@
 
 /// #############################################
 
+/// <reference path="Automation/Parameter.tsx" />
+/// context: Initialize
+
 /// <reference path="Automation/Parameters.tsx" />
 /// context: Initialize
 

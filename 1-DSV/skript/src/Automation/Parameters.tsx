@@ -26,19 +26,28 @@ namespace Skript.Automation {
          * @param {string} name Nome do conjunto
          */
         private constructor(name: string) {
-            this.nameValue = name;
+            this.name = name;
         }
 
         /**
          * Nome deste conjunto.
          * @type {string}
          */
-        private nameValue: string;
+        public name: string;
 
         /**
-         * Nome deste conjunto.
-         * @returns {string} Nome.
+         * Lista de parâmetros.
+         * @type {{[name:string]: Parameter<any>}}
          */
-        public name: () => string = () => this.nameValue;
+        public parameters: {[name:string]: Parameter<any>} = { };
+
+        /**
+         * Define um parâmetro. Em caso de repetições é feito substituição.
+         * @param {Parameter<any>} parameter Parâmetro.
+         */
+        public set(parameter: Parameter<any>): void {
+            this.parameters[parameter.name] = parameter;
+        }
+
     }
 }
