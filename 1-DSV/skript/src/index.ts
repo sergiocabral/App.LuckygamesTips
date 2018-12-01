@@ -176,6 +176,11 @@
 
 /// #############################################
 
+/// <reference path="Automation/Parameters.tsx" />
+/// context: Initialize
+
+/// #############################################
+
 /// <reference path="Core/Log/Level.tsx" />
 /// context: Initialize
 

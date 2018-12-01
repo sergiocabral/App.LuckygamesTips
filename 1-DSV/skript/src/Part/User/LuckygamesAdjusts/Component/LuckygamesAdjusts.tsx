@@ -187,7 +187,7 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                                 { key: Luckygames.WebSocketMode[Luckygames.WebSocketMode.Off], value: this.translate(Luckygames.WebSocketMode[Luckygames.WebSocketMode.Off]), state: this.valueOptionWebsocket === Luckygames.WebSocketMode.Off }
                             ]
                         }}>
-                        <p>{this.translate("Receiving global information from luckygames.io, such as All Bets, High Rollers, Rare Wins, Bets Made, Total Won, etc.")}</p>
+                        <p>{this.translate("Receiving global information from luckygames.io, such as Chat, All Bets, High Rollers, Rare Wins, Bets Made, Total Won, etc.")}</p>
                         <p>{this.translate("Off increases performance by reducing internet bandwidth consumption.")}</p>
                     </Adjusts>
                     <Adjusts 

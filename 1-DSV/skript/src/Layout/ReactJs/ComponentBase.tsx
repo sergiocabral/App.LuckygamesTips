@@ -159,6 +159,12 @@ namespace Skript.Layout.ReactJs {
         protected myMessageBus: Core.Bus.MessageBus<any>[] = [];
 
         /**
+         * Organiza os parâmertros deste componente.
+         * @type {Automation.Parameters}
+         */
+        protected parameters?: Automation.Parameters;
+
+        /**
          * Quando um componente é montado.
          */
         public componentWillMount() {
