@@ -49,9 +49,6 @@
 /// <reference path="Layout/ReactJs/Visibility.tsx" />
 /// context: react
 
-/// <reference path="Layout/ReactJs/Component/SwitchBus.tsx" />
-/// context: react
-
 /// <reference path="Layout/ReactJs/Component/Switch.tsx" />
 /// context: react
 
@@ -222,9 +219,6 @@
 /// context: Initialize
 
 /// <reference path="Layout/Message/MainDialogToggle.tsx" />
-/// context: Initialize
-
-/// <reference path="Layout/Message/SwitchUncheck.tsx" />
 /// context: Initialize
 
 /// <reference path="Layout/Message/AppendToMainDialog.tsx" />

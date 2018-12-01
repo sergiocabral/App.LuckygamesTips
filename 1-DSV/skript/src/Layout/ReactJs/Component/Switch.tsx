@@ -126,8 +126,6 @@ namespace Skript.Layout.ReactJs.Component {
         public constructor(props: SwitchProps) {
             super(props);
 
-            this.myMessageBus.push(new SwitchBus(this));
-
             this.elInput = React.createRef();
 
             this.onClick = this.onClick.bind(this);
@@ -189,7 +187,8 @@ namespace Skript.Layout.ReactJs.Component {
             }
 
             if (this.props.radio && this.check(input)) {
-                new Message.SwitchUncheck(this.props.radio, this).sendAsync();
+                const radioGroup = document.querySelectorAll(`${this.selectorBase()} .${this.props.radio} input[type="text"]`);
+                for (let i = 0; i < radioGroup.length; i++) if (input != radioGroup[i]) this.check(radioGroup[i] as HTMLInputElement, false);
             }
         }
 
