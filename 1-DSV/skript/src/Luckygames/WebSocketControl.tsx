@@ -18,9 +18,10 @@ namespace Skript.Luckygames {
         /**
          * Inicializa o controle do WebSocket.
          * @param {boolean} tentatives Opcional. Indica quantas tentativas por segundo.
+         * @param {number} interval Opcional. Intervalo entre as tentativas.
          * @returns {Promise<boolean>} Retorna true quando há sucesso.
          */
-        public static initialize(tentatives: number = 0): Promise<boolean> {
+        public static initialize(tentatives: number = 5, interval: number = 5000): Promise<boolean> {
             if (WebSocketControl.initialized !== undefined) throw new Core.Errors.InvalidCommand("WebSocketControl.initialize() more than 1x");
             WebSocketControl.initialized = false;
 
@@ -28,10 +29,12 @@ namespace Skript.Luckygames {
             
             return new Promise(resolve => {
                 const check = (tentativesCount: number) => {
-                    skript.log.post("Trying to intercept WebSocket.", null, Core.Log.Level.DebugLuckygames);
+                    tentativesCount++;
+
+                    skript.log.post("Trying to intercept WebSocket. Attempt {0}.", tentativesCount, Core.Log.Level.DebugLuckygames);
 
                     const ws = WebSocketControl.websocket();
-                    if (tentativesCount > 0 && !ws) setTimeout(() => check(--tentativesCount), 1000);
+                    if (tentativesCount < tentatives && !ws) setTimeout(() => check(tentativesCount), interval);
                     else {
                         if (ws && ws.constructor.name !== WebSocket.name) throw new Core.Errors.InvalidArgument(`Luckygames.io WebSocket type: ${ws.constructor.name} == ${WebSocket.name}`);
 
@@ -50,7 +53,7 @@ namespace Skript.Luckygames {
                         resolve(result);
                     }
                 };
-                check(tentatives);
+                check(0);
             });
         }
         

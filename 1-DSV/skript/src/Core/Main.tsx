@@ -25,6 +25,8 @@ namespace Skript.Core {
             skript.translate.load(skript.data.translates);
             skript.log.post("Using from this point translated texts.", null, Core.Log.Level.Debug);
             
+            Luckygames.WebSocketControl.initialize();
+
             skript.presentation = new Layout.Presentation();
 
             skript.log.post("Loading system modules.", null, Core.Log.Level.Debug);

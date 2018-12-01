@@ -126,8 +126,8 @@
                 "Definido como \"{0}\" o recebimento de informações globais da luckygames.io."
             },
             {
-                "Trying to intercept WebSocket.":
-                "Tentando interceptar o WebSocket."
+                "Trying to intercept WebSocket. Attempt {0}.":
+                "Tentando interceptar o WebSocket. Tentativa {0}."
             },
             {
                 "WebSocket successfully intercepted.":
