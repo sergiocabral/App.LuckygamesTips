@@ -17,21 +17,21 @@ namespace Skript.Luckygames {
 
         /**
          * Inicializa o controle do WebSocket.
-         * @param {boolean} tryAgain Opcional. Indica quantas tentativas por segundo.
+         * @param {boolean} tentatives Opcional. Indica quantas tentativas por segundo.
          * @returns {Promise<boolean>} Retorna true quando há sucesso.
          */
-        public static initialize(tryAgain: number = 0): Promise<boolean> {
+        public static initialize(tentatives: number = 0): Promise<boolean> {
             if (this.initialized !== undefined) throw new Core.Errors.InvalidCommand("this.initialize() more than 1x");
             this.initialized = false;
 
             new WebSocketControlBus(this);
             
             return new Promise(resolve => {
-                const check = (tryAgain: number) => {
+                const check = (tentativesCount: number) => {
                     skript.log.post("Trying to intercept WebSocket.", null, Core.Log.Level.DebugLuckygames);
 
                     const ws = this.websocket();
-                    if (tryAgain > 0 && !ws) setTimeout(() => check(--tryAgain), 1000);
+                    if (tentativesCount > 0 && !ws) setTimeout(() => check(--tentativesCount), 1000);
                     else {
                         if (ws && ws.constructor.name !== WebSocket.name) throw new Core.Errors.InvalidArgument(`Luckygames.io WebSocket type: ${ws.constructor.name} == ${WebSocket.name}`);
 
@@ -44,13 +44,13 @@ namespace Skript.Luckygames {
                         }
                         else {
                             this.currentMode = undefined;
-                            skript.log.post("Could not adjust WebSockets operation of luckygames.io.", null, Core.Log.Level.Warning);
+                            skript.log.post("Could not adjust WebSockets operation of luckygames.io after {0} tentatives.", tentatives, Core.Log.Level.Error);
                         }
 
                         resolve(result);
                     }
                 };
-                check(tryAgain);
+                check(tentatives);
             });
         }
         
@@ -171,7 +171,10 @@ namespace Skript.Luckygames {
          * @returns {WebSocketMode} Estado atual.
          */
         public static mode(mode?: WebSocketMode): WebSocketMode {
-            if (this.currentMode === undefined || !this.initialized) return WebSocketMode.Normal;
+            if (this.currentMode === undefined || !this.initialized) {
+                if (mode !== undefined) skript.log.post("Could not adjust WebSockets operation of luckygames.io.", null, Core.Log.Level.Error);
+                return WebSocketMode.Normal;
+            }
 
             if (mode !== undefined && mode !== this.currentMode) {
                 if (this.idTimeoutReduce) clearTimeout(this.idTimeoutReduce);

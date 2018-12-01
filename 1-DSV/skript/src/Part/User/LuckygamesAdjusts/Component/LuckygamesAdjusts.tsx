@@ -77,7 +77,6 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
          * @param {WebSocketMode} mode Modo WebSocket.
          */
         public setOptionWebsocket(mode: Luckygames.WebSocketMode): void {
-            console.log("setOptionWebsocket", Luckygames.WebSocketMode[mode], mode);
             if (!this.elOptionWebsocket.current) return;
             this.valueOptionWebsocket = mode;
             this.elOptionWebsocket.current.uncheckedAll();
@@ -88,14 +87,17 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
          * Ao alterar o valor de algum ajuste.
          * @param {Core.KeyValue<Core.KeyValue<string>[]>} adjusts Valores definidos.
          */
-        private onAdjustChange(adjusts: Core.KeyValue<Core.KeyValue<string>[]>): void {
+        private onAdjustChange(adjusts: Core.KeyValue<Core.KeyValue<string>[]>): boolean|undefined {
             if (adjusts.value.length !== 1) throw new Core.Errors.InvalidArgument(`LuckygamesAdjusts.options(${adjusts.key}).length == ${adjusts.value.length}`);
             
             switch (adjusts.key) {
                 case "websocket":
                     const mode = Luckygames.WebSocketMode[adjusts.value[0].key as any] as any as Luckygames.WebSocketMode;
                     const message = new Luckygames.Message.SetWebSocketMode(mode).sendSync();
-                    if (!message.result) throw new Core.Errors.NullNotExpected("Message.SetWebSocketMode.result");
+                    if (message.result && message.result.mode !== mode) {
+                        this.setOptionWebsocket(message.result.mode);
+                        return false;
+                    }
                     break;
                 case "animation":
                     break;
@@ -104,6 +106,8 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                 default:
                     throw new Core.Errors.InvalidArgument(`LuckygamesAdjusts.options(${adjusts.key})`);
             }
+
+            return;
         }
 
         /**

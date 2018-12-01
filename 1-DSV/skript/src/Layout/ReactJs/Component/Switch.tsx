@@ -28,8 +28,9 @@ namespace Skript.Layout.ReactJs.Component {
          * @param {any} evt Informações do evento.
          * @param {string} value Valor selecionador.
          * @param {boolean} checked Marcado ou não.
+         * @returns {boolean} Um retorno ===false desfaz a alteração.
          */
-        onChange?: (evt: any, value: string, checked: boolean) => void;
+        onChange?: (evt: any, value: string, checked: boolean) => boolean|void;
     }
 
     /**
@@ -125,6 +126,8 @@ namespace Skript.Layout.ReactJs.Component {
         public constructor(props: SwitchProps) {
             super(props);
 
+            this.myMessageBus.push(new SwitchBus(this));
+
             this.elInput = React.createRef();
 
             this.onClick = this.onClick.bind(this);
@@ -139,6 +142,21 @@ namespace Skript.Layout.ReactJs.Component {
         private elInput: React.RefObject<HTMLInputElement>;
 
         /**
+         * Define e retorna o estado de um input.
+         * @param {HTMLInputElement} input Input
+         * @param {boolean} checked Define o estado.
+         */
+        private check(input?: HTMLInputElement | null, checked?: boolean): boolean {
+            if (!input) return false;
+            
+            if (checked !== undefined) {
+                input.setAttribute("data-checked", checked ? "true" : "false");
+            }
+
+            return input.getAttribute("data-checked") === "true";
+        }
+
+        /**
          * Retorna e/ou define o estado do controle.
          * @param value Valor
          * @returns {boolean} Estatdo atual
@@ -146,7 +164,7 @@ namespace Skript.Layout.ReactJs.Component {
         public checked(value?: boolean): boolean {            
             if (value !== undefined) {
                 this.setState({ checked: value });
-                (this.elInput.current as HTMLInputElement).checked = value;
+                this.check(this.elInput.current, value);
             }
             return this.state.checked as boolean;            
         }
@@ -157,19 +175,22 @@ namespace Skript.Layout.ReactJs.Component {
          */
         private onClick(evt: any): void {
             const input = evt.target as HTMLInputElement;            
-            const checked = input.getAttribute("data-checked");
-            input.setAttribute("data-checked", checked === "true" ? "false" : "true");
 
-            if (this.props.radio) {
-                const radioGroup = document.querySelectorAll(`${this.selectorBase()} .${this.props.radio} input[type="text"]`);
-                for (let i = 0; i < radioGroup.length; i++)
-                    setTimeout(() => { if (input != radioGroup[i]) (radioGroup[i] as HTMLInputElement).setAttribute("data-checked", "false"); }, 1);
-                    input.setAttribute("data-checked", "true");
+            if (this.props.radio && this.check(input)) return;
+
+            this.check(input, !this.check(input));
+            this.setState({ checked: this.check(input) });
+
+            if (this.props.onChange instanceof Function) {
+                if (this.props.onChange(evt, input.value, this.check(input)) === false) {
+                    this.check(input, !this.check(input));
+                    this.setState({ checked: this.check(input) });
+                }
             }
 
-            this.setState({ checked: input.getAttribute("data-checked") === "true" });
-
-            if (this.props.onChange instanceof Function) this.props.onChange(evt, input.value, input.getAttribute("data-checked") === "true");
+            if (this.props.radio && this.check(input)) {
+                new Message.SwitchUncheck(this.props.radio, this).sendAsync();
+            }
         }
 
         /**
@@ -177,11 +198,10 @@ namespace Skript.Layout.ReactJs.Component {
          * @returns {JSX.Element}
          */
         public render(): JSX.Element {
-            const _this = this;eval("window._this = _this"); _this;
             return (
                 <div id={this.id()} className={this.className() + (this.props.radio ? " " + this.props.radio : "")}>
                     <div className="input">
-                        <input id={this.id() + "-input"} type="text" className="shadow" ref={this.elInput} value={this.props.value} data-checked={String(this.state.checked)} onClick={this.onClick} readOnly />
+                        <input id={this.id() + "-input"} type="text" className="shadow" ref={this.elInput} value={this.props.value} data-checked={this.state.checked ? "true" : "false"} onClick={this.onClick} readOnly />
                         <label htmlFor={this.id() + "-input"} className="dialog-action"></label>
                     </div>
                     <label className="children dialog-action" htmlFor={this.id() + "-input"}>{this.props.children}</label>

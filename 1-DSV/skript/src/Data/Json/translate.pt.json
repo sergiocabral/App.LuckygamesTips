@@ -117,6 +117,10 @@
                 "Could not adjust WebSockets operation of luckygames.io.":
                 "Não foi possível ajustar o funcionamento do WebSockets do luckygames.io." 
             },
+            { 
+                "Could not adjust WebSockets operation of luckygames.io after {0} tentatives.":
+                "Não foi possível ajustar o funcionamento do WebSockets do luckygames.io depois de {0} tentativas." 
+            },
             {
                 "Trying to intercept WebSocket.":
                 "Tentando interceptar o WebSocket."

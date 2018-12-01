@@ -1,23 +1,53 @@
 namespace Skript.Part.User.LuckygamesAdjusts.Component {
 
+    /**
+     * Dados relativos a opção.
+     */
     class OptionWrapper {
 
+        /**
+         * Construtor.
+         * @param {Core.KeyValue<string, boolean>} option Opção.
+         */
         public constructor(option: Core.KeyValue<string, boolean>) {
             this.option = option;
             this.checked = !!option.state;
         }
 
+        /**
+         * Opção.
+         * @type {Core.KeyValue<string, boolean>}
+         */
         option: Core.KeyValue<string, boolean>;
 
+        /**
+         * Indica se está selecionada.
+         * @type {boolean}
+         */
         checked: boolean;
     }
 
+    /**
+     * Props para este componente.
+     */
     class AdjustsProps extends Layout.ReactJs.EmptyProps {
         
+        /**
+         * Título.
+         * @type {string}
+         */
         title?: string;
 
-        onChange?: (options: Core.KeyValue<Core.KeyValue<string, boolean>[]>) => void;
+        /**
+         * Evento ao alterar seleção.
+         * @type {(options: Core.KeyValue<Core.KeyValue<string, boolean>[]>) => boolean|undefined}
+         */
+        onChange?: (options: Core.KeyValue<Core.KeyValue<string, boolean>[]>) => boolean|undefined;
 
+        /**
+         * Lista de opções
+         * @type {Core.KeyValue<Core.KeyValue<string, boolean>[]>}
+         */
         options?: Core.KeyValue<Core.KeyValue<string, boolean>[]>;
 
         /**
@@ -151,12 +181,13 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
          * @param {string} value Valor
          * @param {boolean} checked Marcado ou não.
          */
-        private onOptionChange(evt: any, option: string, checked: boolean): void {
+        private onOptionChange(evt: any, option: string, checked: boolean): boolean|void {
             evt;
-            if (this.props.exclusive) this.uncheckedAll();
-            this.value(option, checked);
-            if (this.props.onChange instanceof Function)
-                this.props.onChange(this.getValues());
+            if (checked) {
+                if (this.props.exclusive) this.uncheckedAll();
+                this.value(option, checked);
+            }
+            if (this.props.onChange instanceof Function) return this.props.onChange(this.getValues());
         }
 
         /**
