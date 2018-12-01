@@ -19,5 +19,17 @@ namespace Skript.Luckygames.Message {
          * @type {WebSocketMode}
          */
         public mode: WebSocketMode; 
+
+        /**
+         * Resultados.
+         */
+        public result?: { 
+            
+            /**
+             * Estado definido
+             * @type {WebSocketMode}
+             */
+            mode: WebSocketMode 
+        }
     }
 }

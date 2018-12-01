@@ -45,7 +45,7 @@ namespace Skript.Core.Bus {
          * @param {Message} message Mensagem.
          * @returns {Message} A própria mensagem enviada.
          */
-        public static sendSync(message: Message): Message {
+        public static sendSync<T extends Message>(message: T): T {
             let handles = "";
             message.handled = 0;
             const messageToSend = message.constructor.name;
@@ -78,9 +78,9 @@ namespace Skript.Core.Bus {
          * @param {Message} message Mensagem.
          * @returns {Promise<Message>} A própria mensagem enviada.
          */
-        public static sendAsync(message: Message): Promise<Message> {
+        public static sendAsync<T extends Message>(message: T): Promise<T> {
             return new Promise(resolve => {                
-                resolve(this.sendSync(message));
+                resolve(this.sendSync<T>(message));
             });
         }
 

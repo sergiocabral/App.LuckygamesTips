@@ -29,8 +29,8 @@ namespace Skript.Core.Bus {
          * Mesmo que MessageBus.sendAsync();
          * @returns {Promise<Message>} A própria mensagem enviada.
          */
-        public sendAsync(): Promise<Message> {
-            return MessageBus.sendAsync(this);
+        public sendAsync(): Promise<this> {
+            return MessageBus.sendAsync<this>(this);
         }
 
         /**
@@ -39,8 +39,8 @@ namespace Skript.Core.Bus {
          * Mesmo que MessageBus.sendSync();
          * @returns {Message} A própria mensagem enviada.
          */
-        public sendSync(): Message {
-            return MessageBus.sendSync(this);
+        public sendSync(): this {
+            return MessageBus.sendSync<this>(this);
         }
     }
 }

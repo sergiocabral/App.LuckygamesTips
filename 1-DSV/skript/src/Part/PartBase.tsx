@@ -9,7 +9,7 @@ namespace Skript.Part {
          * Rgistra o módulo.
          */
         public register() {
-            const messageBus = new Core.Message.RegisterPart(this).sendSync() as Core.Message.RegisterPart;
+            const messageBus = new Core.Message.RegisterPart(this).sendSync();
             if (!messageBus.result) throw new Core.Errors.NullNotExpected("Message.RegisterPart.result");
             this.tools = messageBus.result.tools;
 

@@ -230,7 +230,7 @@ namespace Skript.Layout.ReactJs.Component {
                     this.props.icon,
                     <div id={this.contextId(IdContext.Dialog)} className={HeaderContainer.classNameInDialog()} style={{ margin: `${this.theme.spacing}px` }}></div>,
                     this.props.dialogSize,
-                    position).sendSync() as Message.DialogCreate;
+                    position).sendSync();
                 if (!messageBus.result) throw new Core.Errors.NullNotExpected("Message.DialogCreate.result");
                 this.instanceDialog = messageBus.result.dialog;
                 

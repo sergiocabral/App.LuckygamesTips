@@ -141,7 +141,7 @@ namespace Skript.Part.System.LogViewer.Component {
             this.onLogLevelsChange = this.onLogLevelsChange.bind(this);
             this.onClearLogClick = this.onClearLogClick.bind(this);            
 
-            const message = new Core.Message.GetLogMessages().sendSync() as Core.Message.GetLogMessages;
+            const message = new Core.Message.GetLogMessages().sendSync();
             if (!message.result) throw new Core.Errors.NullNotExpected("Message.GetLogMessages.result");
             message.result.messages.map(v => this.messages.unshift(new MessageWrapper(v)));
         }

@@ -22,6 +22,7 @@ namespace Skript.Luckygames {
          */
         public static initialize(tryAgain: number = 0): Promise<boolean> {
             if (this.initialized !== undefined) throw new Core.Errors.InvalidCommand("this.initialize() more than 1x");
+            this.initialized = false;
 
             new WebSocketControlBus(this);
             
@@ -39,6 +40,7 @@ namespace Skript.Luckygames {
                         if (result) {
                             this.currentMode = WebSocketMode.Normal;
                             skript.log.post("WebSocket successfully intercepted.", null, Core.Log.Level.DebugLuckygames, ws);
+                            this.initialized = true;
                         }
                         else {
                             this.currentMode = undefined;
@@ -58,7 +60,7 @@ namespace Skript.Luckygames {
          */
         private static websocket(): WebSocket|undefined {
             const socket = (window as any).socket;
-            const ws = socket && socket.id ? socket.id : undefined;
+            const ws = socket && socket.id2 ? socket.id : undefined;
             if (socket && ws) this.intercept(socket);
             return ws;
         }
@@ -169,7 +171,7 @@ namespace Skript.Luckygames {
          * @returns {WebSocketMode} Estado atual.
          */
         public static mode(mode?: WebSocketMode): WebSocketMode {
-            if (this.currentMode === undefined) return WebSocketMode.Normal;
+            if (this.currentMode === undefined || !this.initialized) return WebSocketMode.Normal;
 
             if (mode !== undefined && mode !== this.currentMode) {
                 if (this.idTimeoutReduce) clearTimeout(this.idTimeoutReduce);

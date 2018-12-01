@@ -51,7 +51,7 @@ namespace Skript.Layout {
                 {
                     width: Math.trunc((document.documentElement as any).offsetWidth * 0.6),
                     height: Math.trunc((document.documentElement as any).offsetHeight * 0.6)
-                }).sendSync() as Message.DialogCreate;
+                }).sendSync();
             if (!messageBus.result) throw new Core.Errors.NullNotExpected("Message.DialogCreate.result");
             this.mainDialog = messageBus.result.dialog;
             this.mainDialog.visible(false);
@@ -130,7 +130,7 @@ namespace Skript.Layout {
          * Exibe todas as mensagens passadas do log.
          */
         private showPastMessages(): void {
-            const message = new Core.Message.GetLogMessages().sendSync() as Core.Message.GetLogMessages;
+            const message = new Core.Message.GetLogMessages().sendSync();
             if (!message.result) throw new Core.Errors.NullNotExpected("Message.GetLogMessages.result");
             message.result.messages.map(v => this.message(v));
         }

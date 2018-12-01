@@ -42,7 +42,7 @@ namespace Skript.Core {
                             skript.data = this.extractData(response, data);
                             skript.log.post("The configuration data has been loaded.", null, Log.Level.Debug, skript.data);
 
-                            Luckygames.WebSocketControl.initialize(30);
+                            Luckygames.WebSocketControl.initialize(10);
                             
                             new Main();
                         } catch (error) {

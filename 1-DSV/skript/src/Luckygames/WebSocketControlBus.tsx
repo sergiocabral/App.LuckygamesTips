@@ -11,7 +11,7 @@ namespace Skript.Luckygames {
         public handlers: Core.Bus.MessageHandler[] = [ 
             {                
                 message: Message.SetWebSocketMode.name,
-                handler: (command: Message.SetWebSocketMode) => this.sponsor.mode(command.mode)
+                handler: (command: Message.SetWebSocketMode) => command.result = { mode: this.sponsor.mode(command.mode) }
             },
             {                
                 message: Message.GetWebSocketMode.name,
