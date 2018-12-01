@@ -126,6 +126,14 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
         }
 
         /**
+         * Rwgistra os parâmetros deste componenete.
+         */
+        private registerParameters(): any {
+            if (!this.title) return;
+            this.parameters = Automation.Parameters.getInstance(this.title);
+        }
+
+        /**
          * Ao alterar o valor de algum ajuste.
          * @param {Core.KeyValue<Core.KeyValue<string>[]>} adjusts Valores definidos.
          */
@@ -224,6 +232,13 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                     </Adjusts>
                 </div>
             );
+        }
+
+        /**
+         * Quando o componente é montado.
+         */
+        public componentDidMount(): void {
+            this.registerParameters();
         }
     }
 }
