@@ -193,6 +193,14 @@ namespace Skript.Layout.ReactJs.Component {
         }
 
         /**
+         * Ao receber novos dados de inicialização.
+         * @param {SwitchProps} newProps Props
+         */
+        public componentWillReceiveProps(newProps: SwitchProps) {
+            this.setState({checked: newProps.checked});
+        }
+
+        /**
          * Renderizador do React.
          * @returns {JSX.Element}
          */
