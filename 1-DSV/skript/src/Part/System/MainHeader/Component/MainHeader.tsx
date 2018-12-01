@@ -49,7 +49,7 @@ namespace Skript.Part.System.MainHeader.Component {
                 font-size: 80%;
             }      
             ${this.selector()} > .bot {
-                background-image: url(https://dsv.luckygames.tips/media/r2d2.png);
+                background-image: url("https://dsv.luckygames.tips/media/r2d2.png");
                 background-size: 93%;
                 background-repeat: no-repeat;
                 background-position: 10px 5px;

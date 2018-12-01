@@ -79,7 +79,7 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
                 margin-bottom: 3px;
             }
             ${this.selector()} > .description > * {
-                opacity: 0.6;
+                opacity: 0.65;
                 display: inline;
             }       
             ${this.selector()} > .description > *:after {

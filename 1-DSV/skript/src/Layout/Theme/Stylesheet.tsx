@@ -20,10 +20,10 @@ namespace Skript.Layout.Theme {
             this.colors = colors;
             this.zIndex = 1000;
             this.generalTextFont = "'Hind Siliguri', sans-serif";
-            this.generalTextColor = Util.Drawing.blend(-0.5, colors.primary);
+            this.generalTextColor = Util.Drawing.blend(-0.7, colors.primary);
             this.generalBackgroundColor = "#ffffff";
             this.dialogTextFont = "'Raleway', sans-serif";
-            this.dialogTitleTextColor = Util.Drawing.blend(-0.5, colors.secondary);
+            this.dialogTitleTextColor = Util.Drawing.blend(-0.7, colors.secondary);
             this.dialogTitleBackgroundColor = Util.Drawing.blend(0.5, colors.secondary);
 
             this.generalStylesheet();
@@ -89,7 +89,7 @@ namespace Skript.Layout.Theme {
         public static getColorsDefault(): Colors {
             return {
                 primary: "#007bff",
-                secondary: "#6c757d",
+                secondary: "#6c7d74",
                 positive: "#28a745",
                 negative: "#dc3545"
             };

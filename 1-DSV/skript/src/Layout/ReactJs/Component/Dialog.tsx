@@ -79,8 +79,7 @@ namespace Skript.Layout.ReactJs.Component {
          */
         protected stylesheet: string = `
             ${this.selector()} {
-                z-index: ${this.theme.zIndex * 0.9};
-                background: ${this.theme.generalBackgroundColor};
+                z-index: ${this.theme.zIndex * 0.9};                
                 box-shadow: 0 0 20px black;
                 border-radius: 7px;
                 overflow: hidden;
@@ -118,7 +117,7 @@ namespace Skript.Layout.ReactJs.Component {
                 opacity: 1;
             }
             ${this.selector()} > .header a.close {
-                color: ${Util.Drawing.blend(0.25, this.theme.dialogTitleTextColor)};
+                color: ${Util.Drawing.blend(0.10, this.theme.dialogTitleTextColor)};
                 position: absolute;
                 right: 13px;
                 top: 10px;
@@ -127,9 +126,10 @@ namespace Skript.Layout.ReactJs.Component {
                 text-transform: none;
             }
             ${this.selector()} > .header a.close:hover {
-                color: ${this.theme.dialogTitleTextColor};
+                color: ${Util.Drawing.blend(-0.10, this.theme.dialogTitleTextColor)};
             }
             ${this.selector()} > .content {
+                background: rgba(255, 255, 255, 0.95);
                 height: calc(100% - 50px);
                 overflow: auto;
                 overflow-x: hidden;
@@ -150,7 +150,14 @@ namespace Skript.Layout.ReactJs.Component {
                 width: 20px;
                 height: 10px;
                 cursor: nw-resize;
-            }          
+            }
+            ${this.selector()} > .header,
+            ${this.selector()} > .resize {
+                opacity: 0.9;
+                background-image: url("https://dsv.luckygames.tips/media/dialog-background.jpg");
+                background-size: cover;
+                background-position: 0 0;
+            }
         `;
 
         /**
