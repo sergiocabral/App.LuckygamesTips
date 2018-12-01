@@ -60,7 +60,7 @@ namespace Skript.Luckygames {
          */
         private static websocket(): WebSocket|undefined {
             const socket = (window as any).socket;
-            const ws = socket && socket.id2 ? socket.id : undefined;
+            const ws = socket && socket.id ? socket.id : undefined;
             if (socket && ws) this.intercept(socket);
             return ws;
         }
