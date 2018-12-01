@@ -97,7 +97,6 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
          * @param {Luckygames.WebSocketMode} mode Modo WebSocket.
          */
         public setOptionWebsocket(mode: Luckygames.WebSocketMode): void {
-            console.log("setOptionWebsocket", mode);
             if (!this.elOptionWebsocket.current) return;
             this.valueOptionWebsocket = mode;
             this.elOptionWebsocket.current.uncheckedAll();
@@ -109,7 +108,6 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
          * @param {Core.OffOn} mode Modo Animation.
          */
         public setOptionAnimation(mode: Core.OffOn): void {
-            console.log("setOptionAnimation", mode);
             if (!this.elOptionAnimation.current) return;
             this.valueOptionAnimation = mode;
             this.elOptionAnimation.current.uncheckedAll();
@@ -121,7 +119,6 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
          * @param {Luckygames.ThemeMode} mode Modo Theme.
          */
         public setOptionTheme(mode: Luckygames.ThemeMode): void {
-            console.log("setOptionTheme", mode);
             if (!this.elOptionTheme.current) return;
             this.valueOptionTheme = mode;
             this.elOptionTheme.current.uncheckedAll();
