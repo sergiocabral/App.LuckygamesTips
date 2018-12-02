@@ -57,7 +57,7 @@ namespace Skript.Part.System.MainHeader.Component {
                 top: 0;
                 left: 0;
                 width: 30%;
-                height: 100%;
+                height: calc(100% + 5px);
             }
             ${this.selector()} > .bar {
                 width: calc(100% - 6px);
