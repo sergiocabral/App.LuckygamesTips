@@ -98,6 +98,7 @@ namespace Skript.Layout.ReactJs.Component {
                 padding: 9px 0 8px 0;
                 cursor: pointer;
                 position: relative;
+                text-shadow: 0 0 5px ${Util.Drawing.blend(0.9, this.theme.dialogTitleBackgroundColor)};
             }
             ${this.selector()} > .header h1 {
                 color: ${this.theme.dialogTitleTextColor};

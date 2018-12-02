@@ -52,7 +52,16 @@ namespace Skript.Layout.ReactJs {
          * Usado como prefixo nos nomes de classe CSS.
          * @type {string}
          */
-        private static classNamePrefix: string = Util.String.random();
+        protected static classNamePrefix: string = Util.String.random();
+
+        /**
+         * Retorna o seletor css base pata um componente.
+         * @param {typeof ComponentBase} component Classe do componente.
+         * @returns {string} seletor css.
+         */
+        public static selectorForComponent(name: string): string {
+            return `.${Presentation.className} .${ComponentBase.classNamePrefix}${name}`;
+        }
 
         /**
          * Nome da classe CSS deste componente.

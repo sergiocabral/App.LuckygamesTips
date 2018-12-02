@@ -131,10 +131,9 @@ namespace Skript.Layout.ReactJs {
                         this.configuration.element.style.display = "none";
                         this.configuration.element.classList.remove("hiding");
                     }
-                }, (this.configuration.fade as number) * 1000);
+                }, (this.configuration.fade as number) * 1000);                
             }
-            
-            return !this.configuration.element.classList.contains("hidden");
+            return mode !== undefined ? mode : !this.configuration.element.classList.contains("hidden");
         }
     }
 }

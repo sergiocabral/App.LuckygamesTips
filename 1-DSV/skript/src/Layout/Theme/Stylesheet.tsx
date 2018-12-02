@@ -213,6 +213,22 @@ namespace Skript.Layout.Theme {
                     border-top: 1px solid transparent;
                     top: 1px;
                 }
+                ${selector} .text-shadow {
+                    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+                    position: relative;
+                    border: 0 !important;                    
+                    margin: 0 ${this.spacing / 2}px;
+                    opacity: 0.75;
+                }
+                ${selector} .text-shadow:hover {
+                    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+                    opacity: 1;
+                }
+                ${selector} .text-shadow:active {
+                    text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+                    border-top: 1px solid transparent;
+                    top: 1px;
+                }
             `);
 
             styles.push(`   

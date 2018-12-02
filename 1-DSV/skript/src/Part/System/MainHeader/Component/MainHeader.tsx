@@ -59,10 +59,13 @@ namespace Skript.Part.System.MainHeader.Component {
                 width: 30%;
                 height: 100%;
             }
-            ${this.selector()} > .language {
+            ${this.selector()} > .bar {
                 width: calc(100% - 6px);
                 text-align: right;
                 margin: 2px 0 5px 0;
+            }
+            ${this.selector()} > .bar > * {
+                display: inline-block;
             }
         `;
 
@@ -87,7 +90,10 @@ namespace Skript.Part.System.MainHeader.Component {
                         <h3><a href={this.theme.url} target="_blank">{this.theme.url.substr(this.theme.url.indexOf("//") + 2)}</a></h3>
                     </div>
                     <div className="bot"></div>
-                    <Layout.ReactJs.Component.LanguageSelect className="language" />
+                    <div className="bar">
+                        <Controls />
+                        <Layout.ReactJs.Component.LanguageSelect className="language" />
+                    </div>                    
                 </div>
             );
         }

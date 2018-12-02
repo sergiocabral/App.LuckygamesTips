@@ -11,6 +11,7 @@ namespace Skript.Layout.Message {
          * @param {string} icon Ícone no formato FontAwesome.
          * @param {ReactJs.Component.DialogCloseMode} closeMode Modos de fechamento da janela.
          * @param {any} children Opcional. Conteúdo da janela.
+         * @param {string} className Classes CSS.
          * @param {Core.Size} size Opcional. Dimensão.
          */
         public constructor(
@@ -18,6 +19,7 @@ namespace Skript.Layout.Message {
             closeMode: ReactJs.Component.DialogCloseMode, 
             icon?: string, 
             children?: any, 
+            className?: string,
             size?: Core.Size,
             position?: Core.Position) { 
 
@@ -26,6 +28,7 @@ namespace Skript.Layout.Message {
             this.title = title;
             this.closeMode = closeMode;            
             this.icon = icon;
+            this.className = className;
             this.children = children;
             this.size = size;
             this.position = position;
@@ -48,6 +51,12 @@ namespace Skript.Layout.Message {
          * @type {string}
          */
         public icon?: string;
+
+        /**
+         * Classes CSS..
+         * @type {string}
+         */
+        public className?: string;
 
         /**
          * Conteúdo da janela.

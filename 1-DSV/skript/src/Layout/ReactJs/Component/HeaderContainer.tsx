@@ -109,7 +109,7 @@ namespace Skript.Layout.ReactJs.Component {
                 transition: max-height 0.25s linear;
                 overflow: hidden;                
             }
-            ${this.selector()} > .content.hide {
+            ${this.selector()} > .content.hidden {
                 max-height: 0 !important;
             }            
         </div>            
@@ -229,6 +229,7 @@ namespace Skript.Layout.ReactJs.Component {
                     DialogCloseMode.Hide,
                     this.props.icon,
                     <div id={this.contextId(IdContext.Dialog)} className={HeaderContainer.classNameInDialog()} style={{ margin: `${this.theme.spacing}px` }}></div>,
+                    "moduleDialog",
                     this.props.dialogSize,
                     position).sendSync();
                 if (!messageBus.result) throw new Core.Errors.NullNotExpected("Message.DialogCreate.result");
@@ -288,15 +289,15 @@ namespace Skript.Layout.ReactJs.Component {
         public content(mode?: boolean): boolean {            
             const container = this.elContent.current as HTMLElement;
 
-            let state = !container.classList.contains("hide");
+            let state = !container.classList.contains("hidden");
 
             if (mode !== undefined) {
                 if (!mode && state) {
                     container.style.maxHeight = container.offsetHeight + "px";
-                    setTimeout(() => container.classList.add("hide"), 1);
+                    setTimeout(() => container.classList.add("hidden"), 1);
                 } else if (mode && !state) {
                     if (!container.style.maxHeight) container.style.maxHeight = "100px"; //Apenas para garantir a animação.
-                    container.classList.remove("hide");
+                    container.classList.remove("hidden");
                     setTimeout(() => container.style.maxHeight = "", this.intervalAnimation);
                 }
                 state = mode;
@@ -325,7 +326,7 @@ namespace Skript.Layout.ReactJs.Component {
                             <h1>{this.props.title}</h1>
                         </span>
                     </div>
-                    <div className={HeaderContainer.classNameOutDialog() + " content hide"} id={this.contextId(IdContext.Component)} ref={this.elContent}>
+                    <div className={HeaderContainer.classNameOutDialog() + " content hidden"} id={this.contextId(IdContext.Component)} ref={this.elContent}>
                         <div id={this.contextId(IdContext.Content)}>
                             {this.props.children}
                         </div>

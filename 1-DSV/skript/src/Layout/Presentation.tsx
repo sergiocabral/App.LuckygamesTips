@@ -48,6 +48,7 @@ namespace Skript.Layout {
                 ReactJs.Component.DialogCloseMode.Hide,
                 "fas fa-robot",
                 undefined,
+                "mainDialog",
                 {
                     width: Math.trunc((document.documentElement as any).offsetWidth * 0.6),
                     height: Math.trunc((document.documentElement as any).offsetHeight * 0.6)
@@ -91,7 +92,7 @@ namespace Skript.Layout {
          */
         public mainDialogVisible(mode?: boolean): boolean {
             const visible = this.mainDialog.visible(mode);
-            if (visible) this.mainDialog.bring();
+            if (visible && mode !== undefined) this.mainDialog.bring();
             return visible;
         }
 

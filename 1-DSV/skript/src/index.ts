@@ -1,3 +1,6 @@
+/// <reference path="Part/System/MainHeader/Component/Controls.tsx" />
+/// context: SystemPart
+
 /// <reference path="Part/System/MainHeader/Component/MainHeader.tsx" />
 /// context: SystemPart
 

@@ -19,8 +19,8 @@ namespace Skript.Layout.ReactJs.Component {
                 border: none;
                 cursor: pointer;                
                 position: fixed;
-                width: 75px;
-                height: 75px;
+                width: 50px;
+                height: 50px;
                 right: ${this.theme.spacing}px;
                 bottom: ${this.theme.spacing}px;
             }
