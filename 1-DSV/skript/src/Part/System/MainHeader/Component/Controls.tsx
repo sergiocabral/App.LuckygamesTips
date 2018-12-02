@@ -133,9 +133,9 @@ namespace Skript.Part.System.MainHeader.Component {
         public render(): JSX.Element {            
             return (
                 <div id={this.id()} className={this.className()}>
-                    <a href="#" className="text-shadow" data-action="expandModules" onClick={this.onClick} title={this.translate("Expand all modules")}><i className="fas fa-caret-square-down"></i></a>
-                    <a href="#" className="text-shadow" data-action="collapseModules" onClick={this.onClick} title={this.translate("Collapse all modules")}><i className="fas fa-caret-square-up"></i></a>
-                    <a href="#" className="text-shadow" data-action="closeModuleDialogs" onClick={this.onClick} title={this.translate("Close all the module windows")}><i className="fas fa-times-circle"></i></a>
+                    <a href="#" className="text-shadow dialog-action" data-action="expandModules" onClick={this.onClick} title={this.translate("Expand all modules")}><i className="fas fa-caret-square-down"></i></a>
+                    <a href="#" className="text-shadow dialog-action" data-action="collapseModules" onClick={this.onClick} title={this.translate("Collapse all modules")}><i className="fas fa-caret-square-up"></i></a>
+                    <a href="#" className="text-shadow dialog-action" data-action="closeModuleDialogs" onClick={this.onClick} title={this.translate("Close all the module windows")}><i className="fas fa-times-circle"></i></a>
                     <div className="separator"></div>
                 </div>
             );

@@ -239,7 +239,7 @@ namespace Skript.Layout.ReactJs.Component {
             switch (this.props.closeMode) {
                 case DialogCloseMode.Hide:
                     this.visible(false);
-                    setTimeout(() => { if (!this.visible()) this.bring(Util.BringTo.Back); }, 100);
+                    setTimeout(() => { if (!this.visible()) this.bring(Util.BringTo.Back); }, this.visibility ? this.visibility.fade() : 0);
                     break;
                 case DialogCloseMode.Remove:
                     this.visible(false);
