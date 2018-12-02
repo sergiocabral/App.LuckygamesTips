@@ -300,7 +300,7 @@ namespace Skript.Layout.ReactJs.Component {
                     container.style.maxHeight = container.offsetHeight + "px";
                     setTimeout(() => container.classList.add("hidden"), 1);
                 } else if (mode && !state) {
-                    if (!container.style.maxHeight) container.style.maxHeight = "100px"; //Apenas para garantir a animação.
+                    if (!container.style.maxHeight) container.style.maxHeight = "500px"; //Apenas para garantir a animação.
                     container.classList.remove("hidden");
                     setTimeout(() => container.style.maxHeight = "", this.intervalAnimation);
                 }
