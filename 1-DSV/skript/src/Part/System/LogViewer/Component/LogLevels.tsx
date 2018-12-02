@@ -57,12 +57,10 @@ namespace Skript.Part.System.LogViewer.Component {
 
         /**
          * Ao trocar a seleção.
-         * @param {Core.Log.Level} level Valor acionado.
-         * @param {boolean} checked Novo estado do valor acionado.
          * @param {Core.Log.Level[]} checkeds Valores atualmente selecionados.
          * @param {Core.Log.Level[]} uncheckeds Valores atualmente não selecionados.
          */
-        onChange?: (level: Core.Log.Level, checked: boolean, checkeds: Core.Log.Level[], uncheckeds: Core.Log.Level[]) => void
+        onChange?: (checkeds: Core.Log.Level[], uncheckeds: Core.Log.Level[]) => void
     }
 
     /**
@@ -89,16 +87,46 @@ namespace Skript.Part.System.LogViewer.Component {
         public constructor(props: Layout.ReactJs.EmptyProps) {
             super(props);
             
+            this.elContainer = React.createRef();
+
             this.onChange = this.onChange.bind(this);
 
-            this.levels = LevelWrapper.mount(this.translate, this.debug());
+            this.levelsList = LevelWrapper.mount(this.translate, this.debug());
         }
+        
+        /**
+         * Referência ao container pai de todos.
+         * @type {React.RefObject<HTMLDivElement>}
+         */
+        private elContainer: React.RefObject<HTMLDivElement>;
 
         /**
          * Lista de níveis de log.
          * @type {LevelWrapper[]}
          */
-        private levels: LevelWrapper[];
+        private levelsList: LevelWrapper[];
+
+        /**
+         * REtorna e/ou define os niveis de log selecionados.
+         * @param checkeds Opcional. Opções para marcar.
+         * @returns {Core.Log.Level[]} Niveis atualmente marcados.
+         */
+        public levels(checkeds?: Core.Log.Level[]): Core.Log.Level[] {
+            const result: Core.Log.Level[] = [];
+
+            if (checkeds !== undefined) {
+                for (let i = 0; i < this.levelsList.length; i++) 
+                    this.levelsList[i].checked = checkeds.indexOf(this.levelsList[i].level) >= 0;
+                if (this.elContainer.current) this.forceUpdate();
+                this.callParentOnChange();
+            } else {
+                for (let i = 0; i < this.levelsList.length; i++) 
+                    if (this.levelsList[i].checked)
+                        result.push(this.levelsList[i].level);
+            }
+
+            return result;
+        }
 
         /**
          * Evento ao marcar o nível de log.
@@ -109,18 +137,23 @@ namespace Skript.Part.System.LogViewer.Component {
         private onChange(evt: any, value: string, checked: boolean) {
             evt;
             const level = Number(value) as Core.Log.Level;
-            for (let i = 0; i < this.levels.length; i++) {
-                if (this.levels[i].level == level) {
-                    this.levels[i].checked = checked;
+            for (let i = 0; i < this.levelsList.length; i++) {
+                if (this.levelsList[i].level == level) {
+                    this.levelsList[i].checked = checked;
                     break;
                 }
             }
+            this.callParentOnChange();
+        }
+
+        /**
+         * Chama o evento onChange do componenete pai.
+         */
+        private callParentOnChange(): void {
             if (this.props.onChange instanceof Function) 
                 this.props.onChange(
-                    level, 
-                    checked,
-                    this.levels.filter(v => v.checked).map(v => v.level),
-                    this.levels.filter(v => v.checked).map(v => v.level));
+                    this.levelsList.filter(v => v.checked).map(v => v.level),
+                    this.levelsList.filter(v => !v.checked).map(v => v.level));
         }
 
         /**
@@ -129,8 +162,8 @@ namespace Skript.Part.System.LogViewer.Component {
          */
         public render(): JSX.Element {            
             return (
-                <div id={this.id()} className={this.className()}>
-                    {this.levels.map(v => 
+                <div id={this.id()} className={this.className()} ref={this.elContainer}>
+                    {this.levelsList.map(v => 
                         <Layout.ReactJs.Component.Switch className="switch" key={v.level} value={v.level} checked={v.checked} onChange={this.onChange}>{v.name}</Layout.ReactJs.Component.Switch>
                     )}
                 </div>

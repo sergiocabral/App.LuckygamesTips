@@ -135,15 +135,15 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
             this.parameters.set(
                 new Automation.Parameter<Luckygames.WebSocketMode>("Data updates", 
                 () => this.valueOptionWebsocket,
-                (value: Luckygames.WebSocketMode) => { this.setOptionWebsocket(value); }))
+                (value: Luckygames.WebSocketMode) => this.setOptionWebsocket(value)));
             this.parameters.set(
                 new Automation.Parameter<Core.OffOn>("Animations", 
                 () => this.valueOptionAnimation,
-                (value: Core.OffOn) => { this.setOptionAnimation(value); }))
+                (value: Core.OffOn) => this.setOptionAnimation(value)));
             this.parameters.set(
                 new Automation.Parameter<Luckygames.ThemeMode>("Theme", 
                 () => this.valueOptionTheme,
-                (value: Luckygames.ThemeMode) => { this.setOptionTheme(value); }))
+                (value: Luckygames.ThemeMode) => this.setOptionTheme(value)));
         }
 
         /**

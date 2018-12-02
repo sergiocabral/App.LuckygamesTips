@@ -137,6 +137,7 @@ namespace Skript.Part.System.LogViewer.Component {
             this.icon = "far fa-list-alt";
 
             this.elContainer = React.createRef();
+            this.elLogLevels = React.createRef();
 
             this.onLogLevelsChange = this.onLogLevelsChange.bind(this);
             this.onClearLogClick = this.onClearLogClick.bind(this);            
@@ -151,6 +152,12 @@ namespace Skript.Part.System.LogViewer.Component {
          * @type {React.RefObject<HTMLDivElement>}
          */
         private elContainer: React.RefObject<HTMLDivElement>;
+        
+        /**
+         * Níveis de log.
+         * @type {React.RefObject<LogLevels>}
+         */
+        private elLogLevels: React.RefObject<LogLevels>;        
         
         /**
          * Lista de mensagens de log.
@@ -189,13 +196,36 @@ namespace Skript.Part.System.LogViewer.Component {
         private uncheckeds: Core.Log.Level[] = [];
 
         /**
-         * Ao trocar a seleção.
-         * @param {Core.Log.Level} level Valor acionado.
-         * @param {boolean} checked Novo estado do valor acionado.
+         * REtorna e/ou define os niveis de log selecionados.
+         * @param check Opcional. Opções para marcar.
+         * @returns {Core.Log.Level[]} Niveis atualmente marcados.
          */
-        private onLogLevelsChange(level: Core.Log.Level, checked: boolean): void {
-            if (checked && this.uncheckeds.indexOf(level) >= 0) this.uncheckeds.splice(this.uncheckeds.indexOf(level), 1);
-            else if (!checked && this.uncheckeds.indexOf(level) < 0) this.uncheckeds.push(level);
+        public levels(check?: Core.Log.Level[]): Core.Log.Level[] {
+            if (!this.elLogLevels.current) return [];
+            return this.elLogLevels.current.levels(check);
+        }
+
+        /**
+         * Rwgistra os parâmetros deste componenete.
+         */
+        private registerParameters(): any {
+            if (!this.title) return;
+            this.parameters = Automation.Parameters.getInstance(this.title);            
+            
+            this.parameters.set(
+                new Automation.Parameter<Core.Log.Level[]>("Levels", 
+                () => this.levels(),
+                (value: Core.Log.Level[]) => this.levels(value)));
+        }
+
+        /**
+         * Ao trocar a seleção.
+         * @param {Core.Log.Level[]} checkeds Valores atualmente selecionados.
+         * @param {Core.Log.Level[]} uncheckeds Valores atualmente não selecionados.
+         */
+        private onLogLevelsChange(checkeds: Core.Log.Level[], uncheckeds: Core.Log.Level[]): void {
+            checkeds;
+            this.uncheckeds = uncheckeds.slice();
             this.update();
         }
 
@@ -223,7 +253,7 @@ namespace Skript.Part.System.LogViewer.Component {
                 <div id={this.id()} className={this.className()} ref={this.elContainer}>
                     <div className="controls">
                         <div>
-                            <LogLevels className="levels" onChange={this.onLogLevelsChange}></LogLevels>
+                            <LogLevels className="levels" ref={this.elLogLevels} onChange={this.onLogLevelsChange}></LogLevels>
                             <button className="button" onClick={this.onClearLogClick}>{this.translate("Clear log")}</button>
                             <div className="spacing"></div>
                         </div>
@@ -241,6 +271,13 @@ namespace Skript.Part.System.LogViewer.Component {
                     </div>
                 </div>
             );
+        }
+
+        /**
+         * Quando o componente é montado.
+         */
+        public componentDidMount(): void {
+            this.registerParameters();
         }
     }
 }
