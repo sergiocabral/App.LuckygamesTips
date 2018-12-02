@@ -66,6 +66,14 @@
                 "Mensagem {0} despachada e processada por {1}x: {2}" 
             },
             { 
+                "Stop trigger here. Ignored:":
+                "Solicitação de parada aqui. Ignorados:" 
+            },
+            { 
+                "none":
+                "nenhum" 
+            },
+            { 
                 "Notifier {0} triggered.":
                 "Notificador {0} disparado."
             },

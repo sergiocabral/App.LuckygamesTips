@@ -40,6 +40,8 @@ namespace Skript.Core {
                         })
                         .catch(() => skript.log.post("Oops! An internet connection failed. Try again.", null, Log.Level.Error));
                 });
+
+            window.addEventListener("keyup", this.onKey);
         }
 
         /**
@@ -59,6 +61,19 @@ namespace Skript.Core {
                 log: skript.log
             };
             return tools;
+        }
+
+        /**
+         * Captura eventos de tecla para implementar teclas de atalho.
+         * @param {KeyboardEvent} evt Informações o evento.
+         */
+        private onKey(evt: KeyboardEvent): void {
+            switch(evt.keyCode) {
+                // Liste aqui as teclas de atalhos autorizadas.
+                case 27: //ESC
+                    new Message.ShortcutKey(evt).sendAsync();
+                    break;
+            }
         }
     }
 }

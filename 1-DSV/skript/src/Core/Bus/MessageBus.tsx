@@ -46,10 +46,11 @@ namespace Skript.Core.Bus {
          * @returns {Message} A própria mensagem enviada.
          */
         public static sendSync<T extends Message>(message: T): T {
+            let stop = false;
             let handles = "";
             message.handled = 0;
             const messageToSend = message.constructor.name;
-            for (let i = 0; i < MessageBus.list.length; i++) {                
+            for (let i = 0; i < MessageBus.list.length; i++) {
                 if (!MessageBus.list[i]) continue;
                 if (MessageBus.list[i].disposed) {                     
                     skript.log.post("A MessageHandler {0} was disposed.", MessageBus.list[i].constructor.name, Log.Level.DebugBus, undefined, message.skipLogMessagePosted);
@@ -61,13 +62,23 @@ namespace Skript.Core.Bus {
                                 j < MessageBus.list[i].handlers.length; j++) {
                     const messageOfHandler = MessageBus.list[i].handlers[j].message;                    
                     if (messageOfHandler === messageToSend) {
-                        const handler = MessageBus.list[i].handlers[j].handler.bind(MessageBus.list[i].sponsor);                        
-                        handler(message);
-                        message.handled++;                        
-                        handles += (handles ? ", " : "") + MessageBus.list[i].constructor.name;
+                        if (!stop) {
+                            const handler = MessageBus.list[i].handlers[j].handler.bind(MessageBus.list[i].sponsor);
+                            stop = handler(message) === false;
+                            message.handled++;                        
+                            handles += (handles ? ", " : "") + MessageBus.list[i].constructor.name;
+
+                            if (stop) {
+                                handles += " - " + skript.translate.get("Stop trigger here. Ignored:");
+                            }
+                        } else {
+                            handles += " " + MessageBus.list[i].constructor.name + ",";
+                        }
                     }
                 }
             }
+            if (handles.substr(-1) === ":") handles += " 0";
+            else if (handles.substr(-1) === ",") handles = handles.substr(0, handles.length - 1);
             skript.log.post("Message {0} dispatched and processed by {1}x: {2}", [message.constructor.name, message.handled, handles], Log.Level.DebugBus, undefined, message.skipLogMessagePosted);
             return message;
         }

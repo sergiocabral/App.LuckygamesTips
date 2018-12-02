@@ -64,6 +64,9 @@
 /// <reference path="Layout/ReactJs/Component/LanguageSelect.tsx" />
 /// context: react
 
+/// <reference path="Layout/ReactJs/Component/DialogBus.tsx" />
+/// context: react
+
 /// <reference path="Layout/ReactJs/Component/Dialog.tsx" />
 /// context: react
 
@@ -85,6 +88,9 @@
 /// context: Initialize
 
 /// <reference path="Core/Message/RegisterPart.tsx" />
+/// context: Initialize
+
+/// <reference path="Core/Message/ShortcutKey.tsx" />
 /// context: Initialize
 
 /// <reference path="Core/Message/LogMessagePosted.tsx" />

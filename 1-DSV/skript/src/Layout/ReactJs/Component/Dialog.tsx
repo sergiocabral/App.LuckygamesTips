@@ -68,7 +68,7 @@ namespace Skript.Layout.ReactJs.Component {
      * Janela base que contem outros componentes.
      */
     export class Dialog extends ComponentBase<DialogProps, Partial<DialogState>> {
-
+        
         private defaults: Core.Size = { 
             width: 500,
             height: 250
@@ -175,6 +175,8 @@ namespace Skript.Layout.ReactJs.Component {
             this.elResize = React.createRef();
 
             this.close = this.close.bind(this);
+
+            this.myMessageBus.push(new DialogBus(this));
         }
         
         /**
@@ -237,7 +239,7 @@ namespace Skript.Layout.ReactJs.Component {
             switch (this.props.closeMode) {
                 case DialogCloseMode.Hide:
                     this.visible(false);
-                    setTimeout(() => { if (!this.visible()) this.bring(Util.BringTo.Back); }, 1000);
+                    setTimeout(() => { if (!this.visible()) this.bring(Util.BringTo.Back); }, 100);
                     break;
                 case DialogCloseMode.Remove:
                     this.visible(false);
@@ -297,6 +299,23 @@ namespace Skript.Layout.ReactJs.Component {
         public bring(to: Util.BringTo = Util.BringTo.Front): Dialog {
             Util.DOM.bring((this.elContainer.current as HTMLElement).parentElement as HTMLElement, to);
             return this;
+        }
+        
+        /**
+         * Processa teclas de atalho.
+         * @param {KeyboardEvent} evt Informações sobre o evento;
+         * @returns {boolean} Retorna true se foi processado.
+         */
+        public shortcut(evt: KeyboardEvent): boolean {
+            if (evt.keyCode === 27 && 
+                this.elContainer.current &&
+                this.elContainer.current.parentElement &&
+                this.visible() &&
+                Util.DOM.isBring(this.elContainer.current.parentElement, Util.BringTo.Front)) {
+                    this.close();
+                    return true;
+            }
+            return false;                
         }
 
         /**
