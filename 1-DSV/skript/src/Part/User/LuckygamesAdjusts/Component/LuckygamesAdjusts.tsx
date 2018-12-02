@@ -129,21 +129,46 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
          * Rwgistra os parâmetros deste componenete.
          */
         private registerParameters(): any {
-            if (!this.title) return;
-            this.parameters = Automation.Parameters.getInstance(this.title);            
-            
-            this.parameters.set(
-                new Automation.Parameter<Luckygames.WebSocketMode>("Data updates", 
-                () => this.valueOptionWebsocket,
-                (value: Luckygames.WebSocketMode) => this.setOptionWebsocket(value)));
-            this.parameters.set(
-                new Automation.Parameter<Core.OffOn>("Animations", 
-                () => this.valueOptionAnimation,
-                (value: Core.OffOn) => this.setOptionAnimation(value)));
-            this.parameters.set(
-                new Automation.Parameter<Luckygames.ThemeMode>("Theme", 
-                () => this.valueOptionTheme,
-                (value: Luckygames.ThemeMode) => this.setOptionTheme(value)));
+            this.parameters = !this.title ? undefined : Automation.Parameters.getInstance(
+                this.title,
+                [
+                    new Automation.Parameter<Luckygames.WebSocketMode>("Data updates", 
+                        () => this.valueOptionWebsocket,
+                        (value: Luckygames.WebSocketMode) => this.onAdjustChange({
+                            key: "websocket",
+                            value: [
+                                { 
+                                    key: Luckygames.WebSocketMode[value], 
+                                    value: this.translate(Luckygames.WebSocketMode[value]),
+                                    state: true
+                                }
+                            ]
+                        })),
+                    new Automation.Parameter<Core.OffOn>("Animations", 
+                        () => this.valueOptionAnimation,
+                        (value: Core.OffOn) => this.onAdjustChange({
+                            key: "animation",
+                            value: [
+                                { 
+                                    key: Core.OffOn[value], 
+                                    value: this.translate(Core.OffOn[value]),
+                                    state: true
+                                }
+                            ]
+                        })),
+                    new Automation.Parameter<Luckygames.ThemeMode>("Theme", 
+                        () => this.valueOptionTheme,
+                        (value: Luckygames.ThemeMode) => this.onAdjustChange({
+                            key: "theme",
+                            value: [
+                                { 
+                                    key: Luckygames.ThemeMode[value], 
+                                    value: this.translate(Luckygames.ThemeMode[value]),
+                                    state: true
+                                }
+                            ]
+                        }))
+                ]);
         }
 
         /**

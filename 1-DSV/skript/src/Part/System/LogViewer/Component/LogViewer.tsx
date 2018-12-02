@@ -209,13 +209,13 @@ namespace Skript.Part.System.LogViewer.Component {
          * Rwgistra os parâmetros deste componenete.
          */
         private registerParameters(): any {
-            if (!this.title) return;
-            this.parameters = Automation.Parameters.getInstance(this.title);            
-            
-            this.parameters.set(
-                new Automation.Parameter<Core.Log.Level[]>("Levels", 
-                () => this.levels(),
-                (value: Core.Log.Level[]) => this.levels(value)));
+            this.parameters = !this.title ? undefined : Automation.Parameters.getInstance(
+                this.title,
+                [
+                    new Automation.Parameter<Core.Log.Level[]>("Levels", 
+                        () => this.levels(),
+                        (value: Core.Log.Level[]) => this.levels(value))
+                ]);
         }
 
         /**

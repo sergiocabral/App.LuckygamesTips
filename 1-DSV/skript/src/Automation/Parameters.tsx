@@ -14,10 +14,16 @@ namespace Skript.Automation {
          * Retorna uma instância para o conjunto prâmetro solicitado.
          * Só deve haver uma instância para cada nome.
          * @param {string} name Nome do conjunto
+         * @param {Parameter<any>[]} parameters Opcional. Parâmetros.
          * @returns {Parameters} Instância
          */
-        public static getInstance(name: string): Parameters {
+        public static getInstance(name: string, parameters?: Parameter<any>[]): Parameters {
             if (!Parameters.instances[name]) Parameters.instances[name] = new Parameters(name);
+
+            if (Array.isArray(parameters))
+                for (let i = 0; i < parameters.length; i++)
+                    Parameters.instances[name].set(parameters[i]);
+
             return Parameters.instances[name];
         }
 
