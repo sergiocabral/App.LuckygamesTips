@@ -173,7 +173,7 @@ namespace Skript.Layout.ReactJs.Component {
          * Quando o botão é pressionado.
          */
         private onDialogClick() {                        
-            this.dialog(!this.dialog());
+            this.dialog(true);
         }
 
         /**
@@ -268,13 +268,17 @@ namespace Skript.Layout.ReactJs.Component {
                     this.getOrCreateDialog().close();
                     this.moveContentToDialog(false);
                     this.content(false);
-                } else if (mode && !state) {                    
-                    setTimeout(() => {
-                        const dialog = this.getOrCreateDialog();
-                        this.moveContentToDialog(true);
-                        setTimeout(() => dialog.open().bring(), 1); //setTimeout para fazer a transição CSS.
-                    }, this.content() ? this.intervalAnimation : 0);
-                    this.content(false);
+                } else if (mode) {
+                    const dialog = this.getOrCreateDialog();
+                    if (!state) {
+                        setTimeout(() => {                            
+                            this.moveContentToDialog(true);
+                            setTimeout(() => dialog.open().bring(), 1); //setTimeout para fazer a transição CSS.
+                        }, this.content() ? this.intervalAnimation : 0);
+                        this.content(false);
+                    } else {
+                        dialog.bring();
+                    }
                 }
                 state = mode;
             }
@@ -315,7 +319,7 @@ namespace Skript.Layout.ReactJs.Component {
                 <div id={this.id()} className={this.className()}>
                     <div className="title" style={ { display: this.props.title ? "inherit" : "none" } }>
                         <span 
-                            title={this.translate("Toggle the view as a window.")}
+                            title={this.translate("Open as window.")}
                             className="anchor showDialog no-underline dialog-action" 
                             style={ { display: this.props.dialog ? "inherit" : "none" } } 
                             onClick={this.props.dialog ? this.onDialogClick : undefined}>

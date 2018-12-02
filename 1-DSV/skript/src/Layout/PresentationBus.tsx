@@ -30,7 +30,7 @@ namespace Skript.Layout {
             {                
                 message: Message.MainDialogToggle.name,
                 handler: () => {
-                    skript.presentation.mainDialogVisible(!skript.presentation.mainDialogVisible());                    
+                    skript.presentation.mainDialogToggle();
                 }
             },
             {

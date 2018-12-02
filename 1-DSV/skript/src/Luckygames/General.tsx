@@ -12,8 +12,8 @@ namespace Skript.Luckygames {
         public static language(): string {
             const active = document.querySelector("a.tooltipstered.active") as HTMLAnchorElement;
             if (active && active.href) {
-                const matches = /(?<=lang\=)[a-z]*(?=($|[^a-z]))/i.exec(active.href);
-                if (matches && matches.length) return matches[0];
+                const matches = /lang=[a-z]*/i.exec(active.href);
+                if (matches && matches.length) return matches[0].replace("lang=", "");
             }
             return "";
         }

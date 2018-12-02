@@ -94,11 +94,17 @@ namespace Skript.Layout.ReactJs.Component {
             ${this.selector()} > .header {
                 background-color: ${this.theme.dialogTitleBackgroundColor};
                 border-bottom: 1px solid ${Util.Drawing.blend(0.5, this.theme.dialogTitleTextColor)};
-                border-radius: 7px 7px 0 0;
-                padding: 9px 0 8px 0;
+                border-radius: 7px 7px 0 0;                
                 cursor: pointer;
                 position: relative;
                 text-shadow: 0 0 5px ${Util.Drawing.blend(0.9, this.theme.dialogTitleBackgroundColor)};
+            }
+            ${this.selector()} > .header > div {
+                padding: 9px 0 8px 0;
+            }
+            .${this.classNameBase} > *:last-child > .${this.myClassName} > .header > div {
+                
+                background-image: linear-gradient(rgba(${Util.Drawing.rgb(this.theme.colors.primary)},0.25), transparent);
             }
             ${this.selector()} > .header h1 {
                 color: ${this.theme.dialogTitleTextColor};
@@ -108,7 +114,7 @@ namespace Skript.Layout.ReactJs.Component {
                 font-size: 18px;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                width: 85%;
+                width: calc(100% - 110px);
             }
             ${this.selector()} > .header .graph {
                 color: ${this.theme.dialogTitleTextColor};
@@ -117,17 +123,23 @@ namespace Skript.Layout.ReactJs.Component {
                 margin: -4px 9px 0 11px;
                 opacity: 1;
             }
-            ${this.selector()} > .header a.close {
+            ${this.selector()} > .header a.dialog-action {
                 color: ${Util.Drawing.blend(0.10, this.theme.dialogTitleTextColor)};
-                position: absolute;
-                right: 13px;
-                top: 10px;
                 font-size: 13px;
                 border-bottom: none;
                 text-transform: none;
+                display: inline-block;
+                margin: 1px 15px 0 3px;
+                float: right;
             }
-            ${this.selector()} > .header a.close:hover {
+            ${this.selector()} > .header a.dialog-action:hover {
                 color: ${Util.Drawing.blend(-0.10, this.theme.dialogTitleTextColor)};
+            }
+            ${this.selector()}.maximized > .header a.maximize {
+                display: none;
+            }
+            ${this.selector()}:not(.maximized) > .header a.restore {
+                display: none;
             }
             ${this.selector()} > .content {
                 background: rgba(255, 255, 255, 0.95);
@@ -150,6 +162,8 @@ namespace Skript.Layout.ReactJs.Component {
                 float: right;
                 width: 20px;
                 height: 10px;
+            }
+            ${this.selector()}:not(.maximized) > .resize div {
                 cursor: nw-resize;
             }
             ${this.selector()} > .header,
@@ -175,6 +189,8 @@ namespace Skript.Layout.ReactJs.Component {
             this.elResize = React.createRef();
 
             this.close = this.close.bind(this);
+            this.maximize = this.maximize.bind(this);
+            this.restore = this.restore.bind(this);
 
             this.myMessageBus.push(new DialogBus(this));
         }
@@ -204,13 +220,10 @@ namespace Skript.Layout.ReactJs.Component {
         private visibility?: Visibility;
 
         /**
-         * Ajusta o título para sempre caber ma barra.
+         * Implementa move e redimensionar o elemento.
+         * @type {MoveAndResize}
          */
-        private adjustTitleWidth(): void {
-            const elContainer = this.elContainer.current as HTMLElement;
-            const elTitle = this.elTitle.current as HTMLElement;
-            elTitle.style.width = (elContainer.clientWidth - 80) + "px";
-        }
+        private moveAndResize?: MoveAndResize;
 
         /**
          * Lista de funções chamadas ao fechar a janela.
@@ -250,6 +263,54 @@ namespace Skript.Layout.ReactJs.Component {
                     break;
             }
             
+            return this;
+        }
+
+        /**
+         * Informações sobre o posicionamento e dimensão da janela antes de maximizar.
+         * @type {Core.SizeAndPosition}
+         */
+        private lastDialogState?: Core.SizeAndPosition;
+
+        /**
+         * Maximiza a janela
+         * @returns {Dialog} Auto referência.
+         */
+        public maximize(): Dialog {
+            if (!this.moveAndResize || !this.elContainer.current) return this;
+            this.lastDialogState = {
+                position: {
+                    x: this.elContainer.current.offsetLeft,
+                    y: this.elContainer.current.offsetTop
+                },
+                size: {
+                    width: this.elContainer.current.offsetWidth,
+                    height: this.elContainer.current.offsetHeight
+                }
+            };
+            this.elContainer.current.style.left = `${this.theme.spacing * 2}px`;
+            this.elContainer.current.style.top = `${this.theme.spacing * 2}px`;
+            this.elContainer.current.style.width = `${window.innerWidth - this.theme.spacing * 5}px`;
+            this.elContainer.current.style.height = `${window.innerHeight - this.theme.spacing * 5}px`;
+            this.elContainer.current.classList.add("maximized");
+            this.moveAndResize.ignoreMove = true;
+            this.moveAndResize.ignoreResize = true;
+            return this;
+        }
+
+        /**
+         * Maximiza a janela
+         * @returns {Dialog} Auto referência.
+         */
+        public restore(): Dialog {
+            if (!this.moveAndResize || !this.elContainer.current || !this.lastDialogState) return this;
+            this.elContainer.current.style.left = `${this.lastDialogState.position.x}px`;
+            this.elContainer.current.style.top = `${this.lastDialogState.position.y}px`;
+            this.elContainer.current.style.width = `${this.lastDialogState.size.width}px`;
+            this.elContainer.current.style.height = `${this.lastDialogState.size.height}px`;
+            this.elContainer.current.classList.remove("maximized");
+            this.moveAndResize.ignoreMove = false;
+            this.moveAndResize.ignoreResize = false;
             return this;
         }
 
@@ -300,6 +361,14 @@ namespace Skript.Layout.ReactJs.Component {
             Util.DOM.bring((this.elContainer.current as HTMLElement).parentElement as HTMLElement, to);
             return this;
         }
+
+        /**
+         * Determina se a janela está ativa em primeiro plano.
+         * @returns {boolean} true para ativa.
+         */
+        public active(): boolean {
+            return Util.DOM.isBring((this.elContainer.current as HTMLElement).parentElement as HTMLElement, Util.BringTo.Front);
+        }
         
         /**
          * Processa teclas de atalho.
@@ -326,9 +395,13 @@ namespace Skript.Layout.ReactJs.Component {
             return (
                 <div id={this.id()} className={this.className()} ref={this.elContainer}>
                     <div className="header">
-                        <span className="graph"><i className={this.props.icon ? this.props.icon : "fas fa-cog"}></i></span>
-                        <h1 ref={this.elTitle}>{this.props.title}</h1>
-                        <a href="#" className="close dialog-action" onClick={this.close}><i className="fas fa-times"></i></a>
+                        <div>
+                            <span className="graph"><i className={this.props.icon ? this.props.icon : "fas fa-cog"}></i></span>
+                            <a href="#" className="close dialog-action" onClick={this.close} title={this.translate("Close this window.")}><i className="fas fa-times"></i></a>
+                            <a href="#" className="maximize dialog-action" onClick={this.maximize} title={this.translate("Maximize this window.")}><i className="fas fa-expand"></i></a>
+                            <a href="#" className="restore dialog-action" onClick={this.restore} title={this.translate("Restore size of this window.")}><i className="fas fa-compress"></i></a>
+                            <h1 ref={this.elTitle}>{this.props.title}</h1>
+                        </div>
                     </div>
                     <div className="content">
                         {(this.state.children as React.ReactNode[]).map(child => !child ? "" : <div key={Util.String.random()}>{child}</div>)}
@@ -342,15 +415,13 @@ namespace Skript.Layout.ReactJs.Component {
          * Quando o componente é montado.
          */
         public componentDidMount(): void {
-            new MoveAndResize({ 
+            this.moveAndResize = new MoveAndResize({ 
                 owner: this,
                 elContainer: this.elContainer.current as HTMLElement,
                 elMove: [this.elTitle.current as HTMLElement],
                 elResize: [this.elResize.current as HTMLElement],
-                onResize: this.onResize,
                 ignoreEventClick: this.ignoreEventClick
             });
-            setTimeout(() => this.adjustTitleWidth(), 1);
 
             this.visibility = new Visibility({ element: this.elContainer.current as HTMLElement });
 
@@ -380,11 +451,5 @@ namespace Skript.Layout.ReactJs.Component {
             return evt.target.className === "close" || (evt.target.parentElement && evt.target.parentElement.className === "close");
         }
 
-        /**
-         * Quando o componente é redimensionado.
-         */
-        private onResize() {
-            this.adjustTitleWidth();
-        }
     }
 }

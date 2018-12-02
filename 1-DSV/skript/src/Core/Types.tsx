@@ -37,6 +37,24 @@ namespace Skript.Core {
     }
 
     /**
+     * Dimensão e Posicionamento
+     */
+    export type SizeAndPosition = { 
+
+        /**
+         * Dimensão
+         * @type {Size}
+         */
+        size: Size,
+
+        /**
+         * Posicionamento.
+         * @type {Position}
+         */
+        position: Position
+    }
+
+    /**
      * Estado de aberto e fechado.
      */
     export enum CloseOpen {

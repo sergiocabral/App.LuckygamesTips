@@ -97,6 +97,15 @@ namespace Skript.Layout {
         }
 
         /**
+         * Muda o estado de exibição da janela principal.
+         */
+        public mainDialogToggle(): void {
+            if (!this.mainDialog.visible()) this.mainDialog.visible(true);
+            else if (!this.mainDialog.active()) this.mainDialog.bring();
+            else this.mainDialog.visible(false);
+        }
+        
+        /**
          * Cria uma janela de di[alogo.]
          * @param {ReactJs.Component.DialogProps} config Configuração inicial.
          * @param {any} children Conteúdo da janela.
