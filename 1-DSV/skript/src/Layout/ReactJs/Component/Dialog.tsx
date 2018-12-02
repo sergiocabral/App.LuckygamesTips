@@ -104,7 +104,7 @@ namespace Skript.Layout.ReactJs.Component {
             }
             .${this.classNameBase} > *:last-child > .${this.myClassName} > .header > div {
                 
-                background-image: linear-gradient(rgba(${Util.Drawing.rgb(this.theme.colors.primary)},0.25), transparent);
+                background-image: linear-gradient(rgba(${Util.Drawing.rgb(this.theme.colors.primary)},0.2), transparent);
             }
             ${this.selector()} > .header h1 {
                 color: ${this.theme.dialogTitleTextColor};
@@ -169,7 +169,7 @@ namespace Skript.Layout.ReactJs.Component {
             ${this.selector()} > .header,
             ${this.selector()} > .resize {
                 opacity: 0.9;
-                background-image: url("https://dsv.luckygames.tips/media/dialog-background.jpg");
+                background-image: url("https://dsv.luckygames.tips/media/dialog-background.png");
                 background-size: cover;
                 background-position: 0 0;
             }
