@@ -136,12 +136,12 @@ namespace Skript.Layout.ReactJs {
          * @returns {Action} Ação determinada.
          */
         private static determineAction(instance: MoveAndResize, targets: Element[]): Action {
-            for (const j in instance.configuration.elResize) {
+            if (!instance.ignoreResize) for (const j in instance.configuration.elResize) {
                 if (targets.indexOf(instance.configuration.elResize[j]) >= 0) {
                     return Action.Resize;
                 }
             }
-            for (const j in instance.configuration.elMove) {
+            if (!instance.ignoreMove) for (const j in instance.configuration.elMove) {
                 if (targets.indexOf(instance.configuration.elMove[j]) >= 0) {
                     return Action.Move;
                 }
@@ -201,6 +201,16 @@ namespace Skript.Layout.ReactJs {
          * @type {Control}
          */
         public control: Control;
+
+        /**
+         * Ingnora movimento.
+         */
+        public ignoreMove: boolean = false;
+
+        /**
+         * Ingnora resize.
+         */
+        public ignoreResize: boolean = false;
 
         /**
          * Registra os handlers dos eventos.
