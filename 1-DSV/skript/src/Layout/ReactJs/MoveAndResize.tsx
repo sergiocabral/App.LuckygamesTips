@@ -16,9 +16,19 @@ namespace Skript.Layout.ReactJs {
         Move, 
 
         /**
+         * Ignorar mover.
+         */
+        IgnoreMove,
+
+        /**
          * Redimensionar elemento.
          */
-        Resize 
+        Resize,
+
+        /**
+         * Ignorar mover.
+         */
+        IgnoreResize
     }
 
     /**
@@ -136,14 +146,14 @@ namespace Skript.Layout.ReactJs {
          * @returns {Action} Ação determinada.
          */
         private static determineAction(instance: MoveAndResize, targets: Element[]): Action {
-            if (!instance.ignoreResize) for (const j in instance.configuration.elResize) {
+            for (const j in instance.configuration.elResize) {
                 if (targets.indexOf(instance.configuration.elResize[j]) >= 0) {
-                    return Action.Resize;
+                    return !instance.ignoreResize ? Action.Resize : Action.IgnoreResize;
                 }
             }
-            if (!instance.ignoreMove) for (const j in instance.configuration.elMove) {
+            for (const j in instance.configuration.elMove) {
                 if (targets.indexOf(instance.configuration.elMove[j]) >= 0) {
-                    return Action.Move;
+                    return !instance.ignoreMove ? Action.Move : Action.IgnoreMove;
                 }
             }
             return Action.None;
