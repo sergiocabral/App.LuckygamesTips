@@ -104,7 +104,7 @@ namespace Skript.Layout.ReactJs.Component {
             }
             .${this.classNameBase} > *:last-child > .${this.myClassName} > .header > div {
                 
-                background-image: linear-gradient(rgba(${Util.Drawing.rgb(this.theme.colors.primary)},0.2), transparent);
+                background-image: linear-gradient(rgba(${Util.Drawing.rgb(this.theme.dialogTitleActiveBackgroundColor)},0.2), transparent);
             }
             ${this.selector()} > .header h1 {
                 color: ${this.theme.dialogTitleTextColor};
@@ -321,7 +321,13 @@ namespace Skript.Layout.ReactJs.Component {
          * @returns {boolean} Retorna o estado de exibição da janela.
          */
         public visible(mode?: boolean): boolean {
-            return (this.visibility as Visibility).visible(mode);
+            const visibility = this.visibility as Visibility;
+            const result = visibility.visible(mode);
+            if (mode !== undefined) {
+                if (result) setTimeout(() => this.bring(Util.BringTo.Front), visibility.fade());
+                else setTimeout(() => this.bring(Util.BringTo.Back), visibility.fade());
+            }
+            return result;
         }
         
         /**

@@ -25,6 +25,7 @@ namespace Skript.Layout.Theme {
             this.dialogTextFont = "'Raleway', sans-serif";
             this.dialogTitleTextColor = Util.Drawing.blend(-0.7, colors.secondary);
             this.dialogTitleBackgroundColor = Util.Drawing.blend(0.5, colors.secondary);
+            this.dialogTitleActiveBackgroundColor = colors.primary;
 
             this.generalStylesheet();
         }
@@ -82,6 +83,12 @@ namespace Skript.Layout.Theme {
          * @type {string}
          */
         public dialogTitleBackgroundColor: string;
+
+        /**
+         * Fundo do título das janelas de diálogo quando ativas.
+         * @type {string}
+         */
+        public dialogTitleActiveBackgroundColor: string;        
 
         /**
          * Cores padrão para o tema.
