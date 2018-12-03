@@ -28,7 +28,9 @@ namespace Skript.Core {
 
             this.showWelcomeMessageInConsole();
 
-            this.loadReferences(configuration.debug).then(() => {
+            if (configuration.debug === undefined) configuration.debug = Infrastructure.name === "Infrastructure";
+
+            this.loadReferences(!!configuration.debug).then(() => {
                 skript.api.loadScript([Api.ScriptContext.React]).then(() => {
 
                     const data: Api.Data[] = [

@@ -12,10 +12,10 @@ namespace Skript.Core {
         name: string
 
         /**
-         * Indica se a execução está em modo DEBUG.
+         * Indica se a execução está em modo DEBUG. Se não informado determinar automaticamente.
          * @type {boolean}
          */
-        debug: boolean,
+        debug?: boolean,
 
         /**
          * Indica se deve ou não exibir a mensagem de boas vindas ao usuário.

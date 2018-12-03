@@ -160,7 +160,7 @@ namespace Skript.Layout.ReactJs {
         /**
          * Determina se o sistema está em modo debug.
          */
-        protected debug: () => boolean = () => skript.configuration.debug;
+        protected debug: () => boolean = () => !!skript.configuration.debug;
 
         /**
          * Definir instâncias de Bus aqui para serem liberadas quando o componente for desmontado.
