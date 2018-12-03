@@ -51,6 +51,9 @@
 /// <reference path="Layout/ReactJs/Component/Switch.tsx" />
 /// context: react
 
+/// <reference path="Layout/ReactJs/Component/Select.tsx" />
+/// context: react
+
 /// <reference path="Layout/ReactJs/Component/HeaderContainer.tsx" />
 /// context: react
 

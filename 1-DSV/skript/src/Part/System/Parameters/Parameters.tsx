@@ -84,6 +84,13 @@ namespace Skript.Part.System.MainHeader {
             return (
                 <div id={this.id()} className={this.className()}>
                     <div className="json"><div id={this.idAceEditorJson} ref={this.elAceEditorJson}></div></div>
+                    <div>teste</div>
+                    <Layout.ReactJs.Component.Select values={[
+                        { key: "valor1", value: "Opção 1" },
+                        { key: "valor2", value: "Opção 2" },
+                        { key: "valor3", value: "Opção 3", state: true },
+                        { key: "valor4", value: "Opção 4" }
+                    ]} />
                 </div>
             );
         }
