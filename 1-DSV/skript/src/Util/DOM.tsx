@@ -208,7 +208,7 @@ namespace Skript.Util {
                 if (configuration.text) html += "<p>" + configuration.text.replaceAll("\n", "</p><p>") + "</p>";
                 html += "<div>";
                 for (let i = 0; i < configuration.buttons.length; i++) {
-                    html += `<button data-index="${i}" class="button${configuration.buttons[i].className ? " " + configuration.buttons[i].className : ""}">`;
+                    html += `<button data-index="${i}" class="button${configuration.buttons[i].className ? " " + configuration.buttons[i].className : ""}${configuration.buttons[i].focus ? " focus" : ""}">`;
                     if (configuration.buttons[i].icon) html += `<i class="${configuration.buttons[i].icon}"></i>`;
                     if (configuration.buttons[i].name) html += `<span>${configuration.buttons[i].name}</span>`;
                     if (!configuration.buttons[i].icon && configuration.buttons[i].name) html += `<i class="fas fa-check-circle"></i>`;
@@ -224,6 +224,12 @@ namespace Skript.Util {
 
                 containerParent.append(container);
 
+                setTimeout(() => {
+                    let toFocus = document.querySelector(`${selector}#${container.id} button.focus`) as HTMLButtonElement;
+                    if (!toFocus) toFocus = document.querySelector(`${selector}#${container.id} button[data-index="0"]`) as HTMLButtonElement;
+                    if (toFocus) toFocus.focus();
+                }, 1);
+
                 const buttons = document.querySelectorAll(`${selector}#${container.id} button[data-index]`);
                 
                 /**
@@ -231,7 +237,7 @@ namespace Skript.Util {
                  * @param {KeyboardEvent} evt Informações sobre o evento.
                  */
                 const key = (evt: KeyboardEvent): void => {
-                    console.log(evt);
+                    if (!this.isBring(container, BringTo.Front)) return;
                     if (evt.keyCode === 27) (buttons[0] as HTMLButtonElement).click();
                 }
 

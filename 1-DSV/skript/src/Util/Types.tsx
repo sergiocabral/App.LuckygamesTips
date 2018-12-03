@@ -64,6 +64,12 @@ namespace Skript.Util {
         className?: string,
 
         /**
+         * Indica se o botão deve receber foco.
+         * @type {boolean}
+         */
+        focus?: boolean,
+
+        /**
          * Qualquer dado associado.
          * @type {T}
          */
