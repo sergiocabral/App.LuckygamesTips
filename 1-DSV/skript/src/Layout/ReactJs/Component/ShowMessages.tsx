@@ -120,7 +120,7 @@ namespace Skript.Layout.ReactJs.Component {
          */
         public post(message: Core.Log.Message): void {
             const messageWrapper: MessageWrapper = {
-                id: Util.String.random(),
+                id: Util.Text.random(),
                 message: message                
             }
             messageWrapper.idTimeoutRemove = setTimeout(() => this.remove(messageWrapper.id), 5000);

@@ -6,22 +6,6 @@ namespace Skript.Util {
     declare const skript: Core.All;
 
     /**
-     * Opções para move um elemento.
-     */
-    export enum BringTo {
-
-        /**
-         * Enviar para o fim do DOM e para cima dos outros elementos.
-         */
-        Front,
-
-        /**
-         * Enviar para o início do DOM e para baixo dos outros elementos.
-         */
-        Back
-    }
-
-    /**
      * Utilitários para manipulação do DOM.
      */
     export class DOM {
@@ -136,6 +120,137 @@ namespace Skript.Util {
             } else if ((document as any).selection) {  // IE?
                 (document as any).selection.empty();
             }
+        }
+
+        /**
+         * Class css para janela de prompt ao usuário da função dialog()
+         * @type {string}
+         */
+        private static dialogClassName: string = Text.random();
+
+        /**
+         * Exibe uma janela de mensagem ao usuário.
+         * @param {string|DialogProps} configuration Texto de exibição ou informações de configuração.
+         * @returns {Promise<DialogButton>} Quando a mensagem é fechada retorna o nome do botão acionado.
+         */
+        public static dialog(info: string|DialogProps): Promise<DialogButton> {
+            const containerParent = document.querySelector("." + Layout.Presentation.className);
+
+            if (!containerParent) throw new Core.Errors.EnvironmentNotReady(`document.querySelector(".${Layout.Presentation.className}") is null`);
+
+            const className = DOM.dialogClassName;
+            const selector = `.${Layout.Presentation.className} > .${className}`;
+            DOM.stylesheetCode(`
+                ${selector} {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                    background-color: rgba(0,0,0,0.5);
+                    z-index: ${skript.presentation.theme.zIndex * 10};
+                }
+                ${selector} .prompt {
+                    z-index: ${skript.presentation.theme.zIndex * 10 + 1};
+                    position: relative;
+                    top: 50%;
+                    margin: auto;
+                    width: 80%;
+                    max-width: 400px;
+                    transform: translateY(-50%);
+                    background-color: white;
+                    border-radius: 5px;
+                    box-shadow: 0 0 50px rgba(255,255,255,0.25), 0 0 10px black;
+                }
+                ${selector} .prompt > h1 {
+                    color: ${Util.Drawing.blend(0.2, skript.presentation.theme.generalTextColor)};
+                    padding: 10px;
+                    border-bottom: 1px solid #e0e0e0;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+                ${selector} .prompt > p {
+                    padding: 10px 10px 0 10px;
+                    font-size: 18px;
+                }
+                ${selector} .prompt > div {
+                    text-align: right;
+                    padding: 10px;
+                }
+                ${selector} .prompt > div > .button {
+                    font-size: 15px;
+                    text-transform: uppercase;
+                    padding: 5px 10px;
+                    margin-left: 10px;
+                }
+                ${selector} .prompt > div > .button > span {
+                    margin-left: 5px;
+                }
+            `);            
+
+            return new Promise(resolve => {
+                const configuration: DialogProps = typeof(info) !== "string" ? info : { text: info };
+                configuration.buttons = configuration.buttons && configuration.buttons.length ? configuration.buttons : [{}];
+                configuration.buttons.map(v => {
+                    v.name = v.name ? v.name : "";
+                    v.icon = v.icon ? v.icon : "far fa-check-circle";
+                    v.className = v.className ? v.className : "";
+                });
+                
+                let html;
+
+                const dialog = document.createElement("DIV") as HTMLDivElement;
+                dialog.id = Text.random();
+                dialog.className = "prompt";
+                html = "";
+                if (configuration.title) html += `<h1>${configuration.title}</h1>`;
+                if (configuration.text) html += "<p>" + configuration.text.replaceAll("\n", "</p><p>") + "</p>";
+                html += "<div>";
+                for (let i = 0; i < configuration.buttons.length; i++) {
+                    html += `<button data-index="${i}" class="button${configuration.buttons[i].className ? " " + configuration.buttons[i].className : ""}">`;
+                    if (configuration.buttons[i].icon) html += `<i class="${configuration.buttons[i].icon}"></i>`;
+                    if (configuration.buttons[i].name) html += `<span>${configuration.buttons[i].name}</span>`;
+                    if (!configuration.buttons[i].icon && configuration.buttons[i].name) html += `<i class="fas fa-check-circle"></i>`;
+                    html += "</button>";
+                }
+                html += "</div>";
+                dialog.innerHTML = html;
+
+                const container = document.createElement("DIV") as HTMLDivElement;
+                container.id = Text.random();
+                container.className = className;
+                container.append(dialog);
+
+                containerParent.append(container);
+
+                const buttons = document.querySelectorAll(`${selector}#${container.id} button[data-index]`);
+                
+                /**
+                 * Capturar tecla de atalho.
+                 * @param {KeyboardEvent} evt Informações sobre o evento.
+                 */
+                const key = (evt: KeyboardEvent): void => {
+                    console.log(evt);
+                    if (evt.keyCode === 27) (buttons[0] as HTMLButtonElement).click();
+                }
+
+                /**
+                 * Clique nos botões da janela.
+                 * @param {MouseEvent} evt Informações sobre o evento.
+                 */
+                const click = (evt: MouseEvent): void => {
+                    let button = evt.target as HTMLElement;
+                    while (!button.hasAttribute("data-index") && button.parentElement) button = button.parentElement;
+                    const index = parseInt(button.getAttribute("data-index") as string);
+                    container.remove();
+                    window.removeEventListener("keyup", key as any);
+                    resolve(Number.isFinite(index) && configuration.buttons ? configuration.buttons[index] : undefined);
+                };
+
+                for (let i = 0; i < buttons.length; i++) buttons[i].addEventListener("click", click as any);
+                if (buttons.length === 1) window.addEventListener("keyup", key as any);
+            });
         }
     }
 }

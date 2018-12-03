@@ -42,7 +42,7 @@ namespace Skript.Core.Log {
                 text = text.querystring(values)
             }
             const message: Message = {
-                id: Util.Number.random(),
+                id: Util.Numeric.random(),
                 time: new Date(),
                 level: level,
                 text: text

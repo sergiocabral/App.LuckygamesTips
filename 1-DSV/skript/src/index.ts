@@ -150,22 +150,25 @@
 
 /// #############################################
 
-/// <reference path="Util/DateTime.tsx" />
+/// <reference path="Util/Types.tsx" />
 /// context: Initialize
 
-/// <reference path="Util/DOM.tsx" />
+/// <reference path="Util/Text.tsx" />
+/// context: Initialize
+
+/// <reference path="Util/Numeric.tsx" />
+/// context: Initialize
+
+/// <reference path="Util/DateTime.tsx" />
 /// context: Initialize
 
 /// <reference path="Util/Drawing.tsx" />
 /// context: Initialize
 
+/// <reference path="Util/DOM.tsx" />
+/// context: Initialize
+
 /// <reference path="Util/LoadReferences.tsx" />
-/// context: Initialize
-
-/// <reference path="Util/Number.tsx" />
-/// context: Initialize
-
-/// <reference path="Util/String.tsx" />
 /// context: Initialize
 
 /// #############################################
@@ -309,6 +312,9 @@
 /// context: Initialize
 
 /// <reference path="Core/Errors/InvalidArgument.tsx" />
+/// context: Initialize
+
+/// <reference path="Core/Errors/EnvironmentNotReady.tsx" />
 /// context: Initialize
 
 /// #############################################

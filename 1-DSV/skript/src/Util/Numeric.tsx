@@ -3,7 +3,7 @@ namespace Skript.Util {
     /**
      * Utilitários para manipulação de números.
      */
-    export class Number {
+    export class Numeric {
 
         /**
          * Retorna um valor randômico 
@@ -34,18 +34,18 @@ namespace Skript.Util {
          * @returns {string} Número formatado como texto.
          */
         public static format(value: number, config: any): string {
-            const configuration = Object.assign({ }, Number.defaultNumberFormat, config) as Locale.Format.Number;
+            const configuration = Object.assign({ }, Numeric.defaultNumberFormat, config) as Locale.Format.Number;
     
             if (typeof(configuration.digits) !== 'number' || configuration.digits < 0) 
-                configuration.digits = Number.defaultNumberFormat.digits;
+                configuration.digits = Numeric.defaultNumberFormat.digits;
             if (typeof(configuration.decimal) !== 'string' || configuration.decimal.length != 1)
-                configuration.decimal = Number.defaultNumberFormat.decimal; 
+                configuration.decimal = Numeric.defaultNumberFormat.decimal; 
             if (typeof(configuration.showPositive) !== 'boolean') 
-                configuration.showPositive = Number.defaultNumberFormat.showPositive; 
+                configuration.showPositive = Numeric.defaultNumberFormat.showPositive; 
             if (typeof(configuration.prefix) !== 'string') 
-                configuration.prefix = Number.defaultNumberFormat.prefix; 
+                configuration.prefix = Numeric.defaultNumberFormat.prefix; 
             if (typeof(configuration.sufix) !== 'string') 
-                configuration.sufix = Number.defaultNumberFormat.sufix; 
+                configuration.sufix = Numeric.defaultNumberFormat.sufix; 
 
             let result: string = value.toFixed(configuration.digits);
             if (configuration.decimal !== '.') result = result.replace('.', configuration.decimal);

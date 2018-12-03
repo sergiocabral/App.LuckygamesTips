@@ -138,7 +138,7 @@ namespace Skript.Layout.ReactJs.Component {
          * Marca para Class CSS para tornar o conteúdo com o mesmo estilo dentro e fora da janela.
          * @type {string}
          */
-        private static classNameMark: string = Util.String.random()
+        private static classNameMark: string = Util.Text.random()
 
         /**
          * Aplicado quando não tem janela. Class CSS para tornar o conteúdo com o mesmo estilo dentro e fora da janela.

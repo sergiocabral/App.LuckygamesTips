@@ -410,7 +410,7 @@ namespace Skript.Layout.ReactJs.Component {
                         </div>
                     </div>
                     <div className="content">
-                        {(this.state.children as React.ReactNode[]).map(child => !child ? "" : <div key={Util.String.random()}>{child}</div>)}
+                        {(this.state.children as React.ReactNode[]).map(child => !child ? "" : <div key={Util.Text.random()}>{child}</div>)}
                     </div>  
                     <div className="resize"><div ref={this.elResize}>&nbsp;</div></div>
                 </div>

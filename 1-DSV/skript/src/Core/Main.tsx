@@ -20,7 +20,7 @@ namespace Skript.Core {
             new MainBus(this);
 
             Util.DateTime.defaultDateFormat = skript.data.locale.date;
-            Util.Number.defaultNumberFormat = skript.data.locale.number;
+            Util.Numeric.defaultNumberFormat = skript.data.locale.number;
 
             skript.translate.load(skript.data.translates);
             skript.log.post("Using from this point translated texts.", null, Core.Log.Level.Debug);

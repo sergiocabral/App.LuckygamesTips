@@ -3,7 +3,7 @@ namespace Skript.Util {
     /**
      * Utilitários para manipulação e geração de string.
      */
-    export class String {
+    export class Text {
 
         /**
          * Retorna um valor randômico 
@@ -87,7 +87,7 @@ namespace Skript.Util {
         
             if (hex.length !== len && value.length > len) {
                 const extra = parseInt(hex.substr(0, hex.length - len), radix);
-                const result = Util.String.inc(value.substr(0, value.length - len), extra, radix);
+                const result = Util.Text.inc(value.substr(0, value.length - len), extra, radix);
                 if (result === 'NaN') return NaN.toString();
                 return result + hex.slice(-len);
             }

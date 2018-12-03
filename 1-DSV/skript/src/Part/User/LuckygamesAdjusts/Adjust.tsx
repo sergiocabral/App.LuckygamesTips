@@ -194,7 +194,7 @@ namespace Skript.Part.User.LuckygamesAdjusts {
          * Class CSS para o grupo de radio button.
          * @type {string}
          */
-        private classNameForRadio: string = Util.String.random();
+        private classNameForRadio: string = Util.Text.random();
         
         /**
          * Renderizador do React. Conteúdo do container.

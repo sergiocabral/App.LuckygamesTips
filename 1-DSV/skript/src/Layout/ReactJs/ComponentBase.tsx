@@ -52,7 +52,7 @@ namespace Skript.Layout.ReactJs {
          * Usado como prefixo nos nomes de classe CSS.
          * @type {string}
          */
-        protected static classNamePrefix: string = Util.String.random();
+        protected static classNamePrefix: string = Util.Text.random();
 
         /**
          * Retorna o seletor css base pata um componente.
@@ -79,7 +79,7 @@ namespace Skript.Layout.ReactJs {
          * Id randômico determinado para a instância.
          * @type {string}
          */
-        private randomId: string = Util.String.random();
+        private randomId: string = Util.Text.random();
 
         /**
          * Determina o id para o elemento.

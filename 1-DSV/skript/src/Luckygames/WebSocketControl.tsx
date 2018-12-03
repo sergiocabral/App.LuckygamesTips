@@ -34,7 +34,7 @@ namespace Skript.Luckygames {
                     const ws = WebSocketControl.websocket();
                     if (tentativesCount < tentatives && !ws) setTimeout(() => check(tentativesCount), interval);
                     else {
-                        if (ws && ws.constructor.name !== WebSocket.name) throw new Core.Errors.InvalidArgument(`Luckygames.io WebSocket type: ${ws.constructor.name} == ${WebSocket.name}`);
+                        if (ws && ws.constructor.name !== WebSocket.name) throw new Core.Errors.EnvironmentNotReady(`Luckygames.io WebSocket type: ${ws.constructor.name} == ${WebSocket.name}`);
 
                         const result = !!ws;
 

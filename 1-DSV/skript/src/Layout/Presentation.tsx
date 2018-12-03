@@ -24,10 +24,10 @@ namespace Skript.Layout {
 
             new PresentationBus(this);
 
-            new Theme.Stylesheet();
+            this.theme = new Theme.Stylesheet();
 
             const container: HTMLDivElement = document.createElement('div') as HTMLDivElement;
-            container.id = Util.String.random();
+            container.id = Util.Text.random();
             container.className = Presentation.className;
             document.body.appendChild(container);
             this.parentContainer = container;
@@ -64,6 +64,12 @@ namespace Skript.Layout {
         private parentContainer: HTMLElement;
 
         /**
+         * Conjuntos de propriedades de stylesheet que configuram o layout.
+         * @type {Theme.Stylesheet}
+         */
+        public theme: Theme.Stylesheet;
+
+        /**
          * Instância do exibidor de mensagens ao usuário.
          */
         private showMessages: ReactJs.Component.ShowMessages;
@@ -79,7 +85,7 @@ namespace Skript.Layout {
          */
         private createContainer(): HTMLElement {
             const container: HTMLDivElement = document.createElement('div') as HTMLDivElement;
-            container.id = Util.String.random();
+            container.id = Util.Text.random();
             skript.presentation.parentContainer.appendChild(container);
             return container;
         }
@@ -152,7 +158,7 @@ namespace Skript.Layout {
          */
         public toast(text: string, level: Core.Log.Level = Core.Log.Level.Information): void {
             return this.message({
-                id: Util.Number.random(),
+                id: Util.Numeric.random(),
                 text: text,
                 level: level,
                 time: new Date()

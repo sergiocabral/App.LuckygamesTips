@@ -12,5 +12,5 @@ interface Number {
 }
 
 Number.prototype.format = function(config: any = { }): string {
-    return Skript.Util.Number.format(Number(this), config);
+    return Skript.Util.Numeric.format(Number(this), config);
 };

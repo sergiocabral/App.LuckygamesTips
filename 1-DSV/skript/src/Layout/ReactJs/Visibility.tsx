@@ -58,7 +58,7 @@ namespace Skript.Layout.ReactJs {
             this.configuration.opacityVisible = this.configuration.opacityVisible !== undefined ? this.configuration.opacityVisible : 1;
             this.configuration.opacityHover = this.configuration.opacityHover !== undefined ? this.configuration.opacityHover : 1;
 
-            this.className = Util.String.random();
+            this.className = Util.Text.random();
             configuration.element.classList.add(this.className);
             this.stylesheet();
 

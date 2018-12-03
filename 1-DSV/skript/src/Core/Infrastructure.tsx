@@ -113,7 +113,7 @@ namespace Skript.Core {
                 colors: Layout.Theme.Stylesheet.getColorsDefault(),
                 locale: {
                     date: Util.DateTime.defaultDateFormat,
-                    number: Util.Number.defaultNumberFormat,
+                    number: Util.Numeric.defaultNumberFormat,
                 }
             };
 
