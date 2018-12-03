@@ -9,6 +9,13 @@ namespace Skript.Part.System.MainHeader {
          * Código CSS para este componente.
          */
         protected stylesheet: string = `
+            ${this.selectorInDialog()} {
+                position: absolute;
+                top: ${this.theme.spacing}px;
+                left: ${this.theme.spacing}px;
+                bottom: ${this.theme.spacing}px;
+                right: ${this.theme.spacing}px;
+            }
             ${this.selector()} > .set + .select2 {
                 width: 100% !important;
                 margin-bottom: ${this.theme.spacing}px;
@@ -16,11 +23,25 @@ namespace Skript.Part.System.MainHeader {
             ${this.selector()} span.select2-selection.select2-selection--single {
                 outline: none;
             }
-            ${this.selector()} > .json > div {
+            ${this.selectorOutDialog()} > .json > div {
                 height: 180px;
+            }
+            ${this.selectorInDialog()} > .json {
+                height: calc(100% - 78px);
+            }
+            ${this.selectorInDialog()} > .json > div {
+                height: 100%;
             }
             ${this.selector()} > .json.edicao .ace_editor .ace_gutter {
                 background-color: brown;
+            }
+            ${this.selector()} > .controls {
+                margin-top: ${this.theme.spacing / 2}px;
+                text-align: right;
+                padding-bottom: 2px;
+            }
+            ${this.selector()} > .controls > * {
+                margin: ${this.theme.spacing / 2}px 0 0 ${this.theme.spacing / 2}px;
             }
         `;
 
@@ -93,6 +114,13 @@ namespace Skript.Part.System.MainHeader {
                         <option>{this.translate("Current")}</option>
                     </Layout.ReactJs.Component.Select>
                     <div className="json"><div id={this.idAceEditorJson} ref={this.elAceEditorJson}></div></div>
+                    <div className="controls">
+                        <button className="button red" title={this.translate("Deletes the selected parameter.")}>{this.translate("Delete")}</button>
+                        <button className="button green" title={this.translate("Saves the current settings to the selected parameter.")}>{this.translate("Save")}</button>
+                        <button className="button" title={this.translate("Save the current settings as a new parameter.")}>{this.translate("Save As")}</button>
+                        <button className="button" title={this.translate("Reload the settings of the selected parameter.")} disabled>{this.translate("Reload")}</button>
+                        <button className="button blue" title={this.translate("Applies the current settings to the modules.")}>{this.translate("Apply")}</button>
+                    </div>
                 </div>
             );
         }

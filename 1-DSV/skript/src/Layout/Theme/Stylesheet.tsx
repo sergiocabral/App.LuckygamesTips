@@ -248,7 +248,7 @@ namespace Skript.Layout.Theme {
                     display: inline-block;
                     *display: inline;
                     zoom: 1;
-                    padding: 6px 20px;
+                    padding: 5px 10px;
                     margin: 0;
                     cursor: pointer;
                     border: 1px solid #bbb;

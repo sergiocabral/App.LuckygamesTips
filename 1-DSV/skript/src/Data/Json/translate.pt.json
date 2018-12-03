@@ -368,6 +368,46 @@
             { 
                 "Current":
                 "Atual" 
+            },
+            { 
+                "Reload":
+                "Recarregar" 
+            },
+            { 
+                "Reload the settings of the selected parameter.":
+                "Recarregar as definições do parâmetro selecionado." 
+            },
+            { 
+                "Delete":
+                "Excluir" 
+            },
+            { 
+                "Deletes the selected parameter.":
+                "Apaga o parâmetro selecionado." 
+            },
+            { 
+                "Save":
+                "Salvar" 
+            },
+            { 
+                "Saves the current settings to the selected parameter.":
+                "Grava as definições atuais no parâmetro selecionado." 
+            },
+            { 
+                "Save As":
+                "Salvar como" 
+            },
+            { 
+                "Save the current settings as a new parameter.":
+                "Grava as definições atuais como um novo parâmetro." 
+            },
+            { 
+                "Apply":
+                "Aplicar" 
+            },
+            { 
+                "Applies the current settings to the modules.":
+                "Aplica as definições atuais nos módulos." 
             }
         ],
         "LuckygamesAdjusts.tsx": {
