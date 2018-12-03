@@ -187,7 +187,16 @@
 
 /// #############################################
 
+/// <reference path="Automation/Message/ApplyParameters.tsx" />
+/// context: Initialize
+
+/// <reference path="Automation/Message/GetCurrentParameters.tsx" />
+/// context: Initialize
+
 /// <reference path="Automation/Parameter.tsx" />
+/// context: Initialize
+
+/// <reference path="Automation/ParametersBus.tsx" />
 /// context: Initialize
 
 /// <reference path="Automation/Parameters.tsx" />

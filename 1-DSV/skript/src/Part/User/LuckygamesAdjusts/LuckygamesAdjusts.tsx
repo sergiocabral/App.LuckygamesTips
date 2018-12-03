@@ -34,7 +34,7 @@ namespace Skript.Part.User.LuckygamesAdjusts {
 
             this.myMessageBus.push(new LuckygamesAdjustsBus(this));
 
-            this.title = this.translate("Website adjusts");
+            this.title = "Website adjusts";
             this.icon = "far fa-list-alt";
 
             this.elOptionWebsocket = React.createRef();
@@ -132,42 +132,36 @@ namespace Skript.Part.User.LuckygamesAdjusts {
             this.parameters = !this.title ? undefined : Automation.Parameters.getInstance(
                 this.title,
                 [
-                    new Automation.Parameter<Luckygames.WebSocketMode>("Data updates", 
-                        () => this.valueOptionWebsocket,
-                        (value: Luckygames.WebSocketMode) => this.onAdjustChange({
-                            key: "websocket",
-                            value: [
-                                { 
-                                    key: Luckygames.WebSocketMode[value], 
-                                    value: this.translate(Luckygames.WebSocketMode[value]),
-                                    state: true
-                                }
-                            ]
-                        })),
-                    new Automation.Parameter<Core.OffOn>("Animations", 
-                        () => this.valueOptionAnimation,
-                        (value: Core.OffOn) => this.onAdjustChange({
-                            key: "animation",
-                            value: [
-                                { 
-                                    key: Core.OffOn[value], 
-                                    value: this.translate(Core.OffOn[value]),
-                                    state: true
-                                }
-                            ]
-                        })),
-                    new Automation.Parameter<Luckygames.ThemeMode>("Theme", 
-                        () => this.valueOptionTheme,
-                        (value: Luckygames.ThemeMode) => this.onAdjustChange({
-                            key: "theme",
-                            value: [
-                                { 
-                                    key: Luckygames.ThemeMode[value], 
-                                    value: this.translate(Luckygames.ThemeMode[value]),
-                                    state: true
-                                }
-                            ]
-                        }))
+                    new Automation.Parameter<string>("Data updates", 
+                        () => Luckygames.WebSocketMode[this.valueOptionWebsocket],
+                        (value: string) => {
+                            const setted = value === Luckygames.WebSocketMode[Luckygames.WebSocketMode[value as any] as any as Luckygames.WebSocketMode];
+                            if (setted) this.onAdjustChange({
+                                key: "websocket",
+                                value: [ { key: value, value: this.translate(value), state: true } ]
+                            });
+                            return setted;
+                        }),
+                    new Automation.Parameter<string>("Animations", 
+                        () => Core.OffOn[this.valueOptionAnimation],
+                        (value: string) => {
+                            const setted = value === Core.OffOn[Core.OffOn[value as any] as any as Core.OffOn];
+                            if (setted) this.onAdjustChange({
+                                key: "animation",
+                                value: [ { key: value, value: this.translate(value), state: true } ]
+                            });
+                            return setted;
+                        }),
+                    new Automation.Parameter<string>("Theme", 
+                        () => Luckygames.ThemeMode[this.valueOptionTheme],
+                        (value: string) => {
+                            const setted = value === Luckygames.ThemeMode[Luckygames.ThemeMode[value as any] as any as Luckygames.ThemeMode];
+                            if (setted) this.onAdjustChange({
+                                key: "theme",
+                                value: [ { key: value, value: this.translate(value), state: true } ]
+                            });
+                            return setted;
+                        })
                 ]);
         }
 

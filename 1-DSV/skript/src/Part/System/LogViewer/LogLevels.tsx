@@ -125,11 +125,11 @@ namespace Skript.Part.System.LogViewer {
                     this.levelsList[i].checked = checkeds.indexOf(this.levelsList[i].level) >= 0;
                 if (this.elContainer.current) this.forceUpdate();
                 this.callParentOnChange();
-            } else {
-                for (let i = 0; i < this.levelsList.length; i++) 
-                    if (this.levelsList[i].checked)
-                        result.push(this.levelsList[i].level);
             }
+
+            for (let i = 0; i < this.levelsList.length; i++) 
+                if (this.levelsList[i].checked)
+                    result.push(this.levelsList[i].level);
 
             return result;
         }

@@ -52,7 +52,7 @@ namespace Skript.Part.System.MainHeader {
         public constructor(props: Layout.ReactJs.EmptyProps) {
             super(props);  
             
-            this.title = this.translate("Parameters to initialization");
+            this.title = "Parameters to initialization";
             this.icon = "fas fa-users-cog";
 
             this.elAceEditorJson = React.createRef();
@@ -87,7 +87,9 @@ namespace Skript.Part.System.MainHeader {
          * @returns {string} json
          */
         public json(): string {
-            return JSON.stringify({ teste: 123, ops: "hahaha" }, null, this.jsonTabSize);
+            const message = new Automation.Message.GetCurrentParameters().sendSync();
+            if (!message.result) throw new Core.Errors.NullNotExpected("Message.GetCurrentParameters.result");
+            return JSON.stringify(message.result.parameters, null, this.jsonTabSize);
         }
 
         /**
@@ -141,7 +143,7 @@ namespace Skript.Part.System.MainHeader {
                 if (!this.elAceEditorJson.current.parentElement.classList.contains('edicao')) 
                     this.elAceEditorJson.current.parentElement.classList.add('edicao'); });
 
-            this.setJson(this.json());
+            setTimeout(() => this.setJson(this.json()), 1000);
         }
     }
 

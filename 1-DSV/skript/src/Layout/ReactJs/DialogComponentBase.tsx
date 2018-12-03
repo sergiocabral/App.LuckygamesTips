@@ -38,7 +38,7 @@ namespace Skript.Layout.ReactJs {
         public render(): JSX.Element {            
             return (
                 <Layout.ReactJs.Component.HeaderContainer 
-                    title={this.title} 
+                    title={this.translate(this.title)} 
                     icon={this.icon} 
                     collapsible={true}
                     dialog={true}

@@ -4,7 +4,7 @@ namespace Skript.Automation {
      * Organiza os parâmertros de um módulo.
      */
     export class Parameters {
-
+        
         /**
          * Lista de parâmetros instanciados.
          */
@@ -48,12 +48,29 @@ namespace Skript.Automation {
         public parameters: {[name:string]: Parameter<any>} = { };
 
         /**
+         * Retorna os parâmetros como json
+         * @returns {Object} Parâmetros.
+         */
+        public static parameters(): Object {
+            const result: any = { };
+            for (const i in Parameters.instances) {
+                result[Parameters.instances[i].name] = { };
+                for (const j in Parameters.instances[i].parameters) {
+                    result[Parameters.instances[i].name][Parameters.instances[i].parameters[j].name] = 
+                        Parameters.instances[i].parameters[j].get()
+                }                
+            }
+            return result;
+        }
+
+        /**
          * Define um parâmetro. Em caso de repetições é feito substituição.
          * @param {Parameter<any>} parameter Parâmetro.
          */
         public set(parameter: Parameter<any>): void {
             this.parameters[parameter.name] = parameter;
         }
-
-    }
+   }
+   
+   new ParametersBus(Parameters);
 }

@@ -136,7 +136,7 @@ namespace Skript.Part.System.LogViewer {
 
             this.myMessageBus.push(new LogViewerBus(this));
 
-            this.title = this.translate("Log Viewer");
+            this.title = "Log Viewer";
             this.icon = "far fa-list-alt";
 
             this.elContainer = React.createRef();
@@ -216,9 +216,14 @@ namespace Skript.Part.System.LogViewer {
             this.parameters = !this.title ? undefined : Automation.Parameters.getInstance(
                 this.title,
                 [
-                    new Automation.Parameter<Core.Log.Level[]>("Levels", 
-                        () => this.levels(),
-                        (value: Core.Log.Level[]) => this.levels(value))
+                    new Automation.Parameter<string[]>("Levels", 
+                        () => this.levels().map(v => Core.Log.Level[v]),
+                        (value: string[]) => {
+                            const toSet = value.map(v => Core.Log.Level[v as any] as any as Core.Log.Level).filter(v => v !== undefined);
+                            const setted = toSet.length === value.length;
+                            if (setted) this.levels(toSet);
+                            return setted;
+                        })
                 ]);
         }
 

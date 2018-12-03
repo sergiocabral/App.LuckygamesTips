@@ -2,13 +2,16 @@ namespace Skript.Automation {
 
     /**
      * Tipo de função para leitura de valor.
+     * @returns {T} Valor atual.
      */
     type ParameterGet<T> = () => T;
 
     /**
      * Tipo de função para definição de valor.
+     * @param {T} Valor para definir.
+     * @returns {boolean} true se foi definido com sucesso.
      */
-    type ParameterSet<T> = (value: T) => void
+    type ParameterSet<T> = (value: T) => boolean
 
     /**
      * Parâmetro individual
