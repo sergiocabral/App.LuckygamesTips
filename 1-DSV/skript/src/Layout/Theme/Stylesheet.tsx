@@ -238,6 +238,7 @@ namespace Skript.Layout.Theme {
                 }
             `);
 
+            //Botões
             styles.push(`   
                 ${selector} .button::-moz-focus-inner {
                     border: 0;
