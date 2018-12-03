@@ -107,6 +107,12 @@ namespace Skript.Part.System.LogViewer {
         private levelsList: LevelWrapper[];
 
         /**
+         * Lista de todos os levels.
+         * @return {Core.Log.Level[]}
+         */
+        public getLevels: () => Core.Log.Level[] = () => this.levelsList.map(v => v.level);
+
+        /**
          * REtorna e/ou define os niveis de log selecionados.
          * @param checkeds Opcional. Opções para marcar.
          * @returns {Core.Log.Level[]} Niveis atualmente marcados.

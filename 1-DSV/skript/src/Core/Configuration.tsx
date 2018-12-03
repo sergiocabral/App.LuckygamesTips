@@ -18,10 +18,10 @@ namespace Skript.Core {
         debug: boolean,
 
         /**
-         * Indica se deve exibir a mensagem de boas vindas ao usuário.
+         * Indica se deve ou não exibir a mensagem de boas vindas ao usuário.
          * @type {boolean}
          */
-        welcome: boolean,
+        noWelcomeMessage?: boolean,
 
         /**
          * Url do servidor.

@@ -39,7 +39,7 @@ namespace Skript.Part.System.LogViewer {
                 position: relative;
             }
             ${this.selectorOutDialog()} {                
-                min-height: ${this.debug ? "320px" : "170px"};
+                min-height: ${this.debug() ? "350px" : "210px"};
             }            
             ${this.selectorInDialog()} {
                 position: absolute;
@@ -63,9 +63,12 @@ namespace Skript.Part.System.LogViewer {
             ${this.selector()} > .controls > div > .levels {   
                 border-bottom: 1px solid gainsboro;
                 padding-bottom: ${this.theme.spacing}px;
-                margin-bottom: ${this.theme.spacing}px;
+                margin-bottom: ${this.theme.spacing / 2}px;
                 text-align: left;
-            }            
+            }
+            ${this.selector()} > .controls > div > .switch {
+                text-align: left;
+            }
             ${this.selector()} > .messages {
                 position: absolute;
                 left: 35%;
@@ -140,7 +143,8 @@ namespace Skript.Part.System.LogViewer {
             this.elLogLevels = React.createRef();
 
             this.onLogLevelsChange = this.onLogLevelsChange.bind(this);
-            this.onClearLogClick = this.onClearLogClick.bind(this);            
+            this.onClearLogClick = this.onClearLogClick.bind(this);
+            this.onAllChange = this.onAllChange.bind(this);            
 
             const message = new Core.Message.GetLogMessages().sendSync();
             if (!message.result) throw new Core.Errors.NullNotExpected("Message.GetLogMessages.result");
@@ -237,6 +241,20 @@ namespace Skript.Part.System.LogViewer {
         }
 
         /**
+         * Evento ao marcar.
+         * @param {any} evt Informações do evento.
+         * @param {string} value Valor selecionador.
+         * @param {boolean} checked Marcado ou não.
+         * @returns {boolean} Um retorno ===false desfaz a alteração.
+         */
+        private onAllChange(evt: any, value: string, checked: boolean): void|boolean {
+            if (!this.elLogLevels.current) return;
+            evt; value;
+            if (!checked) this.levels([]);
+            else this.levels(this.elLogLevels.current.getLevels());
+        }
+
+        /**
          * Renderizador do React. Conteúdo do container.
          * @returns {JSX.Element}
          */
@@ -254,6 +272,8 @@ namespace Skript.Part.System.LogViewer {
                     <div className="controls">
                         <div>
                             <LogLevels className="levels" ref={this.elLogLevels} onChange={this.onLogLevelsChange}></LogLevels>
+                            <Layout.ReactJs.Component.Switch className="switch" checked={true} onChange={this.onAllChange}>{this.translate("All")}</Layout.ReactJs.Component.Switch>
+                            <div className="spacing"></div>
                             <button className="button" onClick={this.onClearLogClick}>{this.translate("Clear log")}</button>
                             <div className="spacing"></div>
                         </div>

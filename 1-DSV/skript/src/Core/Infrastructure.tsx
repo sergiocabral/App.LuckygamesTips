@@ -63,7 +63,7 @@ namespace Skript.Core {
          * Exibe uma mensagem amigável de boas-vindas no console do navegador.
          */
         private showWelcomeMessageInConsole(): void {
-            if (skript.configuration.welcome) {
+            if (!skript.configuration.noWelcomeMessage) {
                 Log.ConsoleLog.welcome(skript.configuration.name, skript.translate.languageDefault === "en" ? 
                 "do more, much more. Thanks for the support." :
                 "Faça mais, muito mais. Obrigado pelo apoio.");

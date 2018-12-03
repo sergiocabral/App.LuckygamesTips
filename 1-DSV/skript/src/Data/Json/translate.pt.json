@@ -310,6 +310,10 @@
             { 
                 "Clear log":
                 "Limpar log" 
+            },
+            { 
+                "All":
+                "Todos" 
             }
         ],
         "Parameters.tsx": [
