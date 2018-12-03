@@ -362,6 +362,14 @@
                 "Limpar log" 
             },
             { 
+                "System":
+                "Sistema" 
+            },
+            { 
+                "No user parameter.":
+                "Nenhum parâmetro de usuário." 
+            },
+            { 
                 "Default":
                 "Padrão" 
             },
@@ -390,16 +398,8 @@
                 "Salvar" 
             },
             { 
-                "Saves the current settings to the selected parameter.":
-                "Grava as definições atuais no parâmetro selecionado." 
-            },
-            { 
-                "Save As":
-                "Salvar como" 
-            },
-            { 
-                "Save the current settings as a new parameter.":
-                "Grava as definições atuais como um novo parâmetro." 
+                "Saves the current settings.":
+                "Grava as definições atuais." 
             },
             { 
                 "Apply":

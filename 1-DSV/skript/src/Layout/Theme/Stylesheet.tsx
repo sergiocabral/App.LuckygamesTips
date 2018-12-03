@@ -258,17 +258,16 @@ namespace Skript.Layout.Theme {
                     white-space: nowrap;
                     color: #555;
                     background-color: #ddd;
-                    background-image: linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
+                    background-image: linear-gradient(rgba(255,255,255,1), rgba(255,255,255,0));
                     transition: background-color .2s ease-out;
                     background-clip: padding-box; /* Fix bleeding */
                     border-radius: 3px;
-                    box-shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 2px 2px -1px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .3) inset;
+                    box-shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 1px 1px -1px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .3) inset;
                     text-shadow: 0 1px 0 rgba(255,255,255, .9);
                     user-select: none;
                 }              
                 ${selector} .button:hover {
                     background-color: #eee;
-                    color: #555;
                 }
                 ${selector} .button:active {
                     background: #e9e9e9;
@@ -303,7 +302,7 @@ namespace Skript.Layout.Theme {
                 ${selector} .button.green, .button.red, .button.blue {
                     color: #fff;
                     text-shadow: 0 1px 0 rgba(0,0,0,.2);                    
-                    background-image: linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
+                    background-image: linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
                 }              
                 /* */              
                 ${selector} .button.green {

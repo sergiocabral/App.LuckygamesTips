@@ -17,8 +17,9 @@ namespace Skript.Part.System.MainHeader {
                 right: ${this.theme.spacing}px;
             }
             ${this.selector()} > .set + .select2 {
-                width: 100% !important;
+                width: calc(100% - 167px) !important;
                 margin-bottom: ${this.theme.spacing}px;
+                display: inline-block;
             }
             ${this.selector()} span.select2-selection.select2-selection--single {
                 outline: none;
@@ -35,12 +36,19 @@ namespace Skript.Part.System.MainHeader {
             ${this.selector()} > .json.edicao .ace_editor .ace_gutter {
                 background-color: brown;
             }
-            ${this.selector()} > .controls {
+            ${this.selector()} > .controls.top {
+                display: inline-block;
+                float: right;
+            }            
+            ${this.selector()} > .controls.top > * {
+                margin: 0 0 0 ${this.theme.spacing / 2}px;
+            }
+            ${this.selector()} > .controls.bottom {
                 margin-top: ${this.theme.spacing / 2}px;
                 text-align: right;
                 padding-bottom: 2px;
             }
-            ${this.selector()} > .controls > * {
+            ${this.selector()} > .controls.bottom > * {
                 margin: ${this.theme.spacing / 2}px 0 0 ${this.theme.spacing / 2}px;
             }
         `;
@@ -112,15 +120,19 @@ namespace Skript.Part.System.MainHeader {
             return (
                 <div id={this.id()} className={this.className()}>
                     <Layout.ReactJs.Component.Select className="set">
-                        <option>{this.translate("Default")}</option>
-                        <option>{this.translate("Current")}</option>
+                        <optgroup label={this.translate("System")}>
+                            <option>{this.translate("Default")}</option>
+                            <option>{this.translate("Current")}</option>
+                        </optgroup>
+                        <optgroup label={this.translate("No user parameter.")}></optgroup>
                     </Layout.ReactJs.Component.Select>
-                    <div className="json"><div id={this.idAceEditorJson} ref={this.elAceEditorJson}></div></div>
-                    <div className="controls">
+                    <div className="controls top">
                         <button className="button red" title={this.translate("Deletes the selected parameter.")}>{this.translate("Delete")}</button>
-                        <button className="button green" title={this.translate("Saves the current settings to the selected parameter.")}>{this.translate("Save")}</button>
-                        <button className="button" title={this.translate("Save the current settings as a new parameter.")}>{this.translate("Save As")}</button>
                         <button className="button" title={this.translate("Reload the settings of the selected parameter.")} disabled>{this.translate("Reload")}</button>
+                    </div>
+                    <div className="json"><div id={this.idAceEditorJson} ref={this.elAceEditorJson}></div></div>
+                    <div className="controls bottom">
+                        <button className="button green" title={this.translate("Saves the current settings.")}>{this.translate("Save")}</button>
                         <button className="button blue" title={this.translate("Applies the current settings to the modules.")}>{this.translate("Apply")}</button>
                     </div>
                 </div>
