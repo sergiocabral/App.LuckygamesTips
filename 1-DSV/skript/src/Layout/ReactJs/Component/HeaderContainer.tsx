@@ -330,7 +330,7 @@ namespace Skript.Layout.ReactJs.Component {
                             <h1>{this.props.title}</h1>
                         </span>
                     </div>
-                    <div className={HeaderContainer.classNameOutDialog() + " content hidden"} id={this.contextId(IdContext.Component)} ref={this.elContent}>
+                    <div className={HeaderContainer.classNameOutDialog() + " content" + (this.props.title ? " hidden" : "")} id={this.contextId(IdContext.Component)} ref={this.elContent}>
                         <div id={this.contextId(IdContext.Content)}>
                             {this.props.children}
                         </div>

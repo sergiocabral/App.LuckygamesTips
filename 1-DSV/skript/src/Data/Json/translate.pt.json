@@ -312,6 +312,16 @@
                 "Limpar log" 
             }
         ],
+        "Parameters.tsx": [
+            { 
+                "Parameters to initialization":
+                "Parâmetros para inicialização" 
+            },
+            { 
+                "Clear log":
+                "Limpar log" 
+            }
+        ],
         "LuckygamesAdjusts.tsx": {
             "Geral": [
                 { 
