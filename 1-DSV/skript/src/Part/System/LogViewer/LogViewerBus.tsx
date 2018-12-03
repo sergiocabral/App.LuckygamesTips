@@ -1,4 +1,4 @@
-namespace Skript.Part.System.LogViewer.Component {
+namespace Skript.Part.System.LogViewer {
 
     /**
      * Componente principal do módulo.

@@ -47,14 +47,14 @@ namespace Skript.Core {
         /**
          * Lista de módulo carregados.
          */
-        public parts: Part.PartBase[] = [];
+        public parts: Part.Part[] = [];
 
         /**
          * Registra um novo módulo.
-         * @param {Part.PartBase} part Módulo.
+         * @param {Part.Part} part Módulo.
          * @returns {Part.Tools} Disponibiliza o conjunto de ferramentas para uso dos módulos.
          */
-        public registerPart(part: Part.PartBase): Part.Tools {
+        public registerPart(part: Part.Part): Part.Tools {
             this.parts.push(part);
             const tools: Part.Tools = {
                 server: skript.configuration.server,

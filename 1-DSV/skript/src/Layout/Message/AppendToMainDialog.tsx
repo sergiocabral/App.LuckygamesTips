@@ -16,7 +16,7 @@ namespace Skript.Layout.Message {
 
         /**
          * Componente.
-         * @type {PartBase}
+         * @type {Part.Part}
          */
         public children: React.ReactNode;
     }

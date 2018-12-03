@@ -1,4 +1,4 @@
-namespace Skript.Part.System.MainHeader.Component {
+namespace Skript.Part.System.MainHeader {
 
     /**
      * Componente principal do módulo.
@@ -98,4 +98,6 @@ namespace Skript.Part.System.MainHeader.Component {
             );
         }
     }
+
+    new Part("MainHeader", MainHeader);
 }

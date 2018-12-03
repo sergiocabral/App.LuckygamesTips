@@ -1,4 +1,4 @@
-namespace Skript.Part.User.LuckygamesAdjusts.Component {
+namespace Skript.Part.User.LuckygamesAdjusts {
 
     /**
      * Despachador de mensagens.

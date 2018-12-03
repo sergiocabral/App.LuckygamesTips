@@ -1,4 +1,4 @@
-namespace Skript.Part.System.MainHeader.Component {
+namespace Skript.Part.System.MainHeader {
 
     /**
      * Lista os levels de log para seleção

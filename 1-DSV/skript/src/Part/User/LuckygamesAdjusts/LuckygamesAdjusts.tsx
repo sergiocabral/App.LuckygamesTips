@@ -1,4 +1,4 @@
-namespace Skript.Part.User.LuckygamesAdjusts.Component {
+namespace Skript.Part.User.LuckygamesAdjusts {
 
     /**
      * Componente principal do módulo.
@@ -279,4 +279,6 @@ namespace Skript.Part.User.LuckygamesAdjusts.Component {
             this.registerParameters();
         }
     }
+
+    new Part("LuckygamesAdjusts", LuckygamesAdjusts);
 }

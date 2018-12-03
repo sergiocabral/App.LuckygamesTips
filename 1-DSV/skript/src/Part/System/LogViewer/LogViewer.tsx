@@ -1,4 +1,4 @@
-namespace Skript.Part.System.LogViewer.Component {
+namespace Skript.Part.System.LogViewer {
 
     /**
      * Mensagens de log enriquecida.
@@ -280,4 +280,6 @@ namespace Skript.Part.System.LogViewer.Component {
             this.registerParameters();
         }
     }
+
+    new Part("LogViewer", LogViewer);
 }

@@ -1,38 +1,34 @@
-/// <reference path="Part/System/MainHeader/Component/Controls.tsx" />
+/// <reference path="Part/System/MainHeader/Controls.tsx" />
 /// context: SystemPart
 
-/// <reference path="Part/System/MainHeader/Component/MainHeader.tsx" />
-/// context: SystemPart
-
-/// <reference path="Part/System/MainHeader/Part.tsx" />
+/// <reference path="Part/System/MainHeader/MainHeader.tsx" />
 /// context: SystemPart
 
 /// #############################################
 
-/// <reference path="Part/User/LuckygamesAdjusts/Component/Adjust.tsx" />
+/// <reference path="Part/System/Parameters/Parameters.tsx" />
+/// context: SystemPart
+
+/// #############################################
+
+/// <reference path="Part/User/LuckygamesAdjusts/Adjust.tsx" />
 /// context: PaidPart,LuckygamesAdjusts
 
-/// <reference path="Part/User/LuckygamesAdjusts/Component/LuckygamesAdjustsBus.tsx" />
+/// <reference path="Part/User/LuckygamesAdjusts/LuckygamesAdjustsBus.tsx" />
 /// context: PaidPart,LuckygamesAdjusts
 
-/// <reference path="Part/User/LuckygamesAdjusts/Component/LuckygamesAdjusts.tsx" />
-/// context: PaidPart,LuckygamesAdjusts
-
-/// <reference path="Part/User/LuckygamesAdjusts/Part.tsx" />
+/// <reference path="Part/User/LuckygamesAdjusts/LuckygamesAdjusts.tsx" />
 /// context: PaidPart,LuckygamesAdjusts
 
 /// #############################################
 
-/// <reference path="Part/System/LogViewer/Component/LogLevels.tsx" />
+/// <reference path="Part/System/LogViewer/LogLevels.tsx" />
 /// context: FreePart
 
-/// <reference path="Part/System/LogViewer/Component/LogViewer.tsx" />
+/// <reference path="Part/System/LogViewer/LogViewer.tsx" />
 /// context: FreePart
 
-/// <reference path="Part/System/LogViewer/Component/LogViewerBus.tsx" />
-/// context: FreePart
-
-/// <reference path="Part/System/LogViewer/Part.tsx" />
+/// <reference path="Part/System/LogViewer/LogViewerBus.tsx" />
 /// context: FreePart
 
 /// #############################################
@@ -295,7 +291,7 @@
 /// <reference path="Part/Tools.tsx" />
 /// context: Initialize
 
-/// <reference path="Part/PartBase.tsx" />
+/// <reference path="Part/Part.tsx" />
 /// context: Initialize
 
 /// #############################################

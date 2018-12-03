@@ -82,7 +82,7 @@
                 "Um MessageHandler {0} foi descartado."
             }
         ],
-        "PartBase.tsx": [
+        "Part.tsx": [
             { 
                 "Module loaded: {0}":
                 "Módulo carregado: {0}" 
