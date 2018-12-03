@@ -52,7 +52,7 @@ namespace Skript.Part.System.MainHeader {
         public constructor(props: Layout.ReactJs.EmptyProps) {
             super(props);  
             
-            this.title = "Parameters";
+            this.title = "Operating Parameters";
             this.icon = "fas fa-users-cog";
 
             this.elAceEditorJson = React.createRef();
