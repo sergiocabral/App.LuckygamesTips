@@ -70,6 +70,12 @@ namespace Skript.Util {
         focus?: boolean,
 
         /**
+         * Indica o botão padrão para a tecla ESC.
+         * @type {boolean}
+         */
+        escape?: boolean,
+
+        /**
          * Qualquer dado associado.
          * @type {T}
          */

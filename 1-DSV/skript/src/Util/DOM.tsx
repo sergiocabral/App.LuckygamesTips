@@ -186,6 +186,7 @@ namespace Skript.Util {
                 }
                 ${selector} .prompt > div > .button > span {
                     margin-left: 5px;
+                    font-weight: normal;
                 }
             `);            
 
@@ -198,6 +199,8 @@ namespace Skript.Util {
                     v.className = v.className ? v.className : "";
                 });
                 
+                let buttonEscapeIndex = -1;
+                
                 let html;
 
                 const dialog = document.createElement("DIV") as HTMLDivElement;
@@ -208,6 +211,7 @@ namespace Skript.Util {
                 if (configuration.text) html += "<p>" + configuration.text.replaceAll("\n", "</p><p>") + "</p>";
                 html += "<div>";
                 for (let i = 0; i < configuration.buttons.length; i++) {
+                    if (buttonEscapeIndex < 0 && configuration.buttons[i].escape) buttonEscapeIndex = i;
                     html += `<button data-index="${i}" class="button${configuration.buttons[i].className ? " " + configuration.buttons[i].className : ""}${configuration.buttons[i].focus ? " focus" : ""}">`;
                     if (configuration.buttons[i].icon) html += `<i class="${configuration.buttons[i].icon}"></i>`;
                     if (configuration.buttons[i].name) html += `<span>${configuration.buttons[i].name}</span>`;
@@ -238,7 +242,7 @@ namespace Skript.Util {
                  */
                 const key = (evt: KeyboardEvent): void => {
                     if (!this.isBring(container, BringTo.Front)) return;
-                    if (evt.keyCode === 27) (buttons[0] as HTMLButtonElement).click();
+                    if (evt.keyCode === 27) (buttons[buttonEscapeIndex >= 0 ? buttonEscapeIndex : 0] as HTMLButtonElement).click();
                 }
 
                 /**
@@ -255,8 +259,37 @@ namespace Skript.Util {
                 };
 
                 for (let i = 0; i < buttons.length; i++) buttons[i].addEventListener("click", click as any);
-                if (buttons.length === 1) window.addEventListener("keyup", key as any);
+                if (buttons.length === 1 || buttonEscapeIndex >= 0) window.addEventListener("keyup", key as any);
             });
         }
-    }
+
+        /**
+         * Solicita confirmação de sim ou não ao usuário.
+         * @param {string} text Pergunta.
+         * @param {string} title Opcional. Título.
+         */
+        public static confirm(text: string, title?: string): Promise<void> {
+            return new Promise(resolve => {
+                DOM.dialog({ 
+                    title: title,
+                    text: text,
+                    buttons: [
+                        {
+                            name: skript.translate.get("No"),
+                            icon: "fas fa-times-circle",
+                            escape: true
+                        },
+                        {
+                            name: skript.translate.get("Yes"),
+                            icon: "fas fa-check-circle",
+                            focus: true,
+                            className: "blue"
+                        }
+                    ]
+                }).then((button) => {
+                    if (!button.escape) resolve();
+                });
+            });
+        }
+   }
 }

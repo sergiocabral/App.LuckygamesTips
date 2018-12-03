@@ -17,6 +17,12 @@ namespace Skript.Part.System.MainHeader {
                 font-size: 15px;
                 color: ${Util.Drawing.blend(0.3, this.theme.generalTextColor)};
             }
+            ${this.selector()} > .text-shadow > span {
+                margin-left: 5px;
+                font-size: 12px;
+                position: relative;
+                top: -1px;
+            }
             ${this.selector()} > .separator {
                 display: inline-block;
                 width: ${this.theme.spacing}px;
@@ -127,15 +133,25 @@ namespace Skript.Part.System.MainHeader {
         }
 
         /**
+         * Solicita atualização da página.
+         */
+        public refreshPage(): void {
+            Util.DOM.confirm(this.translate("Refreshing the page will cause any activity in progress to be interrupted. Update anyway?"), this.translate("Proceed?"))
+                .then(() => location.reload());
+        }
+
+        /**
          * Renderizador do React.
          * @returns {JSX.Element}
          */
         public render(): JSX.Element {            
             return (
                 <div id={this.id()} className={this.className()}>
-                    <a href="#" className="text-shadow dialog-action" data-action="expandModules" onClick={this.onClick} title={this.translate("Expand all modules")}><i className="fas fa-caret-square-down"></i></a>
-                    <a href="#" className="text-shadow dialog-action" data-action="collapseModules" onClick={this.onClick} title={this.translate("Collapse all modules")}><i className="fas fa-caret-square-up"></i></a>
-                    <a href="#" className="text-shadow dialog-action" data-action="closeModuleDialogs" onClick={this.onClick} title={this.translate("Close all the module windows")}><i className="fas fa-times-circle"></i></a>
+                    <a href="#" className="text-shadow dialog-action" data-action="refreshPage" onClick={this.onClick} title={this.translate("Refresh page.")}><i className="fas fa-sync-alt"></i></a>
+                    <div className="separator"></div>
+                    <a href="#" className="text-shadow dialog-action" data-action="expandModules" onClick={this.onClick} title={this.translate("Expand all modules.")}><i className="fas fa-caret-square-down"></i></a>
+                    <a href="#" className="text-shadow dialog-action" data-action="collapseModules" onClick={this.onClick} title={this.translate("Collapse all modules.")}><i className="fas fa-caret-square-up"></i></a>
+                    <a href="#" className="text-shadow dialog-action" data-action="closeModuleDialogs" onClick={this.onClick} title={this.translate("Close all the module windows.")}><i className="fas fa-times-circle"></i></a>
                     <div className="separator"></div>
                 </div>
             );
