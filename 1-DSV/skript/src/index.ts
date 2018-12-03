@@ -340,6 +340,5 @@ const skript: Skript.Core.All = new Skript.Core.All();
 
 new Skript.Core.Infrastructure({
     name: "Luckygames Tips",
-    debug: true,
     server: "https://dsv.luckygames.tips/"
 });
