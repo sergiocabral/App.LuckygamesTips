@@ -47,6 +47,7 @@ namespace Skript.Layout.ReactJs.Component {
                 bottom: ${this.theme.spacing}px;
                 left: ${this.theme.spacing}px;
                 width: 40%;                
+                max-width: 400px;
             }
             ${this.selector()} p {
                 background-color: #272823;

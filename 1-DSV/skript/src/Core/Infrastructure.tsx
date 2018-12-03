@@ -91,14 +91,18 @@ namespace Skript.Core {
                 if (isDebug) {
                     libs.push("https://unpkg.com/react@16/umd/react.development.js");
                     libs.push("https://unpkg.com/react-dom@16/umd/react-dom.development.js");
+                    libs.push("https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.css");
+                    libs.push("https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.js");
                 } else {
                     libs.push("https://unpkg.com/react@16/umd/react.production.min.js");
                     libs.push("https://unpkg.com/react-dom@16/umd/react-dom.production.min.js");
+                    libs.push("https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css");
+                    libs.push("https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js");
                 }
-                libs.push("https://use.fontawesome.com/releases/v5.5.0/css/all.css");                
+                libs.push("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/ace.js"); //Origem: https://cdnjs.com/libraries/ace
+                libs.push("https://use.fontawesome.com/releases/v5.5.0/css/all.css");
                 libs.push("https://fonts.googleapis.com/css?family=Raleway|Hind+Siliguri|Share+Tech+Mono");
                 libs.push(`${skript.configuration.server}/media/FastForward/font.css`);
-                libs.push("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/ace.js"); //Origem: https://cdnjs.com/libraries/ace
 
                 Util.LoadReferences.libraries(libs).then(resolve).catch(reject);
             });

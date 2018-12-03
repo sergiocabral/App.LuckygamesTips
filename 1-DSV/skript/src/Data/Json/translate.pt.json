@@ -360,6 +360,14 @@
             { 
                 "Clear log":
                 "Limpar log" 
+            },
+            { 
+                "Default":
+                "Padrão" 
+            },
+            { 
+                "Current":
+                "Atual" 
             }
         ],
         "LuckygamesAdjusts.tsx": {

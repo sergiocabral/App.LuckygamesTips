@@ -9,12 +9,17 @@ namespace Skript.Part.System.MainHeader {
          * Código CSS para este componente.
          */
         protected stylesheet: string = `
-            ${this.selector()} {
-            }            
-            ${this.selector()} .json > div {
+            ${this.selector()} > .set + .select2 {
+                width: 100% !important;
+                margin-bottom: ${this.theme.spacing}px;
+            }
+            ${this.selector()} span.select2-selection.select2-selection--single {
+                outline: none;
+            }
+            ${this.selector()} > .json > div {
                 height: 180px;
             }
-            ${this.selector()} .json.edicao .ace_editor .ace_gutter {
+            ${this.selector()} > .json.edicao .ace_editor .ace_gutter {
                 background-color: brown;
             }
         `;
@@ -83,14 +88,11 @@ namespace Skript.Part.System.MainHeader {
         protected renderContent(): JSX.Element {            
             return (
                 <div id={this.id()} className={this.className()}>
+                    <Layout.ReactJs.Component.Select className="set">
+                        <option>{this.translate("Default")}</option>
+                        <option>{this.translate("Current")}</option>
+                    </Layout.ReactJs.Component.Select>
                     <div className="json"><div id={this.idAceEditorJson} ref={this.elAceEditorJson}></div></div>
-                    <div>teste</div>
-                    <Layout.ReactJs.Component.Select values={[
-                        { key: "valor1", value: "Opção 1" },
-                        { key: "valor2", value: "Opção 2" },
-                        { key: "valor3", value: "Opção 3", state: true },
-                        { key: "valor4", value: "Opção 4" }
-                    ]} />
                 </div>
             );
         }
