@@ -180,7 +180,6 @@ namespace Skript.Util {
                 }
                 ${selector} .prompt > div > .button {
                     font-size: 15px;
-                    text-transform: uppercase;
                     padding: 5px 10px;
                     margin-left: 10px;
                 }

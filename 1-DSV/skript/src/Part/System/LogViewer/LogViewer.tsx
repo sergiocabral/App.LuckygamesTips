@@ -217,7 +217,7 @@ namespace Skript.Part.System.LogViewer {
                 this.title,
                 [
                     new Automation.Parameter<string[]>("Levels", 
-                        () => this.levels().map(v => Core.Log.Level[v]),
+                        () => this.levels().map(v => Core.Log.Level[v]).filter(v => v.indexOf(Core.Log.Level[Core.Log.Level.Debug]) < 0 || v === Core.Log.Level[Core.Log.Level.Debug]),
                         (value: string[]) => {
                             const toSet = value.map(v => Core.Log.Level[v as any] as any as Core.Log.Level).filter(v => v !== undefined);
                             const setted = toSet.length === value.length;
@@ -277,7 +277,7 @@ namespace Skript.Part.System.LogViewer {
                     <div className="controls">
                         <div>
                             <LogLevels className="levels" ref={this.elLogLevels} onChange={this.onLogLevelsChange}></LogLevels>
-                            <Layout.ReactJs.Component.Switch className="switch" checked={true} onChange={this.onAllChange}>{this.translate("All")}</Layout.ReactJs.Component.Switch>
+                            <Layout.ReactJs.Component.Switch className="switch" checked={false} onChange={this.onAllChange}>{this.translate("All")}</Layout.ReactJs.Component.Switch>
                             <div className="spacing"></div>
                             <button className="button" onClick={this.onClearLogClick}>{this.translate("Clear log")}</button>
                             <div className="spacing"></div>

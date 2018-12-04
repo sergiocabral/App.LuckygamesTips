@@ -29,7 +29,7 @@ namespace Skript.Part.System.LogViewer {
         public constructor(level: Core.Log.Level, translate: (id: string) => string) {
             this.level = level;
             this.name = translate(Core.Log.Level[level]);
-            this.checked = true;
+            this.checked = level <= Core.Log.Level.Debug;
         }
 
         /**
@@ -174,6 +174,13 @@ namespace Skript.Part.System.LogViewer {
                     )}
                 </div>
             );
+        }
+
+        /**
+         * Componente montado.
+         */
+        public componentDidMount(): void {
+            setTimeout(() => this.callParentOnChange(), 1);
         }
     }
 }
