@@ -182,7 +182,7 @@ namespace Skript.Part.System.Parameters {
                     </Layout.ReactJs.Component.Select>
                     <div className="controls top">
                         <button className="button red" title={this.translate("Deletes the selected parameter.")}>{this.translate("Delete")}</button>
-                        <button className="button" title={this.translate("Reload the settings of the selected parameter.")} disabled>{this.translate("Reload")}</button>
+                        <button className="button" title={this.translate("Reload the settings of the selected parameter.")}>{this.translate("Reload")}</button>
                     </div>
                     <div className="json"><div id={this.idAceEditorJson} ref={this.elAceEditorJson}></div></div>
                     <div className="controls bottom">

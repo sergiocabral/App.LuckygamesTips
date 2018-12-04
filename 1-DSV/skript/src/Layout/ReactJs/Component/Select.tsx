@@ -77,7 +77,7 @@ namespace Skript.Layout.ReactJs.Component {
             if (!this.select2) return [];
 
             if (value !== undefined) {
-                this.select2.select2("val", Array.isArray(value) ? value : [value]);
+                this.select2.val(Array.isArray(value) ? value : [value]).trigger("change");
             }
 
             const current = this.select2.val();
@@ -114,8 +114,8 @@ namespace Skript.Layout.ReactJs.Component {
             if (!this.elContainer.current || !jQuery) return;
 
             const configuration: any = {
-                debug: skript.configuration.debug,  
-                language: skript.translate.languageDefault,
+                debug: skript.configuration.debug,
+                language: "en",
                 placeholder: this.props.placeholder ? this.props.placeholder : ""
             };
             if (undefined !== this.props.tags) configuration.tags = this.props.tags;
