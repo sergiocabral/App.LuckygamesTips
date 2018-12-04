@@ -369,6 +369,10 @@
                 "No user parameter.":
                 "Nenhum parâmetro de usuário." 
             },
+            {
+                "User parameter":
+                "Parâmetro do usuário"
+            },
             { 
                 "Default":
                 "Padrão" 
@@ -380,6 +384,10 @@
             { 
                 "Reload":
                 "Recarregar" 
+            },
+            {
+                "Select a parameter...":
+                "Selecione um parametro..."
             },
             { 
                 "Reload the settings of the selected parameter.":

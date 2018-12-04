@@ -28,13 +28,19 @@ namespace Skript.Layout.ReactJs.Component {
          * @type {boolean}
          */
         multiple?: boolean;
+
+        /**
+         * Evento para quando houver mudança de valores.
+         * @param {Core.KeyValue[]} values Parâmetros selecionados.
+         */
+        onChange?: (values: Core.KeyValue<string>[]) => void;
     }
 
     /**
      * Controle tipo Switch, liga e desliga
      */
     export class Select extends ComponentBase<SelectProps, Partial<Layout.ReactJs.EmptyState>> {
-
+        
         /**
          * Código CSS para este componente.
          */
@@ -55,13 +61,37 @@ namespace Skript.Layout.ReactJs.Component {
          * @type {React.RefObject<HTMLSelectElement>}
          */
         private elContainer: React.RefObject<HTMLSelectElement>;
+        
+        /**
+         * Instância do select2
+         * @type {any}
+         */
+        private select2: any;
+
+        /**
+         * Define ou retorna o valor selecionado.
+         * @param value Valor a definir.
+         * @returns {string[]} Valores selecionados.
+         */
+        public value(value?: string|string[]): string[] {
+            if (!this.select2) return [];
+
+            if (value !== undefined) {
+                this.select2.select2("val", Array.isArray(value) ? value : [value]);
+            }
+
+            const current = this.select2.val();
+            return typeof(current) === "string" ? [current] : current;
+        }
 
         /**
          * Ao clicar na lista
-         * @param {any} evt Informações sobre o evento.
          */
-        private onChange(evt: any): void {
-            console.log(evt);
+        private onChange(): void {
+            if (!this.props.onChange) return;
+            const result: Core.KeyValue<string>[] = [];
+            this.select2.select2("data").map((v: any) => result.push({ key: v.id, value: v.text }));
+            this.props.onChange(result);
         }
 
         /**
@@ -70,7 +100,7 @@ namespace Skript.Layout.ReactJs.Component {
          */
         public render(): JSX.Element {
             return (
-                <select id={this.id()} className={this.className()} ref={this.elContainer} onChange={this.onChange}>
+                <select id={this.id()} className={this.className()} ref={this.elContainer}>
                     {this.props.children}
                 </select>
             );
@@ -91,7 +121,10 @@ namespace Skript.Layout.ReactJs.Component {
             if (undefined !== this.props.tags) configuration.tags = this.props.tags;
             if (undefined !== this.props.multiple) configuration.multiple = this.props.multiple;
             if (undefined !== this.props.allowClear) configuration.allowClear = this.props.allowClear;
-            setTimeout(() => jQuery(`${this.selector()}#${this.id()}`).select2(configuration), 1);
+            setTimeout(() => {
+                this.select2 = jQuery(`${this.selector()}#${this.id()}`).select2(configuration);
+                this.select2.on("change", this.onChange);
+            }, 1);
         }
     }
 }

@@ -10,8 +10,16 @@ namespace Skript.Automation {
          */
         public handlers: Core.Bus.MessageHandler[] = [ 
             {                
-                message: Message.GetCurrentParameters.name,
-                handler: (command: Message.GetCurrentParameters) => command.result = { parameters: this.sponsor.parameters() }
+                message: Message.GetCurrentSettings.name,
+                handler: (command: Message.GetCurrentSettings) => command.result = { settings: this.sponsor.currentSettings() }
+            },
+            {                
+                message: Message.GetDefaultSettings.name,
+                handler: (command: Message.GetDefaultSettings) => command.result = { settings: this.sponsor.defaultSettings() }
+            },
+            {
+                message: Message.GetSavedParameters.name,
+                handler: (command: Message.GetSavedParameters) => command.result = { parameters: this.sponsor.parameters() }
             }
         ];
     }    

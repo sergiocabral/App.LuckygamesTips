@@ -1,10 +1,10 @@
-namespace Skript.Part.System.MainHeader {
+namespace Skript.Part.System.Parameters {
 
     /**
      * Componente principal do módulo.
      */
     export class Parameters extends Layout.ReactJs.DialogComponentBase<Layout.ReactJs.EmptyProps, Partial<Layout.ReactJs.EmptyState>> {
-
+        
         /**
          * Código CSS para este componente.
          */
@@ -63,8 +63,19 @@ namespace Skript.Part.System.MainHeader {
             this.title = "Operating Parameters";
             this.icon = "fas fa-users-cog";
 
+            this.onChange = this.onChange.bind(this);
+
+            this.elSelectParameter = React.createRef();
             this.elAceEditorJson = React.createRef();
+
+            this.load();
         }
+
+        /**
+         * Controle para seleção do parâmetro.
+         * @type {React.RefObject<Layout.ReactJs.Component.Select>}
+         */
+        private elSelectParameter: React.RefObject<Layout.ReactJs.Component.Select>;
         
         /**
          * Id para componente AceEditor para o campo json.
@@ -91,22 +102,61 @@ namespace Skript.Part.System.MainHeader {
         private jsonTabSize: number = 2;
 
         /**
-         * Parâmetros atuais como json
-         * @returns {string} json
+         * Parâmetros atuais.
+         * @type {{[name: string]: Object}}
          */
-        public json(): string {
-            const message = new Automation.Message.GetCurrentParameters().sendSync();
-            if (!message.result) throw new Core.Errors.NullNotExpected("Message.GetCurrentParameters.result");
-            return JSON.stringify(message.result.parameters, null, this.jsonTabSize);
+        private currentParameters: {[name: string]: Object} = { };
+
+        /**
+         * Carrega lista de parâmetros
+         */
+        public load(): void {
+            const message = new Automation.Message.GetSavedParameters().sendSync();
+            if (!message.result) throw new Core.Errors.NullNotExpected("Message.GetParameters.result");
+            this.currentParameters = message.result.parameters ? message.result.parameters : { };
+            this.forceUpdate();
+        }
+
+        /**
+         * Atualiza a exibição do componente.
+         */
+        public forceUpdate(): void {
+            if (this.elSelectParameter.current) super.forceUpdate();
+        }
+
+        /**
+         * Evento ao mudar seleção do select parameter.
+         * @param {Core.KeyValue[]} values Valores atuais.
+         */
+        private onChange(values: Core.KeyValue<string>[]): void {
+            if (!Array.isArray(values) || values.length > 1) throw new Core.Errors.InvalidArgument(`Parameters.onChange(values.length(${Array.isArray(values) ? values.length : typeof(values)}) <= 1`);
+
+            let message;
+            
+            if (values.length === 0) this.setJson("");
+            else switch (values[0].key) {
+                case "current":
+                    message = new Automation.Message.GetCurrentSettings().sendSync();
+                    if (!message.result) throw new Core.Errors.NullNotExpected("Message.GetCurrentSettings.result");
+                    this.setJson(message.result.settings);
+                    break;
+                case "default":
+                    message = new Automation.Message.GetDefaultSettings().sendSync();
+                    if (!message.result) throw new Core.Errors.NullNotExpected("Message.GetDefaultSettings.result");
+                    this.setJson(message.result.settings);
+                    break;
+                default: this.setJson(this.currentParameters[values[0].key]);
+            }
         }
 
         /**
          * Define um conteúdo json no AceEditor.
          * @param json json
          */
-        private setJson(json: string): void {
+        private setJson(json: string|Object): void {
+            const text = typeof(json) === "string" ? json : JSON.stringify(json, null, this.jsonTabSize);
             if (!this.objAceEditorJson || !this.elAceEditorJson.current || !this.elAceEditorJson.current.parentElement) return;
-            this.objAceEditorJson.setValue(json);
+            this.objAceEditorJson.setValue(text);
             this.objAceEditorJson.selection.clearSelection();
             this.objAceEditorJson.selection.moveCursorFileStart();
             this.elAceEditorJson.current.parentElement.classList.remove('edicao');
@@ -119,12 +169,16 @@ namespace Skript.Part.System.MainHeader {
         protected renderContent(): JSX.Element {            
             return (
                 <div id={this.id()} className={this.className()}>
-                    <Layout.ReactJs.Component.Select className="set">
+                    <Layout.ReactJs.Component.Select className="set" ref={this.elSelectParameter} onChange={this.onChange} allowClear={true} placeholder={this.translate("Select a parameter...")}>
                         <optgroup label={this.translate("System")}>
-                            <option>{this.translate("Default")}</option>
-                            <option>{this.translate("Current")}</option>
+                            <option value="default">{this.translate("Default")}</option>
+                            <option value="current">{this.translate("Current")}</option>
                         </optgroup>
-                        <optgroup label={this.translate("No user parameter.")}></optgroup>
+                        <optgroup label={Object.keys(this.currentParameters).length === 0 ? this.translate("No user parameter.") : this.translate("User parameter")}>
+                            {Object.keys(this.currentParameters).map(v => 
+                                <option key={v} value={"user: " + v}>{v}</option>
+                            )}
+                        </optgroup>
                     </Layout.ReactJs.Component.Select>
                     <div className="controls top">
                         <button className="button red" title={this.translate("Deletes the selected parameter.")}>{this.translate("Delete")}</button>
@@ -143,7 +197,7 @@ namespace Skript.Part.System.MainHeader {
          * Após montagem do componente.
          */
         public componentDidMount(): void {
-            if (!this.elAceEditorJson.current) return;
+            if (!this.elAceEditorJson.current || !this.elSelectParameter.current) return;
 
             this.objAceEditorJson = (window as any).ace.edit(this.idAceEditorJson);
             this.objAceEditorJson.setTheme("ace/theme/twilight");
@@ -154,8 +208,9 @@ namespace Skript.Part.System.MainHeader {
                 if (!this.elAceEditorJson.current || !this.elAceEditorJson.current.parentElement) return; 
                 if (!this.elAceEditorJson.current.parentElement.classList.contains('edicao')) 
                     this.elAceEditorJson.current.parentElement.classList.add('edicao'); });
-
-            setTimeout(() => this.setJson(this.json()), 1000);
+            
+            const elSelectParameter = this.elSelectParameter.current;
+            setTimeout(() => elSelectParameter.value(""), 1);
         }
     }
 

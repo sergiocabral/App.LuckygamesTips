@@ -18,7 +18,10 @@ namespace Skript.Automation {
          * @returns {Parameters} Instância
          */
         public static getInstance(name: string, parameters?: Parameter<any>[]): Parameters {
-            if (!Parameters.instances[name]) Parameters.instances[name] = new Parameters(name);
+            if (!Parameters.instances[name]) {
+                Parameters.instances[name] = new Parameters(name);
+                Parameters.defaultSettingsValue[name] = { };
+            }
 
             if (Array.isArray(parameters))
                 for (let i = 0; i < parameters.length; i++)
@@ -48,10 +51,21 @@ namespace Skript.Automation {
         public parameters: {[name:string]: Parameter<any>} = { };
 
         /**
-         * Retorna os parâmetros como json
+         * Definições padrão.
+         * @type {Object}
+         */
+        private static defaultSettingsValue: {[name: string]: {[name: string]: any}} = { };
+
+        /**
+         * Retorna as definições padrão em todos os parâmetros.
+         */
+        public static defaultSettings: () => Object = () => Parameters.defaultSettingsValue;
+
+        /**
+         * Retorna as definições atuais em todos os parâmetros.
          * @returns {Object} Parâmetros.
          */
-        public static parameters(): Object {
+        public static currentSettings(): Object {
             const result: any = { };
             for (const i in Parameters.instances) {
                 result[Parameters.instances[i].name] = { };
@@ -64,11 +78,22 @@ namespace Skript.Automation {
         }
 
         /**
+         * Retorna os parâmetros gravados e suas definições.
+         * @returns {{[name: string]: Object}} Lista parâmetro e definições.
+         */
+        public static parameters(): {[name: string]: Object} {
+            return skript.storage.data().parameters;
+        }
+
+        /**
          * Define um parâmetro. Em caso de repetições é feito substituição.
          * @param {Parameter<any>} parameter Parâmetro.
          */
         public set(parameter: Parameter<any>): void {
+            const isNew = this.parameters[parameter.name] === undefined;
             this.parameters[parameter.name] = parameter;
+            if (isNew) Parameters.defaultSettingsValue[this.name][parameter.name] = parameter.get();
+            new Message.ParametersUpdated().sendAsync();
         }
    }
    

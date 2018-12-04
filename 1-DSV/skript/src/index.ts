@@ -6,6 +6,9 @@
 
 /// #############################################
 
+/// <reference path="Part/System/Parameters/ParametersBus.tsx" />
+/// context: SystemPart
+
 /// <reference path="Part/System/Parameters/Parameters.tsx" />
 /// context: SystemPart
 
@@ -187,10 +190,25 @@
 
 /// #############################################
 
-/// <reference path="Automation/Message/ApplyParameters.tsx" />
+/// <reference path="Automation/Message/ApplySettings.tsx" />
 /// context: Initialize
 
-/// <reference path="Automation/Message/GetCurrentParameters.tsx" />
+/// <reference path="Automation/Message/GetCurrentSettings.tsx" />
+/// context: Initialize
+
+/// <reference path="Automation/Message/GetDefaultSettings.tsx" />
+/// context: Initialize
+
+/// <reference path="Automation/Message/GetSavedParameters.tsx" />
+/// context: Initialize
+
+/// <reference path="Automation/Message/SaveSettingsToParameter.tsx" />
+/// context: Initialize
+
+/// <reference path="Automation/Message/DeleteParameter.tsx" />
+/// context: Initialize
+
+/// <reference path="Automation/Message/ParametersUpdated.tsx" />
 /// context: Initialize
 
 /// <reference path="Automation/Parameter.tsx" />

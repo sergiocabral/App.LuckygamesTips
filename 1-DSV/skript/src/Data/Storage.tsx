@@ -29,10 +29,10 @@ namespace Skript.Data {
         /**
          * Pacote de informações gravadas no storage.
          * @param {Packet} value Dados para gravação. Propriedade undefined retornam ao valor padrão.
-         * @returns {Packet} Dados gravados.
+         * @returns {PacketDefault} Dados gravados.
          */
-        public data(value?: Packet): Packet {
-            const defaults: Packet = this.defaults();
+        public data(value?: Packet): PacketDefault {
+            const defaults = new PacketDefault();
             let data;
 
             const dataText = localStorage.getItem(this.name);
@@ -41,7 +41,7 @@ namespace Skript.Data {
                 if (!data) throw new Core.Errors.InvalidData("localStorage.getItem()");
             } catch (error) {
                 data = defaults;
-            }            
+            }
 
             if (value !== undefined) {
                 data = Object.assign(data, value);
@@ -56,23 +56,6 @@ namespace Skript.Data {
             }
             
             return data;
-        }
-
-        /**
-         * Dados padrão.
-         * @returns {Packet} Dados.
-         */
-        private defaults(): Packet {
-            let language;
-            switch (Luckygames.General.language().trim().toLowerCase()) {
-                case "pt":
-                case "br": language = "pt"; break;
-                default:   language = "en";
-            }
-
-            return {
-                language: language
-            };
         }
     }
 

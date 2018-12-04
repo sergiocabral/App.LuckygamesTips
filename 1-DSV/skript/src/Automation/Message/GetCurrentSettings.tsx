@@ -1,9 +1,9 @@
 namespace Skript.Automation.Message {
 
     /**
-     * Retorna os parâmetros atuais.
+     * Retorna as definições atuais.
      */
-    export class GetCurrentParameters extends Core.Bus.Message { 
+    export class GetCurrentSettings extends Core.Bus.Message { 
 
         /**
          * Resultados.
@@ -11,10 +11,10 @@ namespace Skript.Automation.Message {
         public result?: { 
             
             /**
-             * Parâmetros como json.
+             * Definições.
              * @type {Object}
              */
-            parameters: Object 
+            settings: Object 
         }
     }
 }

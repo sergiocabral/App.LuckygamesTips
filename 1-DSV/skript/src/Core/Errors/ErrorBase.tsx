@@ -11,7 +11,7 @@ namespace Skript.Core.Errors {
          * @param {string} message Mensagem complementar do programador.
          */
         public constructor(error: string, message?: string) {
-            super(error + (message ? ": " + message : "."));
+            super("myERROR: " + error + (message ? ": " + message : "."));
         }
 
     }
