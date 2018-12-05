@@ -1,28 +1,10 @@
-﻿[ok] tradução ser algo fundamental	
-
-Cada modulo deve disponibilizar um get/set de seus parametyros
-usar isso para salvar estado atual e redfinir para um salvo
-
-Talvez C# ao invés de PHP na API
+﻿Talvez C# ao invés de PHP na API
 
 WebSocket
 
-[ok] No JavaScript usar módulos de componetes para evitar muito código de implemntação de componentes
-[parcial] Permitir o mesmo componente na mesma tela, sem conflito.
-Permitir um compoennte referenciar outro. Tipo um componente basico (label: input)
-COmpoenentes graficos: barra/pizza/etc
+Compoenentes graficos: barra/pizza/etc
 
-Os módulos devem ter separação:
-- sistema: estatísticas, etc.
-- automação: bot, etc.
-- informativo: estatistica visual, 
-- etc?
-
-[ok] deve ter ambiente de dsv + prod
 ambientes de pelo menos três versõs anteriores que possam permitir rollback da publicação
-
-[ok] estrutura melhor o log javascript
-[ok] suporte a log por niveis: debug|user|error|etc
 
 Criar um bom conceito de ligar/parar/pausar/etc para BOTs
 
@@ -30,17 +12,36 @@ projeto de testes?
 
 olhas as funções existentes e pensar num agrupamento mais adequado a cada modulo
 
-opção de destacar modulos em outras janelas para arrastar
-
-[ok] separar o mais coisas possíveis em arquivos distintos
-
-compoentne de log para modulos de bot
-
-[ok] Fazer layout variável ou com resize.
-
 Usar banco noSQL?
 
 botões com conceito de clickAndWait
 
 ser possível dois controles liga/desliga no mesmo modulo
 
+[ok] tradução ser algo fundamental	
+
+[ok]Cada modulo deve disponibilizar um get/set de seus parametyros
+[ok]usar isso para salvar estado atual e redfinir para um salvo
+
+[ok] No JavaScript usar módulos de componetes para evitar muito código de implemntação de componentes
+[ok] Permitir o mesmo componente na mesma tela, sem conflito.
+[ok] Permitir um compoennte referenciar outro. Tipo um componente basico (label: input)
+
+[ok]Os módulos devem ter separação:
+[ok]- sistema: estatísticas, etc.
+[ok]- automação: bot, etc.
+[ok]- informativo: estatistica visual, 
+[ok]- etc?
+
+[ok] deve ter ambiente de dsv + prod
+
+[ok] estrutura melhor o log javascript
+[ok] suporte a log por niveis: debug|user|error|etc
+
+[ok] opção de destacar modulos em outras janelas para arrastar
+
+[ok] separar o mais coisas possíveis em arquivos distintos
+
+[ok] compoentne de log para modulos de bot
+
+[ok] Fazer layout variável ou com resize.
