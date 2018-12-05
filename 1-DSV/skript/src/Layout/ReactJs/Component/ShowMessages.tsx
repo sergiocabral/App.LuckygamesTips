@@ -7,9 +7,15 @@ namespace Skript.Layout.ReactJs.Component {
 
         /**
          * Identificador único.
-         * @type {string}
+         * @type {number}
          */
-        id: string,
+        id: number,
+
+        /**
+         * Número para ordenação da lista de mensagens.
+         * @type {number}
+         */
+        order: number,
 
         /**
          * Mensagem de log
@@ -113,35 +119,52 @@ namespace Skript.Layout.ReactJs.Component {
          * Lista de mensagens.
          * @type {{[key:string]: MessageWrapper}}
          */
-        private messages: {[key:string]: MessageWrapper};
+        private messages: {[key:number]: MessageWrapper};
+
+        /**
+         * Contagem de mensagens já exibidas.
+         * @type {number}
+         */
+        private messagesCount: number = 0;
 
         /**
          * Posta uma mensagem para exibição.
          * @param {Core.Log.Message} message Mensagem
          */
         public post(message: Core.Log.Message): void {
-            const messageWrapper: MessageWrapper = {
-                id: Util.Text.random(),
-                message: message                
+            const id = message.text.hash();
+            let messageWrapper = this.messages[id];
+            if (!messageWrapper) {
+                messageWrapper = { id: id, order: ++this.messagesCount, message: message }
+                skript.log.post("Show new message number {0}.", messageWrapper.order, Core.Log.Level.DebugComponent);
+            }
+            else {
+                if (messageWrapper.idTimeoutRemove) clearTimeout(messageWrapper.idTimeoutRemove);
+                messageWrapper.message = message;
+                skript.log.post("Updating message on display number {0}.", messageWrapper.order, Core.Log.Level.DebugComponent);
             }
             messageWrapper.idTimeoutRemove = setTimeout(() => this.remove(messageWrapper.id), 5000);
             this.messages[messageWrapper.id] = messageWrapper;
-            this.setState({ });
+            this.forceUpdate();
         }
 
         /**
          * Remove uma mensagem
-         * @param {string} id Identificador
+         * @param {number} id Identificador
          */
-        private remove(id: string): void {
+        private remove(id: number): void {
+            if (!this.messages[id]) return;
+
             clearTimeout(this.messages[id].idTimeoutRemove as NodeJS.Timeout);
 
             setTimeout(() => {
+                if (!this.messages[id]) return;
+                skript.log.post("Removed message on display number {0}.", this.messages[id].order, Core.Log.Level.DebugComponent);
                 delete this.messages[id];
-                this.setState({  });
+                this.forceUpdate();
             }, 300 /* intervalo da animação */);
 
-            const element = document.querySelector(`#${this.id()} p[data-id="${id}"]`) as HTMLElement;
+            const element = document.querySelector(`.${this.classNameBase} #${this.id()} p[data-id="${id}"]`) as HTMLElement;
             element.classList.add("closing");
         }
 
@@ -152,7 +175,7 @@ namespace Skript.Layout.ReactJs.Component {
             const button = evt.target as HTMLElement;
             const message = button.parentElement as HTMLElement;
             
-            this.remove(message.getAttribute("data-id") as string);
+            this.remove(parseInt(message.getAttribute("data-id") as string));
         }
 
         /**
@@ -162,7 +185,7 @@ namespace Skript.Layout.ReactJs.Component {
         public render(): JSX.Element {
             return (
                 <div id={this.id()} className={this.className()}>
-                    {Object.values(this.messages).map((v) => (
+                    {Object.values(this.messages).sort((a, b) => a.order - b.order).map((v) => (
                         <p key={v.id} data-id={v.id} className={Core.Log.Level[v.message.level]}>
                             <a href="#" className="no-underline" onClick={this.onCloseClick}>&times;</a>                            
                             <span className="text">{v.message.text}</span>

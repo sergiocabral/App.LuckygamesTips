@@ -64,6 +64,10 @@ namespace Skript.Part.System.Parameters {
             this.icon = "fas fa-users-cog";
 
             this.onChange = this.onChange.bind(this);
+            this.onActionDeleteClick = this.onActionDeleteClick.bind(this);
+            this.onActionReloadClick = this.onActionReloadClick.bind(this);
+            this.onActionSaveClick = this.onActionSaveClick.bind(this);
+            this.onActionApplyClick = this.onActionApplyClick.bind(this);
 
             this.elSelectParameter = React.createRef();
             this.elAceEditorJson = React.createRef();
@@ -163,6 +167,43 @@ namespace Skript.Part.System.Parameters {
         }
 
         /**
+         * Ação: apagar parâmetro.
+         */
+        private onActionDeleteClick(): void {
+            if (!this.elSelectParameter.current) return;
+            const value = this.elSelectParameter.current.value();
+            if (!value.length) this.toast("Before deleting, select a parameter.");
+            else if (value[0].key.indexOf("user:") !== 0) this.toast("System parameters can not be deleted.");
+            else {
+                this.toast("Not implemented", Core.Log.Level.Error);
+            }
+        }
+
+        /**
+         * Ação: recarregar definições so parâmetro selecionado.
+         */
+        private onActionReloadClick(): void {
+            if (!this.elSelectParameter.current) return;
+            this.onChange(this.elSelectParameter.current.value());
+        }
+
+        /**
+         * Ação: savar definições em um parâmetro.
+         * @param {any} evt Informações sobre o evento.
+         */
+        private onActionSaveClick(evt: any): void {
+            evt;
+        }
+
+        /**
+         * Ação: aplicar definições nos módulos.
+         * @param {any} evt Informações sobre o evento.
+         */
+        private onActionApplyClick(evt: any): void {
+            evt;
+        }
+
+        /**
          * Renderizador do React.
          * @returns {JSX.Element}
          */
@@ -181,13 +222,13 @@ namespace Skript.Part.System.Parameters {
                         </optgroup>
                     </Layout.ReactJs.Component.Select>
                     <div className="controls top">
-                        <button className="button red" title={this.translate("Deletes the selected parameter.")}>{this.translate("Delete")}</button>
-                        <button className="button" title={this.translate("Reload the settings of the selected parameter.")}>{this.translate("Reload")}</button>
+                        <button className="button red" title={this.translate("Deletes the selected parameter.")} onClick={this.onActionDeleteClick}>{this.translate("Delete")}</button>
+                        <button className="button" title={this.translate("Reload the settings of the selected parameter.")} onClick={this.onActionReloadClick}>{this.translate("Reload")}</button>
                     </div>
                     <div className="json"><div id={this.idAceEditorJson} ref={this.elAceEditorJson}></div></div>
                     <div className="controls bottom">
-                        <button className="button green" title={this.translate("Saves the current settings.")}>{this.translate("Save")}</button>
-                        <button className="button blue" title={this.translate("Applies the current settings to the modules.")}>{this.translate("Apply")}</button>
+                        <button className="button green" title={this.translate("Saves the current settings.")} onClick={this.onActionSaveClick}>{this.translate("Save")}</button>
+                        <button className="button blue" title={this.translate("Applies the current settings to the modules.")} onClick={this.onActionApplyClick}>{this.translate("Apply")}</button>
                     </div>
                 </div>
             );

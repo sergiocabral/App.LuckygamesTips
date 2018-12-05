@@ -18,16 +18,20 @@
                 "Debug"
             },
             {
-                "DebugLuckygames":
-                "Luckygames"
-            },
-            {
                 "DebugBus":
                 "Bus"
             },
             {
+                "DebugComponent":
+                "Component"
+            },
+            {
                 "DebugDOM":
                 "DOM"
+            },
+            {
+                "DebugLuckygames":
+                "Luckygames"
             },
             {
                 "DebugReact":

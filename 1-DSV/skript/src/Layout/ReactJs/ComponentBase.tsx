@@ -120,11 +120,12 @@ namespace Skript.Layout.ReactJs {
 
         /**
          * Exibe uma mensagem ao usuário
-         * @param {string} text Texto.
+         * @param {string} text Texto (será aplicado tradução)
+         * @param {any} values Opcional. Conjunto de valores para substituição na string.
          * @param {Level} level Nível do log.
          */
-        protected toast(text: string, level: Core.Log.Level = Core.Log.Level.Information): void {
-            return skript.presentation.toast(text, level);
+        protected toast(text: string, values: any = { }, level: Core.Log.Level = Core.Log.Level.Information): void {
+            return skript.presentation.toast(text, values, level);
         }
 
         /**

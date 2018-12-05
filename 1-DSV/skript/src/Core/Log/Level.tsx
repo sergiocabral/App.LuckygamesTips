@@ -26,20 +26,25 @@ namespace Skript.Core.Log {
         Debug,
         
         /**
-         * Informações de depuração relacionadas a luckygames.io.
-         */
-        DebugLuckygames,
-    
-        /**
          * Informações de depuração do Bus.
          */
         DebugBus,
+
+        /**
+         * Informações de depuração relacionadas a componentes.
+         */
+        DebugComponent,
         
         /**
          * Informações de depuração relacionadas ao DOM.
          */
         DebugDOM,
         
+        /**
+         * Informações de depuração relacionadas a luckygames.io.
+         */
+        DebugLuckygames,
+    
         /**
          * Informações de depuração do React.
          */

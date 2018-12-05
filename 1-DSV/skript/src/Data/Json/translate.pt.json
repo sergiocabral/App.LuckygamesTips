@@ -175,7 +175,21 @@
                     "Animação do site: {0}"
                 }
             ]
-        }
+        },
+        "ShowMessages.tsx": [
+            {
+                "Show new message number {0}.":
+                "Exibida nova mensagem número {0}."
+            },
+            {
+                "Updating message on display number {0}.":
+                "Atualizando mensagem em exibição número {0}."
+            },
+            {
+                "Removed message on display number {0}.":
+                "Removida mensagem em exibição número {0}."
+            }
+        ]
     },
     "Mensagens do Bus": {
         "MainBus.tsx": [
@@ -216,16 +230,20 @@
                 "Depuração"
             },
             {
-                "DebugLuckygames":
-                "Luckygames"
-            },
-            {
                 "DebugBus":
                 "Bus"
             },
             {
+                "DebugComponent":
+                "Componentes"
+            },
+            {
                 "DebugDOM":
                 "DOM"
+            },
+            {
+                "DebugLuckygames":
+                "Luckygames"
             },
             {
                 "DebugReact":
@@ -416,6 +434,14 @@
             { 
                 "Applies the current settings to the modules.":
                 "Aplica as definições atuais nos módulos." 
+            },
+            {
+                "Before deleting, select a parameter.":
+                "Antes de excluir, selecione um parâmetro."
+            },
+            {
+                "System parameters can not be deleted.":
+                "Parâmetros de sistema não podem ser excluídos."
             }
         ],
         "LuckygamesAdjusts.tsx": {

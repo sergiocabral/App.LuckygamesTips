@@ -153,13 +153,14 @@ namespace Skript.Layout {
 
         /**
          * Exibe uma mensagem ao usuário
-         * @param {string} text Texto.
+         * @param {string} text Texto (será aplicado tradução)
+         * @param {any} values Opcional. Conjunto de valores para substituição na string.
          * @param {Level} level Nível do log.
          */
-        public toast(text: string, level: Core.Log.Level = Core.Log.Level.Information): void {
+        public toast(text: string, values: any = { }, level: Core.Log.Level = Core.Log.Level.Information): void {
             return this.message({
                 id: Util.Numeric.random(),
-                text: text,
+                text: skript.translate.get(text, values),
                 level: level,
                 time: new Date()
             });

@@ -73,15 +73,16 @@ namespace Skript.Layout.ReactJs.Component {
          * @param value Valor a definir.
          * @returns {string[]} Valores selecionados.
          */
-        public value(value?: string|string[]): string[] {
+        public value(value?: string|string[]): Core.KeyValue<string>[] {
             if (!this.select2) return [];
 
             if (value !== undefined) {
                 this.select2.val(Array.isArray(value) ? value : [value]).trigger("change");
             }
 
-            const current = this.select2.val();
-            return typeof(current) === "string" ? [current] : current;
+            const result: Core.KeyValue<string>[] = [];
+            this.select2.select2("data").map((v: any) => result.push({ key: v.id, value: v.text }));
+            return result;
         }
 
         /**
