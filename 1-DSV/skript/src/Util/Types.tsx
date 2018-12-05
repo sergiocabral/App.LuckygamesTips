@@ -131,6 +131,11 @@ namespace Skript.Util {
     export enum DialogFlag {
 
         /**
+         * Entrada de dados
+         */
+        Input,
+
+        /**
          * Pergunta
          */
         Question,

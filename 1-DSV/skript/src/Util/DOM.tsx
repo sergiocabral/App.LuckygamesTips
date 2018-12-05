@@ -206,7 +206,10 @@ namespace Skript.Util {
                     color: #EE9AA2;
                 }
                 ${selector} .prompt > .buttons > .color.Question {
-                    color: #63C9C4;
+                    color: #ADB5BD;
+                }
+                ${selector} .prompt > .buttons > .color.Input {
+                    color: #ADB5BD;
                 }
                 ${selector} .prompt > .buttons {
                     text-align: right;
@@ -248,6 +251,7 @@ namespace Skript.Util {
                 if (configuration.flag !== undefined) {
                     let flag;
                     switch (configuration.flag) {                    
+                        case DialogFlag.Input: flag = `<i class="fas fa-keyboard color ${DialogFlag[configuration.flag]}"></i>`; break;
                         case DialogFlag.Question: flag = `<i class="fas fa-question-circle color ${DialogFlag[configuration.flag]}"></i>`; break;
                         case DialogFlag.Information: flag = `<i class="fas fa-info-circle color ${DialogFlag[configuration.flag]}"></i>`; break;
                         case DialogFlag.Warning: flag = `<i class="fas fa-exclamation-triangle color ${DialogFlag[configuration.flag]}"></i>`; break;
