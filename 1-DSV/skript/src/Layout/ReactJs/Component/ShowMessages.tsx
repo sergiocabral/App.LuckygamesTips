@@ -71,7 +71,7 @@ namespace Skript.Layout.ReactJs.Component {
                 color: lightgrey;
             }            
             ${this.selector()} p.${Core.Log.Level[Core.Log.Level.Warning]} {
-                background-color: #E96227;
+                background-color: #E98B40;
                 color: lightgrey;
             }            
             ${this.selector()} p.${Core.Log.Level[Core.Log.Level.Error]} {
