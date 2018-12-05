@@ -126,6 +126,7 @@ namespace Skript.Part.System.Parameters {
             const message = new Automation.Message.GetSavedParameters().sendSync();
             if (!message.result) throw new Core.Errors.NullNotExpected("Message.GetParameters.result");
             this.currentParameters = message.result.parameters ? message.result.parameters : { };
+            setTimeout(() => { if (this.elSelectParameter.current) this.elSelectParameter.current.value(""); }, 1);
             this.forceUpdate();
         }
 
@@ -141,11 +142,15 @@ namespace Skript.Part.System.Parameters {
          * @param {Core.KeyValue[]} values Valores atuais.
          */
         private onChange(values: Core.KeyValue<string>[]): void {
+            if (!this.elAceEditorJson.current || !this.elAceEditorJson.current.parentElement || !this.objAceEditorJson) return;
+
             if (!Array.isArray(values) || values.length > 1) throw new Core.Errors.InvalidArgument(`Parameters.onChange(values.length(${Array.isArray(values) ? values.length : typeof(values)}) <= 1`);
 
             let message;
-            
-            if (values.length === 0) this.setJson("");
+
+            if (values.length === 0) {
+                if (this.objAceEditorJson.getValue().length) this.elAceEditorJson.current.parentElement.classList.add('edicao');
+            }
             else switch (values[0].key) {
                 case "current":
                     message = new Automation.Message.GetCurrentSettings().sendSync();
@@ -185,11 +190,8 @@ namespace Skript.Part.System.Parameters {
             else if (value[0].key.indexOf(this.prefixValue) !== 0) this.toast("System parameters can not be deleted.", null, Core.Log.Level.Warning);
             else {
                 const name = value[0].key.substr(this.prefixValue.length);
-                const elSelectParameter = this.elSelectParameter.current;
-                this.confirm("The deletion of parameter \"{0}\" will be irreversible. Do it anyway?", name).then(() => {
-                    new Automation.Message.DeleteParameter(name).sendSync();                    
-                    setTimeout(() => elSelectParameter.value(""), 1);
-                });
+                this.confirm("The deletion of parameter \"{0}\" will be irreversible. Do it anyway?", name).then(() => 
+                    new Automation.Message.DeleteParameter(name).sendSync());
             }
         }
 
@@ -198,7 +200,9 @@ namespace Skript.Part.System.Parameters {
          */
         private onActionReloadClick(): void {
             if (!this.elSelectParameter.current) return;
-            this.onChange(this.elSelectParameter.current.value());
+            const value = this.elSelectParameter.current.value();
+            this.onChange(value);
+            if (!value.length) this.setJson("");
         }
 
         /**
@@ -219,7 +223,7 @@ namespace Skript.Part.System.Parameters {
             const currentParameterName = currentParameter.length === 0 || currentParameter[0].key.indexOf(this.prefixValue) !== 0 ? "" : currentParameter[0].value;
             this.prompt("Save these settings in what parameter?", undefined, currentParameterName).then(name => {
                 new Automation.Message.SaveSettingsToParameter(name, json).sendSync();
-                if (this.elSelectParameter.current) this.elSelectParameter.current.value(this.prefixValue + name);
+                setTimeout(() => { if (this.elSelectParameter.current) this.elSelectParameter.current.value(this.prefixValue + name); }, 1);
             });
         }
 
@@ -265,13 +269,13 @@ namespace Skript.Part.System.Parameters {
                         </optgroup>
                     </Layout.ReactJs.Component.Select>
                     <div className="controls top">
-                        <button className="button red" title={this.translate("Deletes the selected parameter.")} onClick={this.onActionDeleteClick}>{this.translate("Delete")}</button>
-                        <button className="button" title={this.translate("Reload the settings of the selected parameter.")} onClick={this.onActionReloadClick}>{this.translate("Reload")}</button>
+                        <button className="dialog-action button red" title={this.translate("Deletes the selected parameter.")} onClick={this.onActionDeleteClick}>{this.translate("Delete")}</button>
+                        <button className="dialog-action button" title={this.translate("Reload the settings of the selected parameter.")} onClick={this.onActionReloadClick}>{this.translate("Reload")}</button>
                     </div>
                     <div className="json"><div id={this.idAceEditorJson} ref={this.elAceEditorJson}></div></div>
                     <div className="controls bottom">
-                        <button className="button green" title={this.translate("Saves the current settings.")} onClick={this.onActionSaveClick}>{this.translate("Save")}</button>
-                        <button className="button blue" title={this.translate("Applies the current settings to the modules.")} onClick={this.onActionApplyClick}>{this.translate("Apply")}</button>
+                        <button className="dialog-action button green" title={this.translate("Saves the current settings.")} onClick={this.onActionSaveClick}>{this.translate("Save")}</button>
+                        <button className="dialog-action button blue" title={this.translate("Applies the current settings to the modules.")} onClick={this.onActionApplyClick}>{this.translate("Apply")}</button>
                     </div>
                 </div>
             );

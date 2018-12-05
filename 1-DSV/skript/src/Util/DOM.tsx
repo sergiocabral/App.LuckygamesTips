@@ -193,7 +193,8 @@ namespace Skript.Util {
                 }
                 ${selector} .prompt > .buttons > .color {
                     float: left;
-                    font-size: 28px;
+                    font-size: 18px;
+                    margin: 5px 0 0 6px;
                 }
                 ${selector} .prompt > .buttons > .color.Information {
                     color: #66B0FF;
