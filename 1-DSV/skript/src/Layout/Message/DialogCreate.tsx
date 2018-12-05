@@ -13,6 +13,7 @@ namespace Skript.Layout.Message {
          * @param {any} children Opcional. Conteúdo da janela.
          * @param {string} className Classes CSS.
          * @param {Core.Size} size Opcional. Dimensão.
+         * @param {() => void} onResize Evento ao redimensionae
          */
         public constructor(
             title: string, 
@@ -21,7 +22,8 @@ namespace Skript.Layout.Message {
             children?: any, 
             className?: string,
             size?: Core.Size,
-            position?: Core.Position) { 
+            position?: Core.Position,
+            onResize?: () => void) { 
 
             super();
             
@@ -32,6 +34,7 @@ namespace Skript.Layout.Message {
             this.children = children;
             this.size = size;
             this.position = position;
+            this.onResize = onResize;
         }
 
         /**
@@ -75,6 +78,12 @@ namespace Skript.Layout.Message {
          * @type {Core.Position}
          */
         public position?: Core.Position;
+
+        /**
+         * Evento ao redimensionar
+         * @type {() => void}
+         */
+        public onResize?: () => void;
 
         /**
          * Resultados.

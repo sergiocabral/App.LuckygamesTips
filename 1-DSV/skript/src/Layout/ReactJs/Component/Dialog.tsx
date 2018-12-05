@@ -50,6 +50,12 @@ namespace Skript.Layout.ReactJs.Component {
          * @type {Core.Position}
          */
         position?: Core.Position;
+
+        /**
+         * Função chamada sempre que redimensionar.
+         * @type {() => void}
+         */
+        onResize?: () => void;
     }
 
     /**
@@ -188,6 +194,7 @@ namespace Skript.Layout.ReactJs.Component {
             this.elTitle = React.createRef();
             this.elResize = React.createRef();
 
+            this.onResize = this.onResize.bind(this);
             this.close = this.close.bind(this);
             this.maximize = this.maximize.bind(this);
             this.restore = this.restore.bind(this);
@@ -343,6 +350,13 @@ namespace Skript.Layout.ReactJs.Component {
         private appendIdTimeout: number = 0;
 
         /**
+         * Evento ao redimensionar.
+         */
+        private onResize(): void {
+            if (this.props.onResize instanceof Function) this.props.onResize();
+        }
+
+        /**
          * Adiciona conteúdo na janela.
          * @param {React.ReactNode} children Conteúdo.
          */
@@ -426,7 +440,8 @@ namespace Skript.Layout.ReactJs.Component {
                 elContainer: this.elContainer.current as HTMLElement,
                 elMove: [this.elTitle.current as HTMLElement],
                 elResize: [this.elResize.current as HTMLElement],
-                ignoreEventClick: this.ignoreEventClick
+                ignoreEventClick: this.ignoreEventClick,
+                onResize: this.onResize
             });
 
             this.visibility = new Visibility({ element: this.elContainer.current as HTMLElement });

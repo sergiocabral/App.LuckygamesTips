@@ -10,7 +10,8 @@ namespace Skript.Layout.ReactJs {
          * @param {P} props Propriedades.
          */
         public constructor(props: P) {
-            super(props);   
+            super(props);
+            this.onResize = this.onResize.bind(this);
         }
 
         /**
@@ -42,7 +43,8 @@ namespace Skript.Layout.ReactJs {
                     icon={this.icon} 
                     collapsible={true}
                     dialog={true}
-                    dialogSize={this.dialogSize}>
+                    dialogSize={this.dialogSize}
+                    onResize={this.onResize}>
                     {this.renderContent()}
                 </Layout.ReactJs.Component.HeaderContainer>                    
             );
@@ -59,6 +61,12 @@ namespace Skript.Layout.ReactJs {
          * @type {() => string}
          */
         protected selectorOutDialog: () => string = () => `.${Presentation.className} .${Layout.ReactJs.Component.HeaderContainer.classNameOutDialog()} .${this.className()}[id]`;
+
+        /**
+         * Função chamada sempre que redimensionar.
+         * @type {() => void}
+         */
+        protected onResize(): void { };
 
         /**
          * Renderizador do React. Conteúdo do container.

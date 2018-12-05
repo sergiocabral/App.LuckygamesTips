@@ -66,6 +66,12 @@ namespace Skript.Layout.ReactJs.Component {
          * @type {Core.Position|undefined}
          */
         dialogPosition?: Core.Position;
+
+        /**
+         * Função chamada sempre que redimensionar.
+         * @type {() => void}
+         */
+        onResize?: () => void;
     }
 
     /**
@@ -129,6 +135,8 @@ namespace Skript.Layout.ReactJs.Component {
             super(props);
 
             this.elContent = React.createRef();
+
+            this.onResize = this.onResize.bind(this);
 
             this.onHeaderClick = this.onHeaderClick.bind(this);
             this.onDialogClick = this.onDialogClick.bind(this);            
@@ -209,6 +217,13 @@ namespace Skript.Layout.ReactJs.Component {
         };
 
         /**
+         * Evento ao redimensionar.
+         */
+        private onResize(): void {
+            if (this.props.onResize instanceof Function) this.props.onResize();
+        }
+
+        /**
          * Cria a janela de diálogo.
          * @returns {Component.Dialog} Janela criada.
          */
@@ -231,7 +246,8 @@ namespace Skript.Layout.ReactJs.Component {
                     <div id={this.contextId(IdContext.Dialog)} className={HeaderContainer.classNameInDialog()} style={{ margin: `${this.theme.spacing}px` }}></div>,
                     "moduleDialog",
                     this.props.dialogSize,
-                    position).sendSync();
+                    position,
+                    this.onResize).sendSync();
                 if (!messageBus.result) throw new Core.Errors.NullNotExpected("Message.DialogCreate.result");
                 this.instanceDialog = messageBus.result.dialog;
                 
@@ -252,6 +268,7 @@ namespace Skript.Layout.ReactJs.Component {
             const moveTo = mode ? IdContext.Dialog : IdContext.Component;
 
             this.contextElement(moveTo).appendChild(this.contextElement(IdContext.Content));
+            setTimeout(() => { if (this.onResize instanceof Function) this.onResize(); }, 1);
 
             skript.log.post("HeaderContainer \"{title}\". Content moved from [{from}] to [{to}].", { title: this.props.title, from: IdContext[moveFrom], to: IdContext[moveTo] }, Core.Log.Level.DebugDOM);
         }

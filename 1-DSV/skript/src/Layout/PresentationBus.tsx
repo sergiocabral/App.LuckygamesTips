@@ -23,7 +23,8 @@ namespace Skript.Layout {
                         closeMode: command.closeMode,
                         className: command.className,
                         size: command.size,
-                        position: command.position
+                        position: command.position,
+                        onResize: command.onResize
                     }, command.children) };
                 }
             },

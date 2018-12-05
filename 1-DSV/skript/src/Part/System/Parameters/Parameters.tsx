@@ -300,6 +300,15 @@ namespace Skript.Part.System.Parameters {
             const elSelectParameter = this.elSelectParameter.current;
             setTimeout(() => elSelectParameter.value(""), 1);
         }
+
+        /**
+         * Evento ao redimensionar.
+         */
+        protected onResize(): void {
+            console.log("onResize");
+            if (!this.objAceEditorJson) return;
+            this.objAceEditorJson.resize();
+        }
     }
 
     new Part("Parameters", Parameters);
