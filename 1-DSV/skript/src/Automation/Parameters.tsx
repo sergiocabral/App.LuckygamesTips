@@ -84,6 +84,19 @@ namespace Skript.Automation {
         public static parameters(): {[name: string]: Object} {
             return skript.storage.data().parameters;
         }
+        
+        /**
+         * Sava defjnições em um parâmetro de usuário.
+         * @param {string} name Nome
+         * @param {Object} settings Definições.
+         */
+        public static save(name: string, settings: Object): void {
+            if (typeof(name) !== "string" || !name.trim() || typeof(settings) !== "object") throw new Core.Errors.InvalidArgument("Parameters.save()");
+            const parameters = skript.storage.data().parameters;
+            parameters[name] = settings;
+            skript.storage.data({ parameters: parameters });
+            new Message.ParametersUpdated().sendAsync();
+        }
 
         /**
          * Define um parâmetro. Em caso de repetições é feito substituição.

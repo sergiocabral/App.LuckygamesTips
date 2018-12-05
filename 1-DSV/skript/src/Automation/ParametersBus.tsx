@@ -20,6 +20,10 @@ namespace Skript.Automation {
             {
                 message: Message.GetSavedParameters.name,
                 handler: (command: Message.GetSavedParameters) => command.result = { parameters: this.sponsor.parameters() }
+            },
+            {
+                message: Message.SaveSettingsToParameter.name,
+                handler: (command: Message.SaveSettingsToParameter) => this.sponsor.save(command.name, command.settings)
             }
         ];
     }    

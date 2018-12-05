@@ -127,5 +127,22 @@ namespace Skript.Layout.ReactJs.Component {
                 this.select2.on("change", this.onChange);
             }, 1);
         }
+
+        /**
+         * Ao atualizar o componente.
+         */
+        public componentDidUpdate(): void {            
+            if (!this.select2) return;
+            this.select2.select2("destroy").select2();
+        }
+        
+        /**
+         * Ao desmontar componente.
+         */
+        public componentWillUnmount(): void {
+            super.componentWillUnmount();
+            if (!this.select2) return;
+            this.select2.select2("destroy");
+        }
     }
 }

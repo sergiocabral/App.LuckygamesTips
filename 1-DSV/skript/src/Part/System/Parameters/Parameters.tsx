@@ -73,6 +73,8 @@ namespace Skript.Part.System.Parameters {
             this.elAceEditorJson = React.createRef();
 
             this.load();
+
+            this.myMessageBus.push(new ParametersBus(this));
         }
 
         /**
@@ -104,6 +106,12 @@ namespace Skript.Part.System.Parameters {
          * @type {number}
          */
         private jsonTabSize: number = 2;
+
+        /**
+         * Prefixo usado no valor dos parâmetros de usuário.
+         * @type {string}
+         */
+        private prefixValue: string = "user: ";
 
         /**
          * Parâmetros atuais.
@@ -149,7 +157,8 @@ namespace Skript.Part.System.Parameters {
                     if (!message.result) throw new Core.Errors.NullNotExpected("Message.GetDefaultSettings.result");
                     this.setJson(message.result.settings);
                     break;
-                default: this.setJson(this.currentParameters[values[0].key]);
+                default: 
+                    this.setJson(this.currentParameters[values[0].key.substr(this.prefixValue.length)]);
             }
         }
 
@@ -158,7 +167,7 @@ namespace Skript.Part.System.Parameters {
          * @param json json
          */
         private setJson(json: string|Object): void {
-            const text = typeof(json) === "string" ? json : JSON.stringify(json, null, this.jsonTabSize);
+            const text = typeof(json) === "string" ? json : (json ? JSON.stringify(json, null, this.jsonTabSize) : "");
             if (!this.objAceEditorJson || !this.elAceEditorJson.current || !this.elAceEditorJson.current.parentElement) return;
             this.objAceEditorJson.setValue(text);
             this.objAceEditorJson.selection.clearSelection();
@@ -173,9 +182,9 @@ namespace Skript.Part.System.Parameters {
             if (!this.elSelectParameter.current) return;
             const value = this.elSelectParameter.current.value();
             if (!value.length) this.toast("Before deleting, select a parameter.", null, Core.Log.Level.Warning);
-            else if (value[0].key.indexOf("user:") !== 0) this.toast("System parameters can not be deleted.", null, Core.Log.Level.Warning);
+            else if (value[0].key.indexOf(this.prefixValue) !== 0) this.toast("System parameters can not be deleted.", null, Core.Log.Level.Warning);
             else {
-                const message = new Automation.Message.DeleteParameter(value[0].key.substr("user:".length)).sendSync();
+                const message = new Automation.Message.DeleteParameter(value[0].key.substr(this.prefixValue.length)).sendSync();
                 if (!message.result) throw new Core.Errors.NullNotExpected("Message.DeleteParameter.result");
                 if (message.result.error) this.error(this.translate(message.result.error));
             }
@@ -195,7 +204,7 @@ namespace Skript.Part.System.Parameters {
         private onActionSaveClick(): void {
             if (!this.objAceEditorJson || !this.elSelectParameter.current) return;
 
-            let json;
+            let json: Object;
             try {
                 json = JSON.parse(this.objAceEditorJson.getValue());
             } catch (error) {
@@ -204,12 +213,11 @@ namespace Skript.Part.System.Parameters {
             }
 
             const currentParameter = this.elSelectParameter.current.value();            
-            const currentParameterName = currentParameter.length === 0 || currentParameter[0].key.indexOf("user:") !== 0 ? "" : currentParameter[0].value;
-            this.prompt("Save these settings in what parameter?", undefined, currentParameterName).then(result => {
-                console.log(result);
+            const currentParameterName = currentParameter.length === 0 || currentParameter[0].key.indexOf(this.prefixValue) !== 0 ? "" : currentParameter[0].value;
+            this.prompt("Save these settings in what parameter?", undefined, currentParameterName).then(name => {
+                new Automation.Message.SaveSettingsToParameter(name, json).sendSync();
+                if (this.elSelectParameter.current) this.elSelectParameter.current.value(this.prefixValue + name);
             });
-
-            console.log(json);
         }
 
         /**
@@ -233,8 +241,8 @@ namespace Skript.Part.System.Parameters {
                             <option value="current">{this.translate("Current")}</option>
                         </optgroup>
                         <optgroup label={Object.keys(this.currentParameters).length === 0 ? this.translate("No user parameter.") : this.translate("User parameter")}>
-                            {Object.keys(this.currentParameters).map(v => 
-                                <option key={v} value={"user: " + v}>{v}</option>
+                            {Object.keys(this.currentParameters).sort().map(v => 
+                                <option key={v} value={this.prefixValue + v}>{v}</option>
                             )}
                         </optgroup>
                     </Layout.ReactJs.Component.Select>

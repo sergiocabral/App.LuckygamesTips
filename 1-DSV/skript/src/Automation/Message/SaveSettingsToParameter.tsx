@@ -8,24 +8,24 @@ namespace Skript.Automation.Message {
         /**
          * Construtor.
          * @param {string} name Nome
-         * @param {Object} parameters Parâmetros como json.
+         * @param {Object} settings Parâmetros como json.
          */
-        public constructor(name: string, parameters: Object) {
+        public constructor(name: string, settings: Object) {
             super();
             this.name = name;
-            this.parameters = parameters;
+            this.settings = settings;
         }
 
         /**
          * Nome.
          * @type {string}
          */
-        public name?: string;
+        public name: string;
 
         /**
          * Parâmetros como json.
          * @type {Object}
          */
-        public parameters?: Object;
+        public settings: Object;
     }
 }
