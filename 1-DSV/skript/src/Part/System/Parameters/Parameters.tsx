@@ -305,7 +305,6 @@ namespace Skript.Part.System.Parameters {
          * Evento ao redimensionar.
          */
         protected onResize(): void {
-            console.log("onResize");
             if (!this.objAceEditorJson) return;
             this.objAceEditorJson.resize();
         }
