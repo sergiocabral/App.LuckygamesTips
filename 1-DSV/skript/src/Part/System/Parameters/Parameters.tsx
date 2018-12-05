@@ -177,7 +177,7 @@ namespace Skript.Part.System.Parameters {
             else {
                 const message = new Automation.Message.DeleteParameter(value[0].key.substr("user:".length)).sendSync();
                 if (!message.result) throw new Core.Errors.NullNotExpected("Message.DeleteParameter.result");
-                if (message.result.error) this.alert(this.translate(message.result.error));
+                if (message.result.error) this.error(this.translate(message.result.error));
             }
         }
 
@@ -191,10 +191,25 @@ namespace Skript.Part.System.Parameters {
 
         /**
          * Ação: savar definições em um parâmetro.
-         * @param {any} evt Informações sobre o evento.
          */
-        private onActionSaveClick(evt: any): void {
-            evt;
+        private onActionSaveClick(): void {
+            if (!this.objAceEditorJson || !this.elSelectParameter.current) return;
+
+            let json;
+            try {
+                json = JSON.parse(this.objAceEditorJson.getValue());
+            } catch (error) {
+                this.error("Settings are not valid.\n{0}.", (error as Error).message);
+                return;
+            }
+
+            const currentParameter = this.elSelectParameter.current.value();            
+            const currentParameterName = currentParameter.length === 0 || currentParameter[0].key.indexOf("user:") !== 0 ? "" : currentParameter[0].value;
+            this.prompt("Save these settings in what parameter?", undefined, currentParameterName).then(result => {
+                console.log(result);
+            });
+
+            console.log(json);
         }
 
         /**

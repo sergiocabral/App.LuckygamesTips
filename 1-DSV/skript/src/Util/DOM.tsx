@@ -131,9 +131,9 @@ namespace Skript.Util {
         /**
          * Exibe uma janela de mensagem ao usuário.
          * @param {string|DialogProps} configuration Texto de exibição ou informações de configuração.
-         * @returns {Promise<DialogButton>} Quando a mensagem é fechada retorna o nome do botão acionado.
+         * @returns {Promise<DialogResult>} Quando a mensagem é fechada retorna o nome do botão acionado.
          */
-        public static dialog(info: string|DialogProps): Promise<DialogButton> {
+        public static dialog(info: string|DialogProps): Promise<DialogResult> {
             const containerParent = document.querySelector("." + Layout.Presentation.className);
 
             if (!containerParent) throw new Core.Errors.EnvironmentNotReady(`document.querySelector(".${Layout.Presentation.className}") is null`);
@@ -174,6 +174,18 @@ namespace Skript.Util {
                     padding: 10px 10px 0 10px;
                     font-size: 18px;
                 }
+                ${selector} .prompt > input {
+                    width: calc(100% - 32px);
+                    margin: 5px 10px 0 10px;
+                    border: none;
+                    border-bottom: 1px solid #E0E0E0;
+                    background-color: #f3f3f3;
+                    padding: 3px 6px;
+                }
+                ${selector} .prompt > input.error {
+                    background-color: pink;
+                    border-bottom-color: palevioletred;
+                }
                 ${selector} .prompt > div {
                     text-align: right;
                     padding: 10px;
@@ -208,6 +220,7 @@ namespace Skript.Util {
                 html = "";
                 if (configuration.title) html += `<h1>${configuration.title}</h1>`;
                 if (configuration.text) html += "<p>" + configuration.text.replaceAll("\n", "</p><p>") + "</p>";
+                if (configuration.input) html += `<input type="text" value="${configuration.inputDefault ? configuration.inputDefault.replaceAll('"', '&quot;') : ""}"' />`;
                 html += "<div>";
                 for (let i = 0; i < configuration.buttons.length; i++) {
                     if (buttonEscapeIndex < 0 && configuration.buttons[i].escape) buttonEscapeIndex = i;
@@ -228,8 +241,10 @@ namespace Skript.Util {
                 containerParent.append(container);
 
                 setTimeout(() => {
-                    let toFocus = document.querySelector(`${selector}#${container.id} button.focus`) as HTMLButtonElement;
-                    if (!toFocus) toFocus = document.querySelector(`${selector}#${container.id} button[data-index="0"]`) as HTMLButtonElement;
+                    let toFocus = document.querySelector(`${selector}#${container.id} input`) as HTMLElement;
+                    if (toFocus) (toFocus as HTMLInputElement).select();
+                    if (!toFocus) toFocus = document.querySelector(`${selector}#${container.id} button.focus`) as HTMLElement;
+                    if (!toFocus) toFocus = document.querySelector(`${selector}#${container.id} button[data-index="0"]`) as HTMLElement;
                     if (toFocus) toFocus.focus();
                 }, 1);
 
@@ -242,6 +257,11 @@ namespace Skript.Util {
                 const key = (evt: KeyboardEvent): void => {
                     if (!this.isBring(container, BringTo.Front)) return;
                     if (evt.keyCode === 27) (buttons[buttonEscapeIndex >= 0 ? buttonEscapeIndex : 0] as HTMLButtonElement).click();
+                    if (evt.keyCode === 13) {
+                        let toFocus = document.querySelector(`${selector}#${container.id} button.focus`) as HTMLButtonElement;
+                        if (!toFocus) toFocus = document.querySelector(`${selector}#${container.id} button[data-index="0"]`) as HTMLButtonElement;
+                        if (toFocus) toFocus.click();
+                    }
                 }
 
                 /**
@@ -249,12 +269,34 @@ namespace Skript.Util {
                  * @param {MouseEvent} evt Informações sobre o evento.
                  */
                 const click = (evt: MouseEvent): void => {
+                    if (!configuration.buttons) return;
+                    
                     let button = evt.target as HTMLElement;
+                    
                     while (!button.hasAttribute("data-index") && button.parentElement) button = button.parentElement;
+                    
+                    const parent = (button.parentElement as HTMLElement).parentElement as HTMLElement;
+                    
+                    const input = parent.querySelector("input") as HTMLInputElement;
+                    
                     const index = parseInt(button.getAttribute("data-index") as string);
+
+                    if (!configuration.buttons[index].escape &&
+                        input && 
+                        configuration.inputValidade instanceof Function && 
+                        !configuration.inputValidade(input.value)) {
+                        input.classList.add("error");
+                        return;
+                    }
+                    
                     container.remove();
+                    
                     window.removeEventListener("keyup", key as any);
-                    resolve(Number.isFinite(index) && configuration.buttons ? configuration.buttons[index] : undefined);
+                    
+                    resolve({
+                        button: configuration.buttons[index],
+                        input: input ? input.value : ""
+                    });
                 };
 
                 for (let i = 0; i < buttons.length; i++) buttons[i].addEventListener("click", click as any);

@@ -162,30 +162,91 @@ namespace Skript.Layout.ReactJs {
          * Determina se o sistema está em modo debug.
          */
         protected debug: () => boolean = () => !!skript.configuration.debug;
-                
+
         /**
          * Exibe uma janela de mensagem ao usuário.
          * @param {string} text Pergunta.
          * @param {string} title Opcional. Título.
          * @param {any} values Opcional. Conjunto de valores para substituição na string.
+         * @param {string} color Cor para css
          */
-        public alert(text: string, title?: string, values: any = { }): void {
+        private genericDialog(text: string, title?: string, values: any = { }, color?: string): void {
+            const htmlColor = !color ? "" : `\n<span style="display: block; background-image: linear-gradient(to right, white, ${color}); height: 3px; opacity: 0.5;"></span>`;
             Util.DOM.dialog({ 
                 title: title ? skript.translate.get(title, values) : "",
-                text: skript.translate.get(text, values)
+                text: skript.translate.get(text, values) + htmlColor
+            });
+        }
+                
+        /**
+         * Exibe uma janela de mensagem ao usuário.
+         * @param {string} text Pergunta.
+         * @param {any} values Opcional. Conjunto de valores para substituição na string.
+         */
+        public info(text: string, values: any = { }): void {
+            this.genericDialog(text, "Just to know that...", values, "blue");
+        }
+                
+        /**
+         * Exibe uma janela de mensagem ao usuário.
+         * @param {string} text Pergunta.
+         * @param {any} values Opcional. Conjunto de valores para substituição na string.
+         */
+        public warning(text: string, values: any = { }): void {
+            this.genericDialog(text, "Stay tuned...", values, "orange");
+        }
+                
+        /**
+         * Exibe uma janela de mensagem ao usuário.
+         * @param {string} text Pergunta.
+         * @param {any} values Opcional. Conjunto de valores para substituição na string.
+         */
+        public error(text: string, values: any = { }): void {
+            this.genericDialog(text, "Oops! An error...", values, "red");
+        }
+                
+        /**
+         * Solicita uma entrda de dados ao usuário.
+         * @param {string} text Texto.
+         * @param {any} values Opcional. Conjunto de valores para substituição na string.
+         * @param {string} inputDefault Valor inicial para entrada de dados do usuário.
+         */
+        public prompt(text: string, values: any = { }, inputDefault: string = ""): Promise<string> {
+            return new Promise(resolve => {
+                Util.DOM.dialog({ 
+                    title: skript.translate.get("Data entry"),
+                    text: skript.translate.get(text, values),
+                    input: true,
+                    inputDefault: inputDefault,
+                    inputValidade: (value: string) => !!value.trim(),
+                    buttons: [
+                        {
+                            name: skript.translate.get("Cancel"),
+                            icon: "fas fa-times-circle",
+                            escape: true
+                        },
+                        {
+                            name: skript.translate.get("Ok"),
+                            icon: "fas fa-check-circle",
+                            focus: true,
+                            className: "blue"
+                        }
+                    ]
+                }).then((result) => {
+                    if (!result.button.escape) resolve(result.input);
+                });
             });
         }
                 
         /**
          * Solicita confirmação de sim ou não ao usuário.
          * @param {string} text Pergunta.
-         * @param {string} title Opcional. Título.
          * @param {any} values Opcional. Conjunto de valores para substituição na string.
          */
-        public confirm(text: string, title?: string, values: any = { }): Promise<void> {
+        public confirm(text: string, values: any = { }): Promise<void> {
             return new Promise(resolve => {
                 Util.DOM.dialog({ 
-                    title: title ? skript.translate.get(title, values) : "",
+                    title: skript.translate.get("Proceed?"),
                     text: skript.translate.get(text, values),
                     buttons: [
                         {
@@ -200,8 +261,8 @@ namespace Skript.Layout.ReactJs {
                             className: "blue"
                         }
                     ]
-                }).then((button) => {
-                    if (!button.escape) resolve();
+                }).then((result) => {
+                    if (!result.button.escape) resolve();
                 });
             });
         }

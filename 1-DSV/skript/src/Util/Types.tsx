@@ -37,7 +37,44 @@ namespace Skript.Util {
          * Botões.
          * @type {DialogButton[]}
          */
-        buttons?: DialogButton[]
+        buttons?: DialogButton[],
+
+        /**
+         * Sinaliza que deve receber um valor de entrada do usuário.
+         * @type {boolean}
+         */
+        input?: boolean,
+
+        /**
+         * Valor inicial para entrada de dados do usuário.
+         * @type {string}
+         */
+        inputDefault?: string,
+
+        /**
+         * Função para validar entrada de dados.
+         * @type {(value: string) => boolean}
+         */
+        inputValidade?: (value: string) => boolean
+    }
+    
+
+    /**
+     * Propriedades dos botões em uma mensagem de diálogo ao usuário.
+     */
+    export type DialogResult = {
+        
+        /**
+         * Botão acionado.
+         * @type {DialogButton}
+         */
+        button: DialogButton,
+
+        /**
+         * Valor de entrada.
+         * @type {string}
+         */
+        input: string
     }
 
     /**
