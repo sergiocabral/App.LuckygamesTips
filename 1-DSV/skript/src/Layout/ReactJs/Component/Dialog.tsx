@@ -302,6 +302,7 @@ namespace Skript.Layout.ReactJs.Component {
             this.elContainer.current.classList.add("maximized");
             this.moveAndResize.ignoreMove = true;
             this.moveAndResize.ignoreResize = true;
+            setTimeout(() => { if (this.onResize instanceof Function) this.onResize(); }, 1);
             return this;
         }
 
@@ -318,6 +319,7 @@ namespace Skript.Layout.ReactJs.Component {
             this.elContainer.current.classList.remove("maximized");
             this.moveAndResize.ignoreMove = false;
             this.moveAndResize.ignoreResize = false;
+            setTimeout(() => { if (this.onResize instanceof Function) this.onResize(); }, 1);
             return this;
         }
 
