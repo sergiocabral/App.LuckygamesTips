@@ -40,6 +40,12 @@ namespace Skript.Util {
         buttons?: DialogButton[],
 
         /**
+         * Sinalizador.
+         * @type {DialogFlag}
+         */
+        flag?: DialogFlag,
+
+        /**
          * Sinaliza que deve receber um valor de entrada do usuário.
          * @type {boolean}
          */
@@ -117,5 +123,26 @@ namespace Skript.Util {
          * @type {T}
          */
         data?: T
+    }
+
+    /**
+     * Sinalizadores para a mensagem de diálogo ao usuário
+     */
+    export enum DialogFlag {
+
+        /**
+         * Informativo.
+         */
+        Information,
+
+        /**
+         * Alerta.
+         */
+        Warning,
+
+        /**
+         * Erro.
+         */
+        Error
     }
 }

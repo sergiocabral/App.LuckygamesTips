@@ -115,6 +115,42 @@ namespace Skript.Automation {
         }
         
         /**
+         * Aplica os parâmetros nos módulos.
+         * @param {Object} settings Definições
+         * @returns {string[] | undefined} Lista de erros se houver.
+         */
+        public static applySettings(settings: any): string[] | undefined {
+            const errors: string[] = [];
+            let setCount = 0;
+            let setErrorCount = 0;
+            for (const name in settings) {
+                if (this.instances[name] === undefined) {
+                    errors.push(skript.translate.get("Module \"{0}\" does not exist.", name));
+                    setCount += Object.keys(settings).length;
+                    setErrorCount += Object.keys(settings).length;
+                }
+                else for (const field in settings[name]) {
+                    setCount++;
+                    if (this.instances[name].parameters[field] === undefined) {
+                        errors.push(skript.translate.get("Module \"{0}\" does not have the \"{1}\" field.", [name, field]));
+                        setErrorCount++;
+                    } else {
+                        const result = this.instances[name].parameters[field].set(settings[name][field]);
+                        if (!result) {
+                            setErrorCount++;
+                            errors.push(skript.translate.get("For module \"{0}\", field \"{1}\" has invalid values.", [name, field]));
+                        }
+                    }
+                }
+            }
+            if (setCount === 0) skript.log.post("There were no settings to apply.", undefined, Core.Log.Level.Warning);
+            if (setErrorCount === 0) skript.log.post("A total of {0} settings were successfully applied to the modules.", setCount, Core.Log.Level.Information);
+            else if (setErrorCount !== setCount) skript.log.post("A total of {0} settings have been successfully applied to the modules. But there was an error in {1}.", [setCount - setErrorCount, setErrorCount], Core.Log.Level.Warning);
+            else skript.log.post("All {0} definitions have errors when applied to the modules.", setErrorCount, Core.Log.Level.Error);
+            return errors.length ? errors : undefined
+        }
+
+        /**
          * Define um parâmetro. Em caso de repetições é feito substituição.
          * @param {Parameter<any>} parameter Parâmetro.
          */

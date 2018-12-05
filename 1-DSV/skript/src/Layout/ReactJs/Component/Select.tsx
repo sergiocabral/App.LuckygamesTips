@@ -87,7 +87,8 @@ namespace Skript.Layout.ReactJs.Component {
             }
 
             const result: Core.KeyValue<string>[] = [];
-            this.select2.select2("data").map((v: any) => result.push({ key: v.id, value: v.text }));
+            const data = this.select2.select2("data");
+            if (data) data.map((v: any) => result.push({ key: v.id, value: v.text }));
             return result;
         }
 
@@ -97,7 +98,8 @@ namespace Skript.Layout.ReactJs.Component {
         private onChange(): void {
             if (!this.props.onChange) return;
             const result: Core.KeyValue<string>[] = [];
-            this.select2.select2("data").map((v: any) => result.push({ key: v.id, value: v.text }));
+            const data = this.select2.select2("data");
+            if (data) data.map((v: any) => result.push({ key: v.id, value: v.text }));
             this.props.onChange(result);
         }
 

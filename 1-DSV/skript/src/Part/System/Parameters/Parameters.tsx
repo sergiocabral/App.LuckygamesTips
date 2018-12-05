@@ -225,10 +225,25 @@ namespace Skript.Part.System.Parameters {
 
         /**
          * Ação: aplicar definições nos módulos.
-         * @param {any} evt Informações sobre o evento.
          */
-        private onActionApplyClick(evt: any): void {
-            evt;
+        private onActionApplyClick(): void {
+            if (!this.objAceEditorJson) return;
+
+            let json: Object;
+            try {
+                json = JSON.parse(this.objAceEditorJson.getValue());
+            } catch (error) {
+                this.error("Settings are not valid.\n{0}.", (error as Error).message);
+                return;
+            }
+
+            const message = new Automation.Message.ApplySettings(json).sendSync();
+            if (!message.result) throw new Core.Errors.NullNotExpected("Message.ApplySettings.result");
+            if (message.result.errors && message.result.errors.length) {
+                this.error(
+                    this.translate("Applying the settings resulted in the following errors:") + "\n" + 
+                    message.result.errors.join("\n"));
+            }
         }
 
         /**

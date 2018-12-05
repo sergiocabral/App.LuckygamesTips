@@ -170,7 +170,12 @@ namespace Skript.Util {
                     white-space: nowrap;
                     text-overflow: ellipsis;
                 }
-                ${selector} .prompt > p {
+                ${selector} .prompt > .messages {
+                    max-height: 100px;
+                    overflow: auto;
+                    border-bottom: 1px solid #E0E0E0;
+                }
+                ${selector} .prompt > .messages > p {
                     padding: 10px 10px 0 10px;
                     font-size: 18px;
                 }
@@ -186,16 +191,29 @@ namespace Skript.Util {
                     background-color: pink;
                     border-bottom-color: palevioletred;
                 }
-                ${selector} .prompt > div {
+                ${selector} .prompt > .buttons > .color {
+                    float: left;
+                    font-size: 28px;
+                }
+                ${selector} .prompt > .buttons > .color.Information {
+                    color: #66B0FF;
+                }
+                ${selector} .prompt > .buttons > .color.Warning {
+                    color: #FFDA6A;
+                }
+                ${selector} .prompt > .buttons > .color.Error {
+                    color: #EE9AA2;
+                }
+                ${selector} .prompt > .buttons {
                     text-align: right;
                     padding: 10px;
                 }
-                ${selector} .prompt > div > .button {
+                ${selector} .prompt > .buttons > .button {
                     font-size: 15px;
                     padding: 5px 10px;
                     margin-left: 10px;
                 }
-                ${selector} .prompt > div > .button > span {
+                ${selector} .prompt > .buttons > .button > span {
                     margin-left: 5px;
                     font-weight: normal;
                 }
@@ -219,18 +237,29 @@ namespace Skript.Util {
                 dialog.className = "prompt";
                 html = "";
                 if (configuration.title) html += `<h1>${configuration.title}</h1>`;
-                if (configuration.text) html += "<p>" + configuration.text.replaceAll("\n", "</p><p>") + "</p>";
+                if (configuration.text) html += `<div class="messages"><p>${configuration.text.replaceAll("\n", "</p><p>")}</p></div>`;
                 if (configuration.input) html += `<input type="text" value="${configuration.inputDefault ? configuration.inputDefault.replaceAll('"', '&quot;') : ""}"' />`;
-                html += "<div>";
+                html += `<div class="buttons">`;
+                
+                if (configuration.flag !== undefined) {
+                    let flag;
+                    switch (configuration.flag) {                    
+                        case DialogFlag.Information: flag = `<i class="fas fa-info-circle color ${DialogFlag[configuration.flag]}"></i>`; break;
+                        case DialogFlag.Warning: flag = `<i class="fas fa-exclamation-triangle color ${DialogFlag[configuration.flag]}"></i>`; break;
+                        case DialogFlag.Error: flag = `<i class="fas fa-times-circle color ${DialogFlag[configuration.flag]}"></i>`; break;
+                    }
+                    if (flag) html += flag;
+                }                
+
                 for (let i = 0; i < configuration.buttons.length; i++) {
                     if (buttonEscapeIndex < 0 && configuration.buttons[i].escape) buttonEscapeIndex = i;
                     html += `<button data-index="${i}" class="button${configuration.buttons[i].className ? " " + configuration.buttons[i].className : ""}${configuration.buttons[i].focus ? " focus" : ""}">`;
                     if (configuration.buttons[i].icon) html += `<i class="${configuration.buttons[i].icon}"></i>`;
                     if (configuration.buttons[i].name) html += `<span>${configuration.buttons[i].name}</span>`;
                     if (!configuration.buttons[i].icon && configuration.buttons[i].name) html += `<i class="fas fa-check-circle"></i>`;
-                    html += "</button>";
+                    html += `</button>`;
                 }
-                html += "</div>";
+                html += `</div>`;
                 dialog.innerHTML = html;
 
                 const container = document.createElement("DIV") as HTMLDivElement;

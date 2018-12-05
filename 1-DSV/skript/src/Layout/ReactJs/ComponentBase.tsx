@@ -168,13 +168,13 @@ namespace Skript.Layout.ReactJs {
          * @param {string} text Pergunta.
          * @param {string} title Opcional. Título.
          * @param {any} values Opcional. Conjunto de valores para substituição na string.
-         * @param {string} color Cor para css
+         * @param {Util.DialogFlag} flag Sinalizador.
          */
-        private genericDialog(text: string, title?: string, values: any = { }, color?: string): void {
-            const htmlColor = !color ? "" : `\n<span style="display: block; background-image: linear-gradient(to right, white, ${color}); height: 3px; opacity: 0.5;"></span>`;
+        private genericDialog(text: string, title?: string, values: any = { }, flag?: Util.DialogFlag): void {
             Util.DOM.dialog({ 
                 title: title ? skript.translate.get(title, values) : "",
-                text: skript.translate.get(text, values) + htmlColor
+                text: skript.translate.get(text, values),
+                flag: flag
             });
         }
                 
@@ -184,7 +184,7 @@ namespace Skript.Layout.ReactJs {
          * @param {any} values Opcional. Conjunto de valores para substituição na string.
          */
         public info(text: string, values: any = { }): void {
-            this.genericDialog(text, "Just to know that...", values, "blue");
+            this.genericDialog(text, "Just to know that...", values, Util.DialogFlag.Information);
         }
                 
         /**
@@ -193,7 +193,7 @@ namespace Skript.Layout.ReactJs {
          * @param {any} values Opcional. Conjunto de valores para substituição na string.
          */
         public warning(text: string, values: any = { }): void {
-            this.genericDialog(text, "Stay tuned...", values, "orange");
+            this.genericDialog(text, "Stay tuned...", values, Util.DialogFlag.Warning);
         }
                 
         /**
@@ -202,7 +202,7 @@ namespace Skript.Layout.ReactJs {
          * @param {any} values Opcional. Conjunto de valores para substituição na string.
          */
         public error(text: string, values: any = { }): void {
-            this.genericDialog(text, "Oops! An error...", values, "red");
+            this.genericDialog(text, "Oops! An error...", values, Util.DialogFlag.Error);
         }
                 
         /**

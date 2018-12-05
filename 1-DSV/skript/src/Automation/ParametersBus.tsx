@@ -28,6 +28,10 @@ namespace Skript.Automation {
             {
                 message: Message.DeleteParameter.name,
                 handler: (command: Message.DeleteParameter) => this.sponsor.delete(command.name)
+            },
+            {
+                message: Message.ApplySettings.name,
+                handler: (command: Message.ApplySettings) => command.result = { errors: this.sponsor.applySettings(command.settings) }
             }
         ];
     }    

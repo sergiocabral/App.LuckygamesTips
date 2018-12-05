@@ -226,6 +226,34 @@
             {
                 "Parameter \"{0}\" did not exist to be deleted.":
                 "O parâmetro \"{0}\" não existia para ser apagado."
+            },
+            {
+                "Module \"{0}\" does not exist.":
+                "O módulo \"{0}\" não existe."
+            },
+            {
+                "Module \"{0}\" does not have the \"{1}\" field.":
+                "O módulo \"{0}\" não tem o campo \"{1}\"."
+            },
+            {
+                "For module \"{0}\", field \"{1}\" has invalid values.":
+                "Para o módulo \"{0}\", o campo \"{1}\" tem valores inválidos."
+            },
+            {
+                "There were no settings to apply.":
+                "Não havia definições para serem aplicadas."
+            },
+            {
+                "A total of {0} settings were successfully applied to the modules.":
+                "Um total de {0} definições foram aplicadas com sucesso aos módulos."
+            },
+            {
+                "A total of {0} settings have been successfully applied to the modules. But there was an error in {1}":
+                "Um total de {0} definições foram aplicadas com sucesso aos módulos. Mas ocorreu erro em {1}."
+            },
+            {
+                "All {0} definitions have errors when applied to the modules.":
+                "Todas as {0} definições apresentaram erros ao serem aplicadas nos módulos."
             }
         ]
     },
@@ -462,6 +490,10 @@
             {
                 "The deletion of parameter \"{0}\" will be irreversible. Do it anyway?":
                 "A exclusão do parâmetro \"{0}\" será irreversível. Fazer assim mesmo?"
+            },
+            {
+                "Applying the settings resulted in the following errors:":
+                "A aplicação das definições resultou nos seguintes erros:"
             },
             { 
                 "Save":
