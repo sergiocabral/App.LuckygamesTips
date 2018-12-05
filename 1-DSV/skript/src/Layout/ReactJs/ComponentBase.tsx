@@ -162,6 +162,24 @@ namespace Skript.Layout.ReactJs {
          * Determina se o sistema está em modo debug.
          */
         protected debug: () => boolean = () => !!skript.configuration.debug;
+                
+        /**
+         * Exibe uma janela de mensagem ao usuário.
+         * @param {string|DialogProps} configuration Texto de exibição ou informações de configuração.
+         * @returns {Promise<DialogButton>} Quando a mensagem é fechada retorna o nome do botão acionado.
+         */
+        public alert(info: string|Util.DialogProps): Promise<Util.DialogButton> {
+            return Util.DOM.dialog(info);
+        }
+                
+        /**
+         * Solicita confirmação de sim ou não ao usuário.
+         * @param {string} text Pergunta.
+         * @param {string} title Opcional. Título.
+         */
+        public confirm(text: string, title?: string): Promise<void> {
+            return Util.DOM.confirm(text, title);
+        }
 
         /**
          * Definir instâncias de Bus aqui para serem liberadas quando o componente for desmontado.

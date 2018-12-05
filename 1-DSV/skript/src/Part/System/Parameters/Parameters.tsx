@@ -172,10 +172,12 @@ namespace Skript.Part.System.Parameters {
         private onActionDeleteClick(): void {
             if (!this.elSelectParameter.current) return;
             const value = this.elSelectParameter.current.value();
-            if (!value.length) this.toast("Before deleting, select a parameter.");
-            else if (value[0].key.indexOf("user:") !== 0) this.toast("System parameters can not be deleted.");
+            if (!value.length) this.toast("Before deleting, select a parameter.", null, Core.Log.Level.Warning);
+            else if (value[0].key.indexOf("user:") !== 0) this.toast("System parameters can not be deleted.", null, Core.Log.Level.Warning);
             else {
-                this.toast("Not implemented", Core.Log.Level.Error);
+                const message = new Automation.Message.DeleteParameter(value[0].key.substr("user:".length)).sendSync();
+                if (!message.result) throw new Core.Errors.NullNotExpected("Message.DeleteParameter.result");
+                if (message.result.error) this.alert(this.translate(message.result.error));
             }
         }
 
