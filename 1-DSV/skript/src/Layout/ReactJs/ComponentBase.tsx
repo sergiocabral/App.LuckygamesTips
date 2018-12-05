@@ -165,20 +165,45 @@ namespace Skript.Layout.ReactJs {
                 
         /**
          * Exibe uma janela de mensagem ao usuário.
-         * @param {string|DialogProps} configuration Texto de exibição ou informações de configuração.
-         * @returns {Promise<DialogButton>} Quando a mensagem é fechada retorna o nome do botão acionado.
+         * @param {string} text Pergunta.
+         * @param {string} title Opcional. Título.
+         * @param {any} values Opcional. Conjunto de valores para substituição na string.
          */
-        public alert(info: string|Util.DialogProps): Promise<Util.DialogButton> {
-            return Util.DOM.dialog(info);
+        public alert(text: string, title?: string, values: any = { }): void {
+            Util.DOM.dialog({ 
+                title: title ? skript.translate.get(title, values) : "",
+                text: skript.translate.get(text, values)
+            });
         }
                 
         /**
          * Solicita confirmação de sim ou não ao usuário.
          * @param {string} text Pergunta.
          * @param {string} title Opcional. Título.
+         * @param {any} values Opcional. Conjunto de valores para substituição na string.
          */
-        public confirm(text: string, title?: string): Promise<void> {
-            return Util.DOM.confirm(text, title);
+        public confirm(text: string, title?: string, values: any = { }): Promise<void> {
+            return new Promise(resolve => {
+                Util.DOM.dialog({ 
+                    title: title ? skript.translate.get(title, values) : "",
+                    text: skript.translate.get(text, values),
+                    buttons: [
+                        {
+                            name: skript.translate.get("No"),
+                            icon: "fas fa-times-circle",
+                            escape: true
+                        },
+                        {
+                            name: skript.translate.get("Yes"),
+                            icon: "fas fa-check-circle",
+                            focus: true,
+                            className: "blue"
+                        }
+                    ]
+                }).then((button) => {
+                    if (!button.escape) resolve();
+                });
+            });
         }
 
         /**

@@ -261,34 +261,5 @@ namespace Skript.Util {
                 if (buttons.length === 1 || buttonEscapeIndex >= 0) window.addEventListener("keyup", key as any);
             });
         }
-
-        /**
-         * Solicita confirmação de sim ou não ao usuário.
-         * @param {string} text Pergunta.
-         * @param {string} title Opcional. Título.
-         */
-        public static confirm(text: string, title?: string): Promise<void> {
-            return new Promise(resolve => {
-                DOM.dialog({ 
-                    title: title,
-                    text: text,
-                    buttons: [
-                        {
-                            name: skript.translate.get("No"),
-                            icon: "fas fa-times-circle",
-                            escape: true
-                        },
-                        {
-                            name: skript.translate.get("Yes"),
-                            icon: "fas fa-check-circle",
-                            focus: true,
-                            className: "blue"
-                        }
-                    ]
-                }).then((button) => {
-                    if (!button.escape) resolve();
-                });
-            });
-        }
    }
 }

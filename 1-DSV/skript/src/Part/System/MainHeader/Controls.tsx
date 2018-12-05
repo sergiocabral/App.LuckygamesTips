@@ -136,7 +136,7 @@ namespace Skript.Part.System.MainHeader {
          * Solicita atualização da página.
          */
         public refreshPage(): void {
-            this.confirm(this.translate("Refreshing the page will cause any activity in progress to be interrupted. Update anyway?"), this.translate("Proceed?"))
+            this.confirm("Refreshing the page will cause any activity in progress to be interrupted. Update anyway?", "Proceed?")
                 .then(() => location.reload());
         }
 
