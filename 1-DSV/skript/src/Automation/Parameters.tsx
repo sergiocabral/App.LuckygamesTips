@@ -93,11 +93,27 @@ namespace Skript.Automation {
         public static save(name: string, settings: Object): void {
             if (typeof(name) !== "string" || !name.trim() || typeof(settings) !== "object") throw new Core.Errors.InvalidArgument("Parameters.save()");
             const parameters = skript.storage.data().parameters;
+            const isNew = parameters[name] === undefined;
             parameters[name] = settings;
             skript.storage.data({ parameters: parameters });
+            if (isNew) skript.log.post("Parameter \"{0}\" was successfully created.", name, Core.Log.Level.Information);
+            else skript.log.post("Parameter \"{0}\" has been updated successfully.", name, Core.Log.Level.Information);
             new Message.ParametersUpdated().sendAsync();
         }
 
+        /**
+         * Apagar um parâmetro.
+         * @param {string} name Nome
+         */
+        public static delete(name: string): void {
+            const parameters = skript.storage.data().parameters;
+            if (parameters[name] === undefined) return skript.log.post("Parameter \"{0}\" did not exist to be deleted.", name, Core.Log.Level.Warning);
+            delete parameters[name];
+            skript.storage.data({ parameters: parameters });
+            skript.log.post("Parameter \"{0}\" was deleted successfully.", name, Core.Log.Level.Information);
+            new Message.ParametersUpdated().sendAsync();
+        }
+        
         /**
          * Define um parâmetro. Em caso de repetições é feito substituição.
          * @param {Parameter<any>} parameter Parâmetro.

@@ -209,6 +209,24 @@
                 "The log message list has been cleared.":
                 "A lista de mensagens de log foi limpa."
             }
+        ],
+        "Parameters.txt": [
+            {
+                "Parameter \"{0}\" was successfully created.":
+                "O parâmetro \"{0}\" foi criado com sucesso."
+            },
+            {
+                "Parameter \"{0}\" has been updated successfully.":
+                "O parâmetro \"{0}\" foi atualizado com sucesso."
+            },
+            {
+                "Parameter \"{0}\" was deleted successfully.":
+                "O parâmetro \"{0}\" foi excluído com sucesso."
+            },
+            {
+                "Parameter \"{0}\" did not exist to be deleted.":
+                "O parâmetro \"{0}\" não existia para ser apagado."
+            }
         ]
     },
     "Enums": {
@@ -440,6 +458,10 @@
             { 
                 "Deletes the selected parameter.":
                 "Apaga o parâmetro selecionado." 
+            },
+            {
+                "The deletion of parameter \"{0}\" will be irreversible. Do it anyway?":
+                "A exclusão do parâmetro \"{0}\" será irreversível. Fazer assim mesmo?"
             },
             { 
                 "Save":

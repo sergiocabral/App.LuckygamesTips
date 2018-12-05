@@ -24,6 +24,10 @@ namespace Skript.Automation {
             {
                 message: Message.SaveSettingsToParameter.name,
                 handler: (command: Message.SaveSettingsToParameter) => this.sponsor.save(command.name, command.settings)
+            },
+            {
+                message: Message.DeleteParameter.name,
+                handler: (command: Message.DeleteParameter) => this.sponsor.delete(command.name)
             }
         ];
     }    

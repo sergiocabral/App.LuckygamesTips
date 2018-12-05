@@ -69,6 +69,12 @@ namespace Skript.Layout.ReactJs.Component {
         private select2: any;
 
         /**
+         * Configurações para select2
+         * @type {any}
+         */
+        private select2Configuration: any;
+
+        /**
          * Define ou retorna o valor selecionado.
          * @param value Valor a definir.
          * @returns {string[]} Valores selecionados.
@@ -114,16 +120,16 @@ namespace Skript.Layout.ReactJs.Component {
             const jQuery = (window as any).jQuery;
             if (!this.elContainer.current || !jQuery) return;
 
-            const configuration: any = {
+            this.select2Configuration = {
                 debug: skript.configuration.debug,
                 language: "en",
                 placeholder: this.props.placeholder ? this.props.placeholder : ""
             };
-            if (undefined !== this.props.tags) configuration.tags = this.props.tags;
-            if (undefined !== this.props.multiple) configuration.multiple = this.props.multiple;
-            if (undefined !== this.props.allowClear) configuration.allowClear = this.props.allowClear;
+            if (undefined !== this.props.tags) this.select2Configuration.tags = this.props.tags;
+            if (undefined !== this.props.multiple) this.select2Configuration.multiple = this.props.multiple;
+            if (undefined !== this.props.allowClear) this.select2Configuration.allowClear = this.props.allowClear;
             setTimeout(() => {
-                this.select2 = jQuery(`${this.selector()}#${this.id()}`).select2(configuration);
+                this.select2 = jQuery(`${this.selector()}#${this.id()}`).select2(this.select2Configuration);
                 this.select2.on("change", this.onChange);
             }, 1);
         }
@@ -133,7 +139,7 @@ namespace Skript.Layout.ReactJs.Component {
          */
         public componentDidUpdate(): void {            
             if (!this.select2) return;
-            this.select2.select2("destroy").select2();
+            this.select2.select2("destroy").select2(this.select2Configuration);
         }
         
         /**

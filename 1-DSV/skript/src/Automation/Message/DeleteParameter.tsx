@@ -9,7 +9,7 @@ namespace Skript.Automation.Message {
          * Construtor.
          * @param {string} name Opcional. Nome
          */
-        public constructor(name?: string) {
+        public constructor(name: string) {
             super();
             this.name = name;
         }
@@ -18,18 +18,6 @@ namespace Skript.Automation.Message {
          * Nome.
          * @type {string}
          */
-        public name?: string;
-
-        /**
-         * Resultados.
-         */
-        public result?: { 
-            
-            /**
-             * Messagem de erro se houver
-             * @type {string}
-             */
-            error?: string
-        }
+        public name: string;
     }
 }

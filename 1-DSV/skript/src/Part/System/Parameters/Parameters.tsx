@@ -184,9 +184,12 @@ namespace Skript.Part.System.Parameters {
             if (!value.length) this.toast("Before deleting, select a parameter.", null, Core.Log.Level.Warning);
             else if (value[0].key.indexOf(this.prefixValue) !== 0) this.toast("System parameters can not be deleted.", null, Core.Log.Level.Warning);
             else {
-                const message = new Automation.Message.DeleteParameter(value[0].key.substr(this.prefixValue.length)).sendSync();
-                if (!message.result) throw new Core.Errors.NullNotExpected("Message.DeleteParameter.result");
-                if (message.result.error) this.error(this.translate(message.result.error));
+                const name = value[0].key.substr(this.prefixValue.length);
+                const elSelectParameter = this.elSelectParameter.current;
+                this.confirm("The deletion of parameter \"{0}\" will be irreversible. Do it anyway?", name).then(() => {
+                    new Automation.Message.DeleteParameter(name).sendSync();                    
+                    setTimeout(() => elSelectParameter.value(""), 1);
+                });
             }
         }
 
