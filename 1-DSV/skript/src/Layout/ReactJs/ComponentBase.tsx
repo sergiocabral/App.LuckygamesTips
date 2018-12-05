@@ -216,6 +216,7 @@ namespace Skript.Layout.ReactJs {
                 Util.DOM.dialog({ 
                     title: skript.translate.get("Data entry"),
                     text: skript.translate.get(text, values),
+                    flag: Util.DialogFlag.Question,
                     input: true,
                     inputDefault: inputDefault,
                     inputValidade: (value: string) => !!value.trim(),
@@ -248,6 +249,7 @@ namespace Skript.Layout.ReactJs {
                 Util.DOM.dialog({ 
                     title: skript.translate.get("Proceed?"),
                     text: skript.translate.get(text, values),
+                    flag: Util.DialogFlag.Question,
                     buttons: [
                         {
                             name: skript.translate.get("No"),
