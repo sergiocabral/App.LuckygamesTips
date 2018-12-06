@@ -80,11 +80,24 @@ class Includes extends \Mysys\Core\Singleton {
     }
 
     /**
+     * Lista para verificação de de adição única.
+     * @var array
+     */
+    private static $_writeUnique = [];
+
+    /**
      * Escreve o código para include de um arquivo.
      * @param string $file Nome do arquivo.
+     * @param boolean $unique Nome do arquivo.
      * @return boolean Retorna true quando pelo menos uma escrita é feita.
      */
-    public function Write($file) {
+    public function Write($file, $unique = true) {
+        self::$_writeUnique[$file] = isset(self::$_writeUnique[$file]) ? self::$_writeUnique[$file] : 0;
+
+        if ($unique && self::$_writeUnique[$file] > 0) {
+            return false;
+        }
+
         $hasWrite = false;
         $extensions = array(
             '.css',
@@ -95,10 +108,10 @@ class Includes extends \Mysys\Core\Singleton {
             '.php',
         );
 
-        $file = strpos(str_replace('\\', '/', $file), '/') !== false ? $file : $this->GetWebsiteDir('Includes') . $file;
+        $filePath = strpos(str_replace('\\', '/', $file), '/') !== false ? $file : $this->GetWebsiteDir('Includes') . $file;
 
         foreach ($extensions as $ext) {
-            $path = $file . $ext;
+            $path = $filePath . $ext;
             if ($ext !== '.html' && $ext !== '.php') {
                 $path = $this->minify($path);
             }
@@ -108,7 +121,7 @@ class Includes extends \Mysys\Core\Singleton {
             }
 
             $hasWrite = true;
-
+            
             switch ($ext) {
                 case '.css':
                     echo "<link rel='stylesheet' type='text/css' href='" . $this->DirToUrl($path) . "' />";
@@ -124,6 +137,11 @@ class Includes extends \Mysys\Core\Singleton {
                     break;
             }
         }
+
+        if ($hasWrite) {
+            self::$_writeUnique[$file]++;
+        }
+        
         return $hasWrite;
     }
 

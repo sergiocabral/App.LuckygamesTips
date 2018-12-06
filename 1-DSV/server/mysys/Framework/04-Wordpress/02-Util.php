@@ -12,8 +12,7 @@ class Util {
      * @return boolean Sucesso retorna true. Falha retorna false.
      */
     public static function ActivateTheme($theme) {
-        update_option('template', 'SOHO');
-        update_option('stylesheet', 'SOHO');
+        switch_theme($theme);
         return true;
     }
 
