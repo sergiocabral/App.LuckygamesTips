@@ -179,6 +179,9 @@ namespace Skript.Util {
                     padding: 10px 10px 0 10px;
                     font-size: 18px;
                 }
+                ${selector} .prompt > .messages > p:last-child {
+                    padding-bottom: 10px;
+                }
                 ${selector} .prompt > input {
                     width: calc(100% - 32px);
                     margin: 5px 10px 0 10px;
