@@ -56,9 +56,17 @@ class Automation extends \Mysys\Core\Singleton {
 
         $commands = $this->Commands();
         if (isset($commands[$params[0]])) {
-            chdir(realpath(ABSPATH . "/../skript"));
             $this->ExecuteAndDie($commands[$params[0]]);
         }
+    }
+
+    /**
+     * Remove texto sensível de um texto.
+     * @param string $text Texto.
+     * @return string
+     */
+    private function RemoveSensiveData($text) {
+        return preg_replace('/(?<=:\/\/)[^@\/]*/i', '***', $text);
     }
 
     /**
@@ -68,16 +76,34 @@ class Automation extends \Mysys\Core\Singleton {
      * @return void
      */
     private function ExecuteAndDie($commands) {
-        echo "<html><head><title>Git</title></head><body><pre>";
+        echo "<html style='background-color: black; color: lightgreen;'><head><title>Git</title></head><body><pre>";
         
+        $file = "execute.bat";
+        $path = realpath(ABSPATH . "/../skript");
+        $drive = substr($path, 0, 2);
+        chdir($path);
+
         foreach ($commands as $command) {
-            echo "<span style='color: red;'>" . preg_replace('/\bhttps+:\/\/[^\s]*\b/i', 'http...', $command) . "</span>";
-            echo PHP_EOL;
-            passthru ($command, $exit);
-            echo "<span style='color: silver;'>exit: $exit</span>";
-            echo PHP_EOL;
-            echo PHP_EOL;
+            file_put_contents($file, "@echo off" . PHP_EOL);
+
+            if (!file_exists($file)) {
+                self::Error("Page debug cannot execute.", self::class);
+            }
+
+            file_put_contents($file, $drive . PHP_EOL, FILE_APPEND);
+            file_put_contents($file, "cd $path" . PHP_EOL, FILE_APPEND);
+            file_put_contents($file, str_replace("%", "%%", $command) . " > $file.txt" . PHP_EOL, FILE_APPEND);
+
+            echo "<span style='color: orange;'>" . $this->RemoveSensiveData($command) . "</span>" . PHP_EOL;
+
+            passthru($file);
+            echo str_replace("<", "&lt;", str_replace(">", "&gt;", file_get_contents("$file.txt")));
+
+            echo PHP_EOL . "<span style='color: darkslategrey;'>" . str_repeat("#", 40) . "</span>" . PHP_EOL . PHP_EOL;
         }
+
+        unlink("$file");
+        unlink("$file.txt");
 
         echo "</pre></body></html>";
 
