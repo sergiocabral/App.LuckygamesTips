@@ -1,0 +1,21 @@
+{
+  "dsv": {
+    "debug": true,
+    "hosts": [
+      "dsv.luckygames.tips"
+    ]
+  },
+  "tst": {
+    "debug": false,
+    "hosts": [
+      "tst.luckygames.tips"
+    ]
+  },
+  "prd": {
+    "debug": false,
+    "hosts": [
+      "www.luckygames.tips",
+      "luckygames.tips"
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "luckygames-tips",
+  "version": "8.0.0",
+  "description": "Do more in Luckygames with Tips",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && javascript-obfuscator ../wordpress/skript --output ./ --compact true --rename-globals false --unicode-escape-sequence true && cpx src/index.ts ../wordpress/skript && cpx src/Data/Json/*.json ../wordpress/skript",
+    "build-dev": "tsc -p tsconfig.json && cpx src/index.ts ../wordpress/skript && cpx src/Data/Json/*.json ../wordpress/skript"
+  },
+  "author": "contact@luckygames.tips",
+  "license": "ISC",
+  "include": [
+    "src/**"
+  ],
+  "exclude": [
+    "../wordpress/**"
+  ],
+  "devDependencies": {
+    "@types/node": "^10.12.7",
+    "@types/react": "^16.7.6",
+    "@types/react-dom": "^16.0.9",
+    "cpx": "^1.5.0",
+    "javascript-obfuscator": "^0.18.1",
+    "typescript": "^3.1.6"
+  },
+  "dependencies": {}
+}

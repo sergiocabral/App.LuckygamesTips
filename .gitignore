@@ -1,13 +1,1 @@
-node_modules
-package-lock.json
-*/server/skript
-
-wp-admin
-wp-content
-wp-includes
-*/server/index.php
-*/server/license.txt
-*/server/readme.html
-*/server/wp-*
-*/server/xmlrpc.php
-!wp-config.php
+/Webserver

@@ -1,0 +1,14 @@
+node_modules
+package-lock.json
+
+/code/wordpress/skript
+/code/wordpress/wp-admin
+/code/wordpress/wp-content
+/code/wordpress/wp-includes
+/code/wordpress/index.php
+/code/wordpress/license.txt
+/code/wordpress/readme.html
+/code/wordpress/wp-*
+/code/wordpress/xmlrpc.php
+
+!/code/wordpress/wp-config.php

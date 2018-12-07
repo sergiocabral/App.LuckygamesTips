@@ -6,18 +6,14 @@
         {
             "type": "npm",
             "script": "build",
-            "path": "1-DSV/skript/",
-            "problemMatcher": [
-                "$tsc"
-            ]
+            "path": "Source/code/skript/",
+            "problemMatcher": []
         },
         {
             "type": "npm",
             "script": "build-dev",
-            "path": "1-DSV/skript/",
-            "problemMatcher": [
-                "$tsc"
-            ]
+            "path": "Source/code/skript/",
+            "problemMatcher": []
         }
     ]
 }

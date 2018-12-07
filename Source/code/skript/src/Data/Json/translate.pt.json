@@ -1,0 +1,582 @@
+{
+    "Frases em geral": [
+        { 
+            "do more, much more":
+            "faça mais, muito mais" 
+        }
+    ],
+    "Mensagens de log": {
+        "Infrastructure.tsx": [
+            { 
+                "Failed to load data: {0}":
+                "Falha ao carregar dados: {0}" 
+            }
+        ],
+        "Main.tsx": [
+            {
+                "Using from this point translated texts.":
+                "Usando a partir deste ponto textos traduzidos."
+            },
+            {
+                "The configuration data has been loaded.":
+                "Os dados de configuração foram carregados."
+            },
+            { 
+                "Oops! An internet connection failed. Try again.":
+                "Ops! Ocorreu uma falha na conexão com a internet. Tente novamente."
+            },
+            { 
+                "Modules loaded successfully.":
+                "Módulos carregados com sucesso." 
+            },
+            { 
+                "Loading system modules.":
+                "Carregando módulos do sistema." 
+            },
+            { 
+                "Loading available modules.": 
+                "Carregando módulos disponíveis." 
+            }
+        ],
+        "Presentation.tsx": [
+            { 
+                "Created main container: <{tagName} id=\"{id}\" />":
+                "Criado container principal: <{tagName} id=\"{id}\" />" 
+            }
+        ],
+        "LoadReferences.tsx": [
+            {
+                "Loaded {type}: {url}":
+                "Carregado {type}: {url}" 
+            },
+            { 
+                "Failed loading {type}: {url}":
+                "Falha ao carregar {type}: {url}" 
+            }
+        ],
+        "Request.tsx": [
+            { 
+                "API returned status {status}. Url: {responseURL}":
+                "API retornou status {status}. Url: {responseURL}" 
+            }
+        ],
+        "MessageBus.tsx": [
+            { 
+                "Message {0} dispatched and processed by {1}x: {2}":
+                "Mensagem {0} despachada e processada por {1}x: {2}" 
+            },
+            { 
+                "Stop trigger here. Ignored:":
+                "Solicitação de parada aqui. Ignorados:" 
+            },
+            { 
+                "none":
+                "nenhum" 
+            },
+            { 
+                "Notifier {0} triggered.":
+                "Notificador {0} disparado."
+            },
+            { 
+                "A MessageHandler {0} was disposed.":
+                "Um MessageHandler {0} foi descartado."
+            }
+        ],
+        "Part.tsx": [
+            { 
+                "Module loaded: {0}":
+                "Módulo carregado: {0}" 
+            }
+        ],
+        "ComponentBase.tsx": [
+            { 
+                "Triggered componentWillMount: {component} id=\"{id}\"":
+                "Disparado componentWillMount: {component} id=\"{id}\"" 
+            },
+            { 
+                "Triggered componentWillUnmount: {component} id=\"{id}\"":
+                "Disparado componentWillUnmount: {component} id=\"{id}\"" 
+            }
+        ],
+        "Dialog.tsx": [
+            { 
+                "Added to Dialog \"{title}\": {count} itens.":
+                "Adicionado no Dialog \"{title}\": {count} itens." 
+            }
+        ],
+        "DOM.tsx": [
+            { 
+                "Applied BringTo {direction}: <{tagName} id=\"{id}\" />":
+                "Aplicado BringTo {direction}: <{tagName} id=\"{id}\" />" 
+            },
+            { 
+                "Inserted: <{tagName} id=\"{id}\" />":
+                "Inserido: <{tagName} id=\"{id}\" />" 
+            }
+        ],
+        "HeaderContainer.tsx": [
+            { 
+                "HeaderContainer \"{title}\". Content moved from [{from}] to [{to}].":
+                "HeaderContainer \"{title}\". Conteúdo movido de [{from}] para [{to}]." 
+            }
+        ],
+        "Luckygames/WebSocketControl.tsx": [
+            { 
+                "Failed to set up receiving global information from luckygames.io. But do not worry. This is not a serious problem.":
+                "Não foi possível configurar o recebimento de informações globais da luckygames.io. Mas não se preocupe. Isso não representa um problema grave." 
+            },
+            { 
+                "After {0] attempts it was not possible to set up global information for luckygames.io. But do not worry. This is not a serious problem.":
+                "Depois de {0} tentativas não foi possível configurar o recebimento de informações globais da luckygames.io. Mas não se preocupe. Isso não representa um problema grave." 
+            },
+            {
+                "Defined as \"{0}\" receiving global information from luckygames.io.":
+                "Definido como \"{0}\" o recebimento de informações globais da luckygames.io."
+            },
+            {
+                "Trying to intercept WebSocket. Attempt {0}.":
+                "Tentando interceptar o WebSocket. Tentativa {0}."
+            },
+            {
+                "WebSocket successfully intercepted.":
+                "WebSocket interceptado com sucesso."
+            },
+            {
+                "Request to reconnect WebSocket was accepted. Current interceptor mode: {0}":
+                "Solicitação para reconectar o WebSocket foi aceita. Modo interceptador atual: {0}"
+            },
+            {
+                "Request to reconnect WebSocket was ignored. Current interceptor mode: {0}":
+                "Solicitação para reconectar o WebSocket foi ignorada. Modo interceptador atual: {0}"
+            },
+            {
+                "Change WebSocket mode to: {0}":
+                "Ajustado modo WebSocket para: {0}"
+            },
+            {
+                "WebSocket was closed.":
+                "WebSocket foi fechado."
+            }
+        ],
+        "Luckygames/General.tsx": {
+            "Theme": [
+                { 
+                    "It was not possible to change the look between light and dark.":
+                    "Não foi possível alterar o visual entre claro e escuro." 
+                },
+                {
+                    "Site theme changed to {0}":
+                    "O visual do site foi trocado para {0}"
+                }
+            ],
+            "Animation": [
+                {
+                    "Site animation: {0}":
+                    "Animação do site: {0}"
+                }
+            ]
+        },
+        "ShowMessages.tsx": [
+            {
+                "Show new message number {0}.":
+                "Exibida nova mensagem número {0}."
+            },
+            {
+                "Updating message on display number {0}.":
+                "Atualizando mensagem em exibição número {0}."
+            },
+            {
+                "Removed message on display number {0}.":
+                "Removida mensagem em exibição número {0}."
+            }
+        ]
+    },
+    "Mensagens do Bus": {
+        "MainBus.tsx": [
+            { 
+                "Great! Tips were loaded successfully.":
+                "Ótimo! O Tips foi carregado com sucesso." 
+            }
+        ],
+        "Translates.tsx": [
+            { 
+                "Change language from {old} to {new}. You need to refresh the page to make the change.":
+                "Trocado idioma de {old} para {new}. É necessário atualizar a página para efetivar a alteração." 
+            }
+        ],
+        "History.txt": [
+            {
+                "The log message list has been cleared.":
+                "A lista de mensagens de log foi limpa."
+            }
+        ],
+        "Parameters.txt": [
+            {
+                "Parameter \"{0}\" was successfully created.":
+                "O parâmetro \"{0}\" foi criado com sucesso."
+            },
+            {
+                "Parameter \"{0}\" has been updated successfully.":
+                "O parâmetro \"{0}\" foi atualizado com sucesso."
+            },
+            {
+                "Parameter \"{0}\" was deleted successfully.":
+                "O parâmetro \"{0}\" foi excluído com sucesso."
+            },
+            {
+                "Parameter \"{0}\" did not exist to be deleted.":
+                "O parâmetro \"{0}\" não existia para ser apagado."
+            },
+            {
+                "Module \"{0}\" does not exist.":
+                "O módulo \"{0}\" não existe."
+            },
+            {
+                "Module \"{0}\" does not have the \"{1}\" field.":
+                "O módulo \"{0}\" não tem o campo \"{1}\"."
+            },
+            {
+                "For module \"{0}\", field \"{1}\" has invalid values.":
+                "Para o módulo \"{0}\", o campo \"{1}\" tem valores inválidos."
+            },
+            {
+                "There were no settings to apply.":
+                "Não havia definições para serem aplicadas."
+            },
+            {
+                "A total of {0} settings were successfully applied to the modules.":
+                "Um total de {0} definições foram aplicadas com sucesso aos módulos."
+            },
+            {
+                "A total of {0} settings have been successfully applied to the modules. But there was an error in {1}":
+                "Um total de {0} definições foram aplicadas com sucesso aos módulos. Mas ocorreu erro em {1}."
+            },
+            {
+                "All {0} definitions have errors when applied to the modules.":
+                "Todas as {0} definições apresentaram erros ao serem aplicadas nos módulos."
+            }
+        ]
+    },
+    "Enums": {
+        "Level.tsx": [
+            {
+                "Information":
+                "Informação"
+            },
+            {
+                "Warning":
+                "Alerta"
+            },
+            {
+                "Error":
+                "Erro"
+            },
+            {
+                "Debug":
+                "Depuração"
+            },
+            {
+                "DebugBus":
+                "Bus"
+            },
+            {
+                "DebugComponent":
+                "Componentes"
+            },
+            {
+                "DebugDOM":
+                "DOM"
+            },
+            {
+                "DebugLuckygames":
+                "Luckygames"
+            },
+            {
+                "DebugReact":
+                "React"
+            },
+            {
+                "DebugRequest":
+                "Request"
+            }
+        ],
+        "OffOn": [
+            {
+                "Off":
+                "Desligado"
+            },
+            {
+                "On":
+                "Ligado"
+            }
+        ],
+        "Luckygames/Types.tsx": {
+            "WebSocketMode": [
+                {
+                    "Normal":
+                    "Frequência normal"
+                },
+                {
+                    "Reduce":
+                    "Frequência reduzida"
+                },
+                {
+                    "Normal":
+                    "Desligado"
+                }
+            ],
+            "ThemeMode": [
+                {
+                    "Dark":
+                    "Escuro"
+                },
+                {
+                    "Light":
+                    "Claro"
+                }
+            ]
+        }
+    },
+    "Componentes do sistema": {
+        "LanguageSelect.tsx": [        
+            { 
+                "Select language.":
+                "Seleção de idioma." 
+            }
+        ],        
+        "Dialog.tsx": [
+            { 
+                "Close this window.":
+                "Fechar esta janela." 
+            },
+            { 
+                "Maximize this window.":
+                "Maximizar esta janela." 
+            },
+            { 
+                "Restore size of this window.":
+                "Restaurar o tamanho desta janela." 
+            }
+        ],
+        "Container.tsx": [
+            { 
+                "Open as window.":
+                "Abrir como janela." 
+            }
+        ],
+        "DOM.tsx": [
+            {
+                "Yes":
+                "Sim"
+            },
+            {
+                "No":
+                "Não"
+            }
+        ]
+    },
+    "Módulos": {        
+        "ComponentBase.tsx": [
+            { 
+                "Just to know that...":
+                "Apenas para saber que..." 
+            },
+            { 
+                "Stay tuned...":
+                "Fique atento..." 
+            },
+            { 
+                "Oops! An error...":
+                "Ops! Um erro..." 
+            },
+            {
+                "Data entry":
+                "Entrada de dados"
+            },            
+            {
+                "Proceed?":
+                "Prosseguir?"
+            },
+            { 
+                "Triggered componentWillUnmount: {component} id=\"{id}\"":
+                "Disparado componentWillUnmount: {component} id=\"{id}\"" 
+            }
+        ],
+        "MainHeader.tsx": [
+            { 
+                "Refresh page.":
+                "Atualizar página." 
+            },
+            {
+                "Refreshing the page will cause any activity in progress to be interrupted. Update anyway?":
+                "Atualizar a página fará com que qualquer atividade em andamento seja interrompida. Atualizar assim mesmo?"
+            },
+            { 
+                "Expand all modules.":
+                "Expande todos os módulos." 
+            },
+            { 
+                "Collapse all modules.":
+                "Recolhe todos os módulos." 
+            },
+            { 
+                "Close all the module windows.":
+                "Fecha todas as janelas dos módulos." 
+            }
+        ],
+        "LogViewer.tsx": [
+            { 
+                "Log Viewer":
+                "Mensagens de Log" 
+            },
+            { 
+                "Clear log":
+                "Limpar log" 
+            },
+            { 
+                "All":
+                "Todos" 
+            }
+        ],
+        "Parameters.tsx": [
+            { 
+                "Operating Parameters":
+                "Parâmetros de funcionamento" 
+            },
+            { 
+                "Clear log":
+                "Limpar log" 
+            },
+            { 
+                "System":
+                "Sistema" 
+            },
+            { 
+                "No user parameter.":
+                "Nenhum parâmetro de usuário." 
+            },
+            {
+                "User parameter":
+                "Parâmetro do usuário"
+            },
+            { 
+                "Default":
+                "Padrão" 
+            },
+            { 
+                "Current":
+                "Atual" 
+            },
+            { 
+                "Reload":
+                "Recarregar" 
+            },
+            {
+                "Select a parameter...":
+                "Selecione um parametro..."
+            },
+            { 
+                "Reload the settings of the selected parameter.":
+                "Recarregar as definições do parâmetro selecionado." 
+            },
+            { 
+                "Delete":
+                "Excluir" 
+            },
+            { 
+                "Deletes the selected parameter.":
+                "Apaga o parâmetro selecionado." 
+            },
+            {
+                "The deletion of parameter \"{0}\" will be irreversible. Do it anyway?":
+                "A exclusão do parâmetro \"{0}\" será irreversível. Fazer assim mesmo?"
+            },
+            {
+                "Applying the settings resulted in the following errors:":
+                "A aplicação das definições resultou nos seguintes erros:"
+            },
+            { 
+                "Save":
+                "Salvar" 
+            },
+            { 
+                "Saves the current settings.":
+                "Grava as definições atuais." 
+            },
+            { 
+                "Apply":
+                "Aplicar" 
+            },
+            { 
+                "Applies the current settings to the modules.":
+                "Aplica as definições atuais nos módulos." 
+            },
+            {
+                "Before deleting, select a parameter.":
+                "Antes de excluir, selecione um parâmetro."
+            },
+            {
+                "System parameters can not be deleted.":
+                "Parâmetros de sistema não podem ser excluídos."
+            },
+            {
+                "Settings are not valid.\n{0}.":
+                "As definições não são válidas.\n{0}."
+            },
+            {
+                "Save these settings in what parameter?":
+                "Salvar essas definições em qual parâmetro?"
+            }
+        ],
+        "LuckygamesAdjusts.tsx": {
+            "Geral": [
+                { 
+                    "Website adjusts":
+                    "Ajustes do website" 
+                }
+            ],
+            "Ajuste: websocket": [
+                { 
+                    "Data updates":
+                    "Atualizações de dados" 
+                },
+                { 
+                    "Receiving global information from luckygames.io, such as Chat, All Bets, High Rollers, Rare Wins, Bets Made, Total Won, etc.":
+                    "Recebimento de informações globais da luckygames.io, como Chat, Todas Apostas, Grandes Apostas, Vitórias Raras, Apostas Feitas, Total Ganho, etc." 
+                },
+                { 
+                    "Off increases performance by reducing internet bandwidth consumption.":
+                    "Desligar aumenta a performance por reduzir o consumo de banda de internet." 
+                }
+            ],
+            "Ajuste: animation": [
+                { 
+                    "Animations":
+                    "Animações" 
+                },
+                { 
+                    "Audiovisual effects on the update of the balance, the Lucky Number type turnstile display, etc.":
+                    "Efeitos audiovisuais na atualização do saldo, exibição do Número da Sorte tipo roleta giratória, etc." 
+                },
+                { 
+                    "Off increases performance by reducing processor and memory consumption on your computer.":
+                    "Desligar aumenta a performance por reduzir o consumo de processador e memória do seu computador." 
+                }
+            ],
+            "Ajuste: visual": [
+                { 
+                    "Theme":
+                    "Visual" 
+                },
+                { 
+                    "Layout with light or dark visual of the site luckygames.io.":
+                    "Layout com visual claro ou escuro do site luckygames.io." 
+                },
+                { 
+                    "It is a purely personal choice. Does not interfere with performance.":
+                    "É uma escolha meramente pessoal. Não interfere na performance." 
+                }
+            ]
+        }
+    }
+}

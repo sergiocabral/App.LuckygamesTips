@@ -1,0 +1,82 @@
+{
+    "Enums": {
+        "Level.tsx": [
+            {
+                "Information":
+                "Information"
+            },
+            {
+                "Warning":
+                "Warning"
+            },
+            {
+                "Error":
+                "Error"
+            },
+            {
+                "Debug":
+                "Debug"
+            },
+            {
+                "DebugBus":
+                "Bus"
+            },
+            {
+                "DebugComponent":
+                "Component"
+            },
+            {
+                "DebugDOM":
+                "DOM"
+            },
+            {
+                "DebugLuckygames":
+                "Luckygames"
+            },
+            {
+                "DebugReact":
+                "React"
+            },
+            {
+                "DebugRequest":
+                "Request"
+            }
+        ],
+        "OffOn": [
+            {
+                "Off":
+                "Off"
+            },
+            {
+                "On":
+                "On"
+            }
+        ],
+        "Luckygames/Types.tsx": {
+            "WebSocketMode": [
+                {
+                    "Normal":
+                    "Normal frequency"
+                },
+                {
+                    "Reduce":
+                    "Reduced frequency"
+                },
+                {
+                    "Normal":
+                    "Off"
+                }
+            ],            
+            "ThemeMode": [
+                {
+                    "Dark":
+                    "Dark"
+                },
+                {
+                    "Light":
+                    "Light"
+                }
+            ]
+        }
+    }
+}

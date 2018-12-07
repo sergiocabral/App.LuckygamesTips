@@ -1,9 +1,0 @@
-{
-  "Plugin Name": "MySys",
-  "Description": "O MySys programa e customiza o funcionamento do Wordpress.",
-  "Version": "0.1",
-  "Text Domain": "business",
-  "Author": "Sergio Cabral",
-  "Author URI": "http://www.cabral.br.com/",
-  "file": "mysys.php"
-}

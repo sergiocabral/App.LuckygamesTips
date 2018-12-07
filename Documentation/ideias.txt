@@ -1,0 +1,47 @@
+﻿Talvez C# ao invés de PHP na API
+
+WebSocket
+
+Compoenentes graficos: barra/pizza/etc
+
+Criar um bom conceito de ligar/parar/pausar/etc para BOTs
+
+Projeto de testes?
+
+Olhas as funções existentes e pensar num agrupamento mais adequado a cada modulo
+
+Usar banco noSQL?
+
+Botões com conceito de clickAndWait
+
+Ser possível dois controles liga/desliga no mesmo modulo
+
+Ambientes de pelo menos três versõs anteriores que possam permitir rollback da publicação
+
+[ok] tradução ser algo fundamental	
+
+[ok]Cada modulo deve disponibilizar um get/set de seus parametyros
+[ok]usar isso para salvar estado atual e redfinir para um salvo
+
+[ok] No JavaScript usar módulos de componetes para evitar muito código de implemntação de componentes
+[ok] Permitir o mesmo componente na mesma tela, sem conflito.
+[ok] Permitir um compoennte referenciar outro. Tipo um componente basico (label: input)
+
+[ok]Os módulos devem ter separação:
+[ok]- sistema: estatísticas, etc.
+[ok]- automação: bot, etc.
+[ok]- informativo: estatistica visual, 
+[ok]- etc?
+
+[ok] deve ter ambiente de dsv + prod
+
+[ok] estrutura melhor o log javascript
+[ok] suporte a log por niveis: debug|user|error|etc
+
+[ok] opção de destacar modulos em outras janelas para arrastar
+
+[ok] separar o mais coisas possíveis em arquivos distintos
+
+[ok] compoentne de log para modulos de bot
+
+[ok] Fazer layout variável ou com resize.
