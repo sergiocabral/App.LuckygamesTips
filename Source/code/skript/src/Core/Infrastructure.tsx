@@ -102,7 +102,7 @@ namespace Skript.Core {
                 libs.push("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/ace.js"); //Origem: https://cdnjs.com/libraries/ace
                 libs.push("https://use.fontawesome.com/releases/v5.5.0/css/all.css");
                 libs.push("https://fonts.googleapis.com/css?family=Raleway|Hind+Siliguri|Share+Tech+Mono");
-                libs.push(`${skript.configuration.server}/mysys/Business/Media/FastForward/font.css`);
+                libs.push(`${skript.configuration.server}/media/FastForward/font.css`);
 
                 Util.LoadReferences.libraries(libs).then(resolve).catch(reject);
             });

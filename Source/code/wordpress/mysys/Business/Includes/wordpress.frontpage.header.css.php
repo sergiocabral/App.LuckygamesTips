@@ -12,7 +12,7 @@
     }
 
     .custom-header-media {
-        background-image: url('<?php echo \Mysys\Core\Base::GetWebsiteUrl('/Media/background-with-logo.png') ?>');
+        background-image: url('<?php echo home_url('/Media/background-with-logo.png') ?>');
         background-position: top center;
         background-size: cover;
     }

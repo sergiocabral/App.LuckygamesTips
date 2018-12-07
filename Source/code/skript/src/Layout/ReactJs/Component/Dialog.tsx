@@ -175,7 +175,7 @@ namespace Skript.Layout.ReactJs.Component {
             ${this.selector()} > .header,
             ${this.selector()} > .resize {
                 opacity: 0.9;
-                background-image: url("${this.theme.url}/mysys/Business/Media/dialog-background.png");
+                background-image: url("${this.theme.url}/media/dialog-background.png");
                 background-size: cover;
                 background-position: 0 0;
             }

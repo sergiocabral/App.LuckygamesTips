@@ -14,7 +14,7 @@ namespace Skript.Part.System.MainHeader {
             }
             ${this.selector()} > .header {
                 text-align: center;
-                background-image: url("${this.theme.url}/mysys/Business/Media/header-background.jpg");
+                background-image: url("${this.theme.url}/media/header-background.jpg");
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center;
@@ -49,7 +49,7 @@ namespace Skript.Part.System.MainHeader {
                 font-size: 80%;
             }      
             ${this.selector()} > .bot {
-                background-image: url("${this.theme.url}/mysys/Business/Media/r2d2.png");
+                background-image: url("${this.theme.url}/media/r2d2.png");
                 background-size: 93%;
                 background-repeat: no-repeat;
                 background-position: 10px 5px;
