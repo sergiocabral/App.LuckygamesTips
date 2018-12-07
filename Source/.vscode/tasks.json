@@ -6,13 +6,13 @@
         {
             "type": "npm",
             "script": "build",
-            "path": "Source/code/skript/",
+            "path": "code/skript/",
             "problemMatcher": []
         },
         {
             "type": "npm",
             "script": "build-dev",
-            "path": "Source/code/skript/",
+            "path": "code/skript/",
             "problemMatcher": []
         }
     ]
