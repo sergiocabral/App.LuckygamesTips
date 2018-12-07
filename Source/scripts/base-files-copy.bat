@@ -20,6 +20,13 @@ mkdir ..\..\Webserver\%dir%
 
 ::::::::::::::::::::::::::::::::
 
+echo Espera de seguranca de 5 segundos antes de copiar arquivos...
+echo.
+
+choice /T 5 /C sn /D s /N > nul
+
+::::::::::::::::::::::::::::::::
+
 echo Copiando arquivos.
 echo.
 
