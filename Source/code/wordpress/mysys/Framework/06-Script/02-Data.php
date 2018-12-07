@@ -1,5 +1,5 @@
 <?php
-namespace Mysys\Skript;
+namespace Mysys\Script;
 
 /**
  * Carrega conteúdo json.

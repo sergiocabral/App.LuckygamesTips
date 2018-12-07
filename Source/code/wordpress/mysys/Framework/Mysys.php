@@ -21,7 +21,7 @@ class Mysys extends Core\Singleton {
         Data\Routes::Instance()->Init();
         Wordpress\Routes::Instance()->Init();
         \Website\Website::Instance()->Init();
-        Skript\Loader::Instance()->Init();
+        Script\Loader::Instance()->Init();
     }
 
     #endregion
