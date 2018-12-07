@@ -15,6 +15,7 @@ echo Removendo arquivos atuais.
 echo.
 
 rmdir /q/s ..\..\Webserver\%dir%
+choice /T 1 /C sn /D s /N > nul
 mkdir ..\..\Webserver\%dir%
 
 ::::::::::::::::::::::::::::::::
