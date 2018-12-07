@@ -20,6 +20,7 @@ class Mysys extends Core\Singleton {
         Data\WordpressConfigure::Instance()->Init();
         Data\Routes::Instance()->Init();
         Wordpress\Routes::Instance()->Init();
+        Debug\Automation::Instance()->Init();
         \Website\Website::Instance()->Init();
         Script\Loader::Instance()->Init();
     }
