@@ -12,7 +12,7 @@ namespace Skript.Layout.ReactJs.Component {
             ${this.selector()} {
                 z-index: ${skript.stylesheet.zIndex * 2};
                 background-color: transparent;
-                background-image: url("${this.theme.url}/media/logo.png");
+                background-image: url("${this.theme.url}/mysys/Business/Media/logo.png");
                 background-position: center;
                 background-repeat: no-repeat;
                 background-size: contain;

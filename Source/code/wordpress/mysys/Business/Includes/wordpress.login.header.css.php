@@ -1,7 +1,7 @@
 <style>
     html {
         background-color: #222222;
-        background-image: url('<?php echo \Mysys\Core\Base::GetWebsiteUrl('/Images/background-without-logo.png') ?>');
+        background-image: url('<?php echo \Mysys\Core\Base::GetWebsiteUrl('/Media/background-without-logo.png') ?>');
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
@@ -37,7 +37,7 @@
     .login h1 a,
     .login h1 a:focus,
     .login h1 a:active {
-        background-image: url('<?php echo \Mysys\Core\Base::GetWebsiteUrl('/Images/logo.png') ?>');
+        background-image: url('<?php echo \Mysys\Core\Base::GetWebsiteUrl('/Media/logo.png') ?>');
         background-size: contain;
         width: 100%;
         height: 150px;

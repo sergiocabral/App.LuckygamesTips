@@ -33,10 +33,10 @@ namespace Skript.Layout.ReactJs.Component {
                 outline: none;
             }
             ${this.selector()} .en button {
-                background-image: url("${this.theme.url}/media/language-en.png");
+                background-image: url("${this.theme.url}/mysys/Business/Media/language-en.png");
             }
             ${this.selector()} .pt button {
-                background-image: url("${this.theme.url}/media/language-pt.png");
+                background-image: url("${this.theme.url}/mysys/Business/Media/language-pt.png");
             }
         `;
 
