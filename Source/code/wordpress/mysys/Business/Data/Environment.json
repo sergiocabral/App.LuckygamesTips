@@ -7,7 +7,7 @@
     "pageDebug": {
       "git": [
         "set home=c:\\home",
-        "git remote set-url origin https://sergio%40cabral.br.com:mAsterkey91@sergiocabral.visualstudio.com/LuckygamesTips/_git/LuckygamesTips",
+        "git remote set-url origin https://sergio%40cabral.br.com:j5V04XT7MxNFnShk@sergiocabral.visualstudio.com/LuckygamesTips/_git/LuckygamesTips",
         "git config --global user.email",
         "git config --global user.name",
         "git status",
