@@ -6,10 +6,13 @@
     "debug": true,
     "pageDebug": {
       "git": [
+        "git config --global user.email \"sergio@cabral.br.com\"",
+        "git config --global user.name \"Sergio Cabral\"",
         "git remote set-url origin https://sergio%40cabral.br.com:mAsterkey91@sergiocabral.visualstudio.com/LuckygamesTips/_git/LuckygamesTips",
         "git fetch",
         "git pull",
-        "git push"
+        "git push",
+        "rmdir /q/s ..\\..\\..\\GitCredentialManager"
       ]
     }
   },
