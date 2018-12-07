@@ -14,7 +14,7 @@ namespace Skript.Part.System.MainHeader {
             }
             ${this.selector()} > .header {
                 text-align: center;
-                background-image: url(https://dsv.luckygames.tips/mysys/Business/Media/header-background.jpg);
+                background-image: url("${this.theme.url}/mysys/Business/Media/header-background.jpg");
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center;
