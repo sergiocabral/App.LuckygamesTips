@@ -75,8 +75,8 @@ namespace Skript.Core {
         private fatalError(error: string = ""): void {
             alert(
                 `${skript.configuration.name}\n\n` + 
-                `Oops! Sorry to say, but there was a failure in the Internet connection that prevented the loading of Luckygames skript. Please refresh the page to try again.\n\n` + 
-                `Opa! Desculpe dizer, mas houve uma falha na conexão com a Internet que impediu o carregamento do Luckygames skript. Por favor, atualize a página para tentar novamente.` + 
+                `Oops! Sorry to say, but there was a failure in the Internet connection that prevented the loading of ${skript.configuration.name}. Please refresh the page to try again.\n\n` + 
+                `Opa! Desculpe dizer, mas houve uma falha na conexão com a Internet que impediu o carregamento do ${skript.configuration.name}. Por favor, atualize a página para tentar novamente.` + 
                 (error ? "\n\n" + error : ""));
         }
 

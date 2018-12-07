@@ -370,5 +370,5 @@ const skript: Skript.Core.All = new Skript.Core.All();
 
 new Skript.Core.Infrastructure({
     name: "Luckygames Tips",
-    server: "https://tst.luckygames.tips/"
+    server: "https://dsv.luckygames.tips/"
 });
