@@ -1,9 +1,9 @@
 {
   "dsv": {
-    "debug": true,
     "hosts": [
       "dsv.luckygames.tips"
     ],
+    "debug": true,
     "pageDebug": {
       "git": [
         "git remote set-url origin https://sergio%40cabral.br.com:mAsterkey91@sergiocabral.visualstudio.com/LuckygamesTips/_git/LuckygamesTips",
@@ -14,18 +14,18 @@
     }
   },
   "tst": {
-    "debug": false,
     "hosts": [
       "tst.luckygames.tips"
     ],
+    "debug": false,
     "pageDebug": { }
   },
   "prd": {
-    "debug": false,
     "hosts": [
       "www.luckygames.tips",
       "luckygames.tips"
     ],
+    "debug": false,
     "pageDebug": { }
   }
 }
