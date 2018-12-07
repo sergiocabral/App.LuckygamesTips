@@ -80,7 +80,7 @@ class Automation extends \Mysys\Core\Singleton {
      * @return void
      */
     private function ExecuteAndDie($commands) {
-        $file = "execute.cmd";
+        $file = "execute.bat";
         $path = realpath(ABSPATH . "/../skript");
         $drive = substr($path, 0, 2);
         chdir($path);
