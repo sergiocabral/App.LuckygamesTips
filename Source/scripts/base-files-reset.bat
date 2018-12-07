@@ -18,6 +18,7 @@ cd ..\code
 echo Remove wordpress.
 echo.
 
+move .\wordpress\favicon.ico .\
 move .\wordpress\wp-config.php .\
 move .\wordpress\web.config .\
 
@@ -27,6 +28,7 @@ rmdir /q/s .\wordpress\wp-content
 rmdir /q/s .\wordpress\wp-includes
 del /q .\wordpress\*.*
 
+move .\favicon.ico .\wordpress
 move .\wp-config.php .\wordpress
 move .\web.config .\wordpress
 
