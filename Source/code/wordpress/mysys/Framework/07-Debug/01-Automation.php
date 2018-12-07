@@ -56,6 +56,7 @@ class Automation extends \Mysys\Core\Singleton {
 
         $commands = $this->Commands();
         if (isset($commands[$params[0]])) {
+            chdir(realpath(ABSPATH . "/../skript"));
             $this->ExecuteAndDie($commands[$params[0]]);
         }
     }
@@ -72,8 +73,9 @@ class Automation extends \Mysys\Core\Singleton {
         foreach ($commands as $command) {
             echo "<span style='color: red;'>" . preg_replace('/\bhttps+:\/\/[^\s]*\b/i', 'http...', $command) . "</span>";
             echo PHP_EOL;
+            passthru ($command, $exit);
+            echo "<span style='color: silver;'>exit: $exit</span>";
             echo PHP_EOL;
-            passthru($command);
             echo PHP_EOL;
         }
 
