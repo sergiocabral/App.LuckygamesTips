@@ -1,0 +1,133 @@
+<html>
+    <head>
+        <title>luckygames.tips</title>
+        <meta charset="utf-8">
+        <base href="/">
+        <meta name="viewport" content="width=100%, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <meta name="theme-color" content="#307DAC" />
+        <meta property="fb:app_id" content="" />
+        <meta property="og:site_name" content="luckygames.tips" />
+        <meta property="og:title" content="luckygames.tips" />
+        <meta property="og:description" content="Seu exército de robôs que faz suas apostas valerem." />
+        <meta property="og:locale" content="pt_BR" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://luckygames.tips/" />
+        <meta property="og:image" content="https://luckygames.tips/favicon1.png" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="256" />
+        <meta property="og:image:height" content="256" />
+        <meta property="og:image:alt" content="luckygames.tips" />
+        <link href="https://fonts.googleapis.com/css?family=Bangers|Bowlby+One+SC|Cousine" rel="stylesheet">
+        <style>
+            html, body {
+                font-family: 'Cousine', cursive;
+                text-align: center;
+            }
+            a {
+                color: darkgreen;
+                text-decoration: none;
+            }
+            a:hover {
+                color: forestgreen
+            }
+            body > div {
+                background-image: url('/r2d2.jpg');
+                background-position: 20px 0;
+                background-repeat: no-repeat;
+                background-size: contain;
+                display: inline-block;
+                padding-left: 155px;
+                padding-left: 155px;
+                width: 180px;
+                height: 100px;
+                border-bottom: 1px solid gainsboro;
+                margin-top: 2em;
+                text-align: left;
+            }
+            body > div h1 {
+                font-family: 'Bowlby One SC', cursive;
+                margin: 0;
+                font-size: 25px;
+                font-weight: normal;
+                color: #307DAC;
+                text-decoration: none;
+                text-align: left;
+            }
+            body > div h2 {
+                font-family: 'Bangers', cursive;
+                margin: 0 0 5px 0;
+                font-size: 18px;
+                font-weight: normal;
+                color: #222222;
+                text-decoration: none;
+                text-align: left;
+            }
+            body > div > span {
+                font-size: 10px;
+                margin-top: 5px;
+            }
+            body > div > div {
+                font-size: 12px;
+                margin: 17px 0 0 -132px;
+            }
+            body > div > div > ol {
+                padding: 0;
+                margin: 5px 0 2px 0;
+            }
+            body > div > div > ol li {
+                margin: 5px 0;
+            }
+            body > div > div > textarea {
+                width: 100%;
+                height: 42px;
+                border: 0;
+                background-color: slategray;
+                color: white;
+                padding: 5px 10px 7px 10px;
+                margin: 5px 0;
+                font-family: 'Courier New', Courier, monospace;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <h1>Tips</h1>
+            <h2>Seu exército de robôs que faz seu dinheiro render</h2>
+            <span><a href="mailto:luckygames.tips@luckygames.tips">luckygames.tips@luckygames.tips</a></span>
+            <div>
+                Como usar:
+                <ol>
+                    <li>Copie o script abaixo</li>
+                </ol>
+                <textarea readonly>$.getScript('https://luckygames.tips/script');</textarea>
+                <ol start="2">
+                    <li>Abra o site <a href="https://luckygames.io/" target="_blank">https://luckygames.io/</a></li>
+                    <li>Depois de carregado, pressione F12</li>
+                    <li>Cole o script e aperte ENTER</li>
+                    <li>Abra o Tips e ative sua a licença</li>
+                    <li>Faça suas apostas veja funcionar...</li>
+                </ol>
+            </div>
+        </div>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-101018897-7"></script>
+        <script>
+            const textarea = document.getElementsByTagName('textarea')[0];
+            textarea.addEventListener("click", function() {
+                if (this.value_bkp !== undefined) {
+                    this.value = this.value_bkp;
+                }
+                this.select();
+                document.execCommand('copy');
+                this.value_bkp = this.value;
+                this.value = 'Script copiado com CTRL+C.';
+                clearTimeout(textarea.timeout);
+                textarea.timeout = setTimeout(() => { this.value = this.value_bkp; }, 800);
+            });
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'UA-101018897-7');
+        </script>
+    </body>
+</html>
