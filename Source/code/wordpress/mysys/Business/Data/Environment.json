@@ -5,32 +5,22 @@
     ],
     "debug": true,
     "pageDebug": {
-      "build": [
+      "git": [
+        "set home=c:\\home",
         "git remote set-url origin https://sergio%40cabral.br.com:mAsterkey91@sergiocabral.visualstudio.com/LuckygamesTips/_git/LuckygamesTips",
         "git config --global user.email",
         "git config --global user.name",
         "git status",
         "git fetch",
         "git pull",
-        "git push",
-        "rmdir /q/s ..\\..\\..\\GitCredentialManager",
-        "rmdir /q/s ..\\wordpress\\skript",
-        "dir ..\\wordpress\\skript",
+        "git push"
+      ],
+      "build": [
         "npm run build",
         "dir ..\\wordpress\\skript",
         "type ..\\wordpress\\skript\\index.js"
       ],
       "build-dev": [
-        "git remote set-url origin https://sergio%40cabral.br.com:mAsterkey91@sergiocabral.visualstudio.com/LuckygamesTips/_git/LuckygamesTips",
-        "git config --global user.email",
-        "git config --global user.name",
-        "git status",
-        "git fetch",
-        "git pull",
-        "git push",
-        "rmdir /q/s ..\\..\\..\\GitCredentialManager",
-        "rmdir /q/s ..\\wordpress\\skript",
-        "dir ..\\wordpress\\skript",
         "npm run build-dev",
         "dir ..\\wordpress\\skript",
         "type ..\\wordpress\\skript\\index.js"

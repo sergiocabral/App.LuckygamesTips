@@ -55,8 +55,12 @@ class Automation extends \Mysys\Core\Singleton {
         }
 
         $commands = $this->Commands();
-        if (isset($commands[$params[0]])) {
-            $this->ExecuteAndDie($commands[$params[0]]);
+        $toExecute = [];
+        foreach ($params as $key => $command) {
+            $toExecute = array_merge($toExecute, $commands[$command]);
+        }
+        if (count($toExecute)) {
+            $this->ExecuteAndDie($toExecute);
         }
     }
 
@@ -76,36 +80,23 @@ class Automation extends \Mysys\Core\Singleton {
      * @return void
      */
     private function ExecuteAndDie($commands) {
-        echo "<html style='background-color: black; color: lightgreen;'><head><title>Git</title></head><body><pre>";
-        
-        $file = "execute.bat";
+        $file = "execute.cmd";
         $path = realpath(ABSPATH . "/../skript");
         $drive = substr($path, 0, 2);
         chdir($path);
 
-        foreach ($commands as $command) {
-            file_put_contents($file, "@echo off" . PHP_EOL);
-
-            if (!file_exists($file)) {
-                self::Error("Page debug cannot execute.", self::class);
-            }
-
-            file_put_contents($file, $drive . PHP_EOL, FILE_APPEND);
-            file_put_contents($file, "cd $path" . PHP_EOL, FILE_APPEND);
-            file_put_contents($file, str_replace("%", "%%", $command) . " > $file.txt" . PHP_EOL, FILE_APPEND);
-
-            echo "<span style='color: orange;'>" . $this->RemoveSensiveData($command) . "</span>" . PHP_EOL;
-
-            passthru($file);
-            echo str_replace("<", "&lt;", str_replace(">", "&gt;", file_get_contents("$file.txt")));
-
-            echo PHP_EOL . "<span style='color: darkslategrey;'>" . str_repeat("#", 40) . "</span>" . PHP_EOL . PHP_EOL;
+        if (!file_put_contents($file, "") && !file_exists($file)) {
+            self::Error("Page debug cannot execute.", self::class);
         }
 
-        unlink("$file");
-        unlink("$file.txt");
+        foreach ($commands as $command) {
+            file_put_contents($file, str_replace("%", "%%", $command) . PHP_EOL, FILE_APPEND);
+        }
 
-        echo "</pre></body></html>";
+        header("Content-type: text/plain");
+        system("cmd.exe /c $file", $exit);
+        echo "Exit code: $exit";
+        unlink($file);
 
         die;
     }
