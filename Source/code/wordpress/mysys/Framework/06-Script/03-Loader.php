@@ -91,12 +91,7 @@ class Loader extends \Mysys\Core\Singleton {
      * @return boolean
      */
     public function RequestData($params) {
-        $data = Data::Instance()->GetDataList($this->ExtractParams($params));
-        if ($data !== false) {
-            echo json_encode($data);
-        } else {
-            header("HTTP/1.0 404 Not Found");
-        }
+        echo Data::Instance()->GetData($this->ExtractParams($params));
         die;
     }
 }

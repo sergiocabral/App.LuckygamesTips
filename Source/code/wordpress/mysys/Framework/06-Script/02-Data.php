@@ -12,20 +12,25 @@ class Data extends \Mysys\Core\Singleton {
     public static function Instance () { return parent::Instance(); }
 
     /**
-     * Retorna uma lista de dados.
+     * Retorna os dados como string.
      * @param array $params Tipos e subtipos. Deve ter número par de parâmetros.
      * @return string
      */
-    public function GetDataList($params) {
+    public function GetData($params) {
         if (count($params) % 2 === 0) {
+            $hasData = false;
             $list = [];
             for ($i = 0; $i < count($params); $i += 2) { 
-                $data = $this->GetData($params[$i], $params[$i + 1]);
-                $list[] = $data === false ? null : $data;
-            }            
-
-            if (count($list)) return count($list) === 1 ? $list[0] : $list;
-        }
+                $data = $this->GetDataObject($params[$i], $params[$i + 1]);
+                if ($data !== false) {
+                    $hasData = true;
+                    $list[] = $data;
+                } else {
+                    $list[] = null;
+                }
+            }
+            if ($hasData && count($list)) return json_encode(count($list) === 1 ? $list[0] : $list);
+        }        
         return false;
     }
 
@@ -35,8 +40,9 @@ class Data extends \Mysys\Core\Singleton {
      *
      * @param string $type Tipo do dado.
      * @param string $subtype Subtipo do dado.
+     * @return object
      */
-    public function GetData(string $type, string $subtype) {
+    public function GetDataObject(string $type, string $subtype) {
         $filename = $this->GetFilename($type, $subtype);
         if (!file_exists($filename)) return false;
         $content = file_get_contents($filename);
