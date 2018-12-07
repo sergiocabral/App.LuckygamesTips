@@ -15,18 +15,48 @@ class Automation extends \Mysys\Core\Singleton {
      * Inicia as tarefas customizadas para o siteweb.
      */
     public function Init() {
-        \Mysys\Core\Event::Instance()->Bind("page_git", array($this, "ExecuteGitPull"));
+        \Mysys\Core\Event::Instance()->Bind("page_debug", array($this, "PageDebug"));
     }
 
     /**
-     * Executa os comandos Git para atualizar o código-fonte.
+     * Lista de comandos para o ambiente atual.
+     * @var array
+     */
+    private $_commands;
+
+    /**
+     * Lista de comandos para o ambiente atual.
+     * @return array
+     */
+    public function Commands() {
+        if (!isset($this->_commands)) {
+            $name = \Mysys\Data\Environment::Instance()->Name();
+            $environment = \Mysys\Data\Environment::Instance()->Current();
+            $this->_commands = $environment[0][$name]["pageDebug"];
+            if (is_string($this->_commands)) {
+                $this->_commands = [$this->_commands];
+            }
+            if (!is_array($this->_commands)) {
+                $this->_commands = [];
+            }
+        }
+
+        return $this->_commands; 
+    }
+
+    /**
+     * Página para execução de comandos debug.
+     * @param array $params Parâmetro recebidos pela url.
      * @return void
      */
-    public function ExecuteGitPull() {
-        if (\Mysys\Data\Environment::Instance()->IsDebug()) {
-            $this->ExecuteAndDie([
-                "git status"
-            ]);
+    public function PageDebug($params) {
+        if (!is_array($params) || !count($params)) {
+            return;            
+        }
+
+        $commands = $this->Commands();
+        if (isset($commands[$params[0]])) {
+            $this->ExecuteAndDie($commands[$params[0]]);
         }
     }
 
@@ -40,7 +70,7 @@ class Automation extends \Mysys\Core\Singleton {
         echo "<html><head><title>Git</title></head><body><pre>";
         
         foreach ($commands as $command) {
-            echo "<span style='color: red;'>$command</span>";
+            echo "<span style='color: red;'>" . preg_replace('/\bhttps+:\/\/[^\s]*\b/i', 'http...', $command) . "</span>";
             echo PHP_EOL;
             echo PHP_EOL;
             passthru($command);
