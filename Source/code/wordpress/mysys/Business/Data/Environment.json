@@ -1,7 +1,8 @@
 {
   "dsv": {
     "hosts": [
-      "dsv.luckygames.tips"
+      "dsv.luckygames.tips",
+      "tips.nominalsa.splitz.com.br"
     ],
     "debug": true,
     "pageDebug": {
