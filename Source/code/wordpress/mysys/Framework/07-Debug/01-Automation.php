@@ -9,13 +9,13 @@ class Automation extends \Mysys\Core\Singleton {
     /**
      * @return Automation
      */
-    public static function Instance () { return parent::Instance(); }
+    public static function instance () { return parent::instance(); }
 
     /**
      * Inicia as tarefas customizadas para o siteweb.
      */
-    public function Init() {
-        \Mysys\Core\Event::Instance()->Bind("page_debug", array($this, "PageDebug"));
+    public function init() {
+        \Mysys\Core\Event::instance()->bind("page_debug", array($this, "PageDebug"));
     }
 
     /**
@@ -30,8 +30,8 @@ class Automation extends \Mysys\Core\Singleton {
      */
     public function Commands() {
         if (!isset($this->_commands)) {
-            $name = \Mysys\Data\Environment::Instance()->Name();
-            $environment = \Mysys\Data\Environment::Instance()->Current();
+            $name = \Mysys\Data\Environment::instance()->name();
+            $environment = \Mysys\Data\Environment::instance()->current();
             $this->_commands = $environment[0][$name]["pageDebug"];
             if (is_string($this->_commands)) {
                 $this->_commands = [$this->_commands];
@@ -86,7 +86,7 @@ class Automation extends \Mysys\Core\Singleton {
         chdir($path);
 
         if (!file_put_contents($file, "") && !file_exists($file)) {
-            self::Error("Page debug cannot execute.", self::class);
+            self::error("Page debug cannot execute.", self::class);
         }
 
         foreach ($commands as $command) {

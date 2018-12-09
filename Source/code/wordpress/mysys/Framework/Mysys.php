@@ -12,17 +12,17 @@ class Mysys extends Core\Singleton {
      * Chamada na construção da classe.
      * @return void
      */
-    function Constructor()
+    function constructor()
     {
-        Data\Environment::Instance()->Init();
-        Data\WordpressVars::Instance()->Init();
-        Data\MysysPlugin::Instance()->Init();
-        Data\WordpressConfigure::Instance()->Init();
-        Data\Routes::Instance()->Init();
-        Wordpress\Routes::Instance()->Init();
-        Debug\Automation::Instance()->Init();
-        \Website\Website::Instance()->Init();
-        Script\Loader::Instance()->Init();
+        Data\Environment::instance()->init();
+        Data\WordpressVars::instance()->init();
+        Data\MysysPlugin::instance()->init();
+        Data\WordpressConfigure::instance()->init();
+        Data\Routes::instance()->init();
+        Wordpress\Routes::instance()->init();
+        Debug\Automation::instance()->init();
+        \Website\Website::instance()->init();
+        Script\Loader::instance()->init();
     }
 
     #endregion
@@ -32,7 +32,7 @@ class Mysys extends Core\Singleton {
      *
      * OnMysysSetDefaults           - Quando o Mysys precisa definir configurações padrão.
      * OnMysysLoad                  - O Mysys já está pronto para uso.
-     * OnWordpressLoaded            - Momento em que o Wordpress faz o include do plugin.
+     * onWordpressLoaded            - Momento em que o Wordpress faz o include do plugin.
      * OnWordpressHookStarteded     - Quando o Wordpress começa a chamar os Hooks.
      * api                          - Quando a api é solicitada.
      * api_{comando}                - Quando a api é solicitada.

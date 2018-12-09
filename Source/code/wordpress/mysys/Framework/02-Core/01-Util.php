@@ -12,7 +12,7 @@ abstract class Util {
      * @param mixed $where Local do erro: __FILE__ ou self::class
      * @param mixed $excpetion Exceção se existir.
      */
-    public static function Error($msg, $where, $excpetion = null) {
+    public static function error($msg, $where, $excpetion = null) {
         die("[$where] $msg" . ($excpetion instanceof \Exception ? ' (' . $excpetion->getMessage() . ')' : ''));
     }
 
@@ -21,7 +21,7 @@ abstract class Util {
      * @param string $name
      * @param mixed $value
      */
-    public static function Define($name, $value) {
+    public static function define($name, $value) {
         if (!defined($name)) {
             define($name, $value);
         }
@@ -32,11 +32,11 @@ abstract class Util {
      * @param string $fileOrDir Caminho.
      * @return boolean Retorna true para sucesso, ou false para falha.
      */
-    public static function DeleteFileOrDir($fileOrDir) {
+    public static function deleteFileOrDir($fileOrDir) {
         if (is_dir($fileOrDir)) {
-            return self::DeleteDirectory($fileOrDir);
+            return self::deleteDirectory($fileOrDir);
         } else {
-            return self::DeleteFile($fileOrDir);
+            return self::deleteFile($fileOrDir);
         }
     }
 
@@ -46,7 +46,7 @@ abstract class Util {
      * @param boolean $recursive Remove toda a estrutura de diretórios internos.
      * @return boolean Retorna true para sucesso, ou false para falha.
      */
-    public static function DeleteDirectory($dir, $recursive = TRUE) {
+    public static function deleteDirectory($dir, $recursive = TRUE) {
         if (is_dir($dir)) {
             if ($recursive) {
                 foreach (scandir($dir) as $object) {
@@ -54,7 +54,7 @@ abstract class Util {
                         $path = $dir . '/' . $object;
 
                         if (is_dir($path)) {
-                            self::DeleteDirectory($path);
+                            self::deleteDirectory($path);
                         } else {
                             unlink($path);
                         }
@@ -72,7 +72,7 @@ abstract class Util {
      * @param string $file Caminho do arquivo.
      * @return boolean Retorna true em sucesso, false em falha, na remoção.
      */
-    public static function DeleteFile($file) {
+    public static function deleteFile($file) {
         if (file_exists($file)) {
             return unlink($file);
         }
@@ -87,7 +87,7 @@ abstract class Util {
      * @param string $path Caminho interno ao diretório
      * @return string Caminho do diretório.
      */
-    public static function UpDirectory(string $dirname, string $path): string {
+    public static function upDirectory(string $dirname, string $path): string {
         $last = "";
         while (strtolower(basename($path)) !== strtolower($dirname)) {
             if ($last === $path) return false;
@@ -104,7 +104,7 @@ abstract class Util {
      * @param string $path Caminho interno ao diretório
      * @return string Caminho do diretório.
      */
-    public static function UpDirectoryWithFile(string $filename, string $path): string {
+    public static function upDirectoryWithFile(string $filename, string $path): string {
         $last = "";
         while (!file_exists("$path\\$filename")) {
             if ($last === $path) return false;
@@ -120,7 +120,7 @@ abstract class Util {
      * @param string $file Opcional. Caminho do arquivo.
      * @return void
      */
-    public static function Log($var, $mode = 'var_dump', $file = null) {
+    public static function log($var, $mode = 'var_dump', $file = null) {
         if (empty($file)) {
             $file = implode(DIRECTORY_SEPARATOR, [
                 dirname(__FILE__),
@@ -143,7 +143,7 @@ abstract class Util {
         }
 
         if (false === @file_put_contents($file, $dump . (PHP_EOL . PHP_EOL . str_repeat(str_repeat('#', 40) . PHP_EOL, 3) . PHP_EOL), FILE_APPEND | LOCK_EX)) {
-            self::Error('Without permission to write file.', self::class);
+            self::error('Without permission to write file.', self::class);
         }
     }
 
@@ -152,7 +152,7 @@ abstract class Util {
      * @param string $str Código.
      * @return string código minificado.
      */
-    public static function MinifyCss($code) {
+    public static function minifyCss($code) {
         # remove comments first (simplifies the other regex)
         $re1 = <<<'EOS'
 (?sx)
@@ -217,7 +217,7 @@ EOS;
      * @param string $blackList Opcional. Lista de caracteres proibidos. O padrão evita caracteres que geram confusão de leitura.
      * @return string
      */
-    public static function Unique($length = 5, $value = null, $funcToApply = 'strtoupper(?)', $blackList = '=0125IOUSZ') {
+    public static function unique($length = 5, $value = null, $funcToApply = 'strtoupper(?)', $blackList = '=0125IOUSZ') {
         $ignore = array_unique(str_split('=' . strtolower($blackList) . strtolower($blackList)));
         $shuffle = function($text) use ($ignore) {
             return str_replace($ignore, '', substr(base64_encode(hash('CRC32', $text)), 5));
@@ -238,7 +238,7 @@ EOS;
      * @param string $text Texto qualquer
      * @return string Texto em modo slug
      */
-    public static function Slugify($text)
+    public static function slugify($text)
     {
         // replace non letter or digits by -
         $text = preg_replace('~[^\pL\d]+~u', '-', $text);
@@ -272,12 +272,12 @@ EOS;
      * @param string $replace
      * @return boolean Retorna true caso ocorra escrita no arquivo.
      */
-    public static function ReplaceInFile($file, $search, $replace) {
+    public static function replaceInFile($file, $search, $replace) {
         $code = file_get_contents($file);
         if (strpos($code, $search) !== false) {
             $code = str_replace($search, $replace, $code);
             if (false === @file_put_contents($file, $code)) {
-                self::Error('Without permission to write file.', self::class);
+                self::error('Without permission to write file.', self::class);
             }
             return true;
         }
@@ -288,7 +288,7 @@ EOS;
      * Retorna o valor da url atual.
      * @return string
      */
-    public static function Url() {
+    public static function url() {
         return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
     }
 
@@ -297,7 +297,7 @@ EOS;
      * @param array $dividers Delimitadores possíveis.
      * @return array Partes da url.
      */
-    public static function UrlParams($dividers = [ '/', '?', '&' ]) {
+    public static function urlParams($dividers = [ '/', '?', '&' ]) {
         $url = $_SERVER['REQUEST_URI'];
 
         $dividers = is_array($dividers) ? $dividers : [ $dividers ];
@@ -330,7 +330,7 @@ EOS;
      * @param string $email
      * @return boolean
      */
-    public static function IsValidEmail($email) {
+    public static function isValidEmail($email) {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 
@@ -339,7 +339,7 @@ EOS;
      * @param string $phone
      * @return boolean
      */
-    public static function IsValidPhone($phone) {
+    public static function isValidPhone($phone) {
         $numbersOnly = preg_replace("/[-\(\)\s]/", '', $phone);
         if (strlen($numbersOnly) < 10 || strlen(preg_replace("/[0-9]/", "", $numbersOnly)) !== 0) {
             return false;
@@ -352,7 +352,7 @@ EOS;
      * @param string $password
      * @return boolean
      */
-    public static function IsWeakPassword($password) {
+    public static function isWeakPassword($password) {
         return
             (6 > strlen($password = trim($password))) ||
             ('' === preg_replace("/[0-9]/", "", $password)) ||
@@ -365,7 +365,7 @@ EOS;
      * @param string $password
      * @return string
      */
-    public static function Encrypt($text, $password = AUTH_KEY) {
+    public static function encrypt($text, $password = AUTH_KEY) {
         return openssl_encrypt($text, "AES-128-ECB", $password);
     }
 
@@ -375,7 +375,7 @@ EOS;
      * @param string $password
      * @return string
      */
-    public static function Decrypt($text, $password = AUTH_KEY) {
+    public static function decrypt($text, $password = AUTH_KEY) {
         return openssl_decrypt($text, "AES-128-ECB", $password);
     }
 
@@ -384,7 +384,7 @@ EOS;
      * @param string $text
      * @return string
      */
-    public static function TextToHtml($text) {
+    public static function textToHtml($text) {
         return str_replace(array("\r"), '', str_replace("\n", "<br />", htmlentities($text)));
     }
 
@@ -394,7 +394,7 @@ EOS;
      * @param string $encode Opcional. Padrão UTF-8.
      * @return array
      */
-    public static function EncodeArray($array, $encode = 'UTF-8') {
+    public static function encodeArray($array, $encode = 'UTF-8') {
         if ($array instanceof \stdClass) {
             $array = (array)$array;
         }
@@ -403,7 +403,7 @@ EOS;
             if (is_string($value)) {
                 $value = mb_convert_encoding($value, 'UTF-8', mb_detect_encoding($value, 'UTF-8, ISO-8859-1', true));
             } elseif (is_array($value) || $value instanceof \stdClass) {
-                $value = self::EncodeArray($value, $encode);
+                $value = self::encodeArray($value, $encode);
             }
         }
         return $array;
@@ -415,8 +415,8 @@ EOS;
      * @param string $encode Opcional. Padrão UTF-8.
      * @return string
      */
-    public static function Json($array, $encode = 'UTF-8') {
-        $encodeArray = self::EncodeArray($array);
+    public static function json($array, $encode = 'UTF-8') {
+        $encodeArray = self::encodeArray($array);
         $json = json_encode($encodeArray, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         return $json;
     }

@@ -9,37 +9,37 @@ class AdjustHtml extends \Mysys\Core\Singleton {
     /**
      * @return AdjustHtml
      */
-    public static function Instance () { return parent::Instance(); }
+    public static function instance () { return parent::instance(); }
 
     /**
      * Inicia as tarefas customizadas para o siteweb.
      */
-    public function Init() {
-        \Mysys\Core\Event::Instance()->Bind('OnWordpressLoaded', array($this, 'OnWordpressLoaded'));
+    public function init() {
+        \Mysys\Core\Event::instance()->bind('onWordpressLoaded', array($this, 'onWordpressLoaded'));
     }
 
     /**
      * Momento em que o Wordpress faz o include do plugin.
      */
-    public function OnWordpressLoaded() {
-        add_action('admin_head', function() { Includes::Instance()->Write('wordpress.common.header'); });
-        add_action('admin_head', function() { Includes::Instance()->Write('wordpress.admin.header'); });
-        add_action('admin_footer', function() { Includes::Instance()->Write('wordpress.common.footer'); });
-        add_action('admin_footer', function() { Includes::Instance()->Write('wordpress.admin.footer'); });
+    public function onWordpressLoaded() {
+        add_action('admin_head', function() { Includes::instance()->write('wordpress.common.header'); });
+        add_action('admin_head', function() { Includes::instance()->write('wordpress.admin.header'); });
+        add_action('admin_footer', function() { Includes::instance()->write('wordpress.common.footer'); });
+        add_action('admin_footer', function() { Includes::instance()->write('wordpress.admin.footer'); });
 
-        add_action('wp_head', function() { Includes::Instance()->Write('wordpress.common.header'); });
-        add_action('wp_head', function() { Includes::Instance()->Write('wordpress.frontpage.header'); });
-        add_action('wp_footer', function() { Includes::Instance()->Write('wordpress.common.footer'); });
-        add_action('wp_footer', function() { Includes::Instance()->Write('wordpress.frontpage.footer'); });
+        add_action('wp_head', function() { Includes::instance()->write('wordpress.common.header'); });
+        add_action('wp_head', function() { Includes::instance()->write('wordpress.frontpage.header'); });
+        add_action('wp_footer', function() { Includes::instance()->write('wordpress.common.footer'); });
+        add_action('wp_footer', function() { Includes::instance()->write('wordpress.frontpage.footer'); });
 
-        add_action('login_head', function() { Includes::Instance()->Write('wordpress.common.header'); });
-        add_action('login_head', function() { Includes::Instance()->Write('wordpress.login.header'); });
-        add_action('login_footer', function() { Includes::Instance()->Write('wordpress.common.footer'); });
-        add_action('login_footer', function() { Includes::Instance()->Write('wordpress.login.footer'); });
+        add_action('login_head', function() { Includes::instance()->write('wordpress.common.header'); });
+        add_action('login_head', function() { Includes::instance()->write('wordpress.login.header'); });
+        add_action('login_footer', function() { Includes::instance()->write('wordpress.common.footer'); });
+        add_action('login_footer', function() { Includes::instance()->write('wordpress.login.footer'); });
 
-        add_filter('admin_title', array($this, 'FormatTitle'));
-        add_filter('wp_title', array($this, 'FormatTitle'));
-        add_filter('login_title', array($this, 'FormatTitle'));
+        add_filter('admin_title', array($this, 'formatTitle'));
+        add_filter('wp_title', array($this, 'formatTitle'));
+        add_filter('login_title', array($this, 'formatTitle'));
 
         add_filter('login_headerurl', function() { return home_url(); });
         add_filter('login_headertitle', function() { return ''; });
@@ -50,7 +50,7 @@ class AdjustHtml extends \Mysys\Core\Singleton {
      * @param string $title
      * @return string
      */
-    public function FormatTitle($title) {
+    public function formatTitle($title) {
         if (empty($title)) {
             return '';
         }
@@ -66,7 +66,7 @@ class AdjustHtml extends \Mysys\Core\Singleton {
 
         return
             count($parts) === 0 ? get_option('blogname') :
-           (count($parts) === 1 ? ' &#8212; ' . $parts[0] :
-           ($parts[1] . ' &#8212; ' . $parts[0]));
+            (count($parts) === 1 ? ' &#8212; ' . $parts[0] :
+            ($parts[1] . ' &#8212; ' . $parts[0]));
     }
 }

@@ -11,7 +11,7 @@ abstract class Base extends Util {
      * @param string $str Código.
      * @return string código minificado.
      */
-    public static function MinifyJs($code) {
+    public static function minifyJs($code) {
         return \JSMin::minify($code);
     }
 
@@ -20,7 +20,7 @@ abstract class Base extends Util {
      * @param string $subdir Quando informado inclui o subdir e coloca o separador no final.
      * @return string
      */
-    public static function GetFrameworkDir($subdir = null) {
+    public static function getFrameworkDir($subdir = null) {
         $path = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR;
         if (!empty($subdir)) {
             $path .= $subdir . DIRECTORY_SEPARATOR;
@@ -33,8 +33,8 @@ abstract class Base extends Util {
      * @param string $subdir Quando informado inclui o subdir e coloca o separador no final.
      * @return string
      */
-    public static function GetWebsiteDir($subdir = null) {
-        $frameworkDir = self::GetFrameworkDir();
+    public static function getWebsiteDir($subdir = null) {
+        $frameworkDir = self::getFrameworkDir();
         $frameworkDirname = basename($frameworkDir);
 
         $dir = dirname($frameworkDir);
@@ -53,7 +53,7 @@ abstract class Base extends Util {
      * @param string $url Quando informado inclui no final.
      * @return string
      */
-    private static function GetUrl($dir, $url = null) {
+    private static function getUrl($dir, $url = null) {
         $baseDir = dirname($dir);
 
         $dirname = basename($dir);
@@ -69,8 +69,8 @@ abstract class Base extends Util {
      * @param string $url Quando informado inclui no final.
      * @return string
      */
-    public static function GetFrameworkUrl($url = null) {
-        return self::GetUrl(self::GetFrameworkDir(), $url);
+    public static function getFrameworkUrl($url = null) {
+        return self::getUrl(self::getFrameworkDir(), $url);
     }
 
     /**
@@ -78,8 +78,8 @@ abstract class Base extends Util {
      * @param string $url Quando informado inclui no final.
      * @return string
      */
-    public static function GetWebsiteUrl($url = null) {
-        return self::GetUrl(self::GetWebsiteDir(), $url);
+    public static function getWebsiteUrl($url = null) {
+        return self::getUrl(self::getWebsiteDir(), $url);
     }
 
     /**
@@ -87,7 +87,7 @@ abstract class Base extends Util {
      * @param string $dir
      * @return string
      */
-    public static function DirToUrl($dir) {
+    public static function dirToUrl($dir) {
         $baseDir = dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR;
 
         if (strpos(strtolower($dir), strtolower($baseDir)) === 0) {

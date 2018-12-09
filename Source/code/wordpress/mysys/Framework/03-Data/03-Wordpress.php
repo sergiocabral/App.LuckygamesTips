@@ -9,7 +9,7 @@ class Wordpress extends \Mysys\Core\Singleton {
     /**
      * @return Wordpress
      */
-    public static function Instance () { return parent::Instance(); }
+    public static function instance () { return parent::instance(); }
 
     /**
      * Indica se o Wordpress já está carregado.
@@ -22,10 +22,10 @@ class Wordpress extends \Mysys\Core\Singleton {
      * @param boolean $mode Opcional. Uso interno.
      * @return boolean
      */
-    public function IsLoaded($mode = NULL) {
+    public function isLoaded($mode = NULL) {
         if ($mode === true && !$this->_isLoaded) {
             $this->_isLoaded = $mode;
-            \Mysys\Core\Event::Instance()->Trigger('OnWordpressLoaded');
+            \Mysys\Core\Event::instance()->trigger('onWordpressLoaded');
         }
         return $this->_isLoaded;
     }
@@ -41,10 +41,10 @@ class Wordpress extends \Mysys\Core\Singleton {
      * @param boolean $mode Opcional. Uso interno.
      * @return boolean
      */
-    public function IsHookStarted($mode = NULL) {
+    public function isHookStarted($mode = NULL) {
         if ($mode === true && !$this->_isHookStarted) {
             $this->_isHookStarted = $mode;
-            \Mysys\Core\Event::Instance()->Trigger('OnWordpressHookStarted');
+            \Mysys\Core\Event::instance()->trigger('OnWordpressHookStarted');
         }
         return $this->_isHookStarted;
     }

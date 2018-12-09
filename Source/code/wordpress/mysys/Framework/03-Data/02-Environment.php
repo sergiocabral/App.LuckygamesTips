@@ -9,14 +9,14 @@ class Environment extends LoadData {
     /**
      * @return Environment
      */
-    public static function Instance () { return parent::Instance(); }
+    public static function instance () { return parent::instance(); }
 
     /**
      * Realiza as atividads desta classe na inicialização do Mysys.
      */
-    public function Init() {
-        if (0 === count($this->Current())) {
-            $this->Error('Without environment.', self::class);
+    public function init() {
+        if (0 === count($this->current())) {
+            $this->error('Without environment.', self::class);
         }
     }
 
@@ -29,7 +29,7 @@ class Environment extends LoadData {
     /**
      * Ambiente atual.
      */
-    public function Current() {
+    public function current() {
         if (!empty($this->_current)) {
             return $this->_current;
         }
@@ -48,8 +48,8 @@ class Environment extends LoadData {
      * Informa se é um ambiente de debug.
      * @return boolean
      */
-    public function IsDebug() {
-        $current = $this->Current();
+    public function isDebug() {
+        $current = $this->current();
         reset($current);
         return (0 === count($current)) || $current[0][key($current[0])]['debug'] ? true : false;
     }
@@ -58,8 +58,8 @@ class Environment extends LoadData {
      * Informa se é um ambiente de debug.
      * @return boolean
      */
-    public function Name() {
-        $current = $this->Current();
+    public function name() {
+        $current = $this->current();
         reset($current);
         return key($current[0]);
     }

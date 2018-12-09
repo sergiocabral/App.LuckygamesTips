@@ -64,7 +64,7 @@ class JSMin {
     // -- Public Static Methods --------------------------------------------------
 
     /**
-     * Minify Javascript
+     * minify Javascript
      *
      * @uses __construct()
      * @uses min()
@@ -76,7 +76,7 @@ class JSMin {
         return $jsmin->min();
     }
 
-    // -- Public Instance Methods ------------------------------------------------
+    // -- Public instance Methods ------------------------------------------------
 
     /**
      * Constructor
@@ -88,7 +88,7 @@ class JSMin {
         $this->inputLength = strlen($this->input);
     }
 
-    // -- Protected Instance Methods ---------------------------------------------
+    // -- Protected instance Methods ---------------------------------------------
 
     /**
      * Action -- do something! What to do is determined by the $command argument.

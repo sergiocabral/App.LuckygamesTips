@@ -9,7 +9,7 @@ class Cache extends Singleton {
     /**
      * @return Cache
      */
-    public static function Instance () { return parent::Instance(); }
+    public static function instance () { return parent::instance(); }
 
     /**
      * Usado como cache caso o APC não esteja ativo.
@@ -21,7 +21,7 @@ class Cache extends Singleton {
      * Gera um nome para key que será armazenada no cache.
      * @param string $key Key referente ao dado.
      */
-    private function Key($key) {
+    private function key($key) {
         return 'key-' . $key;
     }
 
@@ -30,8 +30,8 @@ class Cache extends Singleton {
      * @param string $key
      * @param string $data
      */
-    public function Set($key, $data) {
-        $key = $this->Key($key);
+    public function set($key, $data) {
+        $key = $this->key($key);
 
         if ($this->IsActive()) {
             apcu_store($key, $data);
@@ -45,8 +45,8 @@ class Cache extends Singleton {
      * @param string $key
      * @return mixed
      */
-    public function Get($key) {
-        $key = $this->Key($key);
+    public function get($key) {
+        $key = $this->key($key);
         if ($this->IsActive()) {
             return apcu_fetch($key);
         } else {
@@ -59,7 +59,7 @@ class Cache extends Singleton {
      * @param string $key
      */
     public function Exists($key) {
-        $key = $this->Key($key);
+        $key = $this->key($key);
         if ($this->IsActive()) {
             return apcu_exists($key);
         } else {
@@ -72,7 +72,7 @@ class Cache extends Singleton {
      * @param string $key
      */
     public function Delete($key) {
-        $key = $this->Key($key);
+        $key = $this->key($key);
         if ($this->IsActive()) {
             apcu_delete($key);
         } else {
@@ -97,7 +97,7 @@ class Cache extends Singleton {
         $key = 'file-' . $filename;
         if ($data === false) {
             if ($this->Exists($key)) {
-                $cached = $this->Get($key);
+                $cached = $this->get($key);
                 $this->Delete($key);
                 return $cached;
             } else {
@@ -105,17 +105,17 @@ class Cache extends Singleton {
             }
         } elseif ($data !== null) {
             if (false === @file_put_contents($filename, $data)) {
-                self::Error('Without permission to write file.', self::class);
+                self::error('Without permission to write file.', self::class);
             }
-            $this->Set($key, $data);
+            $this->set($key, $data);
             return $data;
         } else {
             if (!$this->Exists($key)) {
                 $data = file_get_contents($filename);
-                $this->Set($key, $data);
+                $this->set($key, $data);
                 return $data;
             } else {
-                return $this->Get($key);
+                return $this->get($key);
             }
         }
     }
@@ -126,7 +126,7 @@ class Cache extends Singleton {
      */
     public function __get($key) {
         if ($this->Exists($key)) {
-            return $this->Get($key);
+            return $this->get($key);
         } else {
             return null;
         }
@@ -138,7 +138,7 @@ class Cache extends Singleton {
      * @param mixed $value
      */
     public function __set($key, $value) {
-        $this->Set($key, $value);
+        $this->set($key, $value);
     }
 
     /**
