@@ -1,5 +1,5 @@
 <?php
-namespace Mysys\Core;
+namespace Mysys\Framework\Core;
 
 /**
  * Coleção de funcionalidads de uso geral específicos para o Framework.

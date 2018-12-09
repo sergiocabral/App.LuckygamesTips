@@ -1,5 +1,5 @@
 <?php
-namespace Mysys\Core;
+namespace Mysys\Framework\Core;
 
 /**
  * Cache de dados e conteúdo de arquivo.

@@ -1,10 +1,10 @@
 <?php
-namespace Mysys;
+namespace Mysys\Framework;
 
 /**
  * Class principal do sistema.
  */
-class Mysys extends Core\Singleton {
+class Main extends \Mysys\Framework\Core\Singleton {
 
     #region Mysys\Core\Singleton Members
 
@@ -21,7 +21,7 @@ class Mysys extends Core\Singleton {
         Data\Routes::instance()->init();
         Wordpress\Routes::instance()->init();
         Debug\Automation::instance()->init();
-        \Website\Website::instance()->init();
+        \Mysys\Business\Website::instance()->init();
         Script\Loader::instance()->init();
     }
 

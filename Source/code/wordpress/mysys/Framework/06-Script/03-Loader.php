@@ -1,10 +1,10 @@
 <?php
-namespace Mysys\Script;
+namespace Mysys\Framework\Script;
 
 /**
  * Carrega códigos javascript
  */
-class Loader extends \Mysys\Core\Singleton {
+class Loader extends \Mysys\Framework\Core\Singleton {
 
     /**
      * @return Loader
@@ -53,10 +53,10 @@ class Loader extends \Mysys\Core\Singleton {
      */
     public function init() {
         foreach ($this->_eventsScript as $event) {
-            \Mysys\Core\Event::instance()->bind($event, array($this, "requestScript"));
+            \Mysys\Framework\Core\Event::instance()->bind($event, array($this, "requestScript"));
         }
         foreach ($this->_eventsData as $event) {
-            \Mysys\Core\Event::instance()->bind($event, array($this, "requestData"));
+            \Mysys\Framework\Core\Event::instance()->bind($event, array($this, "requestData"));
         }
     }
 

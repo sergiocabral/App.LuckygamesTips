@@ -1,5 +1,5 @@
 <?php
-namespace Mysys\Data;
+namespace Mysys\Framework\Data;
 
 /**
  * Registra itens tipo DEFINE e variáveis globais para uso do Wordpress.
@@ -79,7 +79,7 @@ class WordpressVars extends LoadData {
             $json = json_encode($this->data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
             $json = mb_convert_encoding($json, mb_detect_encoding($this->text, 'UTF-8, ISO-8859-1', true));
 
-            \Mysys\Core\Cache::instance()->File($this->getFilenameWithData(), $json);
+            \Mysys\Framework\Core\Cache::instance()->File($this->getFilenameWithData(), $json);
         }
     }
 

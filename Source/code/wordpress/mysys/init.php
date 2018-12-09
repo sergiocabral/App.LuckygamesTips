@@ -47,4 +47,4 @@ function includeAll($dir, $count = 0) {
 
 };
 
-includeAll('Framework') && includeAll('Business') && \Mysys\Mysys::Instance();
+includeAll('Framework') && includeAll('Business') && \Mysys\Framework\Main::instance();

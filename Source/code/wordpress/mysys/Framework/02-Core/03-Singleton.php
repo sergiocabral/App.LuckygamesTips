@@ -1,5 +1,5 @@
 <?php
-namespace Mysys\Core;
+namespace Mysys\Framework\Core;
 
 /**
  * Quando herdado implementa singleton na classe filha.

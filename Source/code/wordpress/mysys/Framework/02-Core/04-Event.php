@@ -1,5 +1,5 @@
 <?php
-namespace Mysys\Core;
+namespace Mysys\Framework\Core;
 
 /**
  * Gerencia criação e chamadas de eventos pelo código.

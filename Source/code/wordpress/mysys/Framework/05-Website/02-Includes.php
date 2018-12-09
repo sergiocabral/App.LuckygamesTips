@@ -1,10 +1,10 @@
 <?php
-namespace Mysys\Website;
+namespace Mysys\Framework\Website;
 
 /**
  * Manipula arquivos para includes.
  */
-class Includes extends \Mysys\Core\Singleton {
+class Includes extends \Mysys\Framework\Core\Singleton {
 
     /**
      * @return Includes
@@ -18,7 +18,7 @@ class Includes extends \Mysys\Core\Singleton {
      * @return string Caminho do arquivo minificado.
      */
     public function minify($file) {
-        if (!\Mysys\Data\Environment::instance()->isDebug()) {
+        if (!\Mysys\Framework\Data\Environment::instance()->isDebug()) {
             $extensions = array(
                 '.css',
                 '.js',

@@ -1,5 +1,5 @@
 <?php
-namespace Mysys\Data;
+namespace Mysys\Framework\Data;
 
 /**
  * Definições do banco de dados.

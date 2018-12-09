@@ -1,10 +1,10 @@
 <?php
-namespace Mysys\Website;
+namespace Mysys\Framework\Website;
 
 /**
  * Classe base. Gerencia o comportamento do website.
  */
-abstract class WebsiteBase extends \Mysys\Core\Singleton {
+abstract class WebsiteBase extends \Mysys\Framework\Core\Singleton {
 
     #region Mysys\Core\Singleton Members
 
@@ -18,9 +18,9 @@ abstract class WebsiteBase extends \Mysys\Core\Singleton {
     function constructor0()
     {
         parent::constructor0();
-        \Mysys\Core\Event::instance()->bind('onWordpressLoaded', function() {
+        \Mysys\Framework\Core\Event::instance()->bind('onWordpressLoaded', function() {
             add_action('registered_taxonomy', function() {
-                \Mysys\Data\Wordpress::instance()->isHookStarted(true);
+                \Mysys\Framework\Data\Wordpress::instance()->isHookStarted(true);
             });
         });
         AdjustHtml::instance()->init();

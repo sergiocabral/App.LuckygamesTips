@@ -1,5 +1,5 @@
 <?php
-namespace Mysys\Wordpress;
+namespace Mysys\Framework\Wordpress;
 
 /**
  * Gerencia o redirecionamento de urls do website. Ajusta rotas.

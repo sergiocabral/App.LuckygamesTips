@@ -1,10 +1,10 @@
 <?php
-namespace Mysys\Debug;
+namespace Mysys\Framework\Debug;
 
 /**
  * Implementa comandos relacionados a depuração do sistema
  */
-class Automation extends \Mysys\Core\Singleton {
+class Automation extends \Mysys\Framework\Core\Singleton {
 
     /**
      * @return Automation
@@ -15,7 +15,7 @@ class Automation extends \Mysys\Core\Singleton {
      * Inicia as tarefas customizadas para o siteweb.
      */
     public function init() {
-        \Mysys\Core\Event::instance()->bind("page_debug", array($this, "PageDebug"));
+        \Mysys\Framework\Core\Event::instance()->bind("page_debug", array($this, "PageDebug"));
     }
 
     /**
@@ -30,8 +30,8 @@ class Automation extends \Mysys\Core\Singleton {
      */
     public function commands() {
         if (!isset($this->_commands)) {
-            $name = \Mysys\Data\Environment::instance()->name();
-            $environment = \Mysys\Data\Environment::instance()->current();
+            $name = \Mysys\Framework\Data\Environment::instance()->name();
+            $environment = \Mysys\Framework\Data\Environment::instance()->current();
             $this->_commands = $environment[0][$name]["pageDebug"];
             if (is_string($this->_commands)) {
                 $this->_commands = [$this->_commands];

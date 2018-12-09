@@ -1,10 +1,10 @@
 <?php
-namespace Mysys\Data;
+namespace Mysys\Framework\Data;
 
 /**
  * Carrega as propriedades da classe com base em um arquivo JSON na pasta Mysys\Data
  */
-abstract class LoadData extends \Mysys\Core\Singleton {
+abstract class LoadData extends \Mysys\Framework\Core\Singleton {
 
     #region Mysys\Core\Singleton Members
 
@@ -24,7 +24,7 @@ abstract class LoadData extends \Mysys\Core\Singleton {
     /**
      * Deve retornar o path absoluto do arquivo de dados JSON.
      * A lógica padrão é:
-     *    - Retornar o arquivo da pasta Framework\Data
+     *    - Retornar o arquivo da pasta \Mysys\Framework\Data
      *    - Com nome igual ao da class com extensão .json
      *    - O nome do arquivo sofre camel-case com inicial minúscula.
      */
@@ -38,7 +38,7 @@ abstract class LoadData extends \Mysys\Core\Singleton {
      */
     protected function load() {
         $path = $this->getFilenameWithData();
-        $this->text = \Mysys\Core\Cache::instance()->File($path);
+        $this->text = \Mysys\Framework\Core\Cache::instance()->File($path);
         $json = mb_convert_encoding($this->text, 'UTF-8', mb_detect_encoding($this->text, 'UTF-8, ISO-8859-1', true));
         $this->data = json_decode($json, true);
     }

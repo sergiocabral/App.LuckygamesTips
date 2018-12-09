@@ -1,10 +1,10 @@
 <?php
-namespace Mysys\Data;
+namespace Mysys\Framework\Data;
 
 /**
  * Informações sobre o Wordpress.
  */
-class Wordpress extends \Mysys\Core\Singleton {
+class Wordpress extends \Mysys\Framework\Core\Singleton {
 
     /**
      * @return Wordpress
@@ -25,7 +25,7 @@ class Wordpress extends \Mysys\Core\Singleton {
     public function isLoaded($mode = NULL) {
         if ($mode === true && !$this->_isLoaded) {
             $this->_isLoaded = $mode;
-            \Mysys\Core\Event::instance()->trigger('onWordpressLoaded');
+            \Mysys\Framework\Core\Event::instance()->trigger('onWordpressLoaded');
         }
         return $this->_isLoaded;
     }
@@ -44,7 +44,7 @@ class Wordpress extends \Mysys\Core\Singleton {
     public function isHookStarted($mode = NULL) {
         if ($mode === true && !$this->_isHookStarted) {
             $this->_isHookStarted = $mode;
-            \Mysys\Core\Event::instance()->trigger('OnWordpressHookStarted');
+            \Mysys\Framework\Core\Event::instance()->trigger('OnWordpressHookStarted');
         }
         return $this->_isHookStarted;
     }

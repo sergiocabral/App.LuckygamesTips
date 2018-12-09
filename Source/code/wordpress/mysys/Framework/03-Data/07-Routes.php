@@ -1,5 +1,5 @@
 <?php
-namespace Mysys\Data;
+namespace Mysys\Framework\Data;
 
 /**
  * Aplicação do plugin Mysys no Wordpress.
@@ -15,7 +15,7 @@ class Routes extends LoadData {
      * Realiza as atividads desta classe na inicialização do Mysys.
      */
     public function init() {
-        \Mysys\Core\Event::instance()->bind('onWordpressLoaded', function() {
+        \Mysys\Framework\Core\Event::instance()->bind('onWordpressLoaded', function() {
             $this->setDefaultsIfNecessary();
         });
     }

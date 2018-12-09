@@ -1,5 +1,5 @@
 <?php
-namespace Mysys\Data;
+namespace Mysys\Framework\Data;
 
 /**
  * Registra itens tipo DEFINE para uso do Wordpress.
@@ -22,11 +22,11 @@ class WordpressConfigure extends LoadData {
      * Aplica as configurações padrão se necessário.
      */
     public function setDefaultsIfNecessary() {
-        \Mysys\Core\Event::instance()->bind('onWordpressLoaded', function() {
+        \Mysys\Framework\Core\Event::instance()->bind('onWordpressLoaded', function() {
             add_action('activate_' . MysysPlugin::instance()->GetPluginFilename(), array($this, 'setDefaults'));
         });
 
-        \Mysys\Core\Event::instance()->bind('OnWordpressHookStarted', function() {
+        \Mysys\Framework\Core\Event::instance()->bind('OnWordpressHookStarted', function() {
             if (MysysPlugin::instance()->isInstalledNow()) {
                 $this->setDefaults();
             }
@@ -46,7 +46,7 @@ class WordpressConfigure extends LoadData {
         $this->CreatePosts(true);
         $this->CreateMenu(true);
 
-        \Mysys\Core\Event::instance()->trigger('OnMysysSetDefaults');
+        \Mysys\Framework\Core\Event::instance()->trigger('OnMysysSetDefaults');
     }
 
     /**
@@ -225,7 +225,7 @@ class WordpressConfigure extends LoadData {
             $wpdb->delete("{$wpdb->prefix}posts", array('post_name' => $post['post_name']));
 
             $post['post_status'] = isset($post['post_status']) ? $post['post_status'] : 'publish';
-            $post['post_content'] = isset($post['post_content']) ? $post['post_content'] : \Mysys\Website\Includes::instance()->getPostTemplate($post['post_name']);
+            $post['post_content'] = isset($post['post_content']) ? $post['post_content'] : \Mysys\Framework\Website\Includes::instance()->getPostTemplate($post['post_name']);
 
             $postId = wp_insert_post($post);
 

@@ -1,10 +1,10 @@
 <?php
-namespace Mysys\Script;
+namespace Mysys\Framework\Script;
 
 /**
  * Carrega códigos javascript
  */
-class Script extends \Mysys\Core\Singleton {
+class Script extends \Mysys\Framework\Core\Singleton {
 
     /**
      * @return Script

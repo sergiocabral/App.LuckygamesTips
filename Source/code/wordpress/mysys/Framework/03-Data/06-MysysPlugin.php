@@ -1,5 +1,5 @@
 <?php
-namespace Mysys\Data;
+namespace Mysys\Framework\Data;
 
 /**
  * Aplicação do plugin Mysys no Wordpress.
@@ -96,7 +96,7 @@ class MysysPlugin extends LoadData {
             $content .= "$key: $value" . PHP_EOL;
         }
         $content .= "*/" . PHP_EOL;
-        $content .= '\\' . \Mysys\Data\Wordpress::class . '::instance()->isLoaded(true);';
+        $content .= '\\' . \Mysys\Framework\Data\Wordpress::class . '::instance()->isLoaded(true);';
 
         $content = mb_convert_encoding($content, 'UTF-8');
 

@@ -1,10 +1,10 @@
 <?php
-namespace Mysys\Website;
+namespace Mysys\Framework\Website;
 
 /**
  * Controle a exibição do código HTML do website.
  */
-class AdjustHtml extends \Mysys\Core\Singleton {
+class AdjustHtml extends \Mysys\Framework\Core\Singleton {
 
     /**
      * @return AdjustHtml
@@ -15,7 +15,7 @@ class AdjustHtml extends \Mysys\Core\Singleton {
      * Inicia as tarefas customizadas para o siteweb.
      */
     public function init() {
-        \Mysys\Core\Event::instance()->bind('onWordpressLoaded', array($this, 'onWordpressLoaded'));
+        \Mysys\Framework\Core\Event::instance()->bind('onWordpressLoaded', array($this, 'onWordpressLoaded'));
     }
 
     /**

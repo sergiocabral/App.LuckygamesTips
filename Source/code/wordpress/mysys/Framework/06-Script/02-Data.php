@@ -1,10 +1,10 @@
 <?php
-namespace Mysys\Script;
+namespace Mysys\Framework\Script;
 
 /**
  * Carrega conteúdo json.
  */
-class Data extends \Mysys\Core\Singleton {
+class Data extends \Mysys\Framework\Core\Singleton {
 
     /**
      * @return Data

@@ -1,10 +1,10 @@
 <?php
-namespace Mysys\Wordpress;
+namespace Mysys\Framework\Wordpress;
 
 /**
  * Gerencia o redirecionamento de urls do website. Ajusta rotas.
  */
-class Routes extends \Mysys\Core\Singleton {
+class Routes extends \Mysys\Framework\Core\Singleton {
 
     /**
      * @return Routes
@@ -15,7 +15,7 @@ class Routes extends \Mysys\Core\Singleton {
      * Inicia os afazeres da classe.
      */
     public function init() {
-        \Mysys\Core\Event::instance()->bind('onWordpressLoaded', function() {
+        \Mysys\Framework\Core\Event::instance()->bind('onWordpressLoaded', function() {
             add_action('wp_loaded', array($this, 'Redirect'));
         });
     }
@@ -24,7 +24,7 @@ class Routes extends \Mysys\Core\Singleton {
      * Realizar o redirecionamento das rotas.
      */
     public function redirect() {
-        $routes = \Mysys\Data\Routes::instance()->data;
+        $routes = \Mysys\Framework\Data\Routes::instance()->data;
         $params = $this->urlParams();
         $page = isset($params[0]) ? strtolower($params[0]) : '';
 
@@ -79,8 +79,8 @@ class Routes extends \Mysys\Core\Singleton {
      */
     protected function api($command, $params) {
         $results = array_merge(
-            \Mysys\Core\Event::instance()->trigger("api", [ 'command' => $command, 'params' => $params ]),
-            \Mysys\Core\Event::instance()->trigger("api_$command", $params)
+            \Mysys\Framework\Core\Event::instance()->trigger("api", [ 'command' => $command, 'params' => $params ]),
+            \Mysys\Framework\Core\Event::instance()->trigger("api_$command", $params)
         );
 
         if (0 === count($results)) {
@@ -112,13 +112,13 @@ class Routes extends \Mysys\Core\Singleton {
      */
     protected function page($page, $params) {
         $results = array_merge(
-            \Mysys\Core\Event::instance()->trigger("page", [ 'page' => $page, 'params' => $params ]),
-            \Mysys\Core\Event::instance()->trigger("page_$page", $params)
+            \Mysys\Framework\Core\Event::instance()->trigger("page", [ 'page' => $page, 'params' => $params ]),
+            \Mysys\Framework\Core\Event::instance()->trigger("page_$page", $params)
         );
         if (0 < count(array_filter($results))) {
             foreach ($results as $result) {
                 if (!empty($result) && is_string($result)) {
-                    \Mysys\Website\Includes::instance()->write($result);
+                    \Mysys\Framework\Website\Includes::instance()->write($result);
                 }
             }
             die;

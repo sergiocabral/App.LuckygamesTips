@@ -1,10 +1,10 @@
 <?php
-namespace Website;
+namespace Mysys\Business;
 
 /**
  * Gerencia o comportamento customizado do website.
  */
-class Website extends \Mysys\Website\WebsiteBase {
+class Website extends \Mysys\Framework\Website\WebsiteBase {
 
     /**
      * @return Website
@@ -15,11 +15,10 @@ class Website extends \Mysys\Website\WebsiteBase {
      * Inicia os afazeres do Website.
      */
     function Init() {
-        \Mysys\Core\Event::instance()->bind('OnMysysSetDefaults', function() { \Mysys\Wordpress\Util::activateTheme("twentyseventeen"); });
+        \Mysys\Framework\Core\Event::instance()->bind('OnMysysSetDefaults', function() { \Mysys\Wordpress\Util::activateTheme("twentyseventeen"); });
         
-        \Mysys\Script\Loader::instance()->setEventScript("page_script");
-        \Mysys\Script\Loader::instance()->setEventScript("api_script");
-        \Mysys\Script\Loader::instance()->setEventData("api_data");
+        \Mysys\Framework\Script\Loader::instance()->setEventScript("page_script");
+        \Mysys\Framework\Script\Loader::instance()->setEventScript("api_script");
+        \Mysys\Framework\Script\Loader::instance()->setEventData("api_data");
     }
-
 }
