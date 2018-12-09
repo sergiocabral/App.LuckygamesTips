@@ -9,13 +9,13 @@ class Routes extends \Mysys\Core\Singleton {
     /**
      * @return Routes
      */
-    public static function Instance () { return parent::Instance(); }
+    public static function instance () { return parent::instance(); }
 
     /**
      * Inicia os afazeres da classe.
      */
-    public function Init() {
-        \Mysys\Core\Event::Instance()->Bind('OnWordpressLoaded', function() {
+    public function init() {
+        \Mysys\Core\Event::instance()->bind('onWordpressLoaded', function() {
             add_action('wp_loaded', array($this, 'Redirect'));
         });
     }
@@ -23,9 +23,9 @@ class Routes extends \Mysys\Core\Singleton {
     /**
      * Realizar o redirecionamento das rotas.
      */
-    public function Redirect() {
-        $routes = \Mysys\Data\Routes::Instance()->data;
-        $params = $this->UrlParams();
+    public function redirect() {
+        $routes = \Mysys\Data\Routes::instance()->data;
+        $params = $this->urlParams();
         $page = isset($params[0]) ? strtolower($params[0]) : '';
 
         switch ($page) {
@@ -61,13 +61,13 @@ class Routes extends \Mysys\Core\Singleton {
                 $apiParams = $params;
                 array_shift($apiParams);
                 $apiCommand = strtolower(array_shift($apiParams));
-                $this->Api($apiCommand, $apiParams);
+                $this->api($apiCommand, $apiParams);
                 break;
             default:
                 if (!empty($page)) {
                     $pageParams = $params;
                     array_shift($pageParams);
-                    $this->Page($page, $pageParams);
+                    $this->page($page, $pageParams);
                 }
         }
     }
@@ -77,10 +77,10 @@ class Routes extends \Mysys\Core\Singleton {
      * @param string $command
      * @param array $params
      */
-    protected function Api($command, $params) {
+    protected function api($command, $params) {
         $results = array_merge(
-            \Mysys\Core\Event::Instance()->Trigger("api", [ 'command' => $command, 'params' => $params ]),
-            \Mysys\Core\Event::Instance()->Trigger("api_$command", $params)
+            \Mysys\Core\Event::instance()->trigger("api", [ 'command' => $command, 'params' => $params ]),
+            \Mysys\Core\Event::instance()->trigger("api_$command", $params)
         );
 
         if (0 === count($results)) {
@@ -93,7 +93,7 @@ class Routes extends \Mysys\Core\Singleton {
                 } elseif (!is_array($result) && !($result instanceof \stdClass)) {
                     $result = [ 'result' => $result ];
                 }
-                $json .= (0 === strlen($json) ? '' : ',') . $this->Json($result);
+                $json .= (0 === strlen($json) ? '' : ',') . $this->json($result);
             }
 
             if (1 < count($results)) {
@@ -110,15 +110,15 @@ class Routes extends \Mysys\Core\Singleton {
      * @param string $page
      * @param array $params
      */
-    protected function Page($page, $params) {
+    protected function page($page, $params) {
         $results = array_merge(
-            \Mysys\Core\Event::Instance()->Trigger("page", [ 'page' => $page, 'params' => $params ]),
-            \Mysys\Core\Event::Instance()->Trigger("page_$page", $params)
+            \Mysys\Core\Event::instance()->trigger("page", [ 'page' => $page, 'params' => $params ]),
+            \Mysys\Core\Event::instance()->trigger("page_$page", $params)
         );
         if (0 < count(array_filter($results))) {
             foreach ($results as $result) {
                 if (!empty($result) && is_string($result)) {
-                    \Mysys\Website\Includes::Instance()->Write($result);
+                    \Mysys\Website\Includes::instance()->write($result);
                 }
             }
             die;

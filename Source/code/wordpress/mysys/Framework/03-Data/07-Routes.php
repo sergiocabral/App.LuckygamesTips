@@ -9,14 +9,14 @@ class Routes extends LoadData {
     /**
      * @return Routes
      */
-    public static function Instance () { return parent::Instance(); }
+    public static function instance () { return parent::instance(); }
 
     /**
      * Realiza as atividads desta classe na inicialização do Mysys.
      */
-    public function Init() {
-        \Mysys\Core\Event::Instance()->Bind('OnWordpressLoaded', function() {
-            $this->SetDefaultsIfNecessary();
+    public function init() {
+        \Mysys\Core\Event::instance()->bind('onWordpressLoaded', function() {
+            $this->setDefaultsIfNecessary();
         });
     }
 
@@ -24,7 +24,7 @@ class Routes extends LoadData {
      * Define os nomes padrão das rotas.
      * @param mixed $force Quando true sempre redefine os valores atuais.
      */
-    public function SetDefaultsIfNecessary($force = false) {
+    public function setDefaultsIfNecessary($force = false) {
         foreach ($this->data as $route => $default) {
             $option = "mysys_route_$route";
             $value = $force ? null : get_option($option);

@@ -11,7 +11,7 @@ class Util {
      * @param string $theme Nome do tema
      * @return boolean Sucesso retorna true. Falha retorna false.
      */
-    public static function ActivateTheme($theme) {
+    public static function activateTheme($theme) {
         switch_theme($theme);
         return true;
     }
@@ -19,19 +19,16 @@ class Util {
     /**
      * Ativa um plugin.
      * @param string $plugin Nome do plugin
+     * @param boolean $mode Opcional. Ativa ou desativa. Padrão ativar.
      * @return boolean Sucesso retorna true. Falha retorna false.
      */
-    public static function ActivatePlugin($plugin) {
+    public static function activatePlugin($plugin, $mode = true) {
         $current = get_option('active_plugins');
         $plugin = plugin_basename(trim($plugin));
-        if (!in_array($plugin, $current)) {
-            $current[] = $plugin;
-            sort($current);
-            do_action('activate_plugin', trim($plugin));
-            update_option('active_plugins', $current);
-            do_action('activate_' . trim($plugin));
-            do_action('activated_plugin', trim($plugin));
-            return true;
+        if ($mode && !in_array($plugin, $current)) {
+            return activate_plugins($plugin) || true;
+        } else if ($mode && !in_array($plugin, $current)) {
+            return deactivate_plugins($plugin) || true;
         }
         return false;
     }

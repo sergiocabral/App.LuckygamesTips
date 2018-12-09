@@ -9,7 +9,7 @@ class Script extends \Mysys\Core\Singleton {
     /**
      * @return Script
      */
-    public static function Instance () { return parent::Instance(); }
+    public static function instance () { return parent::instance(); }
 
     /**
      * Contexto padrão para retorno do script quando não informado.
@@ -24,13 +24,13 @@ class Script extends \Mysys\Core\Singleton {
      * @param array $context Opcional. Contexto do arquivo.
      * @return string
      */
-    public function GetScript($contexts = null) {
+    public function getScript($contexts = null) {
         if (!$contexts || !is_array($contexts) || !count($contexts)) $contexts = [$this->defaultContext];
         if (!is_array($contexts)) return false;
 
-        $files = $this->GetFilesByContext($contexts);
+        $files = $this->getFilesByContext($contexts);
 
-        return $this->Bundle($files);
+        return $this->bundle($files);
     }
 
     /**
@@ -39,10 +39,10 @@ class Script extends \Mysys\Core\Singleton {
      * @param array|string $context Nome ou lista com os contextos solicitados.
      * @return array Lista de arquivos.
      */
-    public function GetFilesByContext(array $contexts): array {
+    public function getFilesByContext(array $contexts): array {
         $contexts = array_map("strtolower", $contexts);
 
-        $files = $this->GetFiles();
+        $files = $this->getFiles();
 
         $filesInContext = array_keys(array_filter($files, 
             function($contextsOfFile) use ($contexts) { 
@@ -61,12 +61,12 @@ class Script extends \Mysys\Core\Singleton {
      *
      * @return array
      */
-    public function GetFiles(): array {
+    public function getFiles(): array {
         $result = [];
 
         $mainFile = "index";
 
-        $content = file_get_contents(ABSPATH . "/" . Loader::Instance()->dirname . "/{$mainFile}.ts");
+        $content = file_get_contents(ABSPATH . "/" . Loader::instance()->dirname . "/{$mainFile}.ts");
 
         $matches = preg_grep('/^\/\/\/\s+(<reference\s*path="|context:)/', explode("\n", $content));
         $matches = array_map(function($item) {
@@ -77,7 +77,7 @@ class Script extends \Mysys\Core\Singleton {
         if (in_array("", $matches) || 
             !count(array_filter($matches, function($item) { return strpos(strtolower($item), ".ts") !== false; })) ||
             !count(array_filter($matches, function($item) { return strpos(strtolower($item), ".ts") === false; })) ||
-            count($matches) % 2 !== 0) self::Error("Invalid content in the TypeScript file.", self::class);
+            count($matches) % 2 !== 0) self::error("Invalid content in the TypeScript file.", self::class);
 
         $matches = array_values($matches);
 
@@ -98,10 +98,10 @@ class Script extends \Mysys\Core\Singleton {
      * @param array $files Arquivos que serão incluídos no código.
      * @return string Código JavaScript.
      */
-    public function Bundle(array $files): string {
+    public function bundle(array $files): string {
         $result = "";
         foreach ($files as $file) {       
-            $filePath = ABSPATH . "/" . Loader::Instance()->dirname . "/{$file}.js";
+            $filePath = ABSPATH . "/" . Loader::instance()->dirname . "/{$file}.js";
             if (!file_exists($filePath)) $filePath .= "x";
             $result .= file_get_contents($filePath);
         }

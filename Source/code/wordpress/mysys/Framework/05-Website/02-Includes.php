@@ -9,7 +9,7 @@ class Includes extends \Mysys\Core\Singleton {
     /**
      * @return Includes
      */
-    public static function Instance () { return parent::Instance(); }
+    public static function instance () { return parent::instance(); }
 
     /**
      * Retorna o caminho do arquivo minificado.
@@ -17,8 +17,8 @@ class Includes extends \Mysys\Core\Singleton {
      * @param string $file Caminho do arquivo.
      * @return string Caminho do arquivo minificado.
      */
-    public function Minify($file) {
-        if (!\Mysys\Data\Environment::Instance()->IsDebug()) {
+    public function minify($file) {
+        if (!\Mysys\Data\Environment::instance()->isDebug()) {
             $extensions = array(
                 '.css',
                 '.js',
@@ -36,18 +36,18 @@ class Includes extends \Mysys\Core\Singleton {
                         switch (strtolower($ext)) {
                             case '.css.php':
                             case '.css':
-                                $content = $this->MinifyCss($content);
+                                $content = $this->minifyCss($content);
                                 break;
                             case '.js.php':
                             case '.js':
-                                $content = $this->MinifyJs($content);
+                                $content = $this->minifyJs($content);
                                 break;
                             default:
                                 return $file;
                         }
 
                         if (false === @file_put_contents($fileMinify, $content)) {
-                            self::Error('Without permission to write file.', self::class);
+                            self::error('Without permission to write file.', self::class);
                         }
 
                         // Opção de excluir o arquivo original após minificado.
@@ -67,12 +67,12 @@ class Includes extends \Mysys\Core\Singleton {
      * @param array $urls String ou array com os REQUEST_URI que validam o include.
      * @return boolean Retorna true quando pelo menos uma escrita é feita.
      */
-    public function WriteIf($file, $pages) {
+    public function writeIf($file, $pages) {
         $pages = is_array($pages) ? $pages : array($pages);
-        $url = strtolower($this->Url());
+        $url = strtolower($this->url());
         foreach ($pages as $page) {
             if (strpos($url, home_url($page)) === 0) {
-                $this->Write($file);
+                $this->write($file);
                 return true;
             }
         }
@@ -91,7 +91,7 @@ class Includes extends \Mysys\Core\Singleton {
      * @param boolean $unique Nome do arquivo.
      * @return boolean Retorna true quando pelo menos uma escrita é feita.
      */
-    public function Write($file, $unique = true) {
+    public function write($file, $unique = true) {
         self::$_writeUnique[$file] = isset(self::$_writeUnique[$file]) ? self::$_writeUnique[$file] : 0;
 
         if ($unique && self::$_writeUnique[$file] > 0) {
@@ -108,7 +108,7 @@ class Includes extends \Mysys\Core\Singleton {
             '.php',
         );
 
-        $filePath = strpos(str_replace('\\', '/', $file), '/') !== false ? $file : $this->GetWebsiteDir('Includes') . $file;
+        $filePath = strpos(str_replace('\\', '/', $file), '/') !== false ? $file : $this->getWebsiteDir('Includes') . $file;
 
         foreach ($extensions as $ext) {
             $path = $filePath . $ext;
@@ -124,10 +124,10 @@ class Includes extends \Mysys\Core\Singleton {
             
             switch ($ext) {
                 case '.css':
-                    echo "<link rel='stylesheet' type='text/css' href='" . $this->DirToUrl($path) . "' />";
+                    echo "<link rel='stylesheet' type='text/css' href='" . $this->dirToUrl($path) . "' />";
                     break;
                 case '.js':
-                    echo "<script src='" . $this->DirToUrl($path) . "'></script>";
+                    echo "<script src='" . $this->dirToUrl($path) . "'></script>";
                     break;
                 case '.css.php':
                 case '.js.php':
@@ -149,8 +149,8 @@ class Includes extends \Mysys\Core\Singleton {
      * Retorna o conteúdo de um template.
      * @param mixed $name
      */
-    public function GetPostTemplate($name) {
-        $file = $this->GetWebsiteDir('Includes') . "template.post.$name.html";
+    public function getPostTemplate($name) {
+        $file = $this->getWebsiteDir('Includes') . "template.post.$name.html";
         if (file_exists($file)) {
             $html = file_get_contents($file);
             $html = mb_convert_encoding($html, 'UTF-8', mb_detect_encoding($html, 'UTF-8, ISO-8859-1', true));

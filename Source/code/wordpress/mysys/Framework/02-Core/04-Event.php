@@ -9,7 +9,7 @@ class Event extends Singleton {
     /**
      * @return Event
      */
-    public static function Instance () { return parent::Instance(); }
+    public static function instance () { return parent::instance(); }
 
     /**
      * Lista de eventos cadastrados
@@ -22,7 +22,7 @@ class Event extends Singleton {
      * @param string $name Nome do evento.
      * @param callable|array $func Função a se chamada no evento.
      */
-    public function Bind($name, $func) {
+    public function bind($name, $func) {
         $this->_events[$name][] = $func;
     }
 
@@ -32,7 +32,7 @@ class Event extends Singleton {
      * @param mixed $args Parâmetros para o evento.
      * @return array Retorna a lista de resultados das funções.
      */
-    public function Trigger($name, $args = null) {
+    public function trigger($name, $args = null) {
         $result = [];
         if (isset($this->_events[$name])) {
             foreach($this->_events[$name] as $func) {

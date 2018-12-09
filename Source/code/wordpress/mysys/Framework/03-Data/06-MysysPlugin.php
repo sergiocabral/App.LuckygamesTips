@@ -9,12 +9,12 @@ class MysysPlugin extends LoadData {
     /**
      * @return MysysPlugin
      */
-    public static function Instance () { return parent::Instance(); }
+    public static function instance () { return parent::instance(); }
 
     /**
      * Realiza as atividads desta classe na inicialização do Mysys.
      */
-    public function Init() {
+    public function init() {
         $this->InstallPlugin();
     }
 
@@ -28,7 +28,7 @@ class MysysPlugin extends LoadData {
      * Indica se o plugin acabou de ser instalado neste request.
      * @return boolean
      */
-    public function IsInstalledNow() {
+    public function isInstalledNow() {
         return $this->_isInstalledNow;
     }
 
@@ -55,19 +55,19 @@ class MysysPlugin extends LoadData {
         if ($force || !file_exists($path)) {
             $this->_isInstalledNow = true;
             if (false === @file_put_contents($path, $this->GetPluginContent())) {
-                $this->Error('Error when install plugin.', self::class);
+                $this->error('Error when install plugin.', self::class);
             }
-            $this->ActivatePlugin();
+            $this->activatePlugin();
         }
     }
 
     /**
      * Ativa o plugin no Wordpress.
      */
-    public function ActivatePlugin() {
-        $database = WordpressVars::Instance()->GetDatabaseInfo();
+    public function activatePlugin() {
+        $database = WordpressVars::instance()->GetDatabaseInfo();
         $plugin = $this->GetPluginFilename();
-        $prefix = WordpressVars::Instance()->GetTablePrefix();
+        $prefix = WordpressVars::instance()->GetTablePrefix();
 
         $conn = mysqli_connect($database['DB_HOST'], $database['DB_USER'], $database['DB_PASSWORD'], $database['DB_NAME']);
         $query = $conn->query("SELECT `option_value` FROM {$prefix}options WHERE `option_name` = 'active_plugins'");
@@ -96,7 +96,7 @@ class MysysPlugin extends LoadData {
             $content .= "$key: $value" . PHP_EOL;
         }
         $content .= "*/" . PHP_EOL;
-        $content .= '\\' . \Mysys\Data\Wordpress::class . '::Instance()->IsLoaded(true);';
+        $content .= '\\' . \Mysys\Data\Wordpress::class . '::instance()->isLoaded(true);';
 
         $content = mb_convert_encoding($content, 'UTF-8');
 

@@ -9,7 +9,7 @@ class Loader extends \Mysys\Core\Singleton {
     /**
      * @return Loader
      */
-    public static function Instance () { return parent::Instance(); }
+    public static function instance () { return parent::instance(); }
 
     /**
      * Nome da pasta do script.
@@ -29,7 +29,7 @@ class Loader extends \Mysys\Core\Singleton {
      * @param string $event Nome do evento.
      * @return void
      */
-    public function SetEventScript($event) {
+    public function setEventScript($event) {
         $this->_eventsScript[] = $event;
     }
 
@@ -44,19 +44,19 @@ class Loader extends \Mysys\Core\Singleton {
      * @param string $event Nome do evento.
      * @return void
      */
-    public function SetEventData($event) {
+    public function setEventData($event) {
         $this->_eventsData[] = $event;
     }
 
     /**
      * Inicia as tarefas customizadas para o siteweb.
      */
-    public function Init() {
+    public function init() {
         foreach ($this->_eventsScript as $event) {
-            \Mysys\Core\Event::Instance()->Bind($event, array($this, "RequestScript"));
+            \Mysys\Core\Event::instance()->bind($event, array($this, "requestScript"));
         }
         foreach ($this->_eventsData as $event) {
-            \Mysys\Core\Event::Instance()->Bind($event, array($this, "RequestData"));
+            \Mysys\Core\Event::instance()->bind($event, array($this, "requestData"));
         }
     }
 
@@ -65,7 +65,7 @@ class Loader extends \Mysys\Core\Singleton {
      * @param array $params Parâmetros na url.
      * @return array Parâmetros válidos.
      */
-    private function ExtractParams($params) {
+    private function extractParams($params) {
         $valids = [];
         foreach ($params as $key => $value) {
             if (is_numeric($key)) {
@@ -80,8 +80,8 @@ class Loader extends \Mysys\Core\Singleton {
      * @param array $params
      * @return boolean
      */
-    public function RequestScript($params) {
-        echo Script::Instance()->GetScript($this->ExtractParams($params));
+    public function requestScript($params) {
+        echo Script::instance()->getScript($this->extractParams($params));
         die;
     }
 
@@ -90,8 +90,8 @@ class Loader extends \Mysys\Core\Singleton {
      * @param array $params
      * @return boolean
      */
-    public function RequestData($params) {
-        echo Data::Instance()->GetData($this->ExtractParams($params));
+    public function requestData($params) {
+        echo Data::instance()->getData($this->extractParams($params));
         die;
     }
 }

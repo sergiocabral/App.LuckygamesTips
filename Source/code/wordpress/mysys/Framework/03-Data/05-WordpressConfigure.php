@@ -9,26 +9,26 @@ class WordpressConfigure extends LoadData {
     /**
      * @return WordpressConfigure
      */
-    public static function Instance () { return parent::Instance(); }
+    public static function instance () { return parent::instance(); }
 
     /**
      * Realiza as atividads desta classe na inicialização do Mysys.
      */
-    public function Init() {
-        $this->SetDefaultsIfNecessary();
+    public function init() {
+        $this->setDefaultsIfNecessary();
     }
 
     /**
      * Aplica as configurações padrão se necessário.
      */
-    public function SetDefaultsIfNecessary() {
-        \Mysys\Core\Event::Instance()->Bind('OnWordpressLoaded', function() {
-            add_action('activate_' . MysysPlugin::Instance()->GetPluginFilename(), array($this, 'SetDefaults'));
+    public function setDefaultsIfNecessary() {
+        \Mysys\Core\Event::instance()->bind('onWordpressLoaded', function() {
+            add_action('activate_' . MysysPlugin::instance()->GetPluginFilename(), array($this, 'setDefaults'));
         });
 
-        \Mysys\Core\Event::Instance()->Bind('OnWordpressHookStarted', function() {
-            if (MysysPlugin::Instance()->IsInstalledNow()) {
-                $this->SetDefaults();
+        \Mysys\Core\Event::instance()->bind('OnWordpressHookStarted', function() {
+            if (MysysPlugin::instance()->isInstalledNow()) {
+                $this->setDefaults();
             }
         });
     }
@@ -36,31 +36,31 @@ class WordpressConfigure extends LoadData {
     /**
      * Aplica as configurações padrão.
      */
-    public function SetDefaults() {
+    public function setDefaults() {
         require_once(ABSPATH . 'wp-admin/includes/admin.php');
 
-        $this->RemoveUnnecessary();
+        $this->removeUnnecessary();
         $this->AdjustFirstUser();
         $this->DeleteInitialData();
         $this->SetBlogOptions();
         $this->CreatePosts(true);
         $this->CreateMenu(true);
 
-        \Mysys\Core\Event::Instance()->Trigger('OnMysysSetDefaults');
+        \Mysys\Core\Event::instance()->trigger('OnMysysSetDefaults');
     }
 
     /**
      * Remove arquivos desnecessários do Wordpress: plugins, temas, etc.
      * @return void
      */
-    public function RemoveUnnecessary() {
+    public function removeUnnecessary() {
         if (isset($this->data['deactivate_plugins'])) {
             deactivate_plugins($this->data['deactivate_plugins']);
         }
 
         if (isset($this->data['delete_from_disk'])) {
             foreach ($this->data['delete_from_disk'] as $fileOrDir) {
-                $this->DeleteFileOrDir(ABSPATH . DIRECTORY_SEPARATOR . $fileOrDir);
+                $this->deleteFileOrDir(ABSPATH . DIRECTORY_SEPARATOR . $fileOrDir);
             }
         }
     }
@@ -225,7 +225,7 @@ class WordpressConfigure extends LoadData {
             $wpdb->delete("{$wpdb->prefix}posts", array('post_name' => $post['post_name']));
 
             $post['post_status'] = isset($post['post_status']) ? $post['post_status'] : 'publish';
-            $post['post_content'] = isset($post['post_content']) ? $post['post_content'] : \Mysys\Website\Includes::Instance()->GetPostTemplate($post['post_name']);
+            $post['post_content'] = isset($post['post_content']) ? $post['post_content'] : \Mysys\Website\Includes::instance()->getPostTemplate($post['post_name']);
 
             $postId = wp_insert_post($post);
 

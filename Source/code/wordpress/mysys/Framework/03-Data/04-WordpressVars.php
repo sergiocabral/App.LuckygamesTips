@@ -9,24 +9,24 @@ class WordpressVars extends LoadData {
     /**
      * @return WordpressVars
      */
-    public static function Instance () { return parent::Instance(); }
+    public static function instance () { return parent::instance(); }
 
     /**
      * Realiza as atividads desta classe na inicialização do Mysys.
      */
-    public function Init() {
+    public function init() {
         $this->SetGlobalVars();
         $this->DefineDatabase();
         $this->DefineSalts();
-        $this->DefineDebug();
-        $this->DefineSiteUrl();
+        $this->defineDebug();
+        $this->defineSiteUrl();
     }
 
     /**
      * Informações de conexão com o banco de dados.
      */
     public function GetDatabaseInfo() {
-        $env = Environment::Instance()->Name();
+        $env = Environment::instance()->name();
         return $this->data['database'][$env];
     }
 
@@ -57,7 +57,7 @@ class WordpressVars extends LoadData {
      */
     public function DefineDatabase() {
         foreach ($this->GetDatabaseInfo() as $key => $value) {
-            $this->Define($key, $value);
+            $this->define($key, $value);
         }
     }
 
@@ -68,31 +68,32 @@ class WordpressVars extends LoadData {
         $needGenerateSalts = false;
         foreach ($this->data['salts'] as $key => $value) {
             if (empty($value)) {
-                $value = $this->Unique(65, null, 'str_shuffle(?)', '');
+                $value = $this->unique(65, null, 'str_shuffle(?)', '');
                 $this->data['salts'][$key] = $value;
                 $needGenerateSalts = true;
             }
-            $this->Define($key, $value);
+            $this->define($key, $value);
         }
 
         if ($needGenerateSalts) {
             $json = json_encode($this->data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
             $json = mb_convert_encoding($json, mb_detect_encoding($this->text, 'UTF-8, ISO-8859-1', true));
 
-            \Mysys\Core\Cache::Instance()->File($this->GetFilenameWithData(), $json);
+            \Mysys\Core\Cache::instance()->File($this->getFilenameWithData(), $json);
         }
     }
 
     /**
      * Ativação de debug para o site.
      */
-    public function DefineDebug() {
-        $this->Define('WP_DEBUG', Environment::Instance()->IsDebug() ? false : false);
+    public function defineDebug() {
+        $this->define('WP_DEBUG', Environment::instance()->isDebug() ? true : false);
 
-        $this->Define('WP_DEBUG_LOG', WP_DEBUG);
-        $this->Define('WP_DEBUG_DISPLAY', WP_DEBUG);
-        $this->Define('SCRIPT_DEBUG', WP_DEBUG);
-        $this->Define('STYLE_DEBUG', WP_DEBUG);
+        $this->define('WP_DEBUG_LOG', WP_DEBUG);
+        $this->define('WP_DEBUG_DISPLAY', WP_DEBUG);
+        $this->define('SCRIPT_DEBUG', WP_DEBUG);
+        $this->define('STYLE_DEBUG', WP_DEBUG);
+        $this->define('QM_ENABLE_CAPS_PANEL', WP_DEBUG);
         
         if (WP_DEBUG) {
             error_reporting(E_ALL);
@@ -106,14 +107,14 @@ class WordpressVars extends LoadData {
     /**
      * Define a url do website se for ambiente de debug.
      */
-    public function DefineSiteUrl() {
-        if (Environment::Instance()->IsDebug()) {
+    public function defineSiteUrl() {
+        if (Environment::instance()->isDebug()) {
             $url =
                 (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") .
                 "://{$_SERVER['HTTP_HOST']}";
 
-            $this->Define('WP_HOME', $url);
-            $this->Define('WP_SITEURL', $url);
+            $this->define('WP_HOME', $url);
+            $this->define('WP_SITEURL', $url);
         }
     }
 }

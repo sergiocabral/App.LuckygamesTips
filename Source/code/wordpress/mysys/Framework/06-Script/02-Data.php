@@ -9,19 +9,19 @@ class Data extends \Mysys\Core\Singleton {
     /**
      * @return Data
      */
-    public static function Instance () { return parent::Instance(); }
+    public static function instance () { return parent::instance(); }
 
     /**
      * Retorna os dados como string.
      * @param array $params Tipos e subtipos. Deve ter número par de parâmetros.
      * @return string
      */
-    public function GetData($params) {
+    public function getData($params) {
         if (count($params) % 2 === 0) {
             $hasData = false;
             $list = [];
             for ($i = 0; $i < count($params); $i += 2) { 
-                $data = $this->GetDataObject($params[$i], $params[$i + 1]);
+                $data = $this->getDataObject($params[$i], $params[$i + 1]);
                 if ($data !== false) {
                     $hasData = true;
                     $list[] = $data;
@@ -42,8 +42,8 @@ class Data extends \Mysys\Core\Singleton {
      * @param string $subtype Subtipo do dado.
      * @return object
      */
-    public function GetDataObject(string $type, string $subtype) {
-        $filename = $this->GetFilename($type, $subtype);
+    public function getDataObject(string $type, string $subtype) {
+        $filename = $this->getFilename($type, $subtype);
         if (!file_exists($filename)) return false;
         $content = file_get_contents($filename);
         $obj = json_decode($content);
@@ -57,10 +57,10 @@ class Data extends \Mysys\Core\Singleton {
      * @param string $subtype Subtipo do dado.
      * @return string
      */
-    public function GetFilename(string $type, string $subtype): string {
+    public function getFilename(string $type, string $subtype): string {
         $dirScript = "skript";
         $filename = "$type.$subtype.json";
-        $path = ABSPATH . "/" . Loader::Instance()->dirname . "/$filename";
+        $path = ABSPATH . "/" . Loader::instance()->dirname . "/$filename";
         return $path;
     }
 

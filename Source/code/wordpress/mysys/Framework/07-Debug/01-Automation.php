@@ -9,13 +9,13 @@ class Automation extends \Mysys\Core\Singleton {
     /**
      * @return Automation
      */
-    public static function Instance () { return parent::Instance(); }
+    public static function instance () { return parent::instance(); }
 
     /**
      * Inicia as tarefas customizadas para o siteweb.
      */
-    public function Init() {
-        \Mysys\Core\Event::Instance()->Bind("page_debug", array($this, "PageDebug"));
+    public function init() {
+        \Mysys\Core\Event::instance()->bind("page_debug", array($this, "PageDebug"));
     }
 
     /**
@@ -28,10 +28,10 @@ class Automation extends \Mysys\Core\Singleton {
      * Lista de comandos para o ambiente atual.
      * @return array
      */
-    public function Commands() {
+    public function commands() {
         if (!isset($this->_commands)) {
-            $name = \Mysys\Data\Environment::Instance()->Name();
-            $environment = \Mysys\Data\Environment::Instance()->Current();
+            $name = \Mysys\Data\Environment::instance()->name();
+            $environment = \Mysys\Data\Environment::instance()->current();
             $this->_commands = $environment[0][$name]["pageDebug"];
             if (is_string($this->_commands)) {
                 $this->_commands = [$this->_commands];
@@ -54,13 +54,13 @@ class Automation extends \Mysys\Core\Singleton {
             return;            
         }
 
-        $commands = $this->Commands();
+        $commands = $this->commands();
         $toExecute = [];
         foreach ($params as $key => $command) {
             $toExecute = array_merge($toExecute, $commands[$command]);
         }
         if (count($toExecute)) {
-            $this->ExecuteAndDie($toExecute);
+            $this->executeAndDie($toExecute);
         }
     }
 
@@ -69,7 +69,7 @@ class Automation extends \Mysys\Core\Singleton {
      * @param string $text Texto.
      * @return string
      */
-    private function RemoveSensiveData($text) {
+    private function removeSensiveData($text) {
         return preg_replace('/(?<=:\/\/)[^@\/]*/i', '***', $text);
     }
 
@@ -79,14 +79,14 @@ class Automation extends \Mysys\Core\Singleton {
      * @param array $commands Lista de comandos.
      * @return void
      */
-    private function ExecuteAndDie($commands) {
+    private function executeAndDie($commands) {
         $file = "execute.bat";
         $path = realpath(ABSPATH . "/../skript");
         $drive = substr($path, 0, 2);
         chdir($path);
 
         if (!file_put_contents($file, "") && !file_exists($file)) {
-            self::Error("Page debug cannot execute.", self::class);
+            self::error("Page debug cannot execute.", self::class);
         }
 
         foreach ($commands as $command) {

@@ -10,8 +10,8 @@ abstract class Singleton extends Base {
      * Construtor privado.
      */
     private function __construct() {
-        $this->Constructor0();
-        $this->Constructor();
+        $this->constructor0();
+        $this->constructor();
     }
 
     /**
@@ -24,7 +24,7 @@ abstract class Singleton extends Base {
      * Retorna a instância única da classe em questão.
      * @return Singleton
      */
-    public static function Instance() {
+    public static function instance() {
         $className = get_called_class();
         if (!isset(self::$_instances[$className])) {
             self::$_instances[$className] = new $className;
@@ -34,15 +34,15 @@ abstract class Singleton extends Base {
 
     /**
      * Chamada na construção da classe antes de tudo.
-     * É boa prática fazer override e chamar parent::Constructor0();
+     * É boa prática fazer override e chamar parent::constructor0();
      * Ideal para uso de classes extendidas mas que ainda são abstratas.
      */
-    protected function Constructor0() { }
+    protected function constructor0() { }
 
     /**
      * Função vazia para override.
      * Chamada na construção da classe.
-     * Usada para implementações finais. Sem necessidade de parent::Constructor();
+     * Usada para implementações finais. Sem necessidade de parent::constructor();
      */
-    protected function Constructor() { }
+    protected function constructor() { }
 }
