@@ -91,7 +91,7 @@ namespace Skript.Business.Parts.Header {
                     </div>
                     <div className="bot"></div>
                     <div className="bar">
-                        controles aqui.
+                        <Controls />
                     </div>                    
                 </div>
             );

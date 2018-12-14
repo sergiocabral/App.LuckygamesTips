@@ -31,7 +31,7 @@ namespace Skript.Business.Layout {
          * Aplica os estilos para: Dialog.
          */
         public forComponentDialog(): void {
-            const selector = `.${Core.Main.instance.presentation.configuration.className} .${Framework.Layout.Components.Base.getClassName(Framework.Layout.Components.Dialog.Dialog)}`;
+            const selector = Framework.Layout.Components.Base.getSelector(Framework.Layout.Components.Dialog.Dialog);
             Framework.Util.DOM.stylesheet(`
                 .${Core.Main.instance.presentation.configuration.className} > *:last-child > .${Framework.Layout.Components.Base.getClassName(Framework.Layout.Components.Dialog.Dialog)} > .dialog-header > div {
                 }

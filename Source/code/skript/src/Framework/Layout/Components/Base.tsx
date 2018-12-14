@@ -41,6 +41,15 @@ namespace Skript.Framework.Layout.Components {
         public id: string;
 
         /**
+         * Retorna um seletor CSS uma instância.
+         * @param {any} instance Instância.
+         * @returns {string} Seletor CSS.
+         */
+        public static getSelector(instance: any): string {
+            return `.${Core.Main.instance.presentation.configuration.className} .${Base.getClassName(instance)}`;
+        }
+
+        /**
          * Define a classe CSS para uma instância.
          * @param {any} instance Instância.
          * @returns {string} Class CSS.

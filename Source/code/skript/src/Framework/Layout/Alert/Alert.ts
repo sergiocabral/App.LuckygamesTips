@@ -125,7 +125,7 @@ namespace Skript.Framework.Layout.Dialog {
 
             const el = document.createElement("DIV") as HTMLDivElement;
             el.className = "dialog-title";
-            el.innerHTML = `<h1>${configuration.title}</h1>`;
+            el.innerHTML = `<h1>${configuration.title.translate()}</h1>`;
 
             return el;
         }
@@ -161,7 +161,7 @@ namespace Skript.Framework.Layout.Dialog {
             const el = document.createElement("DIV") as HTMLDivElement;
             el.className = "dialog-text";
 
-            const lines = configuration.text.split("\n");
+            const lines = configuration.text.translate().split("\n");
             for (let i = 0; i < lines.length; i++) {
                 const elP = document.createElement("P") as HTMLParagraphElement;
                 elP.innerHTML = lines[i];
@@ -210,7 +210,7 @@ namespace Skript.Framework.Layout.Dialog {
 
                 html += `<button${className} data-index="${i}">`;
                 if (button.icon) html += `<i class="${button.icon}"></i>`;
-                if (button.text) html += `<label>${button.text}</label>`;
+                if (button.text) html += `<label>${button.text.translate()}</label>`;
                 html += `</button>`;
             }
 
@@ -357,7 +357,8 @@ namespace Skript.Framework.Layout.Dialog {
                     text: labelOk.translate(),
                     icon: "far fa-check-circle",
                     focus: true,
-                    escape: true
+                    escape: true,
+                    className: "button"
                 }]
             });
         }
@@ -411,12 +412,14 @@ namespace Skript.Framework.Layout.Dialog {
                         {
                             text: labelNo.translate(),
                             icon: "far fa-times-circle",
-                            escape: true
+                            escape: true,
+                            className: "button"
                         },
                         {
                             text: labelYes.translate(),
                             icon: "far fa-check-circle",
-                            focus: true
+                            focus: true,
+                            className: "button"
                         }
                     ]
                 }).then(result => {
@@ -450,7 +453,8 @@ namespace Skript.Framework.Layout.Dialog {
                             text: labelOk.translate(),
                             icon: "far fa-check-circle",
                             focus: true,
-                            escape: false
+                            escape: false,
+                            className: "button"
                         }
                     ]
                 }).then(result => {
