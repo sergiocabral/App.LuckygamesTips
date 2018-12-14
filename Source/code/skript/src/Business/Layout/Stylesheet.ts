@@ -197,7 +197,6 @@ namespace Skript.Business.Layout {
                 }
                 ${selector} .button-shadow:active {
                     box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
-                    border-top: 1px solid transparent;
                     top: 1px;
                 }
                 ${selector} .text-shadow {

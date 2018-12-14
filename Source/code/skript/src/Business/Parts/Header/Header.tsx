@@ -1,7 +1,7 @@
 namespace Skript.Business.Parts.Header {
 
     /**
-     * Componente principal do módulo.
+     * Componente: Principal do módulo.
      */
     export class Header extends Base {
 
@@ -92,6 +92,7 @@ namespace Skript.Business.Parts.Header {
                     <div className="bot"></div>
                     <div className="bar">
                         <Controls />
+                        <Language />
                     </div>                    
                 </div>
             );

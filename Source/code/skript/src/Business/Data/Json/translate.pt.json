@@ -47,7 +47,8 @@
             "Refreshing the page will cause any activity in progress to be interrupted. Update anyway?": "Atualizar a página fará com que qualquer atividade em andamento seja interrompida. Atualizar assim mesmo?",
             "Expand all modules.": "Expande todos os módulos.",
             "Collapse all modules.": "Recolhe todos os módulos.",
-            "Close all the module windows.": "Fecha todas as janelas dos módulos."
+            "Close all the module windows.": "Fecha todas as janelas dos módulos.",
+            "Select language.": "Seleção de idioma." 
         }
     }
 }

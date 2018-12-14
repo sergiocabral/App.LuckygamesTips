@@ -1,7 +1,7 @@
 namespace Skript.Business.Parts.Header {
 
     /**
-     * Componente principal do módulo.
+     * Componente: Barra de controles.
      */
     export class Controls extends Base {
 

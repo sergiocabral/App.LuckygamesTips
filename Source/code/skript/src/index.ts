@@ -193,6 +193,8 @@
 /// <reference path="Business/Parts/Base.tsx" />
 /// context: React
 
+/// <reference path="Business/Parts/Header/Language.tsx" />
+/// context: React
 /// <reference path="Business/Parts/Header/Controls.tsx" />
 /// context: React
 /// <reference path="Business/Parts/Header/Header.tsx" />
