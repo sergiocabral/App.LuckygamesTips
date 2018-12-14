@@ -48,6 +48,16 @@ namespace Skript.Business.Parts.Header {
             super(props);
 
             this.onClick = this.onClick.bind(this);
+
+            this.toCaptureOff.push(Framework.Bus.Message.capture(Framework.Messages.DidLanguageSetted, this, this.onDidLanguageSetted));
+        }
+
+        /**
+         * Evento: ao trocar o idioma.
+         * @param evt Informações sobre o evento.
+         */
+        private onDidLanguageSetted(evt: CustomEvent<Framework.Messages.DidLanguageSetted>): void {
+            this.language(evt.detail.language);
         }
 
         /**
@@ -77,7 +87,7 @@ namespace Skript.Business.Parts.Header {
             const button = evt.target as HTMLElement;
             const parent = button.parentElement as HTMLElement;
             const language = parent.getAttribute("data-language") as string;
-            console.log("language: ", language); //TODO:
+            new Framework.Messages.DoSetLanguage(language).send();
         }
 
         /**

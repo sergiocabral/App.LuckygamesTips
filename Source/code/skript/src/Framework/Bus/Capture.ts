@@ -12,7 +12,7 @@ namespace Skript.Framework.Bus {
          * @param {Function} listenerOriginal Função chamada ao capturar a mensagem.
          */
         public constructor(public message: any, public toBind: any, public listenerOriginal: Function) {
-            this.messageName = Capture.getMessageName(message);
+            this.messageName = Message.getName(message);
             
             const instance = this;
             this.listenerWrapper = (evt: any) => {
@@ -45,21 +45,6 @@ namespace Skript.Framework.Bus {
                 this.toBind === capture.toBind && 
                 this.listenerOriginal === capture.listenerOriginal
             );
-        }
-
-        /**
-         * Retorna como string o nome da mensagem.
-         * @param {any} message Mensagem.
-         * @returns {string} Identificador da mensagem como string.
-         */
-        public static getMessageName(message: any): string {
-            let name;
-            if (typeof(message) === 'string') name = message;
-            else if (typeof(message) === 'object') name = message.constructor.name;
-            else if (typeof(message) === 'function') name = message.name;
-            else throw new Framework.Errors.InvalidArgument("Event must be string or object, but: " + typeof(message));
-            if(!name) throw new Framework.Errors.EmptyValue("Event name is empty. Type: " + typeof(message));
-            return name;
         }
     }
 }

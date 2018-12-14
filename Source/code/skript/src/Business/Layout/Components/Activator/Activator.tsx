@@ -61,17 +61,17 @@ namespace Skript.Business.Layout.Components.Activator {
                     title: Core.Main.instance.configuration.name,
                     closeMode: Framework.Layout.Components.Dialog.CloseMode.Hide
                 });
-                new Messages.MainDialogLoaded().trigger();
+                new Messages.DidMainDialogLoaded().send();
             }, 0);
 
-            Framework.Bus.Handler.captureOn(Messages.AppendToMainDialog, this, this.onAppendToMainDialog);
+            this.toCaptureOff.push(Framework.Bus.Message.capture(Messages.DoAppendToMainDialog, this, this.onDoAppendToMainDialog));
         }
 
         /**
          * Evento ao solicitar adicionar na janela principal.
          * @param evt Informações sobre o evento.
          */
-        private onAppendToMainDialog(evt: CustomEvent<Messages.AppendToMainDialog>) {
+        private onDoAppendToMainDialog(evt: CustomEvent<Messages.DoAppendToMainDialog>) {
             this.mainDialog.append(evt.detail.part);
         }
 

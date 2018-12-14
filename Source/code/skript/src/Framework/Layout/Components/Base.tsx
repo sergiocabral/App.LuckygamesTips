@@ -19,6 +19,11 @@ namespace Skript.Framework.Layout.Components {
         }
 
         /**
+         * Lista de captures para serem desativados ao desmontar o componente.
+         */
+        protected toCaptureOff: Bus.Capture[] = [];
+
+        /**
          * Espaçamento de borda padrão nos elementos.
          */
         public static spacing: number = 10;
@@ -171,6 +176,7 @@ namespace Skript.Framework.Layout.Components {
          */
         public componentWillUnmount(): void {
             this.logReactEvent("componentWillUnmount");
+            for (let i = 0; i < this.toCaptureOff.length; i++) Bus.Message.captureOff(this.toCaptureOff[i]);
         }
     }
 }

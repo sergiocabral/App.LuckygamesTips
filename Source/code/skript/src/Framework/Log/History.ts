@@ -23,7 +23,10 @@ namespace Skript.Framework.Log {
          * @param {boolean} setDefault Opcional. Define a instância como padrão do sistema.
          */
         public constructor(public debug: boolean, setDefault: boolean = false) {
-            if (setDefault) History.default = this;
+            if (setDefault) {
+                if (!History.default) History.default = this;
+                else throw new Errors.InvalidExecution("History.default already defined.");
+            }
             this.debug = debug;
         }
 

@@ -151,7 +151,7 @@ namespace Skript.Framework.Layout.Components.Dialog {
             this.maximize = this.maximize.bind(this);
             this.restore = this.restore.bind(this);
 
-            Bus.Handler.captureOn("keyup", this, this.shortcut);
+            this.toCaptureOff.push(Bus.Message.capture("keyup", this, this.shortcut));
         }
         
         /**

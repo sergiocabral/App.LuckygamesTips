@@ -3,7 +3,7 @@ namespace Skript.Business.Messages {
     /**
      * Adiciona elementos na janela de diálogo principal.
      */
-    export class AppendToMainDialog extends Framework.Bus.Message {
+    export class DoAppendToMainDialog extends Framework.Bus.Message {
 
         /**
          * Construtor.

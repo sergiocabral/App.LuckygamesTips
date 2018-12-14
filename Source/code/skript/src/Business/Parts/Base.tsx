@@ -25,14 +25,12 @@ namespace Skript.Business.Parts {
          * Evento ao adicionar elementos na janela principal.
          */
         public static appendToMainDialog(): void {
-            Framework.Bus.Handler.captureOff(Messages.MainDialogLoaded, undefined, Base.appendToMainDialog);
-            for (let i = 0; i < Base.toAppendToMainDialog.length; i++) {
-                new Messages.AppendToMainDialog(
-                    React.createElement(Base.toAppendToMainDialog[i], undefined, undefined))
-                        .trigger();
-            }
+            while (Base.toAppendToMainDialog.length) 
+                new Messages.DoAppendToMainDialog(
+                    React.createElement(Base.toAppendToMainDialog.shift(), undefined, undefined))
+                        .send();
         }
     }
 
-    Framework.Bus.Handler.captureOn(Messages.MainDialogLoaded, undefined, Base.appendToMainDialog);
+    Framework.Bus.Message.capture(Messages.DidMainDialogLoaded, undefined, Base.appendToMainDialog);
 }

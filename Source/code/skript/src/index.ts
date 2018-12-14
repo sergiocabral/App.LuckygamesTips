@@ -129,13 +129,14 @@
 /// <reference path="Framework/Prototype/Window.ts" />
 /// context: Initialize
 
+/// <reference path="Framework/Messages/DidLanguageSetted.ts" />
+/// context: Initialize
+/// <reference path="Framework/Messages/DoSetLanguage.ts" />
+/// context: Initialize
+
 /// <reference path="Framework/Bus/Capture.ts" />
 /// context: Initialize
-/// <reference path="Framework/Bus/MessageHandler.ts" />
-/// context: Initialize
 /// <reference path="Framework/Bus/Message.ts" />
-/// context: Initialize
-/// <reference path="Framework/Bus/Handler.ts" />
 /// context: Initialize
 
 /// <reference path="Framework/Log/Level.ts" />
@@ -211,9 +212,9 @@
 /// | |_) | |_| \__ \ | | | |  __/\__ \__ \
 /// |____/ \__,_|___/_|_| |_|\___||___/___/
 
-/// <reference path="Business/Messages/AppendToMainDialog.ts" />
+/// <reference path="Business/Messages/DoAppendToMainDialog.ts" />
 /// context: Initialize
-/// <reference path="Business/Messages/MainDialogLoaded.ts" />
+/// <reference path="Business/Messages/DidMainDialogLoaded.ts" />
 /// context: Initialize
 
 /// <reference path="Business/Data/StoragePacket.ts" />
