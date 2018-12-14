@@ -16,12 +16,12 @@ class Data extends \Mysys\Framework\Core\Singleton {
      * @param array $params Tipos e subtipos. Deve ter número par de parâmetros.
      * @return string
      */
-    public function getData($params) {
+    public function get($params) {
         if (count($params) % 2 === 0) {
             $hasData = false;
             $list = [];
             for ($i = 0; $i < count($params); $i += 2) { 
-                $data = $this->getDataObject($params[$i], $params[$i + 1]);
+                $data = $this->getData($params[$i], $params[$i + 1]);
                 if ($data !== false) {
                     $hasData = true;
                     $list[] = $data;
@@ -29,7 +29,7 @@ class Data extends \Mysys\Framework\Core\Singleton {
                     $list[] = null;
                 }
             }
-            if ($hasData && count($list)) return json_encode(count($list) === 1 ? $list[0] : $list);
+            if ($hasData && count($list)) return json_encode($list);
         }        
         return false;
     }
@@ -42,7 +42,7 @@ class Data extends \Mysys\Framework\Core\Singleton {
      * @param string $subtype Subtipo do dado.
      * @return object
      */
-    public function getDataObject(string $type, string $subtype) {
+    public function getData(string $type, string $subtype) {
         $filename = $this->getFilename($type, $subtype);
         if (!file_exists($filename)) return false;
         $content = file_get_contents($filename);

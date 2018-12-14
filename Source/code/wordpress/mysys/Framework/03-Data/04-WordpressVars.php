@@ -109,9 +109,7 @@ class WordpressVars extends LoadData {
      */
     public function defineSiteUrl() {
         if (Environment::instance()->isDebug()) {
-            $url =
-                (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") .
-                "://{$_SERVER['HTTP_HOST']}";
+            $url = self::url();
 
             $this->define('WP_HOME', $url);
             $this->define('WP_SITEURL', $url);

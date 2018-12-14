@@ -24,7 +24,7 @@ class Script extends \Mysys\Framework\Core\Singleton {
      * @param array $context Opcional. Contexto do arquivo.
      * @return string
      */
-    public function getScript($contexts = null) {
+    public function get($contexts = null) {
         if (!$contexts || !is_array($contexts) || !count($contexts)) $contexts = [$this->defaultContext];
         if (!is_array($contexts)) return false;
 

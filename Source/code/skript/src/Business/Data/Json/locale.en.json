@@ -1,0 +1,14 @@
+{
+    "numeric": {
+        "digits": 2,
+        "decimal": ".",
+        "showPositive": false,
+        "prefix": "",
+        "suffix": ""
+    },
+    "datetime": {
+        "mask": "M/d/y h:m:s",
+        "day": "day",
+        "days": "days"
+    }
+}

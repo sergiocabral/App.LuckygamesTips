@@ -1,0 +1,44 @@
+{
+    "Framework: Traduções de sistema": {
+        "Loading infrastructure...": "Carregando infraestrutura...",
+        "Server variables loaded.": "Variáveis do servidor carregadas.",
+        "Default language set: {0}": "Definido idioma padrão: {0}",
+        "Configuration data loaded.": "Dados de configuração carregados.",
+        "System components loaded.": "Componentes de sistema carregados.",
+        "Failed to load configuration data.": "Falha ao carregar dados de configuração.",
+        "Infrastructure loaded.": "Infraestrutura carregada.",
+        "A MessageHandler {0} was disposed.": "Um MessageHandler {0} foi descartado.",
+        "Stop trigger here. Ignored:": "Solicitação de parada aqui. Ignorados:",
+        "Message \"{0}\" sent as command and processed by {1}x: {2}": "Mensagem \"{0}\" enviada como comando e processada por {1}x: {2}",
+        "Message \"{0}\" triggered as event and captured by {1}x.": "Mensagem \"{0}\" disparada como evento e capturada por {1}x.",
+        "Message \"{0}\" triggered as event but not captured.": "Mensagem \"{0}\" disparada como evento mas não capturada.",
+        "Message \"{0}\" as event was registered.": "Mensagem \"{0}\" como evento foi registrada.",
+        "Message \"{0}\" as event was canceled.": "Mensagem \"{0}\" como evento foi cancelada.",
+        "Message \"{0}\" as event was executed.": "Mensagem \"{0}\" como evento foi executada.",
+        "Created main container: <{tagName} id=\"{id}\" />": "Criado container principal: <{tagName} id=\"{id}\" />",
+        "Created child container: <{tagName} id=\"{id}\" class=\"{className}\" />": "Criado container filho: <{tagName} id=\"{id}\" class=\"{className}\" />",
+        "API returned status {status}. Url: {responseURL}": "API retornou status {status}. Url: {responseURL}",
+        "Inserted: <{tagName} id=\"{id}\" />": "Inserido: <{tagName} id=\"{id}\" />",
+        "Applied BringTo {direction}: <{tagName} id=\"{id}\" />": "Aplicado BringTo {direction}: <{tagName} id=\"{id}\" />",
+        "Loaded {type}: {url}": "Carregado {type}: {url}",
+        "Failed loading {type}: {url}": "Falha ao carregar {type}: {url}",
+        "New DialogAlert displayed: <{tagName} id=\"{id}\" />": "Novo DialogAlert exibido: <{tagName} id=\"{id}\" />",
+        "DialogAlert closed: <{tagName} id=\"{id}\" />": "DialogAlert fechado: <{tagName} id=\"{id}\" />",
+        "Added to DialogContainer \"{title}\": {count} itens.": "Adicionado no DialogContainer \"{title}\": {count} itens.",
+        "Component \"{component}\". React event \"{event}\".": "Componente \"{component}\". Evento React \"{event}\".",
+        "DialogHeader \"{title}\". Content moved from [{from}] to [{to}].": "DialogHeader \"{title}\". Conteúdo movido de [{from}] para [{to}]."
+    },
+    "Framework: Componentes do sistema": {
+        "Dialog": {
+            "Close this window.": "Fechar esta janela.",
+            "Maximize this window.": "Maximizar esta janela.",
+            "Restore size of this window.": "Restaurar o tamanho desta janela."
+        },
+        "DialogHeader": {
+            "Open as window.": "Abrir como janela."
+        }
+    },
+    "Business: Traduções do sistema": {
+        "Theme colors loaded.": "Tema de cores carregado."
+    }
+}

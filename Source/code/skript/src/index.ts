@@ -1,374 +1,240 @@
-/// <reference path="Part/System/MainHeader/Controls.tsx" />
-/// context: SystemPart
 
-/// <reference path="Part/System/MainHeader/MainHeader.tsx" />
-/// context: SystemPart
+///   ____                 _            __   _____                                            _    
+///  |  _ \ ___  __ _  ___| |_    ___  / _| |  ___| __ __ _ _ __ ___   _____      _____  _ __| | __
+///  | |_) / _ \/ _` |/ __| __|  / _ \| |_  | |_ | '__/ _` | '_ ` _ \ / _ \ \ /\ / / _ \| '__| |/ /
+///  |  _ <  __/ (_| | (__| |_  | (_) |  _| |  _|| | | (_| | | | | | |  __/\ V  V / (_) | |  |   < 
+///  |_| \_\___|\__,_|\___|\__|  \___/|_|   |_|  |_|  \__,_|_| |_| |_|\___| \_/\_/ \___/|_|  |_|\_\
 
-/// #############################################
+/// <reference path="Framework/Layout/Components/EmptyState.tsx" />
+/// context: React
+/// <reference path="Framework/Layout/Components/EmptyProps.tsx" />
+/// context: React
+/// <reference path="Framework/Layout/Components/MoveAndResizeConfiguration.tsx" />
+/// context: React
+/// <reference path="Framework/Layout/Components/MoveAndResize.tsx" />
+/// context: React
+/// <reference path="Framework/Layout/Components/VisibilityConfiguration.tsx" />
+/// context: React
+/// <reference path="Framework/Layout/Components/Visibility.tsx" />
+/// context: React
+/// <reference path="Framework/Layout/Components/Base.tsx" />
+/// context: React
 
-/// <reference path="Part/System/Parameters/ParametersBus.tsx" />
-/// context: SystemPart
-
-/// <reference path="Part/System/Parameters/Parameters.tsx" />
-/// context: SystemPart
-
-/// #############################################
-
-/// <reference path="Part/User/LuckygamesAdjusts/Adjust.tsx" />
-/// context: PaidPart,LuckygamesAdjusts
-
-/// <reference path="Part/User/LuckygamesAdjusts/LuckygamesAdjustsBus.tsx" />
-/// context: PaidPart,LuckygamesAdjusts
-
-/// <reference path="Part/User/LuckygamesAdjusts/LuckygamesAdjusts.tsx" />
-/// context: PaidPart,LuckygamesAdjusts
-
-/// #############################################
-
-/// <reference path="Part/System/LogViewer/LogLevels.tsx" />
-/// context: FreePart
-
-/// <reference path="Part/System/LogViewer/LogViewer.tsx" />
-/// context: FreePart
-
-/// <reference path="Part/System/LogViewer/LogViewerBus.tsx" />
-/// context: FreePart
-
-/// #############################################
-
-/// <reference path="Layout/Theme/Stylesheet.tsx" />
-/// context: react
-
-/// <reference path="Layout/ReactJs/ComponentBase.tsx" />
-/// context: react
-
-/// <reference path="Layout/ReactJs/DialogComponentBase.tsx" />
-/// context: react
-
-/// <reference path="Layout/ReactJs/MoveAndResize.tsx" />
-/// context: react
-
-/// <reference path="Layout/ReactJs/Visibility.tsx" />
-/// context: react
-
-/// <reference path="Layout/ReactJs/Component/Switch.tsx" />
-/// context: react
-
-/// <reference path="Layout/ReactJs/Component/Select.tsx" />
-/// context: react
-
-/// <reference path="Layout/ReactJs/Component/HeaderContainer.tsx" />
-/// context: react
-
-/// <reference path="Layout/ReactJs/Component/LanguageSelectBus.tsx" />
-/// context: react
-
-/// <reference path="Layout/ReactJs/Component/LanguageSelect.tsx" />
-/// context: react
-
-/// <reference path="Layout/ReactJs/Component/DialogBus.tsx" />
-/// context: react
-
-/// <reference path="Layout/ReactJs/Component/Dialog.tsx" />
-/// context: react
-
-/// <reference path="Layout/ReactJs/Component/ButtonActivator.tsx" />
-/// context: react
-
-/// <reference path="Layout/ReactJs/Component/ShowMessages.tsx" />
-/// context: react
+/// <reference path="Framework/Layout/Components/Dialog/CloseMode.tsx" />
+/// context: React
+/// <reference path="Framework/Layout/Components/Dialog/State.tsx" />
+/// context: React
+/// <reference path="Framework/Layout/Components/Dialog/Props.tsx" />
+/// context: React
+/// <reference path="Framework/Layout/Components/Dialog/Dialog.tsx" />
+/// context: React
+/// <reference path="Framework/Layout/Components/DialogHeader/Props.tsx" />
+/// context: React
+/// <reference path="Framework/Layout/Components/DialogHeader/DialogHeader.tsx" />
+/// context: React
+/// <reference path="Framework/Layout/Components/DialogHeader/Content.tsx" />
+/// context: React
+/// <reference path="Framework/Layout/Components/Select/Props.tsx" />
+/// context: React
+/// <reference path="Framework/Layout/Components/Select/Select.tsx" />
+/// context: React
+/// <reference path="Framework/Layout/Components/Switch/Props.tsx" />
+/// context: React
+/// <reference path="Framework/Layout/Components/Switch/Switch.tsx" />
+/// context: React
 
 /// #############################################
-
-/// <reference path="Core/Bus/Message.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Bus/MessageHandler.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Bus/MessageBus.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Message/RegisterPart.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Message/ShortcutKey.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Message/LogMessagePosted.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Message/GetLogMessages.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Message/ClearLogMessages.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Message/LogMessageCleared.tsx" />
-/// context: Initialize
-
+/// #############################################
 /// #############################################
 
-/// <reference path="Luckygames/Message/GetThemeMode.tsx" />
+/// ______                                           _
+/// |  ____|                                         | |
+/// | |__ _ __ __ _ _ __ ___   _____      _____  _ __| | __
+/// |  __| '__/ _` | '_ ` _ \ / _ \ \ /\ / / _ \| '__| |/ /
+/// | |  | | | (_| | | | | | |  __/\ V  V / (_) | |  |   <
+/// |_|  |_|  \__,_|_| |_| |_|\___| \_/\_/ \___/|_|  |_|\_\
+
+/// <reference path="Framework/Types/BackFront.ts" />
+/// context: Initialize
+/// <reference path="Framework/Types/CloseOpen.ts" />
+/// context: Initialize
+/// <reference path="Framework/Types/Index.ts" />
+/// context: Initialize
+/// <reference path="Framework/Types/IndexValue.ts" />
+/// context: Initialize
+/// <reference path="Framework/Types/KeyValue.ts" />
+/// context: Initialize
+/// <reference path="Framework/Types/NoYes.ts" />
+/// context: Initialize
+/// <reference path="Framework/Types/OffOn.ts" />
+/// context: Initialize
+/// <reference path="Framework/Types/Position.ts" />
+/// context: Initialize
+/// <reference path="Framework/Types/Size.ts" />
+/// context: Initialize
+/// <reference path="Framework/Types/SizeAndPosition.ts" />
 /// context: Initialize
 
-/// <reference path="Luckygames/Message/SetThemeMode.tsx" />
+/// <reference path="Framework/Errors/Base.ts" />
+/// context: Initialize
+/// <reference path="Framework/Errors/InvalidArgument.ts" />
+/// context: Initialize
+/// <reference path="Framework/Errors/InvalidData.ts" />
+/// context: Initialize
+/// <reference path="Framework/Errors/InvalidExecution.ts" />
+/// context: Initialize
+/// <reference path="Framework/Errors/RequestFail.ts" />
+/// context: Initialize
+/// <reference path="Framework/Errors/EmptyValue.ts" />
 /// context: Initialize
 
-/// <reference path="Luckygames/Message/ThemeModeWasChanged.tsx" />
+/// <reference path="Framework/Util/DateTimeFormat.ts" />
+/// context: Initialize
+/// <reference path="Framework/Util/DateTime.ts" />
+/// context: Initialize
+/// <reference path="Framework/Util/DOM.ts" />
+/// context: Initialize
+/// <reference path="Framework/Util/Drawing.ts" />
+/// context: Initialize
+/// <reference path="Framework/Util/NumericFormat.ts" />
+/// context: Initialize
+/// <reference path="Framework/Util/Numeric.ts" />
+/// context: Initialize
+/// <reference path="Framework/Util/Request.ts" />
+/// context: Initialize
+/// <reference path="Framework/Util/Text.ts" />
 /// context: Initialize
 
-/// <reference path="Luckygames/Message/GetWebSocketMode.tsx" />
+/// <reference path="Framework/Layout/Alert/Configuration.ts" />
+/// context: Initialize
+/// <reference path="Framework/Layout/Alert/Button.ts" />
+/// context: Initialize
+/// <reference path="Framework/Layout/Alert/Input.ts" />
+/// context: Initialize
+/// <reference path="Framework/Layout/Alert/Result.ts" />
+/// context: Initialize
+/// <reference path="Framework/Layout/Alert/Type.ts" />
+/// context: Initialize
+/// <reference path="Framework/Layout/Alert/Alert.ts" />
 /// context: Initialize
 
-/// <reference path="Luckygames/Message/SetWebSocketMode.tsx" />
+/// <reference path="Framework/Prototype/Console.ts" />
+/// context: Initialize
+/// <reference path="Framework/Prototype/Date.ts" />
+/// context: Initialize
+/// <reference path="Framework/Prototype/Number.ts" />
+/// context: Initialize
+/// <reference path="Framework/Prototype/String.ts" />
+/// context: Initialize
+/// <reference path="Framework/Prototype/Window.ts" />
 /// context: Initialize
 
-/// <reference path="Luckygames/Message/WebSocketModeWasChanged.tsx" />
+/// <reference path="Framework/Bus/Capture.ts" />
+/// context: Initialize
+/// <reference path="Framework/Bus/MessageHandler.ts" />
+/// context: Initialize
+/// <reference path="Framework/Bus/Message.ts" />
+/// context: Initialize
+/// <reference path="Framework/Bus/Handler.ts" />
 /// context: Initialize
 
-/// <reference path="Luckygames/Message/GetAnimationMode.tsx" />
+/// <reference path="Framework/Log/Level.ts" />
+/// context: Initialize
+/// <reference path="Framework/Log/Message.ts" />
+/// context: Initialize
+/// <reference path="Framework/Log/History.ts" />
+/// context: Initialize
+/// <reference path="Framework/Log/Console.ts" />
 /// context: Initialize
 
-/// <reference path="Luckygames/Message/SetAnimationMode.tsx" />
+/// <reference path="Framework/Request/ApiConfiguration.ts" />
+/// context: Initialize
+/// <reference path="Framework/Request/Api.ts" />
 /// context: Initialize
 
-/// <reference path="Luckygames/Message/AnimationModeWasChanged.tsx" />
+/// <reference path="Framework/Data/ServerVariables.ts" />
+/// context: Initialize
+/// <reference path="Framework/Data/StoragePacket.ts" />
+/// context: Initialize
+/// <reference path="Framework/Data/Storage.ts" />
 /// context: Initialize
 
-/// <reference path="Luckygames/GeneralBus.tsx" />
+/// <reference path="Framework/Data/Translate.ts" />
 /// context: Initialize
 
-/// <reference path="Luckygames/WebSocketControlBus.tsx" />
+/// <reference path="Framework/Layout/PresentationConfiguration.ts" />
+/// context: Initialize
+/// <reference path="Framework/Layout/Presentation.ts" />
 /// context: Initialize
 
-/// <reference path="Luckygames/Types.tsx" />
+/// <reference path="Framework/Core/MainData.ts" />
 /// context: Initialize
-
-/// <reference path="Luckygames/Dice.tsx" />
+/// <reference path="Framework/Core/MainConfiguration.ts" />
 /// context: Initialize
-
-/// <reference path="Luckygames/WebSocketControl.tsx" />
-/// context: Initialize
-
-/// <reference path="Luckygames/General.tsx" />
-/// context: Initialize
-
-/// #############################################
-
-/// <reference path="Util/Types.tsx" />
-/// context: Initialize
-
-/// <reference path="Util/Text.tsx" />
-/// context: Initialize
-
-/// <reference path="Util/Numeric.tsx" />
-/// context: Initialize
-
-/// <reference path="Util/DateTime.tsx" />
-/// context: Initialize
-
-/// <reference path="Util/Drawing.tsx" />
-/// context: Initialize
-
-/// <reference path="Util/DOM.tsx" />
-/// context: Initialize
-
-/// <reference path="Util/LoadReferences.tsx" />
+/// <reference path="Framework/Core/Main.ts" />
 /// context: Initialize
 
 /// #############################################
-
-/// <reference path="Core/Environment/String.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Environment/Date.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Environment/Number.tsx" />
-/// context: Initialize
-
+/// #############################################
 /// #############################################
 
-/// <reference path="Automation/Message/ApplySettings.tsx" />
-/// context: Initialize
+/// ____                 _            __   ____
+///|  _ \ ___  __ _  ___| |_    ___  / _| | __ ) _   _ ___ _ _ __   ___  ___ ___ 
+///| |_) / _ \/ _` |/ __| __|  / _ \| |_  |  _ \| | | / __| | '_ \ / _ \/ __/ __|
+///|  _ <  __/ (_| | (__| |_  | (_) |  _| | |_) | |_| \__ \ | | | |  __/\__ \__ \
+///|_| \_\___|\__,_|\___|\__|  \___/|_|   |____/ \__,_|___/_|_| |_|\___||___/___/
 
-/// <reference path="Automation/Message/GetCurrentSettings.tsx" />
-/// context: Initialize
+/// <reference path="Business/Layout/Components/Base.tsx" />
+/// context: React
 
-/// <reference path="Automation/Message/GetDefaultSettings.tsx" />
-/// context: Initialize
+/// <reference path="Business/Layout/Components/Activator/Activator.tsx" />
+/// context: React
 
-/// <reference path="Automation/Message/GetSavedParameters.tsx" />
-/// context: Initialize
+/// <reference path="Business/Parts/Base.tsx" />
+/// context: React
 
-/// <reference path="Automation/Message/SaveSettingsToParameter.tsx" />
-/// context: Initialize
-
-/// <reference path="Automation/Message/DeleteParameter.tsx" />
-/// context: Initialize
-
-/// <reference path="Automation/Message/ParametersUpdated.tsx" />
-/// context: Initialize
-
-/// <reference path="Automation/Parameter.tsx" />
-/// context: Initialize
-
-/// <reference path="Automation/ParametersBus.tsx" />
-/// context: Initialize
-
-/// <reference path="Automation/Parameters.tsx" />
-/// context: Initialize
+/// <reference path="Business/Parts/Header/Controls.tsx" />
+/// context: React
+/// <reference path="Business/Parts/Header/Header.tsx" />
+/// context: React
 
 /// #############################################
+/// #############################################
+/// #############################################
 
-/// <reference path="Core/Log/Level.tsx" />
+///  ____
+/// |  _ \
+/// | |_) |_   _ ___ _ _ __   ___  ___ ___
+/// |  _ <| | | / __| | '_ \ / _ \/ __/ __|
+/// | |_) | |_| \__ \ | | | |  __/\__ \__ \
+/// |____/ \__,_|___/_|_| |_|\___||___/___/
+
+/// <reference path="Business/Messages/AppendToMainDialog.ts" />
+/// context: Initialize
+/// <reference path="Business/Messages/MainDialogLoaded.ts" />
 /// context: Initialize
 
-/// <reference path="Core/Log/Message.tsx" />
+/// <reference path="Business/Data/StoragePacket.ts" />
 /// context: Initialize
 
-/// <reference path="Core/Log/ConsoleLog.tsx" />
+/// <reference path="Business/Core/MainData.ts" />
+/// context: Initialize
+/// <reference path="Business/Core/MainConfiguration.ts" />
+/// context: Initialize
+/// <reference path="Business/Core/Main.ts" />
 /// context: Initialize
 
-/// <reference path="Core/Log/HistoryBus.tsx" />
+/// <reference path="Business/Layout/Colors.ts" />
 /// context: Initialize
-
-/// <reference path="Core/Log/History.tsx" />
+/// <reference path="Business/Layout/Stylesheet.ts" />
+/// context: Initialize
+/// <reference path="Business/Layout/ThemeConfiguration.ts" />
+/// context: Initialize
+/// <reference path="Business/Layout/Theme.ts" />
 /// context: Initialize
 
 /// #############################################
 
-/// <reference path="Core/Configuration.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Data.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Message/SystemLoaded.tsx" />
-/// context: Initialize
-
-/// #############################################
-
-/// <reference path="Locale/Format/Number.tsx" />
-/// context: Initialize
-
-/// <reference path="Locale/Format/Date.tsx" />
-/// context: Initialize
-
-/// <reference path="Locale/FormatSet.tsx" />
-/// context: Initialize
-
-/// <reference path="Locale/Formats.tsx" />
-/// context: Initialize
-
-/// <reference path="Locale/Message/LanguageChanged.tsx" />
-/// context: Initialize
-
-/// <reference path="Locale/Message/SetLanguage.tsx" />
-/// context: Initialize
-
-/// <reference path="Locale/TranslatesBus.tsx" />
-/// context: Initialize
-
-/// <reference path="Locale/Translate.tsx" />
-/// context: Initialize
-
-/// <reference path="Locale/Translates.tsx" />
-/// context: Initialize
-
-/// #############################################
-
-/// <reference path="Layout/Theme/Colors.tsx" />
-/// context: Initialize
-
-/// <reference path="Layout/Message/DialogCreate.tsx" />
-/// context: Initialize
-
-/// <reference path="Layout/Message/MainDialogToggle.tsx" />
-/// context: Initialize
-
-/// <reference path="Layout/Message/AppendToMainDialog.tsx" />
-/// context: Initialize
-
-/// <reference path="Layout/PresentationBus.tsx" />
-/// context: Initialize
-
-/// <reference path="Layout/Presentation.tsx" />
-/// context: Initialize
-
-/// #############################################
-
-/// <reference path="Core/Api/ScriptContext.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Api/Data.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Api/DataType.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Api/Request.tsx" />
-/// context: Initialize
-
-/// #############################################
-
-/// <reference path="Data/Packet.tsx" />
-/// context: Initialize
-
-/// <reference path="Data/Storage.tsx" />
-/// context: Initialize
-
-/// #############################################
-
-/// <reference path="Part/Tools.tsx" />
-/// context: Initialize
-
-/// <reference path="Part/Part.tsx" />
-/// context: Initialize
-
-/// #############################################
-
-/// <reference path="Core/Errors/ErrorBase.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Errors/NullNotExpected.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Errors/InvalidCommand.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Errors/InvalidData.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Errors/InvalidArgument.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Errors/EnvironmentNotReady.tsx" />
-/// context: Initialize
-
-/// #############################################
-
-/// <reference path="Core/Types.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/MainBus.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Main.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/Infrastructure.tsx" />
-/// context: Initialize
-
-/// <reference path="Core/All.tsx" />
-/// context: Initialize
-
-/// #############################################
-
-const skript: Skript.Core.All = new Skript.Core.All();
-
-new Skript.Core.Infrastructure({
-    name: "Luckygames Tips",
-    server: "https://dsv.luckygames.tips/"
+window.skript = window.skript || new Skript.Business.Core.Main({ 
+    server: "https://tips.nominalsa.splitz.com.br/"
 });

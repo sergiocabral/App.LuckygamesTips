@@ -18,7 +18,5 @@ class Website extends \Mysys\Framework\Website\WebsiteBase {
         \Mysys\Framework\Core\Event::instance()->bind('OnMysysSetDefaults', function() { \Mysys\Wordpress\Util::activateTheme("twentyseventeen"); });
         
         \Mysys\Framework\Script\Loader::instance()->setEventScript("page_script");
-        \Mysys\Framework\Script\Loader::instance()->setEventScript("api_script");
-        \Mysys\Framework\Script\Loader::instance()->setEventData("api_data");
     }
 }
