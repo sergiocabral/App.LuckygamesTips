@@ -88,7 +88,10 @@ namespace Skript.Business.Parts.LogViewer {
                     color: white;
                     border-radius: 4px;
                     padding: 1px 5px 3px 5px;
-                    margin: 0 0 0 -3px;
+                    margin: 0 6px 0 -3px;
+                }
+                ${this.classNameSelector()} > .messages > div > .level .type + .type {
+                    opacity: 0.5;
                 }
                 ${this.classNameSelector()} > .messages > div > .level .time {
                     color: ${Framework.Util.Drawing.blend(0.5, this.theme.generalTextColor)};
@@ -137,6 +140,7 @@ namespace Skript.Business.Parts.LogViewer {
                             {[1,2,3].map(v =>
                                 <div key={v} className={"level " + Framework.Log.Level[Framework.Log.Level.Information] + (!!"new" ? " new" : "")}>
                                     <div className="type">{Framework.Log.Level[Framework.Log.Level.Information].translate()}</div>
+                                    <div className="type">Bus.Message</div>
                                     <div className="time">{new Date().format()}</div>
                                     <div className="text">{Framework.Util.Text.random(undefined, 130).replace(/[0-9]/gi, " ")}</div>
                                 </div>
