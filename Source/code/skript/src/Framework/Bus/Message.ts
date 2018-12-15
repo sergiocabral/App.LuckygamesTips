@@ -6,21 +6,6 @@ namespace Skript.Framework.Bus {
     export abstract class Message {
 
         /**
-         * Retorna como string o nome da mensagem.
-         * @param {any} message Mensagem.
-         * @returns {string} Identificador da mensagem como string.
-         */
-        public static getName(message: any): string {
-            let name;
-            if (typeof(message) === 'string') name = message;
-            else if (typeof(message) === 'object') name = message.constructor.name;
-            else if (typeof(message) === 'function') name = message.name;
-            else throw new Framework.Errors.InvalidArgument("Event must be string or object, but: " + typeof(message));
-            if(!name) throw new Framework.Errors.EmptyValue("Event name is empty. Type: " + typeof(message));
-            return name;
-        }
-
-        /**
          * Lista de capturar registradas.
          * @type {Capture}
          */
@@ -71,7 +56,7 @@ namespace Skript.Framework.Bus {
          * @param {TMessage} message Mensagem
          */
         public static send<TMessage extends Message>(message: TMessage): void {
-            const messageName = Message.getName(message);
+            const messageName = Util.General.getName(message);
             const captures = this.captures.filter(v => v.messageName === messageName);
             const evt = Capture.createEvent(message);
             if (captures.length) {
@@ -95,7 +80,7 @@ namespace Skript.Framework.Bus {
          * @param {TMessage} message Mensagem
          */
         public static request<TMessage extends Message>(message: TMessage): TMessage {
-            const messageName = Message.getName(message);
+            const messageName = Util.General.getName(message);
             const captures = Message.captures.filter(v => v.messageName === messageName);
             for (const i in captures) captures[i].request(message);
             return message;

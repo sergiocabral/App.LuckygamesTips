@@ -14,8 +14,6 @@ namespace Skript.Framework.Layout.Components {
             
             this.id = this.props.id ? this.props.id as string : Util.Text.random();
             this.url = Data.ServerVariables.urlMedia;
-
-            this.cssLoad();
         }
 
         /**
@@ -60,10 +58,7 @@ namespace Skript.Framework.Layout.Components {
          * @returns {string} Class CSS.
          */
         public static getClassName(instance: any): string {
-            if (typeof(instance) === 'string') return instance.random();
-            else if (typeof(instance) === 'object') return instance.constructor.name.random();
-            else if (typeof(instance) === 'function') return instance.name.random();
-            else throw new Errors.InvalidArgument("Instance not string, object or function to getClassName. Type: " + typeof(instance));
+            return Util.General.getName(instance).random();
         }
 
         /**
@@ -87,12 +82,7 @@ namespace Skript.Framework.Layout.Components {
         /**
          * Estilos css do componente.
          */
-        public abstract css: string;
-
-        /**
-         * Carrega os estilos css do componente.
-         */
-        public cssLoad(): void { Util.DOM.stylesheet(this.css); }
+        public abstract css(): string;
 
         /**
          * Registra no log um evento do React.
@@ -117,7 +107,7 @@ namespace Skript.Framework.Layout.Components {
          */
         public render(): JSX.Element {
             this.logReactEvent("render");
-            Util.DOM.stylesheet(this.css);
+            Util.DOM.stylesheet(this.css());
             return undefined as any as JSX.Element;
         }
 

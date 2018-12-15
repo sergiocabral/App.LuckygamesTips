@@ -8,69 +8,75 @@ namespace Skript.Business.Layout.Components.Toast {
         /**
          * Carrega e aplica os estilos css.
          */
-        public css: string = `
-            @keyframes Toast-Slide {
-                100% { left: 0; }
-            }
-            ${this.classNameSelector()} {
-                z-index: 992;
-                position: fixed;
-                bottom: ${this.theme.spacing}px;
-                left: ${this.theme.spacing}px;
-                width: 40%;
-                max-width: 400px;
-            }
-            ${this.classNameSelector()} p {
-                background-color: #272823;
-                color: lightgrey;
-                padding: 6px 20px 6px 10px;
-                margin: 6px 0 0 0;
-                border-radius: 3px;
-                position: relative;
-                left: -110%;
-                animation: Toast-Slide 0.5s forwards;
-                transition: opacity 0.25s linear;
-                box-shadow: 0 0 10px black;
-            }
-            ${this.classNameSelector()} p.closing {
-                opacity: 0;
-            }
-            ${this.classNameSelector()} p.${Framework.Log.Level[Framework.Log.Level.Information]} {
-                background-color: #015D88;
-                color: lightgrey;
-            }
-            ${this.classNameSelector()} p.${Framework.Log.Level[Framework.Log.Level.Warning]} {
-                background-color: #CB5A00;
-                color: lightgrey;
-            }
-            ${this.classNameSelector()} p.${Framework.Log.Level[Framework.Log.Level.Error]} {
-                background-color: #E61A23;
-                color: lightgrey;
-            }
-            ${this.classNameSelector()} p .text {
-                display: block;
-                margin-bottom: ${this.theme.spacing}px;
-            }
-            ${this.classNameSelector()} p .time {
-                display: block;
-                font-size: 70%;
-                float: right;
-                margin: -12px -14px 0 0;
-                opacity: 0.75;
-            }
-            ${this.classNameSelector()} p a {
-                color: ${Framework.Util.Drawing.blend(0.0, this.theme.dialogTitleBackgroundColor)};
-                text-shadow: 0 0 10px ${Framework.Util.Drawing.blend(0.5, this.theme.dialogTitleBackgroundColor)};
-                float: right;
-                cursor: pointer;
-                margin-right: -10px;
-                text-decoration: none;
-            }
-            ${this.classNameSelector()} p a:hover {
-                color: ${Framework.Util.Drawing.blend(0.2, this.theme.dialogTitleBackgroundColor)};
-                text-shadow: 0 0 3px ${Framework.Util.Drawing.blend(0.5, this.theme.dialogTitleBackgroundColor)};
-            }
-        `;
+        public css(): string {
+            return `
+                @keyframes Toast-Slide {
+                    100% { left: 0; }
+                }
+                ${this.classNameSelector()} {
+                    z-index: 992;
+                    position: fixed;
+                    bottom: ${this.theme.spacing}px;
+                    left: ${this.theme.spacing}px;
+                    width: 40%;
+                    max-width: 400px;
+                }
+                ${this.classNameSelector()} p {
+                    background-color: #272823;
+                    color: lightgrey;
+                    padding: 6px 20px 6px 10px;
+                    margin: 6px 0 0 0;
+                    border-radius: 3px;
+                    position: relative;
+                    left: -110%;
+                    animation: Toast-Slide 0.5s forwards;
+                    transition: opacity 0.25s linear;
+                    box-shadow: 0 0 10px black;
+                }
+                ${this.classNameSelector()} p.closing {
+                    opacity: 0;
+                }
+                ${this.classNameSelector()} p.${Framework.Log.Level[Framework.Log.Level.Information]} {
+                    background-color: #015D88;
+                    color: lightgrey;
+                }
+                ${this.classNameSelector()} p.${Framework.Log.Level[Framework.Log.Level.Warning]} {
+                    background-color: #CB5A00;
+                    color: lightgrey;
+                }
+                ${this.classNameSelector()} p.${Framework.Log.Level[Framework.Log.Level.Error]} {
+                    background-color: #E61A23;
+                    color: lightgrey;
+                }
+                ${this.classNameSelector()} p .text {
+                    display: block;
+                    margin-bottom: ${this.theme.spacing}px;
+                }
+                ${this.classNameSelector()} p .text:after {
+                    content: " ";
+                    display: inline-block;
+                }
+                ${this.classNameSelector()} p .time {
+                    display: block;
+                    font-size: 70%;
+                    float: right;
+                    margin: -12px -14px 0 0;
+                    opacity: 0.75;
+                }
+                ${this.classNameSelector()} p a {
+                    color: ${Framework.Util.Drawing.blend(0.0, this.theme.dialogTitleBackgroundColor)};
+                    text-shadow: 0 0 10px ${Framework.Util.Drawing.blend(0.5, this.theme.dialogTitleBackgroundColor)};
+                    float: right;
+                    cursor: pointer;
+                    margin: -5px -14px 0 0;
+                    text-decoration: none;
+                }
+                ${this.classNameSelector()} p a:hover {
+                    color: ${Framework.Util.Drawing.blend(0.2, this.theme.dialogTitleBackgroundColor)};
+                    text-shadow: 0 0 3px ${Framework.Util.Drawing.blend(0.5, this.theme.dialogTitleBackgroundColor)};
+                }
+            `;
+        }
 
         /**
          * Construtor.
@@ -165,6 +171,7 @@ namespace Skript.Business.Layout.Components.Toast {
 
         /**
          * Quando o botão fechar é acionado.
+         * @param {any} evt Informações sobre o evento.
          */
         private onCloseClick(evt: any): void {
             let element = Framework.Util.DOM.parentWithTag(evt.target, "P");

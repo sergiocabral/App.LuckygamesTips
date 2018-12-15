@@ -8,9 +8,11 @@ namespace Skript.Framework.Layout.Components.Select {
         /**
          * Carrega e aplica os estilos css.
          */
-        public css: string = `
-            ${this.classNameSelector()} { }
-        `;
+        public css(): string {
+            return `
+                ${this.classNameSelector()} { }
+            `;
+        }
 
         /**
          * Construtor.

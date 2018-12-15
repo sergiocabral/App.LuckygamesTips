@@ -29,109 +29,111 @@ namespace Skript.Framework.Layout.Components.Dialog {
         /**
          * Carrega e aplica os estilos css.
          */
-        public css: string = `
-            ${this.classNameSelector()} {
-                z-index: 996;
-                box-shadow: 0 0 20px black;
-                border-radius: 7px;
-                overflow: hidden;
-                position: fixed;
-                left: calc(50% - ${Dialog.defaults.width / 2}px);
-                top: calc(50% - ${Dialog.defaults.height / 2}px);
-                min-width: 200px;
-                min-height: 100px;
-                width: ${Dialog.defaults.width}px;
-                height: ${Dialog.defaults.height}px;
-            }
-            ${this.classNameSelector()} > .dialog-header {
-                background-color: rgba(200,200,200,0.9);
-                border-bottom: 1px solid rgba(0,0,0,0.25);
-                border-radius: 7px 7px 0 0;                
-                cursor: pointer;
-                position: relative;
-                text-shadow: 0 0 5px rgba(0,0,0,0.25);
-            }
-            ${this.classNameSelector()} > .dialog-header > div {
-                padding: 9px 0 8px 0;
-            }
-            .${Core.Main.instance.presentation.configuration.className} > *:last-child > .${this.className} > .dialog-header > div {
-                background-image: linear-gradient(rgba(255,255,255,0.75), transparent);
-            }
-            ${this.classNameSelector()} > .dialog-header h1 {
-                white-space: nowrap;
-                margin: 1px ${this.spacing}px -1px ${this.spacing}px;                
-                padding: 0;
-                font-size: 18px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                width: calc(100% - 110px);
-                text-align: left;
-                clear: unset;
-            }
-            ${this.classNameSelector()} > .dialog-header .graph {
-                font-size: 20px;
-                float: left;
-                margin: 0 9px 0 11px;
-                opacity: 1;
-            }
-            ${this.classNameSelector()} > .dialog-header button {
-                margin: 0;
-                padding: 0;
-                background: none;
-                border: none;
-                cursor: pointer;
-            }
-            ${this.classNameSelector()} > .dialog-header button.dialog-action {
-                font-size: 13px;
-                border-bottom: none;
-                text-transform: none;
-                display: inline-block;
-                margin: 5px 15px 0 3px;
-                float: right;
-                opacity: 0.5;
-            }
-            ${this.classNameSelector()} > .dialog-header button.dialog-action:hover {
-                text-shadow: 0 0 5px rgba(0,0,0,0.25);
-                opacity: 0.75;
-            }
-            ${this.classNameSelector()}.maximized > .dialog-header button.maximize {
-                display: none;
-            }
-            ${this.classNameSelector()}:not(.maximized) > .dialog-header button.restore {
-                display: none;
-            }
-            ${this.classNameSelector()} > .dialog-content {
-                background: rgba(255,255,255,0.95);
-                width: 100%;
-                height: calc(100% - 50px);
-                overflow: auto;
-                overflow-x: hidden;
-                position: relative;
-                text-align: left;
-            }
-            ${this.classNameSelector()} > .dialog-resize {
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                width: 100%;
-                overflow: hidden;
-                background-color: rgba(200,200,200,0.9);
-                border-top: 1px solid rgba(0,0,0,0.25);
-            }
-            ${this.classNameSelector()} > .dialog-resize div {
-                background-color: transparent;
-                float: right;
-                width: 20px;
-                height: 10px;
-            }
-            ${this.classNameSelector()}:not(.maximized) > .dialog-resize div {
-                cursor: nw-resize;
-            }            
-            ${this.classNameSelector()} > .header,
-            ${this.classNameSelector()} > .resize {
-                opacity: 0.9;
-            }
-        `;
+        public css(): string {
+            return `
+                ${this.classNameSelector()} {
+                    z-index: 996;
+                    box-shadow: 0 0 20px black;
+                    border-radius: 7px;
+                    overflow: hidden;
+                    position: fixed;
+                    left: calc(50% - ${Dialog.defaults.width / 2}px);
+                    top: calc(50% - ${Dialog.defaults.height / 2}px);
+                    min-width: 200px;
+                    min-height: 100px;
+                    width: ${Dialog.defaults.width}px;
+                    height: ${Dialog.defaults.height}px;
+                }
+                ${this.classNameSelector()} > .dialog-header {
+                    background-color: rgba(200,200,200,0.9);
+                    border-bottom: 1px solid rgba(0,0,0,0.25);
+                    border-radius: 7px 7px 0 0;                
+                    cursor: pointer;
+                    position: relative;
+                    text-shadow: 0 0 5px rgba(0,0,0,0.25);
+                }
+                ${this.classNameSelector()} > .dialog-header > div {
+                    padding: 9px 0 8px 0;
+                }
+                .${Core.Main.instance.presentation.configuration.className} > *:last-child > .${this.className} > .dialog-header > div {
+                    background-image: linear-gradient(rgba(255,255,255,0.75), transparent);
+                }
+                ${this.classNameSelector()} > .dialog-header h1 {
+                    white-space: nowrap;
+                    margin: 1px ${this.spacing}px -1px ${this.spacing}px;                
+                    padding: 0;
+                    font-size: 18px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    width: calc(100% - 110px);
+                    text-align: left;
+                    clear: unset;
+                }
+                ${this.classNameSelector()} > .dialog-header .graph {
+                    font-size: 20px;
+                    float: left;
+                    margin: 0 9px 0 11px;
+                    opacity: 1;
+                }
+                ${this.classNameSelector()} > .dialog-header button {
+                    margin: 0;
+                    padding: 0;
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                }
+                ${this.classNameSelector()} > .dialog-header button.dialog-action {
+                    font-size: 13px;
+                    border-bottom: none;
+                    text-transform: none;
+                    display: inline-block;
+                    margin: 5px 15px 0 3px;
+                    float: right;
+                    opacity: 0.5;
+                }
+                ${this.classNameSelector()} > .dialog-header button.dialog-action:hover {
+                    text-shadow: 0 0 5px rgba(0,0,0,0.25);
+                    opacity: 0.75;
+                }
+                ${this.classNameSelector()}.maximized > .dialog-header button.maximize {
+                    display: none;
+                }
+                ${this.classNameSelector()}:not(.maximized) > .dialog-header button.restore {
+                    display: none;
+                }
+                ${this.classNameSelector()} > .dialog-content {
+                    background: rgba(255,255,255,0.95);
+                    width: 100%;
+                    height: calc(100% - 50px);
+                    overflow: auto;
+                    overflow-x: hidden;
+                    position: relative;
+                    text-align: left;
+                }
+                ${this.classNameSelector()} > .dialog-resize {
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    width: 100%;
+                    overflow: hidden;
+                    background-color: rgba(200,200,200,0.9);
+                    border-top: 1px solid rgba(0,0,0,0.25);
+                }
+                ${this.classNameSelector()} > .dialog-resize div {
+                    background-color: transparent;
+                    float: right;
+                    width: 20px;
+                    height: 10px;
+                }
+                ${this.classNameSelector()}:not(.maximized) > .dialog-resize div {
+                    cursor: nw-resize;
+                }            
+                ${this.classNameSelector()} > .header,
+                ${this.classNameSelector()} > .resize {
+                    opacity: 0.9;
+                }
+            `;
+        }
 
         /**
          * Construtor.

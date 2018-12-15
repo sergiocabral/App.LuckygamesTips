@@ -96,6 +96,8 @@
 /// context: Initialize
 /// <reference path="Framework/Util/Drawing.ts" />
 /// context: Initialize
+/// <reference path="Framework/Util/General.ts" />
+/// context: Initialize
 /// <reference path="Framework/Util/NumericFormat.ts" />
 /// context: Initialize
 /// <reference path="Framework/Util/Numeric.ts" />
@@ -191,6 +193,8 @@
 
 /// <reference path="Business/Layout/Components/Base.tsx" />
 /// context: React
+/// <reference path="Business/Layout/Components/DialogHeader/Content.tsx" />
+/// context: React
 
 /// <reference path="Business/Layout/Components/Toast/Message.tsx" />
 /// context: React
@@ -211,6 +215,8 @@
 /// <reference path="Business/Parts/Header/Controls.tsx" />
 /// context: React
 /// <reference path="Business/Parts/Header/Header.tsx" />
+/// context: React
+/// <reference path="Business/Parts/LogViewer/LogViewer.tsx" />
 /// context: React
 
 /// #############################################

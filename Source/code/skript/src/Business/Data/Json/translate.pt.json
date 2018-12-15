@@ -57,6 +57,11 @@
             "Collapse all modules.": "Recolhe todos os módulos.",
             "Close all the module windows.": "Fecha todas as janelas dos módulos.",
             "Select language.": "Seleção de idioma." 
+        },
+        "LogViewer.tsx": {
+            "Log Viewer": "Mensagens de Log",
+            "Clear log": "Limpar log",
+            "All": "Todos"
         }
     },
     "Business: Frases em geral": {

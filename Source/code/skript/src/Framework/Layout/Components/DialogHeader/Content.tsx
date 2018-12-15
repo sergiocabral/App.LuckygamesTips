@@ -12,7 +12,6 @@ namespace Skript.Framework.Layout.Components.DialogHeader {
         public constructor(props: TProps) {
             super(props);
             this.onResize = this.onResize.bind(this);
-            this.elDialogHeader = React.createRef();
         }
 
         /**
@@ -40,7 +39,6 @@ namespace Skript.Framework.Layout.Components.DialogHeader {
         public render(): JSX.Element { super.render();
             return (
                 <DialogHeader
-                    ref={this.elDialogHeader}
                     title={this.title.translate()} 
                     icon={this.icon} 
                     collapsible={true}
@@ -53,18 +51,11 @@ namespace Skript.Framework.Layout.Components.DialogHeader {
         }
 
         /**
-         * Elemento responsável por mover entre as janelas.
-         * @type {React.RefObject<DialogHeader>}
-         */
-        protected elDialogHeader: React.RefObject<DialogHeader>;
-
-        /**
          * Aplicado quando não tem janela. Seletor CSS mais alto que engloba o componente.
          * @returns {string} Seletor CSS.
          */
         protected classNameSelectorInDialog() { 
-            if (!this.elDialogHeader.current) throw new Errors.EmptyValue("elDialogHeader.current");
-            return `.${Core.Main.instance.presentation.configuration.className} .${this.elDialogHeader.current.classNameInDialog} .${this.className}[id]`; 
+            return `.${Core.Main.instance.presentation.configuration.className} .${DialogHeader.classNameInDialog} .${this.className}[id]`; 
         }
 
         /**
@@ -72,8 +63,7 @@ namespace Skript.Framework.Layout.Components.DialogHeader {
          * @returns {string} Seletor CSS.
          */
         protected classNameSelectorOutDialog() { 
-            if (!this.elDialogHeader.current) throw new Errors.EmptyValue("elDialogHeader.current");
-            return `.${Core.Main.instance.presentation.configuration.className} .${this.elDialogHeader.current.classNameOutDialog} .${this.className}[id]`;
+            return `.${Core.Main.instance.presentation.configuration.className} .${DialogHeader.classNameOutDialog} .${this.className}[id]`;
         }
 
         /**

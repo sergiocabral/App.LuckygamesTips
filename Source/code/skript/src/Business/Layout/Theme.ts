@@ -12,6 +12,8 @@ namespace Skript.Business.Layout {
         public constructor(configuration: ThemeConfiguration) {
             super(configuration);
 
+            this.debug = Core.Main.instance.debug;
+
             this.generalTextFont = "'Hind Siliguri', sans-serif";
             this.generalTextColor = Framework.Util.Drawing.blend(-0.5, this.colors.primary);
             this.generalBackgroundColor = "#ffffff";
@@ -22,6 +24,12 @@ namespace Skript.Business.Layout {
 
             this.stylesheet = new Stylesheet(this);
         }
+
+        /**
+         * Determina se a execução está em modo debug.
+         * @type {boolean}
+         */
+        public debug: boolean;
 
         /**
          * Ajusta o css dos componentes do sistema.

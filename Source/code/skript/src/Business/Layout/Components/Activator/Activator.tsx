@@ -20,29 +20,31 @@ namespace Skript.Business.Layout.Components.Activator {
         /**
          * Carrega e aplica os estilos css.
          */
-        public css: string = `
-            ${this.classNameSelector()} {
-                z-index: 990;
-                background-color: transparent;
-                background-image: url("${this.theme.url}/logo.png");
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: contain;
-                border: none;
-                cursor: pointer;
-                position: fixed;
-                width: 50px;
-                height: 50px;
-                right: ${this.theme.spacing}px;
-                bottom: ${this.theme.spacing}px;
-            }
-            ${this.classNameSelector()}:focus {
-                outline: none;
-            }
-            ${this.classNameSelector()} i:before {
-                display: none;
-            }
-        `;
+        public css(): string {
+            return `
+                ${this.classNameSelector()} {
+                    z-index: 990;
+                    background-color: transparent;
+                    background-image: url("${this.theme.url}/logo.png");
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    border: none;
+                    cursor: pointer;
+                    position: fixed;
+                    width: 50px;
+                    height: 50px;
+                    right: ${this.theme.spacing}px;
+                    bottom: ${this.theme.spacing}px;
+                }
+                ${this.classNameSelector()}:focus {
+                    outline: none;
+                }
+                ${this.classNameSelector()} i:before {
+                    display: none;
+                }
+            `;
+        }
 
         /**
          * Construtor.
@@ -60,7 +62,12 @@ namespace Skript.Business.Layout.Components.Activator {
             setTimeout(() => {
                 this.mainDialog = Framework.Layout.Components.Dialog.Dialog.create({
                     title: Core.Main.instance.configuration.name,
-                    closeMode: Framework.Layout.Components.Dialog.CloseMode.Hide
+                    closeMode: Framework.Layout.Components.Dialog.CloseMode.Hide,
+                    icon: "fas fa-robot",
+                    size: {
+                        width: Math.trunc((document.documentElement as any).offsetWidth * 0.6),
+                        height: Math.trunc((document.documentElement as any).offsetHeight * 0.6)
+                    }
                 });
 
                 this.toast = ReactDOM.render(

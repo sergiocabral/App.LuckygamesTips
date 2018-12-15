@@ -25,6 +25,7 @@ namespace Skript.Business.Layout {
             this.forButtonShadow();
             this.forButtons();
             this.forComponentDialog();
+            this.forComponentDialogHeader();
         }
 
         /**
@@ -48,10 +49,7 @@ namespace Skript.Business.Layout {
                 }
                 ${selector} > .dialog-header .graph {
                     color: ${this.theme.dialogTitleTextColor};
-                    margin-top: -4px;
-                }
-                ${selector} > .dialog-header .button.dialog-action {
-                    margin-top: -4px;
+                    margin-top: -5px;
                 }
                 ${selector} > .dialog-header a.dialog-action {
                     color: ${Framework.Util.Drawing.blend(0.10, this.theme.dialogTitleTextColor)};
@@ -68,6 +66,23 @@ namespace Skript.Business.Layout {
                     background-image: url("${this.theme.url}/dialog-background.png");
                     background-size: cover;
                     background-position: 0 0;
+                }
+            `);
+        }
+
+        /**
+         * Aplica os estilos para: Dialog.
+         */
+        public forComponentDialogHeader(): void {
+            const selector = Framework.Layout.Components.Base.getSelector(Framework.Layout.Components.DialogHeader.DialogHeader);
+            Framework.Util.DOM.stylesheet(`
+                ${selector} > .dialogheader-title .text .graph {
+                    font-size: 18px;
+                    margin-top: -1px;
+                }
+                
+                ${selector} > .dialogheader-title .showDialog {
+                    margin-top: 3px;
                 }
             `);
         }

@@ -8,72 +8,75 @@ namespace Skript.Framework.Layout.Components.Switch {
         /**
          * Carrega e aplica os estilos css.
          */
-        public css: string = `
-            ${this.classNameSelector()} > .input {
-                display: inline-block;
-                padding: 5px 1px;
-                margin-bottom: -12px;
-            }            
-            ${this.classNameSelector()} > .input {
-                display: inline-block;
-            }
-            ${this.classNameSelector()} > .input > input {
-                display: inline-block;
-            }
-            ${this.classNameSelector()} > .input > input {
-                display: inline-block;
-                position: absolute;
-                margin-left: -9999px;
-                visibility: hidden;
-            }
-            ${this.classNameSelector()} > .input > input + label {
-                display: block;
-                position: relative;
-                cursor: pointer;
-                outline: none;
-                user-select: none;
-            }
-            ${this.classNameSelector()} > .input > input.shadow + label {
-                padding: 2px;
-                width: 45px;
-                height: 20px;
-                background-color: #dddddd;
-                border-radius: 60px;
-            }
-            ${this.classNameSelector()} > .input > input.shadow + label:before,
-            ${this.classNameSelector()} > .input > input.shadow + label:after {
-                display: block;
-                position: absolute;
-                top: 1px;
-                left: 1px;
-                bottom: 0.5px;
-                content: "";
-            }
-            ${this.classNameSelector()} > .input > input.shadow + label:before {
-                right: 1px;
-                background-color: #eeeeee;
-                border-radius: 60px;
-                transition: all 0.4s;
-            }
-            ${this.classNameSelector()} > .input > input.shadow + label:after {
-                width: 22px;
-                background-color: #fff;
-                border-radius: 100%;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-                transition: all 0.4s;
-            }
-            ${this.classNameSelector()} > .input > input.shadow[data-checked="true"] + label:before {
-                background-color: #A5C4DE;
-            }
-            ${this.classNameSelector()} > .input > input.shadow[data-checked="true"] + label:after {
-                transform: translateX(25px);
-            }
-            ${this.classNameSelector()} > .children {
-                display: inline-block;
-                margin-left: 5px;
-                cursor: pointer;
-            }
-        `;
+        public css(): string {
+            return `
+                ${this.classNameSelector()} > .input {
+                    display: inline-block;
+                    margin: 5px 0 2px 0;
+                }            
+                ${this.classNameSelector()} > .input {
+                    display: inline-block;
+                }
+                ${this.classNameSelector()} > .input > input {
+                    display: inline-block;
+                }
+                ${this.classNameSelector()} > .input > input {
+                    display: inline-block;
+                    position: absolute;
+                    margin-left: -9999px;
+                    visibility: hidden;
+                }
+                ${this.classNameSelector()} > .input > input + label {
+                    display: block;
+                    position: relative;
+                    cursor: pointer;
+                    outline: none;
+                    user-select: none;
+                }
+                ${this.classNameSelector()} > .input > input.shadow + label {
+                    padding: 2px;
+                    width: 45px;
+                    height: 20px;
+                    background-color: #dddddd;
+                    border-radius: 60px;
+                }
+                ${this.classNameSelector()} > .input > input.shadow + label:before,
+                ${this.classNameSelector()} > .input > input.shadow + label:after {
+                    display: block;
+                    position: absolute;
+                    top: 1px;
+                    left: 1px;
+                    bottom: 0.5px;
+                    content: "";
+                }
+                ${this.classNameSelector()} > .input > input.shadow + label:before {
+                    right: 1px;
+                    background-color: #eeeeee;
+                    border-radius: 60px;
+                    transition: all 0.4s;
+                }
+                ${this.classNameSelector()} > .input > input.shadow + label:after {
+                    width: 22px;
+                    background-color: #fff;
+                    border-radius: 100%;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+                    transition: all 0.4s;
+                }
+                ${this.classNameSelector()} > .input > input.shadow[data-checked="true"] + label:before {
+                    background-color: #A5C4DE;
+                }
+                ${this.classNameSelector()} > .input > input.shadow[data-checked="true"] + label:after {
+                    transform: translateX(25px);
+                }
+                ${this.classNameSelector()} > .children {
+                    display: inline-block;
+                    margin-left: 5px;
+                    cursor: pointer;
+                    position: relative;
+                    top: -8px;
+                }
+            `;
+        }
 
         /**
          * Construtor.

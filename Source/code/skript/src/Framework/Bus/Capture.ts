@@ -12,7 +12,7 @@ namespace Skript.Framework.Bus {
          * @param {Function} listenerOriginal Função chamada ao capturar a mensagem.
          */
         public constructor(public message: any, public toBind: any, public listenerOriginal: Function) {
-            this.messageName = Message.getName(message);
+            this.messageName = Util.General.getName(message);
 
             const instance = this;
             this.listenerWrapper = (evt: any) => {
@@ -65,7 +65,7 @@ namespace Skript.Framework.Bus {
          * @param {TMessage} message Mensagem.
          */
         public static createEvent(message: Message): CustomEvent {
-            return new CustomEvent(Message.getName(message), { detail: message });
+            return new CustomEvent(Util.General.getName(message), { detail: message });
         }
 
         /**

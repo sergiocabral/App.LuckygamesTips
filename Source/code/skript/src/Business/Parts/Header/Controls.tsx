@@ -8,31 +8,33 @@ namespace Skript.Business.Parts.Header {
         /**
          * Carrega e aplica os estilos css.
          */
-        public css: string = `
-            ${this.classNameSelector()} {
-                position: relative;
-                top: 2px;
-            }
-            ${this.classNameSelector()} > .text-shadow {
-                font-size: 15px;
-                color: ${Framework.Util.Drawing.blend(0.3, this.theme.generalTextColor)};
-            }
-            ${this.classNameSelector()} > .text-shadow > span {
-                margin-left: 5px;
-                font-size: 12px;
-                position: relative;
-                top: -1px;
-            }
-            ${this.classNameSelector()} > .separator {
-                display: inline-block;
-                width: ${this.theme.spacing}px;
-                margin-right: ${this.theme.spacing}px;
-                border-right: 1px solid ${Framework.Util.Drawing.blend(0.3, this.theme.dialogTitleBackgroundColor)};
-            }
-            ${this.classNameSelector()} > .separator:after {
-                content: "\\00a0";
-            }
-        `;
+        public css(): string {
+            return `
+                ${this.classNameSelector()} {
+                    position: relative;
+                    top: 2px;
+                }
+                ${this.classNameSelector()} > .text-shadow {
+                    font-size: 15px;
+                    color: ${Framework.Util.Drawing.blend(0.3, this.theme.generalTextColor)};
+                }
+                ${this.classNameSelector()} > .text-shadow > span {
+                    margin-left: 5px;
+                    font-size: 12px;
+                    position: relative;
+                    top: -1px;
+                }
+                ${this.classNameSelector()} > .separator {
+                    display: inline-block;
+                    width: ${this.theme.spacing}px;
+                    margin-right: ${this.theme.spacing}px;
+                    border-right: 1px solid ${Framework.Util.Drawing.blend(0.3, this.theme.dialogTitleBackgroundColor)};
+                }
+                ${this.classNameSelector()} > .separator:after {
+                    content: "\\00a0";
+                }
+            `;
+        }
 
         /**
          * Construtor.

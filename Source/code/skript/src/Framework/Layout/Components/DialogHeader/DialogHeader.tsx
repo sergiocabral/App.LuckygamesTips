@@ -29,53 +29,54 @@ namespace Skript.Framework.Layout.Components.DialogHeader {
         /**
          * Carrega e aplica os estilos css.
          */
-        public css: string = `
-            ${this.classNameSelector()} {
-                margin: 0px ${this.spacing * 2}px ${this.spacing}px ${this.spacing * 2}px;
-            }
-            ${this.classNameSelector()} > .dialogheader-title {
-                background-color: rgba(200,200,200,0.9);
-                border-radius: 4px;
-                padding: 5px 10px;
-                margin: 0 -${this.spacing}px;
-                box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-                border: 1px solid rgba(0,0,0,0.25);
-                cursor: pointer;
-            }
-            ${this.classNameSelector()} > .dialogheader-title .text .graph {
-                float: left;
-                margin: 0 8px 0 2px;
-            }
-            ${this.classNameSelector()} > .dialogheader-title .text h1 {
-                font-family: 'Raleway', sans-serif;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                margin: 2px 0;
-                padding: 0;
-                width: calc(100% - 60px);
-                font-size: 16px;
-                clear: unset;
-            }
-            ${this.classNameSelector()} > .dialogheader-title .showDialog {
-                float: right;
-                opacity: 0.75;
-                margin: 4px 3px 0 0;
-            }
-            ${this.classNameSelector()} > .dialogheader-title .showDialog:hover {
-                text-shadow: 0 0 5px rgba(0,0,0,0.25);
-                opacity: 1.0;
-            }
-            ${this.classNameSelector()} > .dialogheader-content {
-                margin-top: ${this.spacing}px;
-                transition: max-height 0.25s linear;
-                overflow: hidden;
-            }
-            ${this.classNameSelector()} > .dialogheader-content.hidden {
-                max-height: 0 !important;
-            }
-        </div>
-        `;
+        public css(): string {
+            return `
+                ${this.classNameSelector()} {
+                    margin: 0px ${this.spacing * 2}px ${this.spacing}px ${this.spacing * 2}px;
+                }
+                ${this.classNameSelector()} > .dialogheader-title {
+                    background-color: rgba(200,200,200,0.9);
+                    border-radius: 4px;
+                    padding: 5px 10px;
+                    margin: 0 -${this.spacing}px;
+                    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+                    border: 1px solid rgba(0,0,0,0.25);
+                    cursor: pointer;
+                }
+                ${this.classNameSelector()} > .dialogheader-title .text .graph {
+                    float: left;
+                    margin: 0 8px 0 2px;
+                }
+                ${this.classNameSelector()} > .dialogheader-title .text h1 {
+                    font-family: 'Raleway', sans-serif;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    margin: 2px 0;
+                    padding: 0;
+                    width: calc(100% - 60px);
+                    font-size: 16px;
+                    clear: unset;
+                }
+                ${this.classNameSelector()} > .dialogheader-title .showDialog {
+                    float: right;
+                    opacity: 0.75;
+                    margin: 4px 3px 0 0;
+                }
+                ${this.classNameSelector()} > .dialogheader-title .showDialog:hover {
+                    text-shadow: 0 0 5px rgba(0,0,0,0.25);
+                    opacity: 1.0;
+                }
+                ${this.classNameSelector()} > .dialogheader-content {
+                    margin-top: ${this.spacing}px;
+                    transition: max-height 0.25s linear;
+                    overflow: hidden;
+                }
+                ${this.classNameSelector()} > .dialogheader-content.hidden {
+                    max-height: 0 !important;
+                }
+            `;
+        }
 
         /**
          * Intervalo das animações.
@@ -102,13 +103,25 @@ namespace Skript.Framework.Layout.Components.DialogHeader {
          * Aplicado quando não tem janela. Class CSS para tornar o conteúdo com o mesmo estilo dentro e fora da janela.
          * @type {string}
          */
-        public classNameOutDialog: string = this.className + "-" + IdContext[IdContext.Original].random();
+        public static classNameOutDialog: string = Base.getClassName(DialogHeader) + "-" + IdContext[IdContext.Original].random();
+
+                /**
+         * Aplicado quando não tem janela. Class CSS para tornar o conteúdo com o mesmo estilo dentro e fora da janela.
+         * @type {string}
+         */
+        public classNameOutDialog: string = DialogHeader.classNameOutDialog;
 
         /**
          * Aplicado quando está na janela. Class CSS para tornar o conteúdo com o mesmo estilo dentro e fora da janela.
          * @type {string}
          */
-        public classNameInDialog: string = this.className + "-" + IdContext[IdContext.Dialog].random();
+        public static classNameInDialog: string = Base.getClassName(DialogHeader) + "-" + IdContext[IdContext.Dialog].random();
+
+        /**
+         * Aplicado quando está na janela. Class CSS para tornar o conteúdo com o mesmo estilo dentro e fora da janela.
+         * @type {string}
+         */
+        public classNameInDialog: string = DialogHeader.classNameInDialog;
 
         /**
          * Conteúdo.
