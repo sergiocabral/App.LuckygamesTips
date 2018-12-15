@@ -92,7 +92,7 @@ namespace Skript.Business.Parts.Header {
                     <div className="bot"></div>
                     <div className="bar">
                         <Controls />
-                        <Language />
+                        <Layout.Components.SetLanguage.SetLanguage />
                     </div>                    
                 </div>
             );

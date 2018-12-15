@@ -69,10 +69,10 @@ namespace Skript.Business.Layout.Components.Activator {
 
         /**
          * Evento ao solicitar adicionar na janela principal.
-         * @param evt Informações sobre o evento.
+         * @param {Messages.DoAppendToMainDialog} message Informações sobre o evento.
          */
-        private onDoAppendToMainDialog(evt: CustomEvent<Messages.DoAppendToMainDialog>) {
-            this.mainDialog.append(evt.detail.part);
+        private onDoAppendToMainDialog(message: Messages.DoAppendToMainDialog) {
+            this.mainDialog.append(message.part);
         }
 
         /**

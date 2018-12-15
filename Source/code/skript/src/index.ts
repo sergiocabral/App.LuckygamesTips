@@ -129,14 +129,16 @@
 /// <reference path="Framework/Prototype/Window.ts" />
 /// context: Initialize
 
+/// <reference path="Framework/Bus/Capture.ts" />
+/// context: Initialize
+/// <reference path="Framework/Bus/Message.ts" />
+/// context: Initialize
+
 /// <reference path="Framework/Messages/DidLanguageSetted.ts" />
 /// context: Initialize
 /// <reference path="Framework/Messages/DoSetLanguage.ts" />
 /// context: Initialize
-
-/// <reference path="Framework/Bus/Capture.ts" />
-/// context: Initialize
-/// <reference path="Framework/Bus/Message.ts" />
+/// <reference path="Framework/Messages/GetLanguage.ts" />
 /// context: Initialize
 
 /// <reference path="Framework/Log/Level.ts" />
@@ -188,14 +190,16 @@
 /// <reference path="Business/Layout/Components/Base.tsx" />
 /// context: React
 
+/// <reference path="Business/Layout/Components/SetLanguage/State.tsx" />
+/// context: React
+/// <reference path="Business/Layout/Components/SetLanguage/SetLanguage.tsx" />
+/// context: React
 /// <reference path="Business/Layout/Components/Activator/Activator.tsx" />
 /// context: React
 
 /// <reference path="Business/Parts/Base.tsx" />
 /// context: React
 
-/// <reference path="Business/Parts/Header/Language.tsx" />
-/// context: React
 /// <reference path="Business/Parts/Header/Controls.tsx" />
 /// context: React
 /// <reference path="Business/Parts/Header/Header.tsx" />

@@ -7,10 +7,12 @@
         "System components loaded.": "Componentes de sistema carregados.",
         "Failed to load configuration data.": "Falha ao carregar dados de configuração.",
         "Infrastructure loaded.": "Infraestrutura carregada.",
-        "Message \"{0}\" capture was registered.": "Captura da mensagem \"{0}\" registrada.",
-        "Message \"{0}\" capture was canceled.": "Captura da mensagem \"{0}\" cancelada.",
+        "Capture for message \"{0}\" was registered.": "Captura da mensagem \"{0}\" foi registrada.",
+        "Capture for message \"{0}\" was unregistered.": "Captura da mensagem \"{0}\" teve registro cancelado.",
         "Message \"{0}\" sent and captured by {1}x.": "Mensagem \"{0}\" enviada e capturada por {1}x.",
         "Message \"{0}\" sent but not captured.": "Mensagem \"{0}\" enviada mas não capturada.",
+        "Message \"{0}\" captured.": "Mensagem \"{0}\" capturada.",
+        "Message \"{0}\" requested.": "Mensagem \"{0}\" requisitada.",
         "Created main container: <{tagName} id=\"{id}\" />": "Criado container principal: <{tagName} id=\"{id}\" />",
         "Created child container: <{tagName} id=\"{id}\" class=\"{className}\" />": "Criado container filho: <{tagName} id=\"{id}\" class=\"{className}\" />",
         "API returned status {status}. Url: {responseURL}": "API retornou status {status}. Url: {responseURL}",
@@ -25,6 +27,10 @@
         "DialogHeader \"{title}\". Content moved from [{from}] to [{to}].": "DialogHeader \"{title}\". Conteúdo movido de [{from}] para [{to}]."
     },
     "Framework: Componentes do sistema": {
+        "Types": {
+            "No": "Não",
+            "Yes": "Sim"
+        },
         "Dialog": {
             "Close this window.": "Fechar esta janela.",
             "Maximize this window.": "Maximizar esta janela.",
@@ -32,10 +38,16 @@
         },
         "DialogHeader": {
             "Open as window.": "Abrir como janela."
+        },
+        "Translate": {
+            "Change language from {old} to {new}. You need to refresh the page to make the change.":
+                "Trocado idioma de {old} para {new}. É necessário atualizar a página para efetivar a alteração."
         }
     },
     "Business: Traduções do sistema": {
-        "Theme colors loaded.": "Tema de cores carregado."
+        "Theme colors loaded.": "Tema de cores carregado.",
+        "en": "Inglês",
+        "pt": "Português"
     },
     "Business: Módulos": {
         "MainHeader.tsx": {
@@ -46,5 +58,8 @@
             "Close all the module windows.": "Fecha todas as janelas dos módulos.",
             "Select language.": "Seleção de idioma." 
         }
+    },
+    "Business: Frases em geral": {
+        "do more, much more": "faça mais, muito mais" 
     }
 }

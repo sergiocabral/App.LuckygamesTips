@@ -20,19 +20,8 @@ namespace Skript.Framework.Data {
             if (setDefault) {
                 if (!Translate.default) Translate.default = this;
                 else throw new Errors.InvalidExecution("Translate.default already defined.");
-
-                Bus.Message.capture(Messages.DoSetLanguage, this, this.onDoSetLanguage);
             }
         }
-
-        /**
-         * Ao receber mensagem para definir idioma.
-         * @param {Messages.DoSetLanguage} message 
-         */
-        private onDoSetLanguage(message: Messages.DoSetLanguage): void {
-            message.language = Core.Main.instance.storage.data({ language: message.language }).language;
-        }
-
 
         /**
          * Fonte de traduções.

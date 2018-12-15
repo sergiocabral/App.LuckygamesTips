@@ -14,7 +14,7 @@ namespace Skript.Framework.Bus {
             let name;
             if (typeof(message) === 'string') name = message;
             else if (typeof(message) === 'object') name = message.constructor.name;
-            else if (typeof(message) === 'function') name = Message.getName;
+            else if (typeof(message) === 'function') name = message.name;
             else throw new Framework.Errors.InvalidArgument("Event must be string or object, but: " + typeof(message));
             if(!name) throw new Framework.Errors.EmptyValue("Event name is empty. Type: " + typeof(message));
             return name;
@@ -37,8 +37,7 @@ namespace Skript.Framework.Bus {
             const capture = new Capture(message, thisRef, listener);
             if (this.captures.filter(v => v.equals(capture)).length)
                 throw new Framework.Errors.InvalidExecution("Duplicate Handler.captureOn().");
-            window.addEventListener(capture.messageName, capture.listenerWrapper)
-            console.Log("Message \"{0}\" capture was registered.", capture.messageName, "Bus.Handler");
+            capture.addEventListener();
             this.captures.push(capture);
             return capture;
         }
@@ -50,9 +49,8 @@ namespace Skript.Framework.Bus {
         public static captureOff(capture: Capture): void {
             if (!this.captures.filter((v, i, a) => {
                 if (v.equals(capture)) {
-                    window.removeEventListener(v.messageName, v.listenerWrapper)
+                    v.removeEventListener();
                     delete a[i];
-                    console.Log("Message \"{0}\" capture was canceled.", capture.messageName, "Bus.Handler");
                     return true;
                 } else {
                     return false;
@@ -62,7 +60,7 @@ namespace Skript.Framework.Bus {
 
         /**
          * Envia esta mensagem.
-         * @param {any} message Mensagem
+         * @param {this} message Mensagem
          */
         public send(): void {
             return Message.send<this>(this);
@@ -70,18 +68,37 @@ namespace Skript.Framework.Bus {
 
         /**
          * Envia uma mensagem.
-         * @param {any} message Mensagem
+         * @param {TMessage} message Mensagem
          */
         public static send<TMessage extends Message>(message: TMessage): void {
             const messageName = Message.getName(message);
-            const event = new CustomEvent(messageName, { detail: message });
             const captures = this.captures.filter(v => v.messageName === messageName);
+            const evt = Capture.createEvent(message);
             if (captures.length) {
-                console.Log("Message \"{0}\" sent and captured by {1}x.", [messageName, captures.length], "Bus.Handler", event);
-                window.dispatchEvent(event);
+                console.Log("Message \"{0}\" sent and captured by {1}x.", [messageName, captures.length], "Bus.Handler", evt);
+                window.dispatchEvent(evt);
             } else {
-                console.Log("Message \"{0}\" sent but not captured.", messageName, "Bus.Handler", event);
+                console.Log("Message \"{0}\" sent but not captured.", messageName, "Bus.Handler", evt);
             }
+        }
+        
+        /**
+         * Envia uma mensagem e espera pelo resultado.
+         * @returns {this} Mesma mensagem enviada.
+         */
+        public request(): this {
+            return Message.request(this);
+        }
+
+        /**
+         * Envia uma mensagem e espera pelo resultado.
+         * @param {TMessage} message Mensagem
+         */
+        public static request<TMessage extends Message>(message: TMessage): TMessage {
+            const messageName = Message.getName(message);
+            const captures = Message.captures.filter(v => v.messageName === messageName);
+            for (const i in captures) captures[i].request(message);
+            return message;
         }
     }
 }

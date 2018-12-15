@@ -7,9 +7,10 @@ namespace Skript.Framework.Messages {
 
         /**
          * Construtor.
-         * @param {string} language Idioma
+         * @param {string} oldLanguage Idioma anterior.
+         * @param {string} newLanguage Novo idioma.
          */
-        public constructor(public language: string) {
+        public constructor(public oldLanguage: string, public newLanguage: string) {
             super();
         }
     }
