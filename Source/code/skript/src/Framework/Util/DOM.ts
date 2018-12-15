@@ -16,8 +16,8 @@ namespace Skript.Framework.Util {
 
             if (minify) css = css.trimAll();
 
-            const hash: number = css.hash();
-            const id = `style-${hash}`.replace("--", "-");
+            const hash = css.hash().toString().random();
+            const id = `style-${hash}`;
 
             if (document.getElementById(id)) return;
 

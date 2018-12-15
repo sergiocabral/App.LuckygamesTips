@@ -37,8 +37,8 @@ namespace Skript.Framework.Util {
          * @returns {Promise<void>} Retorna void quando o arquivo é carregado.
          */
         public static javascript(src: string): Promise<void> {
-            const hash: number = Text.hash(src);
-            const id = `script-${hash}`.replace("--", "-");
+            const hash = src.hash().toString().random();
+            const id = `style-${hash}`;
 
             if (document.getElementById(id)) return new Promise(resolve => resolve());
 
@@ -66,8 +66,8 @@ namespace Skript.Framework.Util {
          * @returns {Promise<void>} Retorna void quando o arquivo é carregado.
          */
         public static stylesheet(href: string): Promise<void> {
-            const hash: number = Text.hash(href);
-            const id = `link-${hash}`.replace("--", "-");
+            const hash = href.hash().toString().random();
+            const id = `style-${hash}`;
 
             if (document.getElementById(id)) return new Promise(resolve => resolve());
 

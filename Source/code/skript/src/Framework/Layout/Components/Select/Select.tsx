@@ -29,7 +29,7 @@ namespace Skript.Framework.Layout.Components.Select {
          * @type {React.RefObject<HTMLSelectElement>}
          */
         private elContainer: React.RefObject<HTMLSelectElement>;
-        
+
         /**
          * Instância do select2
          * @type {any}
@@ -90,6 +90,7 @@ namespace Skript.Framework.Layout.Components.Select {
             if (!this.elContainer.current) return;
 
             this.select2Configuration = {
+                language: "skript",
                 placeholder: this.props.placeholder ? this.props.placeholder : "",
                 dropdownParent: jQuery(Core.Main.instance.presentation.container3rdParty)
             };
@@ -111,7 +112,7 @@ namespace Skript.Framework.Layout.Components.Select {
             if (!this.select2) return;
             this.select2.select2("destroy").select2(this.select2Configuration);
         }
-        
+
         /**
          * Ao desmontar componente.
          */
@@ -119,5 +120,56 @@ namespace Skript.Framework.Layout.Components.Select {
             if (!this.select2) return;
             this.select2.select2("destroy");
         }
+
+        /**
+         * Define as traduções do select2
+         * @param {string} language Opcional. Nome do conjunto de traduções.
+         */
+        public static translate(language: string = "skript"): void {
+            const jquery = (window as any).jQuery;
+
+            if (!jquery ||
+                !jquery.fn ||
+                !jquery.fn.select2 ||
+                !jquery.fn.select2.amd ||
+                !jquery.fn.select2.amd.define) return;
+
+            jquery.fn.select2.amd.define('select2/i18n/' + language, [], function () {
+                return {
+                    errorLoading: function () {
+                        return 'The results could not be loaded.'.translate();
+                    },
+                    inputTooLong: function (args: any) {
+                        var overChars = args.input.length - args.maximum;
+                        var message;
+                        if (overChars == 1) message = 'Please delete {0} character.'.translate(overChars);
+                        else message = 'Please delete {0} characters.'.translate(overChars);
+                        return message;
+                    },
+                    inputTooShort: function (args: any) {
+                        var remainingChars = args.minimum - args.input.length;
+                        var message = 'Please enter {0} or more characters.'.translate(remainingChars);
+                        return message;
+                    },
+                    loadingMore: function () {
+                        return 'Loading more results...'.translate();
+                    },
+                    maximumSelected: function (args: any) {
+                        var message;
+                        if (args.maximum == 1) message = 'You can only select {0} item.'.translate(args.maximum);
+                        else message = 'You can only select {0} items.'.translate(args.maximum);
+                        return message;
+                    },
+                    noResults: function () {
+                        return 'No results found'.translate();
+                    },
+                    searching: function () {
+                        return 'Searching...'.translate();
+                    }
+                };
+            });
+        }
     }
+
+    Select.translate();
 }

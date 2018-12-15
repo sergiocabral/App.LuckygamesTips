@@ -3,7 +3,7 @@ namespace Skript.Business.Parts.LogViewer {
     /**
      * Componente: Principal do módulo.
      */
-    export class LogViewer extends Layout.Components.DialogHeader.Content {
+    export class LogViewer extends Layout.Components.DialogHeader.Content<Framework.Layout.Components.EmptyProps, LevelsState> {
 
         /**
          * Carrega e aplica os estilos css.
@@ -35,10 +35,15 @@ namespace Skript.Business.Parts.LogViewer {
                     margin-right: ${this.theme.spacing / 2}px;
                     text-align: center;
                 }
-                ${this.classNameSelector()} > .controls > div > .levels {
+                ${this.classNameSelector()} > .controls > div > select,
+                ${this.classNameSelector()} > .controls > div > .select2 {
+                    width: 100% !important;
+                }
+                ${this.classNameSelector()} > .controls > div > .select2 + .spacing {
                     border-bottom: 1px solid gainsboro;
-                    padding-bottom: ${this.theme.spacing}px;
-                    margin-bottom: ${this.theme.spacing / 2}px;
+                    margin-bottom: 5px;
+                }
+                ${this.classNameSelector()} > .controls > div > .levels {
                     text-align: left;
                 }
                 ${this.classNameSelector()} > .controls > div > .switch {
@@ -117,6 +122,17 @@ namespace Skript.Business.Parts.LogViewer {
 
             this.title = "Log Viewer";
             this.icon = "far fa-list-alt";
+
+            this.onLevelsChange = this.onLevelsChange.bind(this);
+        }
+
+        /**
+         * Seleção de níveis.
+         * @param {Framework.Log.Level[]} checkeds Valores atualmente selecionados.
+         * @param {Framework.Log.Level[]} uncheckeds Valores atualmente não selecionados.
+         */
+        private onLevelsChange(checkeds: Framework.Log.Level[], uncheckeds: Framework.Log.Level[]): void {
+            console.log(checkeds, uncheckeds);
         }
 
         /**
@@ -128,8 +144,9 @@ namespace Skript.Business.Parts.LogViewer {
                 <div id={this.id} className={this.classNameAttribute()}>
                     <div className="controls">
                         <div>
-                            <div className="levels">Niveis aqui</div>
-                            <Framework.Layout.Components.Switch.Switch className="switch" checked={true}>{"All".translate()}</Framework.Layout.Components.Switch.Switch>
+                            <Framework.Layout.Components.Select.Select placeholder={"Filter".translate()} multiple={true} allowClear={true} tags={true}></Framework.Layout.Components.Select.Select>
+                            <div className="spacing"></div>
+                            <div className="levels"><Levels className="levels" onChange={this.onLevelsChange}></Levels></div>
                             <div className="spacing"></div>
                             <button className="button">{"Clear log".translate()}</button>
                             <div className="spacing"></div>

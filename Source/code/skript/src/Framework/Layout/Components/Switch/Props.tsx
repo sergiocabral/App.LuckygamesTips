@@ -25,11 +25,11 @@ namespace Skript.Framework.Layout.Components.Switch {
 
         /**
          * Evento ao marcar.
-         * @param {any} evt Informações do evento.
          * @param {string} value Valor selecionador.
          * @param {boolean} checked Marcado ou não.
+         * @param {any} evt Informações do evento.
          * @returns {boolean} Um retorno ===false desfaz a alteração.
          */
-        onChange?: (evt: any, value: string, checked: boolean) => boolean|void;
+        onChange?: (value: string, checked: boolean, evt: any) => boolean|void;
     }
 }

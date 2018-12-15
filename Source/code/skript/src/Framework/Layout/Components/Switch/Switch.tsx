@@ -144,7 +144,7 @@ namespace Skript.Framework.Layout.Components.Switch {
             this.setState({ checked: this.check(input) });
 
             if (this.props.onChange instanceof Function) {
-                if (this.props.onChange(evt, input.value, this.check(input)) === false) {
+                if (this.props.onChange(input.value, this.check(input), evt) === false) {
                     this.check(input, !this.check(input));
                     this.setState({ checked: this.check(input) });
                 }

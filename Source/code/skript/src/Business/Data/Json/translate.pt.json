@@ -27,6 +27,17 @@
         "DialogHeader \"{title}\". Content moved from [{from}] to [{to}].": "DialogHeader \"{title}\". Conteúdo movido de [{from}] para [{to}]."
     },
     "Framework: Componentes do sistema": {
+        "Select2": {
+            "The results could not be loaded.": "Os resultados não puderam ser carregados.",
+            "Please delete {0} character.": "Apague {0} caracter.",
+            "Please delete {0} characters.": "Apague {0} caracteres.",
+            "Please enter {0} or more characters.": "Entre com {0} ou mais caracteres.",
+            "Loading more results...": "Carregando...",
+            "You can only select {0} item.": "Selecione apenas {0} item.",
+            "You can only select {0} items.": "Selecione apenas {0} itens.",
+            "No results found": "Nenhum resultado encontrado.",
+            "Searching...": "Procurando..."
+        },
         "Types": {
             "No": "Não",
             "Yes": "Sim"
@@ -56,15 +67,16 @@
             "Expand all modules.": "Expande todos os módulos.",
             "Collapse all modules.": "Recolhe todos os módulos.",
             "Close all the module windows.": "Fecha todas as janelas dos módulos.",
-            "Select language.": "Seleção de idioma." 
+            "Select language.": "Seleção de idioma."
         },
         "LogViewer.tsx": {
             "Log Viewer": "Mensagens de Log",
             "Clear log": "Limpar log",
-            "All": "Todos"
+            "All": "Todos",
+            "Filter": "Filtro"
         }
     },
     "Business: Frases em geral": {
-        "do more, much more": "faça mais, muito mais" 
+        "do more, much more": "faça mais, muito mais"
     }
 }
