@@ -24,7 +24,7 @@ namespace Skript.Framework.Layout.Dialog {
                     bottom: 0;
                     right: 0;
                     background-color: rgba(0,0,0,0.5);
-                    z-index: 991;
+                    z-index: 998;
                 }
                 ${selector} .dialog-box {
                     text-align: left;

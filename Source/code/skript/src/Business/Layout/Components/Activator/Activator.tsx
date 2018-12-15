@@ -22,7 +22,7 @@ namespace Skript.Business.Layout.Components.Activator {
          */
         public css: string = `
             ${this.classNameSelector()} {
-                z-index: 99999;
+                z-index: 990;
                 background-color: transparent;
                 background-image: url("${this.theme.url}/logo.png");
                 background-position: center;
@@ -56,11 +56,17 @@ namespace Skript.Business.Layout.Components.Activator {
             this.onClick = this.onClick.bind(this);
 
             this.mainDialog = undefined as any;
+            this.toast = undefined as any;
             setTimeout(() => {
                 this.mainDialog = Framework.Layout.Components.Dialog.Dialog.create({
                     title: Core.Main.instance.configuration.name,
                     closeMode: Framework.Layout.Components.Dialog.CloseMode.Hide
                 });
+
+                this.toast = ReactDOM.render(
+                    React.createElement(Business.Layout.Components.Toast.Toast, undefined, undefined),
+                    Core.Main.instance.presentation.createContainer());
+
                 new Messages.DidMainDialogLoaded().send();
             }, 0);
 
@@ -80,6 +86,12 @@ namespace Skript.Business.Layout.Components.Activator {
          * @type {Framework.Layout.Components.Dialog.Dialog}
          */
         public mainDialog: Framework.Layout.Components.Dialog.Dialog;
+
+        /**
+         * Exibidor de mensagem tipo toast.
+         * @type {Toast.Toast}
+         */
+        public toast: Toast.Toast;
 
         /**
          * Manipulador de arrastar e redimensionar.

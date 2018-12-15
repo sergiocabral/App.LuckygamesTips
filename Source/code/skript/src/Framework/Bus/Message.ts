@@ -83,7 +83,7 @@ namespace Skript.Framework.Bus {
         }
         
         /**
-         * Envia uma mensagem e espera pelo resultado.
+         * Envia esta mensagem e retorna o resultado.
          * @returns {this} Mesma mensagem enviada.
          */
         public request(): this {
@@ -91,7 +91,7 @@ namespace Skript.Framework.Bus {
         }
 
         /**
-         * Envia uma mensagem e espera pelo resultado.
+         * Envia uma mensagem e retorna o resultado.
          * @param {TMessage} message Mensagem
          */
         public static request<TMessage extends Message>(message: TMessage): TMessage {

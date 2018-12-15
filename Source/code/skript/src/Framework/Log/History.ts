@@ -84,6 +84,7 @@ namespace Skript.Framework.Log {
 
             const message = this.mountMessage(text, values, level, origin);
             this.messages.push(message);
+            if (message.level !== Level.Verbose) new Messages.DidLogPosted(message).send();
             Console.write(message, level, toConsoleLog);
         }
 

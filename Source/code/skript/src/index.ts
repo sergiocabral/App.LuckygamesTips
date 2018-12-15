@@ -136,6 +136,8 @@
 
 /// <reference path="Framework/Messages/DidLanguageSetted.ts" />
 /// context: Initialize
+/// <reference path="Framework/Messages/DidLogPosted.ts" />
+/// context: Initialize
 /// <reference path="Framework/Messages/DoSetLanguage.ts" />
 /// context: Initialize
 /// <reference path="Framework/Messages/GetLanguage.ts" />
@@ -190,6 +192,12 @@
 /// <reference path="Business/Layout/Components/Base.tsx" />
 /// context: React
 
+/// <reference path="Business/Layout/Components/Toast/Message.tsx" />
+/// context: React
+/// <reference path="Business/Layout/Components/Toast/State.tsx" />
+/// context: React
+/// <reference path="Business/Layout/Components/Toast/Toast.tsx" />
+/// context: React
 /// <reference path="Business/Layout/Components/SetLanguage/State.tsx" />
 /// context: React
 /// <reference path="Business/Layout/Components/SetLanguage/SetLanguage.tsx" />
@@ -216,9 +224,9 @@
 /// | |_) | |_| \__ \ | | | |  __/\__ \__ \
 /// |____/ \__,_|___/_|_| |_|\___||___/___/
 
-/// <reference path="Business/Messages/DoAppendToMainDialog.ts" />
-/// context: Initialize
 /// <reference path="Business/Messages/DidMainDialogLoaded.ts" />
+/// context: Initialize
+/// <reference path="Business/Messages/DoAppendToMainDialog.ts" />
 /// context: Initialize
 
 /// <reference path="Business/Data/StoragePacket.ts" />

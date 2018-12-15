@@ -31,13 +31,55 @@ namespace Skript.Framework.Util {
 
         /**
          * Monta a lista de elementos ancestrais.
-         * @param element Elemento.
+         * @param {Element} element Elemento.
          * @returns {Element[]} Lista. O index 0 é o próprio elemento passado.
          */
         public static path(element: Element): Element[] {
             const elements = [element];
             while (elements[elements.length - 1].parentElement) elements.push(elements[elements.length - 1].parentElement as Element);
             return elements;
+        }
+
+        /**
+         * Retorna o primeiro ancestral dentro do critério.
+         * @param {Element | null} element Elemento.
+         * @param {string} tagName Nome da tag.
+         * @param {boolean} includeElement Opcional. Quando true inclui o elemento na busca.
+         * @returns {Element | null} Elemento encontrado.
+         */
+        public static parentWithTag(element: Element | null, tagName: string, includeElement: boolean = false): Element | null {
+            if (!element) return null;
+            if (!includeElement) element = element.parentElement;
+
+            tagName = String(tagName).toUpperCase();
+
+            while (
+                element !== null && 
+                element.parentElement !== null && 
+                element.tagName.toUpperCase() !== tagName) 
+                    element = element.parentElement;
+
+            return element;
+        }
+
+        /**
+         * Retorna o primeiro ancestral dentro do critério.
+         * @param {Element | null} element Elemento.
+         * @param {string} className Class CSS.
+         * @param {boolean} includeElement Opcional. Quando true inclui o elemento na busca.
+         * @returns {Element | null} Elemento encontrado.
+         */
+        public static parentWithClass(element: Element | null, className: string, includeElement: boolean = false): Element | null {
+            if (!element) return null;
+            if (!includeElement) element = element.parentElement;
+
+            while (
+                element !== null && 
+                element.parentElement !== null && 
+                !element.classList.contains(className))
+                    element = element.parentElement;
+
+            return element;
         }
 
         /**

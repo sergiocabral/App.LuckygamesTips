@@ -31,7 +31,7 @@ namespace Skript.Framework.Layout.Components.Dialog {
          */
         public css: string = `
             ${this.classNameSelector()} {
-                z-index: 990;
+                z-index: 996;
                 box-shadow: 0 0 20px black;
                 border-radius: 7px;
                 overflow: hidden;
