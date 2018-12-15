@@ -60,10 +60,10 @@ namespace Skript.Framework.Bus {
             const captures = this.captures.filter(v => v.messageName === messageName);
             const evt = Capture.createEvent(message);
             if (captures.length) {
-                console.Log("Message \"{0}\" sent and captured by {1}x.", [messageName, captures.length], "Bus.Handler", evt);
+                if (Capture.ignoreLog.indexOf(messageName) < 0) console.Log("Message \"{0}\" sent and captured by {1}x.", [messageName, captures.length], "Bus.Handler", evt);
                 window.dispatchEvent(evt);
             } else {
-                console.Log("Message \"{0}\" sent but not captured.", messageName, "Bus.Handler", evt);
+                if (Capture.ignoreLog.indexOf(messageName) < 0) console.Log("Message \"{0}\" sent but not captured.", messageName, "Bus.Handler", evt);
             }
         }
         

@@ -4,7 +4,14 @@ namespace Skript.Framework.Bus {
      * Informações da mensagem que deve ser capturada.
      */
     export class Capture {
-        
+
+        /**
+         * Lista de mensagens ignoradas para log.
+         */
+        public static ignoreLog: string[] = [
+            Util.General.getName(Messages.DidLogPosted)
+        ]
+
         /**
          * Construtor.
          * @param {any} message Mensagem
@@ -17,7 +24,7 @@ namespace Skript.Framework.Bus {
             const instance = this;
             this.listenerWrapper = (evt: any) => {
                 const listener = instance.listenerOriginal.bind(instance.toBind);
-                console.Log("Message \"{0}\" captured.", instance.messageName, "Bus.Handler", instance);
+                if (Capture.ignoreLog.indexOf(instance.messageName) < 0) console.Log("Message \"{0}\" captured.", instance.messageName, "Bus.Handler", instance);
                 listener(evt.detail && typeof(evt.detail) === "object" ? evt.detail : evt);
             };
         }
@@ -38,7 +45,7 @@ namespace Skript.Framework.Bus {
          * Registra o evento no sistema.
          */
         public addEventListener(): void {
-            console.Log("Capture for message \"{0}\" was registered.", this.messageName, "Bus.Handler");
+            if (Capture.ignoreLog.indexOf(this.messageName) < 0) console.Log("Capture for message \"{0}\" was registered.", this.messageName, "Bus.Handler");
             window.addEventListener(this.messageName, this.listenerWrapper)
         }
 
@@ -46,7 +53,7 @@ namespace Skript.Framework.Bus {
          * Cancela o registro o evento no sistema.
          */
         public removeEventListener(): void {
-            console.Log("Capture for message \"{0}\" was unregistered.", this.messageName, "Bus.Handler");
+            if (Capture.ignoreLog.indexOf(this.messageName) < 0) console.Log("Capture for message \"{0}\" was unregistered.", this.messageName, "Bus.Handler");
             window.removeEventListener(this.messageName, this.listenerWrapper)
         }
 
@@ -56,7 +63,7 @@ namespace Skript.Framework.Bus {
          */
         public request(message: Message): void {
             const listener = this.listenerOriginal.bind(this.toBind);
-            console.Log("Message \"{0}\" requested.", this.messageName, "Bus.Handler", this);
+            if (Capture.ignoreLog.indexOf(this.messageName) < 0) console.Log("Message \"{0}\" requested.", this.messageName, "Bus.Handler", this);
             listener(message);
         }
 

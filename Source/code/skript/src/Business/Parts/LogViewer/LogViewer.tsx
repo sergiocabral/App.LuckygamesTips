@@ -3,7 +3,7 @@ namespace Skript.Business.Parts.LogViewer {
     /**
      * Componente: Principal do módulo.
      */
-    export class LogViewer extends Layout.Components.DialogHeader.Content<Framework.Layout.Components.EmptyProps, LevelsState> {
+    export class LogViewer extends Layout.Components.DialogHeader.Content<Framework.Layout.Components.EmptyProps, LogViewerState> {
 
         /**
          * Carrega e aplica os estilos css.
@@ -14,7 +14,7 @@ namespace Skript.Business.Parts.LogViewer {
                     position: relative;
                 }
                 ${this.classNameSelectorOutDialog()} {
-                    min-height: ${this.theme.debug ? "375px" : "210px"};
+                    min-height: 320px;
                 }
                 ${this.classNameSelectorInDialog()} {
                     position: absolute;
@@ -93,10 +93,11 @@ namespace Skript.Business.Parts.LogViewer {
                     color: white;
                     border-radius: 4px;
                     padding: 1px 5px 3px 5px;
-                    margin: 0 6px 0 -3px;
+                    margin: 0 6px 2px -3px;
                 }
                 ${this.classNameSelector()} > .messages > div > .level .type + .type {
-                    opacity: 0.5;
+                    background-color: rgba(0, 0, 0, 0.10);
+                    color: darkgray;
                 }
                 ${this.classNameSelector()} > .messages > div > .level .time {
                     color: ${Framework.Util.Drawing.blend(0.5, this.theme.generalTextColor)};
@@ -123,7 +124,71 @@ namespace Skript.Business.Parts.LogViewer {
             this.title = "Log Viewer";
             this.icon = "far fa-list-alt";
 
+            const messages = new Framework.Messages.GetLogMessages().request().messages;            
+            if (!messages) throw new Framework.Errors.EmptyValue("Log messages is not defined.");
+            this.state = { messages: messages.reverse() };
+
+            this.toCaptureOff.push(Framework.Bus.Message.capture(Framework.Messages.DidLogCleared, this, this.onDidLogCleared));
+            this.toCaptureOff.push(Framework.Bus.Message.capture(Framework.Messages.DidLogPosted, this, this.onDidLogPosted));
+
+            this.onClearClick = this.onClearClick.bind(this);
             this.onLevelsChange = this.onLevelsChange.bind(this);
+        }
+
+        /**
+         * Mensagem: ao limpar o log.
+         */
+        private onDidLogCleared(): void {
+            this.setState({ messages: [] });
+        }
+
+        /**
+         * Timeout para exibição do log de forma tardia.
+         */
+        private onDidLogPostedTimeout: NodeJS.Timeout = undefined as any;
+
+        /**
+         * Lista de logs para exibição tardia.
+         */
+        private onDidLogPostedDelayList: Framework.Log.Message[] = [];
+
+        /**
+         * Mensagem: ao receber uma mensagem no log.
+         * @type {Framework.Messages.DidLogPosted} message Mensagem
+         */
+        private onDidLogPosted(message: Framework.Messages.DidLogPosted): void {
+            (message.log as any).new = true;
+            this.onDidLogPostedDelayList.push(message.log);
+            clearTimeout(this.onDidLogPostedTimeout);
+            this.onDidLogPostedTimeout = setTimeout(() => {
+                const messages: Framework.Log.Message[] = this.state.messages;
+                messages.forEach(message => delete (message as any).new);
+                let message: Framework.Log.Message | undefined;
+                while (message = this.onDidLogPostedDelayList.shift()) messages.unshift(message);
+                this.setState({ messages: messages });
+            }, 1000);
+        }
+
+        /**
+         * Extrai todas as orígens contidas nas mensagens de log.
+         * @param messages Lista de mensagens de log.
+         * @returns {string[]} Lista de orígens.
+         */
+        private extractOrigins(messages: Framework.Log.Message[]): string[] {
+            const result: string[] = [];
+            messages.forEach(message => {
+                if (message.origin && result.indexOf(message.origin) < 0)
+                    result.push(message.origin);
+            });
+            result.sort();
+            return result;
+        }
+
+        /**
+         * Evento: ao limpar todo o log.
+         */
+        private onClearClick(): void {
+            new Framework.Messages.DoLogClear().send();
         }
 
         /**
@@ -144,22 +209,29 @@ namespace Skript.Business.Parts.LogViewer {
                 <div id={this.id} className={this.classNameAttribute()}>
                     <div className="controls">
                         <div>
-                            <Framework.Layout.Components.Select.Select placeholder={"Filter".translate()} multiple={true} allowClear={true} tags={true}></Framework.Layout.Components.Select.Select>
+                            <Framework.Layout.Components.Select.Select 
+                                placeholder={"Filter".translate()} 
+                                multiple={true} 
+                                tags={true}>
+                                {this.extractOrigins(this.state.messages).map(origin => 
+                                    <option key={origin} value={origin}>{origin.translate()}</option>
+                                )}
+                            </Framework.Layout.Components.Select.Select>
                             <div className="spacing"></div>
                             <div className="levels"><Levels className="levels" onChange={this.onLevelsChange}></Levels></div>
                             <div className="spacing"></div>
-                            <button className="button">{"Clear log".translate()}</button>
+                            <button className="button" onClick={this.onClearClick}>{"Clear log".translate()}</button>
                             <div className="spacing"></div>
                         </div>
                     </div>
                     <div className="messages">
                         <div>
-                            {[1,2,3].map(v =>
-                                <div key={v} className={"level " + Framework.Log.Level[Framework.Log.Level.Information] + (!!"new" ? " new" : "")}>
-                                    <div className="type">{Framework.Log.Level[Framework.Log.Level.Information].translate()}</div>
-                                    <div className="type">Bus.Message</div>
-                                    <div className="time">{new Date().format()}</div>
-                                    <div className="text">{Framework.Util.Text.random(undefined, 130).replace(/[0-9]/gi, " ")}</div>
+                            {this.state.messages.map(message =>
+                                <div key={message.id} className={"level " + Framework.Log.Level[message.level] + ((message as any).new ? " new" : "")}>
+                                    <div className="time">{message.time.format()}</div>
+                                    <div className="type">{Framework.Log.Level[message.level].translate()}</div>
+                                    { message.origin ? <div className="type">{message.origin.translate()}</div> : undefined }
+                                    <div className="text">{message.text}</div>
                                 </div>
                             )}
                         </div>

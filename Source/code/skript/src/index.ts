@@ -131,18 +131,25 @@
 /// <reference path="Framework/Prototype/Window.ts" />
 /// context: Initialize
 
-/// <reference path="Framework/Bus/Capture.ts" />
-/// context: Initialize
 /// <reference path="Framework/Bus/Message.ts" />
 /// context: Initialize
 
 /// <reference path="Framework/Messages/DidLanguageSetted.ts" />
 /// context: Initialize
+/// <reference path="Framework/Messages/DidLogCleared.ts" />
+/// context: Initialize
 /// <reference path="Framework/Messages/DidLogPosted.ts" />
+/// context: Initialize
+/// <reference path="Framework/Messages/DoLogClear.ts" />
 /// context: Initialize
 /// <reference path="Framework/Messages/DoSetLanguage.ts" />
 /// context: Initialize
 /// <reference path="Framework/Messages/GetLanguage.ts" />
+/// context: Initialize
+/// <reference path="Framework/Messages/GetLogMessages.ts" />
+/// context: Initialize
+
+/// <reference path="Framework/Bus/Capture.ts" />
 /// context: Initialize
 
 /// <reference path="Framework/Log/Level.ts" />

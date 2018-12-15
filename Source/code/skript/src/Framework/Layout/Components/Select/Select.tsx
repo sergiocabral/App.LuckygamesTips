@@ -100,6 +100,7 @@ namespace Skript.Framework.Layout.Components.Select {
             setTimeout(() => {
                 this.select2 = (jQuery(`${this.classNameSelector()}#${this.id}`) as any).select2(this.select2Configuration);
                 this.select2.on("change", this.onChange);
+                this.select2.val([]).trigger('change');
             }, 1);
         }
 

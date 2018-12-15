@@ -47,6 +47,7 @@ namespace Skript.Framework.Log {
                 case Level.Warning: return "color: #ffc107; font-weight: bold;";
                 case Level.Information: return "color: #007bff;";
                 case Level.Debug: return "color: #669a66;";
+                case Level.Console: return "color: #bababa; text-decoration: line-through;";
                 default: return "color: #bababa;";
             }
         }

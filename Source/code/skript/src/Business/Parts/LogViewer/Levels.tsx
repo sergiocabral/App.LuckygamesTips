@@ -33,8 +33,8 @@ namespace Skript.Business.Parts.LogViewer {
             const levels: Framework.Types.IndexValue<string, boolean> = { };
             Object
                 .values(Framework.Log.Level)
-                .filter(v => typeof(v) === "number" && (this.theme.debug || v !== Framework.Log.Level.Verbose))
-                .forEach(v => levels[v] = { value: Framework.Log.Level[v], state: v !== Framework.Log.Level.Verbose });
+                .filter(v => typeof(v) === "number" && v <= (!this.theme.debug ? Framework.Log.Level.Debug : Framework.Log.Level.Verbose))
+                .forEach(v => levels[v] = { value: Framework.Log.Level[v], state: v < Framework.Log.Level.Verbose });
             this.state = { levels: levels };
 
             this.onChange = this.onChange.bind(this);

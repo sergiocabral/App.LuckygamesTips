@@ -14,7 +14,7 @@ namespace Skript.Business.Layout.Components.Toast {
                     100% { left: 0; }
                 }
                 ${this.classNameSelector()} {
-                    z-index: 992;
+                    z-index: 996;
                     position: fixed;
                     bottom: ${this.theme.spacing}px;
                     left: ${this.theme.spacing}px;
@@ -157,6 +157,8 @@ namespace Skript.Business.Layout.Components.Toast {
          * @param {Framework.Messages.DidLogPosted} message Mensagem.
          */
         private onDidLogPosted(message: Framework.Messages.DidLogPosted): void {
+            if (message.log.level === Framework.Log.Level.Debug ||
+                message.log.level === Framework.Log.Level.Verbose) return;
             this.add(message.log.text, message.log.level, message.log.time);
         }
 

@@ -26,8 +26,19 @@ namespace Skript.Framework.Log {
             if (setDefault) {
                 if (!History.default) History.default = this;
                 else throw new Errors.InvalidExecution("History.default already defined.");
+
+                Bus.Message.capture(Messages.DoLogClear, this, this.clear);
+                Bus.Message.capture(Messages.GetLogMessages, this, this.onGetLogMessages);
             }
             this.debug = debug;
+        }
+
+        /**
+         * Mensagem: ao solicitar lista atual do log.
+         * @param {Messages.GetLogMessages} message Mensagem
+         */
+        private onGetLogMessages(message: Messages.GetLogMessages): void {
+            message.messages = this.messages.slice();
         }
 
         /**
@@ -65,6 +76,7 @@ namespace Skript.Framework.Log {
          */
         public clear(): void {
             this.messages.length = 0;
+            new Messages.DidLogCleared().send();
         }
 
         /**
@@ -76,15 +88,13 @@ namespace Skript.Framework.Log {
          * @param {any} toConsoleLog Opcional. Qualquer coisas para ser passado como parâmetro para console.log
          */
         public post(text: string, values: any = { }, level: Level = Level.Debug, origin: string = '', toConsoleLog: any = undefined): void {
-            if (!this.debug &&
-                level != Level.Information &&
-                level != Level.Warning &&
-                level != Level.Error &&
-                level != Level.Debug) return;
+            if (!this.debug && level > Level.Debug) return;
 
             const message = this.mountMessage(text, values, level, origin);
-            this.messages.push(message);
-            if (message.level !== Level.Verbose) new Messages.DidLogPosted(message).send();
+            if (level !== Level.Console) {
+                this.messages.push(message);
+                new Messages.DidLogPosted(message).send();
+            }
             Console.write(message, level, toConsoleLog);
         }
 

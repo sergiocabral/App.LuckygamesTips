@@ -90,7 +90,7 @@ namespace Skript.Framework.Layout.Components {
          * @param {any} args Argumentos recebidos.
          */
         private logReactEvent(name: string, args?: any): void {
-            console.Log("Component \"{component}\". React event \"{event}\".", { component: this.constructor.name, event: name }, "Layout.Components", args);
+            console.Log("Component \"{component}\". React event \"{event}\".", { component: this.constructor.name, event: name }, "Layout.Components", args, Log.Level.Console);
         }
 
         /**

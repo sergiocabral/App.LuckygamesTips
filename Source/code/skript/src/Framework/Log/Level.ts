@@ -29,5 +29,10 @@ namespace Skript.Framework.Log {
          * Informações detalahadas sobre o funcionamento do sistema.
          */
         Verbose,
+
+        /**
+         * Informações postada apenas no console, mas não entra no log.
+         */
+        Console,
     }
 }
