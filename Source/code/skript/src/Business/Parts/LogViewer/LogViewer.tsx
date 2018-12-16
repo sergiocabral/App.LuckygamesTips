@@ -131,12 +131,71 @@ namespace Skript.Business.Parts.LogViewer {
             this.toCaptureOff.push(Framework.Bus.Message.capture(Framework.Messages.DidLogCleared, this, this.onDidLogCleared));
             this.toCaptureOff.push(Framework.Bus.Message.capture(Framework.Messages.DidLogPosted, this, this.onDidLogPosted));
 
+            this.elClearLog = React.createRef();
             this.elFilter = React.createRef();
             this.elLevels = React.createRef();
 
             this.onChange = this.onChange.bind(this);
-            this.onClearClick = this.onClearClick.bind(this);
+            this.onClearLogClick = this.onClearLogClick.bind(this);
+
+            const obj = this;
+            obj;
+            eval("window.obj = obj");
         }
+
+        /**
+         * Adiciona parâmetros para automação deste componente.
+         */
+        protected configureAutomation(parameters: Framework.Types.Index<Framework.Types.Parameter<any>>, actions: Framework.Types.Index<Framework.Types.Action>): void {
+            const filters: Framework.Types.Parameter<string[]> = {
+                name: "Filters",
+                get: (): string[] => {
+                    if (!this.elFilter.current) throw new Framework.Errors.ReactNotReady();
+                    return this.elFilter.current.value().map(v => v.key);
+                },
+                set: (value: string[]): boolean => {
+                    if (!this.elFilter.current) throw new Framework.Errors.ReactNotReady();
+                    if (!Array.isArray(value) ||
+                    value.filter(v => typeof(v) !== "string" || !v).length) return false;
+                    this.elFilter.current.value(value);
+                    return true;
+                }
+            };
+            parameters[filters.name] = filters;
+
+            const levels: Framework.Types.Parameter<string[]> = {
+                name: "Levels",
+                get: (): string[] => {
+                    if (!this.elLevels.current) throw new Framework.Errors.ReactNotReady();
+                    return this.elLevels.current.checkeds().map(v => Framework.Log.Level[v]);
+                },
+                set: (value: string[]): boolean => {
+                    if (!this.elLevels.current) throw new Framework.Errors.ReactNotReady();
+                    if (!Array.isArray(value) ||
+                    value.filter(v => typeof(v) !== "string").length ||
+                    value.filter(v => Framework.Log.Level[v as any] === undefined).length) return false;
+                    this.elLevels.current.checkeds(value.map(v => Framework.Log.Level[v as any] as any));
+                    this.onChange();
+                    return true;
+                }
+            };
+            parameters[levels.name] = levels;
+
+            const clear: Framework.Types.Action = {
+                name: "Clear Log",
+                execute: (): void => {
+                    if (!this.elClearLog.current) throw new Framework.Errors.ReactNotReady();
+                    this.elClearLog.current.click();
+                }
+            }
+            actions[clear.name] = clear;
+        }
+
+        /**
+         * Botão limpar log.
+         * @type {React.RefObject<HTMLButtonElement>}
+         */
+        private elClearLog: React.RefObject<HTMLButtonElement>;
 
         /**
          * Filtro.
@@ -208,7 +267,7 @@ namespace Skript.Business.Parts.LogViewer {
         /**
          * Evento: ao limpar todo o log.
          */
-        private onClearClick(): void {
+        private onClearLogClick(): void {
             new Framework.Messages.DoLogClear().send();
         }
 
@@ -222,8 +281,8 @@ namespace Skript.Business.Parts.LogViewer {
             const filters = this.elFilter.current.value();
             return (
                 levels.indexOf(message.level) >= 0 && (
-                    filters.length === 0 || 
-                    filters.filter(v => 
+                    filters.length === 0 ||
+                    filters.filter(v =>
                         message.origin === v.key ||
                         message.text.toLowerCase().indexOf(v.key.toLowerCase()) >= 0
                     ).length > 0
@@ -259,14 +318,19 @@ namespace Skript.Business.Parts.LogViewer {
                             </Framework.Layout.Components.Select.Select>
                             <div className="spacing"></div>
                             <div className="levels">
-                                <Levels 
-                                    ref={this.elLevels} 
+                                <Levels
+                                    ref={this.elLevels}
                                     className="levels"
                                     onChange={this.onChange}>
                                 </Levels>
                             </div>
                             <div className="spacing"></div>
-                            <button className="button" onClick={this.onClearClick}>{"Clear log".translate()}</button>
+                            <button 
+                                ref={this.elClearLog}
+                                className="button" 
+                                onClick={this.onClearLogClick}>
+                                {"Clear log".translate()}
+                            </button>
                             <div className="spacing"></div>
                         </div>
                     </div>

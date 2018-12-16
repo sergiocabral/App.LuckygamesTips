@@ -76,6 +76,7 @@ namespace Skript.Framework.Log {
          */
         public clear(): void {
             this.messages.length = 0;
+            if(this === History.default) Core.Main.instance.log.post("The log message list has been cleared.", undefined, Log.Level.Information);
             new Messages.DidLogCleared().send();
         }
 

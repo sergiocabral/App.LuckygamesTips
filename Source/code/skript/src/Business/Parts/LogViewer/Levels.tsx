@@ -71,8 +71,8 @@ namespace Skript.Business.Parts.LogViewer {
         public checkeds(values?: Framework.Log.Level[]): Framework.Log.Level[] {
             if (values) {
                 const levels = this.state.levels;
-                Object.keys(this.state.levels).forEach(v => {
-                    levels[v].state = values.indexOf(v as any) >= 0;
+                Object.keys(levels).forEach(v => {
+                    levels[v].state = values.indexOf(parseInt(v)) >= 0;
                 });
                 this.setState({ levels: levels });
             }
@@ -88,7 +88,7 @@ namespace Skript.Business.Parts.LogViewer {
             if (values) {
                 const levels = this.state.levels;
                 Object.keys(this.state.levels).forEach(v => {
-                    levels[v].state = values.indexOf(v as any) < 0;
+                    levels[v].state = values.indexOf(parseInt(v)) < 0;
                 });
                 this.setState({ levels: levels });
             }

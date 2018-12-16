@@ -44,7 +44,15 @@ namespace Skript.Framework.Layout.Components.Select {
             if (!this.select2) return [];
 
             if (value !== undefined) {
-                this.select2.val(Array.isArray(value) ? value : [value]).trigger("change");
+                const values = Array.isArray(value) ? value : [value];
+                for (const i in values) {
+                    if (!this.select2.find(`option[value="${values[i]}"]`).length) {
+                        const option = new Option(values[i], values[i]);
+                        option.setAttribute("data-select2-tag", "true");
+                        this.select2.append(option);
+                    }
+                }
+                this.select2.val(values).trigger("change");
             }
 
             const result: Types.KeyValue<string>[] = [];

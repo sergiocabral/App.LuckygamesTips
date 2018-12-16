@@ -14,6 +14,12 @@ namespace Skript.Business.Layout.Components.DialogHeader {
         public constructor(props: TProps) { 
             super(props);
             this.theme = Core.Main.instance.theme;
+
+            this.automation = {
+                parameters: { },
+                actions: { }
+            }
+            this.configureAutomation(this.automation.parameters, this.automation.actions);
         }
 
         /**
@@ -21,5 +27,28 @@ namespace Skript.Business.Layout.Components.DialogHeader {
          * @type {Theme}
          */
         public theme: Theme;
+
+        /**
+         * Adiciona ações e parâmetros para automação deste componente.
+         */
+        protected abstract configureAutomation(parameters: Framework.Types.Index<Framework.Types.Parameter<any>>, actions: Framework.Types.Index<Framework.Types.Action>): void;
+
+        /**
+         * Ações e parâmetros para automação deste componente.
+         */
+        public automation: { 
+
+            /**
+             * Lista para definir/ler os parâmetros da tela.
+             * @type {Framework.Types.Index<Framework.Types.Parameter<any>>}
+             */
+            parameters: Framework.Types.Index<Framework.Types.Parameter<any>>,
+
+            /**
+             * Lista para execução de ações.
+             * @type {Framework.Types.Index<Framework.Types.Action>}
+             */
+            actions: Framework.Types.Index<Framework.Types.Action>
+        }
     }
 }

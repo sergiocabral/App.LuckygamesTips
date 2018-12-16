@@ -54,6 +54,8 @@
 /// | |  | | | (_| | | | | | |  __/\ V  V / (_) | |  |   <
 /// |_|  |_|  \__,_|_| |_| |_|\___| \_/\_/ \___/|_|  |_|\_\
 
+/// <reference path="Framework/Types/Action.ts" />
+/// context: Initialize
 /// <reference path="Framework/Types/BackFront.ts" />
 /// context: Initialize
 /// <reference path="Framework/Types/CloseOpen.ts" />
@@ -67,6 +69,8 @@
 /// <reference path="Framework/Types/NoYes.ts" />
 /// context: Initialize
 /// <reference path="Framework/Types/OffOn.ts" />
+/// context: Initialize
+/// <reference path="Framework/Types/Parameter.ts" />
 /// context: Initialize
 /// <reference path="Framework/Types/Position.ts" />
 /// context: Initialize
@@ -84,6 +88,8 @@
 /// <reference path="Framework/Errors/InvalidExecution.ts" />
 /// context: Initialize
 /// <reference path="Framework/Errors/RequestFail.ts" />
+/// context: Initialize
+/// <reference path="Framework/Errors/ReactNotReady.ts" />
 /// context: Initialize
 /// <reference path="Framework/Errors/EmptyValue.ts" />
 /// context: Initialize
