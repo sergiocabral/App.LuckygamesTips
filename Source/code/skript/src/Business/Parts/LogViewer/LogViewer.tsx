@@ -124,16 +124,31 @@ namespace Skript.Business.Parts.LogViewer {
             this.title = "Log Viewer";
             this.icon = "far fa-list-alt";
 
-            const messages = new Framework.Messages.GetLogMessages().request().messages;            
+            const messages = new Framework.Messages.GetLogMessages().request().messages;
             if (!messages) throw new Framework.Errors.EmptyValue("Log messages is not defined.");
             this.state = { messages: messages.reverse() };
 
             this.toCaptureOff.push(Framework.Bus.Message.capture(Framework.Messages.DidLogCleared, this, this.onDidLogCleared));
             this.toCaptureOff.push(Framework.Bus.Message.capture(Framework.Messages.DidLogPosted, this, this.onDidLogPosted));
 
+            this.elFilter = React.createRef();
+            this.elLevels = React.createRef();
+
+            this.onChange = this.onChange.bind(this);
             this.onClearClick = this.onClearClick.bind(this);
-            this.onLevelsChange = this.onLevelsChange.bind(this);
         }
+
+        /**
+         * Filtro.
+         * @type {React.RefObject<Framework.Layout.Components.Select.Select>}
+         */
+        private elFilter: React.RefObject<Framework.Layout.Components.Select.Select>;
+
+        /**
+         * Níveis de log.
+         * @type {React.RefObject<Levels>}
+         */
+        private elLevels: React.RefObject<Levels>;
 
         /**
          * Mensagem: ao limpar o log.
@@ -141,6 +156,12 @@ namespace Skript.Business.Parts.LogViewer {
         private onDidLogCleared(): void {
             this.setState({ messages: [] });
         }
+
+        /**
+         * Lista das últimas mensagens.
+         * @type {number[]}
+         */
+        private lastMessages: number[] = [];
 
         /**
          * Timeout para exibição do log de forma tardia.
@@ -157,15 +178,15 @@ namespace Skript.Business.Parts.LogViewer {
          * @type {Framework.Messages.DidLogPosted} message Mensagem
          */
         private onDidLogPosted(message: Framework.Messages.DidLogPosted): void {
-            (message.log as any).new = true;
             this.onDidLogPostedDelayList.push(message.log);
             clearTimeout(this.onDidLogPostedTimeout);
             this.onDidLogPostedTimeout = setTimeout(() => {
+                this.lastMessages = this.onDidLogPostedDelayList.map(v => v.id);
                 const messages: Framework.Log.Message[] = this.state.messages;
-                messages.forEach(message => delete (message as any).new);
                 let message: Framework.Log.Message | undefined;
                 while (message = this.onDidLogPostedDelayList.shift()) messages.unshift(message);
                 this.setState({ messages: messages });
+                setTimeout(() => this.lastMessages.length = 0, 1000);
             }, 1000);
         }
 
@@ -192,12 +213,29 @@ namespace Skript.Business.Parts.LogViewer {
         }
 
         /**
-         * Seleção de níveis.
-         * @param {Framework.Log.Level[]} checkeds Valores atualmente selecionados.
-         * @param {Framework.Log.Level[]} uncheckeds Valores atualmente não selecionados.
+         * Valida se uma mensagem passa pelo filtro atual.
+         * @param message Mensagem
          */
-        private onLevelsChange(checkeds: Framework.Log.Level[], uncheckeds: Framework.Log.Level[]): void {
-            console.log(checkeds, uncheckeds);
+        private filter(message: Framework.Log.Message): boolean {
+            if (!this.elFilter.current || !this.elLevels.current) return true;
+            const levels = this.elLevels.current.checkeds();
+            const filters = this.elFilter.current.value();
+            return (
+                levels.indexOf(message.level) >= 0 && (
+                    filters.length === 0 || 
+                    filters.filter(v => 
+                        message.origin === v.key ||
+                        message.text.toLowerCase().indexOf(v.key.toLowerCase()) >= 0
+                    ).length > 0
+                )
+            );
+        }
+
+        /**
+         * Evento: ao alterar seleção.
+         */
+        private onChange(): void {
+            this.forceUpdate();
         }
 
         /**
@@ -209,16 +247,24 @@ namespace Skript.Business.Parts.LogViewer {
                 <div id={this.id} className={this.classNameAttribute()}>
                     <div className="controls">
                         <div>
-                            <Framework.Layout.Components.Select.Select 
-                                placeholder={"Filter".translate()} 
-                                multiple={true} 
-                                tags={true}>
-                                {this.extractOrigins(this.state.messages).map(origin => 
+                            <Framework.Layout.Components.Select.Select
+                                ref={this.elFilter}
+                                placeholder={"Filter".translate()}
+                                multiple={true}
+                                tags={true}
+                                onChange={this.onChange}>
+                                {this.extractOrigins(this.state.messages).map(origin =>
                                     <option key={origin} value={origin}>{origin.translate()}</option>
                                 )}
                             </Framework.Layout.Components.Select.Select>
                             <div className="spacing"></div>
-                            <div className="levels"><Levels className="levels" onChange={this.onLevelsChange}></Levels></div>
+                            <div className="levels">
+                                <Levels 
+                                    ref={this.elLevels} 
+                                    className="levels"
+                                    onChange={this.onChange}>
+                                </Levels>
+                            </div>
                             <div className="spacing"></div>
                             <button className="button" onClick={this.onClearClick}>{"Clear log".translate()}</button>
                             <div className="spacing"></div>
@@ -226,8 +272,8 @@ namespace Skript.Business.Parts.LogViewer {
                     </div>
                     <div className="messages">
                         <div>
-                            {this.state.messages.map(message =>
-                                <div key={message.id} className={"level " + Framework.Log.Level[message.level] + ((message as any).new ? " new" : "")}>
+                            {this.state.messages.filter(message => this.filter(message)).map(message =>
+                                <div key={message.id} className={"level " + Framework.Log.Level[message.level] + (this.lastMessages.indexOf(message.id) >= 0 ? " new" : "")}>
                                     <div className="time">{message.time.format()}</div>
                                     <div className="type">{Framework.Log.Level[message.level].translate()}</div>
                                     { message.origin ? <div className="type">{message.origin.translate()}</div> : undefined }

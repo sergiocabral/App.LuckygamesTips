@@ -60,9 +60,39 @@ namespace Skript.Business.Parts.LogViewer {
          */
         private callParentOnChange(): void {
             if (this.props.onChange instanceof Function)
-                this.props.onChange(
-                    Object.keys(this.state.levels).filter(v => this.state.levels[v].state).map(v => v as any as Framework.Log.Level),
-                    Object.keys(this.state.levels).filter(v => !this.state.levels[v].state).map(v => v as any as Framework.Log.Level));
+                this.props.onChange(this.checkeds(),this.uncheckeds());
+        }
+
+        /**
+         * Define/Retorna a lista de marcados.
+         * @param values Valores para definir.
+         * @returns Lista de marcados.
+         */
+        public checkeds(values?: Framework.Log.Level[]): Framework.Log.Level[] {
+            if (values) {
+                const levels = this.state.levels;
+                Object.keys(this.state.levels).forEach(v => {
+                    levels[v].state = values.indexOf(v as any) >= 0;
+                });
+                this.setState({ levels: levels });
+            }
+            return Object.keys(this.state.levels).filter(v => this.state.levels[v].state).map(v => parseInt(v) as Framework.Log.Level);
+        }
+
+        /**
+         * Define/Retorna a lista de marcados.
+         * @param values Valores para definir.
+         * @returns Lista de marcados.
+         */
+        public uncheckeds(values?: Framework.Log.Level[]): Framework.Log.Level[] {
+            if (values) {
+                const levels = this.state.levels;
+                Object.keys(this.state.levels).forEach(v => {
+                    levels[v].state = values.indexOf(v as any) < 0;
+                });
+                this.setState({ levels: levels });
+            }
+            return Object.keys(this.state.levels).filter(v => !this.state.levels[v].state).map(v => parseInt(v) as Framework.Log.Level);
         }
 
         /**

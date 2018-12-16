@@ -21,14 +21,7 @@ namespace Skript.Framework.Layout.Components.Select {
         public constructor(props: Props) {
             super(props);
             this.onChange = this.onChange.bind(this);
-            this.elContainer = React.createRef();
         }
-
-        /**
-         * Container.
-         * @type {React.RefObject<HTMLSelectElement>}
-         */
-        private elContainer: React.RefObject<HTMLSelectElement>;
 
         /**
          * Instância do select2
@@ -77,7 +70,7 @@ namespace Skript.Framework.Layout.Components.Select {
          */
         public render(): JSX.Element { super.render();
             return (
-                <select id={this.id} className={this.classNameAttribute()} ref={this.elContainer}>
+                <select id={this.id} className={this.classNameAttribute()}>
                     {this.props.children}
                 </select>
             );
@@ -87,8 +80,6 @@ namespace Skript.Framework.Layout.Components.Select {
          * Ao montar o componente.
          */
         public componentDidMount(): void { super.componentDidMount();
-            if (!this.elContainer.current) return;
-
             this.select2Configuration = {
                 language: "skript",
                 placeholder: this.props.placeholder ? this.props.placeholder : "",
@@ -101,17 +92,7 @@ namespace Skript.Framework.Layout.Components.Select {
                 this.select2 = (jQuery(`${this.classNameSelector()}#${this.id}`) as any).select2(this.select2Configuration);
                 this.select2.on("change", this.onChange);
                 this.select2.val([]).trigger('change');
-            }, 1);
-        }
-
-        /**
-         * Ao atualizar o componente.
-         * @param {Props} oldProps Props.
-         * @param {EmptyState} oldState State.
-         */
-        public componentDidUpdate(oldProps: Props, oldState: EmptyState): void { super.componentDidUpdate(oldProps, oldState);
-            if (!this.select2) return;
-            this.select2.select2("destroy").select2(this.select2Configuration);
+            }, 0);
         }
 
         /**
