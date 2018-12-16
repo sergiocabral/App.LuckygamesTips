@@ -49,6 +49,7 @@ namespace Skript.Business.Core {
                     colors: this.dataBusiness.colors ? this.dataBusiness.colors : Layout.Theme.defaultColors(),
                 });
                 this.activator = Layout.Components.Activator.Activator.create();
+                setTimeout(() => this.log.post("Great! Tips were loaded successfully.", undefined, Framework.Log.Level.Information), 500);
             });
         }
 

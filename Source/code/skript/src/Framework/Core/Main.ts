@@ -62,8 +62,6 @@ namespace Skript.Framework.Core {
                                 url: Data.ServerVariables.urlMedia
                             });
 
-                            this.log.post("Infrastructure loaded.");
-
                             this.initialize();
                         } catch (error) {
                             alert(

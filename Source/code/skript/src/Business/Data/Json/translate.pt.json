@@ -6,7 +6,6 @@
         "Configuration data loaded.": "Dados de configuração carregados.",
         "System components loaded.": "Componentes de sistema carregados.",
         "Failed to load configuration data.": "Falha ao carregar dados de configuração.",
-        "Infrastructure loaded.": "Infraestrutura carregada.",
         "Capture for message \"{0}\" was registered.": "Captura da mensagem \"{0}\" foi registrada.",
         "Capture for message \"{0}\" was unregistered.": "Captura da mensagem \"{0}\" teve registro cancelado.",
         "Message \"{0}\" sent and captured by {1}x.": "Mensagem \"{0}\" enviada e capturada por {1}x.",
@@ -60,6 +59,7 @@
     },
     "Business: Traduções do sistema": {
         "Theme colors loaded.": "Tema de cores carregado.",
+        "Great! Tips were loaded successfully.": "Ótimo! O Tips foi carregado com sucesso.",
         "en": "Inglês",
         "pt": "Português"
     },
