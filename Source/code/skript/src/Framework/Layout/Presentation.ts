@@ -19,7 +19,7 @@ namespace Skript.Framework.Layout {
             this.container = container;
             console.Log("Created main container: <{tagName} id=\"{id}\" />", container, "Layout.Presentation", container);
 
-            this.container3rdParty = this.createContainer(configuration.className + "3rdParty");
+            this.container3rdParty = this.createContainer(configuration.className.random());
         }
 
         /**

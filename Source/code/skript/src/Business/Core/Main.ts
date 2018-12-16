@@ -15,7 +15,7 @@ namespace Skript.Business.Core {
             super({
                 name: "Luckygames.Tips",
                 business: configuration,
-                className: "luckygames-components",
+                className: "luckygames-components".random(),
                 dataNameLocale: "locale",
                 dataNameTranslate: "translate",
                 storageName: "luckygames",
