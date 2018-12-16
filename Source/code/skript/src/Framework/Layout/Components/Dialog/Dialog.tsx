@@ -87,7 +87,7 @@ namespace Skript.Framework.Layout.Components.Dialog {
                     border-bottom: none;
                     text-transform: none;
                     display: inline-block;
-                    margin: 5px 15px 0 3px;
+                    margin: 4px 15px 0 3px;
                     float: right;
                     opacity: 0.5;
                 }

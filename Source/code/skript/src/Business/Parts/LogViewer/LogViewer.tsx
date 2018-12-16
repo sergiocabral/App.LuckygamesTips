@@ -147,10 +147,6 @@ namespace Skript.Business.Parts.LogViewer {
 
             this.onChange = this.onChange.bind(this);
             this.onClearLogClick = this.onClearLogClick.bind(this);
-
-            const obj = this;
-            obj;
-            eval("window.obj = obj");
         }
 
         /**
@@ -223,6 +219,7 @@ namespace Skript.Business.Parts.LogViewer {
          * Mensagem: ao limpar o log.
          */
         private onDidLogCleared(): void {
+            this.onDidLogPostedDelayList.length = 0;
             this.setState({ messages: [] });
         }
 
