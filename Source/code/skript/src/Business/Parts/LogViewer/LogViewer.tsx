@@ -39,6 +39,16 @@ namespace Skript.Business.Parts.LogViewer {
                 ${this.classNameSelector()} > .controls > div > .select2 {
                     width: 100% !important;
                 }
+                ${this.classNameSelector()} > .controls > div > .select2 .select2-search__field {
+                    margin-top: 6px;
+                }
+                ${this.classNameSelector()} > .controls > div > .select2 .select2-selection {
+                    padding-bottom: 2px;
+                    min-height: 30px;
+                }
+                ${this.classNameSelector()} > .controls > div > .select2 .select2-selection__choice {
+                    padding: 0 5px 3px 5px;
+                }
                 ${this.classNameSelector()} > .controls > div > .select2 + .spacing {
                     border-bottom: 1px solid gainsboro;
                     margin-bottom: 5px;

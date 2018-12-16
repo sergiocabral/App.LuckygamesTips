@@ -229,6 +229,8 @@
 /// context: React
 /// <reference path="Business/Parts/Header/Header.tsx" />
 /// context: React
+/// <reference path="Business/Parts/Parameters/Parameters.tsx" />
+/// context: React
 /// <reference path="Business/Parts/LogViewer/LevelsState.tsx" />
 /// context: React
 /// <reference path="Business/Parts/LogViewer/LevelsProps.tsx" />

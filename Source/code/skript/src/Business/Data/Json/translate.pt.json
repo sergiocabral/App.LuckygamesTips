@@ -64,7 +64,7 @@
         "pt": "Português"
     },
     "Business: Módulos": {
-        "MainHeader.tsx": {
+        "MainHeader": {
             "Refresh page.": "Atualizar página.",
             "Refreshing the page will cause any activity in progress to be interrupted. Update anyway?": "Atualizar a página fará com que qualquer atividade em andamento seja interrompida. Atualizar assim mesmo?",
             "Expand all modules.": "Expande todos os módulos.",
@@ -72,11 +72,28 @@
             "Close all the module windows.": "Fecha todas as janelas dos módulos.",
             "Select language.": "Seleção de idioma."
         },
-        "LogViewer.tsx": {
+        "LogViewer": {
             "Log Viewer": "Mensagens de Log",
             "Clear log": "Limpar log",
             "All": "Todos",
             "Filter": "Filtro"
+        },
+        "Parameters": {
+            "Operating Parameters": "Parâmetros de funcionamento",
+            "Select a parameter...": "Selecione um parâmetro...",
+            "System": "Sistema",
+            "Default": "Padrão",
+            "Current": "Atual",
+            "Custom": "Personalizados",
+            "No custom parameter": "Sem parâmetros personalizados",
+            "Deletes the selected parameter.": "Apaga o parâmetro selecionado.",
+            "Reload the settings of the selected parameter.": "Recarregar as definições do parâmetro selecionado.",
+            "Delete": "Apagar",
+            "Reload": "Recarregar",
+            "Save": "Salvar",
+            "Apply": "Aplicar",
+            "Saves the current settings.": "Grava as definições atuais.",
+            "Applies the current settings to the modules.": "Aplica as definições atuais nos módulos."    
         }
     },
     "Business: Frases em geral": {

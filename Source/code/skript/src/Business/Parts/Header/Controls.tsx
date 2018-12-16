@@ -68,8 +68,8 @@ namespace Skript.Business.Parts.Header {
          */
         private getModules(): { click: HTMLElement, content: HTMLElement }[] {
             const selector = Framework.Layout.Components.Base.getSelector(Framework.Layout.Components.DialogHeader.DialogHeader);
-            const clicks = document.querySelectorAll(`${selector} > .title h1`);
-            const contents = document.querySelectorAll(`${selector} > .content`);
+            const clicks = document.querySelectorAll(`${selector} > .dialogheader-title h1`);
+            const contents = document.querySelectorAll(`${selector} > .dialogheader-content`);
 
             if (clicks.length !== contents.length) throw new Framework.Errors.InvalidArgument(`getModules(): headers.length(${clicks.length}) == content.length(${contents.length})`);
 
@@ -89,7 +89,7 @@ namespace Skript.Business.Parts.Header {
          */
         private getDialogs(): { click: HTMLElement, content: HTMLElement }[] {
             const selector = Framework.Layout.Components.Base.getSelector(Framework.Layout.Components.Dialog.Dialog);
-            const clicks = document.querySelectorAll(`${selector}.moduleDialog > .header a.close`);
+            const clicks = document.querySelectorAll(`${selector}.moduleDialog > .dialog-header button.close`);
             const contents = document.querySelectorAll(`${selector}.moduleDialog`);
 
             if (clicks.length !== contents.length) throw new Framework.Errors.InvalidArgument(`getModules(): headers.length(${clicks.length}) == content.length(${contents.length})`);
@@ -151,8 +151,8 @@ namespace Skript.Business.Parts.Header {
                 <div id={this.id} className={this.classNameAttribute()}>
                     <a href="#" className="text-shadow dialog-action" data-action="refreshPage" onClick={this.onClick} title={"Refresh page.".translate()}><i className="fas fa-sync-alt"></i></a>
                     <div className="separator"></div>
-                    <a href="#" className="text-shadow dialog-action" data-action="expandModules" onClick={this.onClick} title={"Expand all modules.".translate()}><i className="fas fa-caret-square-down"></i></a>
                     <a href="#" className="text-shadow dialog-action" data-action="collapseModules" onClick={this.onClick} title={"Collapse all modules.".translate()}><i className="fas fa-caret-square-up"></i></a>
+                    <a href="#" className="text-shadow dialog-action" data-action="expandModules" onClick={this.onClick} title={"Expand all modules.".translate()}><i className="fas fa-caret-square-down"></i></a>
                     <a href="#" className="text-shadow dialog-action" data-action="closeModuleDialogs" onClick={this.onClick} title={"Close all the module windows.".translate()}><i className="fas fa-times-circle"></i></a>
                     <div className="separator"></div>
                 </div>

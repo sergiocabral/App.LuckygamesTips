@@ -30,6 +30,8 @@ namespace Skript.Business.Layout.Components.DialogHeader {
 
         /**
          * Adiciona ações e parâmetros para automação deste componente.
+         * @param {Framework.Types.Index<Framework.Types.Parameter<any>>} parameters Parâmetros.
+         * @param {Framework.Types.Index<Framework.Types.Action>} actions Ações.
          */
         protected abstract configureAutomation(parameters: Framework.Types.Index<Framework.Types.Parameter<any>>, actions: Framework.Types.Index<Framework.Types.Action>): void;
 
