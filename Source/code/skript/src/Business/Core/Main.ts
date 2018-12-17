@@ -48,9 +48,17 @@ namespace Skript.Business.Core {
                     spacing: Framework.Layout.Components.Base.spacing,
                     colors: this.dataBusiness.colors ? this.dataBusiness.colors : Layout.Theme.defaultColors(),
                 });
+                this.automation = new Automation.Manager();
                 this.activator = Layout.Components.Activator.Activator.create();
-                setTimeout(() => this.log.post("Great! Tips were loaded successfully.", undefined, Framework.Log.Level.Information), 500);
+                Framework.Bus.Message.capture(Messages.DidPartsLoaded, this, this.onDidPartsLoaded);
             });
+        }
+
+        /**
+         * Ao carregar todos os módulos.
+         */
+        private onDidPartsLoaded(): void {
+            this.log.post("Great! Tips were loaded successfully.", undefined, Framework.Log.Level.Information);
         }
 
         /**
@@ -95,5 +103,11 @@ namespace Skript.Business.Core {
          * @type {Layout.Components.Activator.Activator}
          */
         public activator: Layout.Components.Activator.Activator = undefined as any;
+
+        /**
+         * Gerencia a automação de módulos do sistema.
+         * @type {Automation.Manager}
+         */
+        public automation: Automation.Manager = undefined as any;
     }
 }

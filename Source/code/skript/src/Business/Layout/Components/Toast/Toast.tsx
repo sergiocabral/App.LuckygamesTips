@@ -50,7 +50,7 @@ namespace Skript.Business.Layout.Components.Toast {
                 }
                 ${this.classNameSelector()} p .text {
                     display: block;
-                    margin-bottom: ${this.theme.spacing}px;
+                    margin-bottom: 15px;
                 }
                 ${this.classNameSelector()} p .text:after {
                     content: " ";
@@ -60,7 +60,7 @@ namespace Skript.Business.Layout.Components.Toast {
                     display: block;
                     font-size: 70%;
                     float: right;
-                    margin: -12px -14px 0 0;
+                    margin: -10px -14px 0 0;
                     opacity: 0.75;
                 }
                 ${this.classNameSelector()} p a {
@@ -165,10 +165,11 @@ namespace Skript.Business.Layout.Components.Toast {
         /**
          * Posta uma mensagem para exibição.
          * @param {string} text Texto.
+         * @param {any} values Opcional. Conjunto de valores para substituição na string.
          * @param {Framework.Log.Level} level Nível da mensagem.
          */
-        public post(text: string, level: Framework.Log.Level = Framework.Log.Level.Information): void {
-            this.add(text.translate(), level, new Date());
+        public post(text: string, values?: any, level: Framework.Log.Level = Framework.Log.Level.Information): void {
+            this.add(text.translate(values), level, new Date());
         }
 
         /**

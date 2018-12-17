@@ -78,8 +78,22 @@
             "All": "Todos",
             "Filter": "Filtro"
         },
-        "Parameters": {
-            "Operating Parameters": "Parâmetros de funcionamento",
+        "Automation: Base": {
+            "Defined: {0}": "Definido: {0}",
+            "Invalid value for: {0}": "Valor inválido para: {0}",
+            "Not exists: {0}": "Não existe: {0}",
+            "Executed: {0}": "Executado: {0}",
+            "Not executed: {0}": "Não executado: {0}",
+            "There were no settings to apply.": "Não havia definições para serem aplicadas.",
+            "A total of {0} settings have been successfully applied to the modules.": 
+                "Um total de {0} definições foram aplicadas com sucesso aos módulos.",
+            "A total of {0} settings have been successfully applied to the modules. But there was an error in {1}.": 
+                "Um total de {0} definições foram aplicadas com sucesso aos módulos. Mas ocorreu erro em {1}.",
+            "All {0} definitions have errors when applied to the modules.": 
+                "Todas as {0} definições apresentaram erros ao serem aplicadas nos módulos."
+        },
+        "Automation: Part": {
+            "Automation": "Automação",
             "Select a parameter...": "Selecione um parâmetro...",
             "System": "Sistema",
             "Default": "Padrão",
@@ -93,7 +107,9 @@
             "Save": "Salvar",
             "Apply": "Aplicar",
             "Saves the current settings.": "Grava as definições atuais.",
-            "Applies the current settings to the modules.": "Aplica as definições atuais nos módulos."    
+            "Applies the current settings to the modules.": "Aplica as definições atuais nos módulos.",
+            "Settings are not valid.\n{0}.": "As definições não são válidas.\n{0}.",
+            "Error applying settings": "Erro ao aplicar as definições"
         }
     },
     "Business: Frases em geral": {

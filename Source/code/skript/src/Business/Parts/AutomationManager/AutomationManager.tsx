@@ -1,9 +1,9 @@
-namespace Skript.Business.Parts.Parameters {
+namespace Skript.Business.Parts.AutomationManager {
 
     /**
      * Componente: Principal do módulo.
      */
-    export class Parameters extends Layout.Components.DialogHeader.Content {
+    export class AutomationManager extends Layout.Components.DialogHeader.Content {
 
         /**
          * Carrega e aplica os estilos css.
@@ -65,11 +65,19 @@ namespace Skript.Business.Parts.Parameters {
         public constructor(props: Framework.Layout.Components.EmptyProps) {
             super(props);  
             
-            this.title = "Operating Parameters";
+            this.title = "Automation";
             this.icon = "fas fa-users-cog";
 
             this.elAceEditorJson = React.createRef();
             this.elSelectParameter = React.createRef();
+
+            this.onDeleteClick = this.onDeleteClick.bind(this);
+            this.onReloadClick = this.onReloadClick.bind(this);
+            this.onSaveClick = this.onSaveClick.bind(this);
+            this.onApplyClick = this.onApplyClick.bind(this);
+            this.onParameterChange = this.onParameterChange.bind(this);
+
+            this.toCaptureOff.push(Framework.Bus.Message.capture(Messages.DidPartsLoaded, this, this.onDidPartsLoaded));
         }
 
         /**
@@ -122,6 +130,19 @@ namespace Skript.Business.Parts.Parameters {
         }
         
         /**
+         * Definições padrão do sistema.
+         * @type {Object}
+         */
+        private defaults: Object = { };
+
+        /**
+         * Mensagem: ao carregar módulos.
+         */
+        private onDidPartsLoaded(): void {
+            this.defaults = this.extractJson(new Messages.GetAutomations().request().automations);
+        }
+
+        /**
          * Adiciona ações e parâmetros para automação deste componente.
          * @param {Framework.Types.Index<Framework.Types.Parameter<any>>} parameters Parâmetros.
          * @param {Framework.Types.Index<Framework.Types.Action>} actions Ações.
@@ -129,7 +150,87 @@ namespace Skript.Business.Parts.Parameters {
         protected configureAutomation(parameters: Framework.Types.Index<Framework.Types.Parameter<any>>, actions: Framework.Types.Index<Framework.Types.Action>): void {
             parameters;
             actions;
-            this.setJson;
+        }
+
+        /**
+         * Evento: Apagar parâmetro.
+         */
+        private onDeleteClick(): void {
+            if (!this.elSelectParameter.current) return;
+        }
+
+        /**
+         * Evento: Recarregar definições do parâmetro.
+         */
+        private onReloadClick(): void {
+            this.setJson("");
+            if (!this.elSelectParameter.current) return;
+            const value = this.elSelectParameter.current.value();
+            if (value.length) switch (value[0].key) {
+                case "default":
+                    this.setJson(this.defaults);
+                    break;
+                case "current":
+                    this.setJson(this.extractJson(new Messages.GetAutomations().request().automations));
+                    break;
+            }
+        }
+
+        /**
+         * Evento: Gravar definições como parâmetro.
+         */
+        private onSaveClick(): void {
+            if (!this.elSelectParameter.current) return;
+        }
+
+        /**
+         * Evento: Aplicar definições.
+         */
+        private onApplyClick(): void {
+            if (!this.objAceEditorJson) return;
+            try {
+                const json: Object = JSON.parse(this.objAceEditorJson.getValue());
+                const message = new Messages.DoAutomationApply(json).request();
+                if (!message.success || !message.errors) throw new Framework.Errors.EmptyValue("Messages.DoAutomationApply.success or Messages.DoAutomationApply.errors");
+                if (message.errors.length) console.Error("<ol><li>" + message.errors.join("</li><li>") + "</li></ol>", "Error applying settings");
+            } catch (error) {                
+                console.Error("Settings are not valid.\n{0}.".translate((error as Error).message), "Error applying settings");
+            }
+        }
+        
+        /**
+        * Evento: ao selecionar parâmetro.
+        */
+        private onParameterChange(): void {
+            this.onReloadClick();
+        }
+
+        /**
+         * Extrai os dados json de um conjunto de informação de automação.
+         * @param automations Dados de automação.
+         * @returns {Object} Objeto pronto para ser convertido em JSON.
+         */
+        private extractJson(automations?: Framework.Types.Index<Automation.Set>): Object {
+            const result: Framework.Types.Index<Framework.Types.Index<any>> = { };
+            if (automations) {
+                for (const automation in automations) {
+                    result[automation] = { };
+                    if (automations[automation].parameters) {
+                        for (const parameter in automations[automation].parameters) {
+                            result[automation][automations[automation].parameters[parameter].name] =
+                            automations[automation].parameters[parameter].get();
+                        }
+                    }
+                    if (automations[automation].actions) {
+                        for (const action in automations[automation].actions) {
+                            result[automation][Automation.Manager.actionProperty] = result[automation][Automation.Manager.actionProperty] || { };
+                            result[automation][Automation.Manager.actionProperty][automations[automation].actions[action].name] = false;
+                        }
+                    }
+                    if (!Object.keys(result[automation]).length) delete result[automation];
+                }
+            }
+            return result;
         }
 
         /**
@@ -143,7 +244,8 @@ namespace Skript.Business.Parts.Parameters {
                         ref={this.elSelectParameter}
                         className="set" 
                         allowClear={true} 
-                        placeholder={"Select a parameter...".translate()}>
+                        placeholder={"Select a parameter...".translate()}
+                        onChange={this.onParameterChange}>
                         <optgroup label={"System".translate()}>
                             <option value="default">{"Default".translate()}</option>
                             <option value="current">{"Current".translate()}</option>
@@ -155,13 +257,13 @@ namespace Skript.Business.Parts.Parameters {
                         </optgroup>
                     </Framework.Layout.Components.Select.Select>
                     <div className="controls top">
-                        <button className="dialog-action button red" title={"Deletes the selected parameter.".translate()}>{"Delete".translate()}</button>
-                        <button className="dialog-action button" title={"Reload the settings of the selected parameter.".translate()}>{"Reload".translate()}</button>
+                        <button className="dialog-action button red" onClick={this.onDeleteClick} title={"Deletes the selected parameter.".translate()}>{"Delete".translate()}</button>
+                        <button className="dialog-action button" onClick={this.onReloadClick} title={"Reload the settings of the selected parameter.".translate()}>{"Reload".translate()}</button>
                     </div>
                     <div className="json"><div id={this.idAceEditorJson} ref={this.elAceEditorJson}></div></div>
                     <div className="controls bottom">
-                        <button className="dialog-action button green" title={"Saves the current settings.".translate()}>{"Save".translate()}</button>
-                        <button className="dialog-action button blue" title={"Applies the current settings to the modules.".translate()}>{"Apply".translate()}</button>
+                        <button className="dialog-action button green" onClick={this.onSaveClick} title={"Saves the current settings.".translate()}>{"Save".translate()}</button>
+                        <button className="dialog-action button blue" onClick={this.onApplyClick} title={"Applies the current settings to the modules.".translate()}>{"Apply".translate()}</button>
                     </div>
                 </div>
             );
@@ -183,7 +285,8 @@ namespace Skript.Business.Parts.Parameters {
                 if (!this.elAceEditorJson.current.parentElement.classList.contains('editing')) 
                     this.elAceEditorJson.current.parentElement.classList.add('editing'); });
             
-            this.elSelectParameter.current.value("");
+            const elSelectParameter = this.elSelectParameter.current;
+            setTimeout(() => elSelectParameter.value("current"), 0);
         }
 
         /**
@@ -195,5 +298,5 @@ namespace Skript.Business.Parts.Parameters {
         }
     }
 
-    Base.toAppendToMainDialog.push(Parameters);
+    Base.toAppendToMainDialog.push(AutomationManager);
 }

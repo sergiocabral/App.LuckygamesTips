@@ -150,7 +150,9 @@ namespace Skript.Business.Parts.LogViewer {
         }
 
         /**
-         * Adiciona parâmetros para automação deste componente.
+         * Adiciona ações e parâmetros para automação deste componente.
+         * @param {Framework.Types.Index<Framework.Types.Parameter<any>>} parameters Parâmetros.
+         * @param {Framework.Types.Index<Framework.Types.Action>} actions Ações.
          */
         protected configureAutomation(parameters: Framework.Types.Index<Framework.Types.Parameter<any>>, actions: Framework.Types.Index<Framework.Types.Action>): void {
             const filters: Framework.Types.Parameter<string[]> = {

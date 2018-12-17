@@ -1,25 +1,25 @@
 namespace Skript.Business.Layout.Components.DialogHeader {
 
     export abstract class Content<
-        TProps extends Framework.Layout.Components.EmptyProps = 
-            Framework.Layout.Components.EmptyProps, 
-        TState extends Framework.Layout.Components.EmptyState = 
-            Framework.Layout.Components.EmptyState> 
+        TProps extends Framework.Layout.Components.EmptyProps =
+            Framework.Layout.Components.EmptyProps,
+        TState extends Framework.Layout.Components.EmptyState =
+            Framework.Layout.Components.EmptyState>
         extends Framework.Layout.Components.DialogHeader.Content<TProps, TState> {
 
         /**
          * Construtor.
          * @param {TProps} props Propriedades.
          */
-        public constructor(props: TProps) { 
+        public constructor(props: TProps) {
             super(props);
+            this.log = Core.Main.instance.log;
             this.theme = Core.Main.instance.theme;
+            this.toast = Core.Main.instance.activator && Core.Main.instance.activator.toast ? Core.Main.instance.activator.toast : undefined as any;
 
-            this.automation = {
-                parameters: { },
-                actions: { }
-            }
+            this.automation = { parameters: { }, actions: { } };
             this.configureAutomation(this.automation.parameters, this.automation.actions);
+            Core.Main.instance.automation.add(Framework.Util.General.getName(this), this.automation);
         }
 
         /**
@@ -27,6 +27,18 @@ namespace Skript.Business.Layout.Components.DialogHeader {
          * @type {Theme}
          */
         public theme: Theme;
+
+        /**
+         * Exibidor de mensagem tipo toast.
+         * @type {Toast.Toast}
+         */
+        public toast: Toast.Toast;
+
+        /**
+         * Histórico de log.
+         * @type {Framework.Log.History}
+         */
+        public log: Framework.Log.History;
 
         /**
          * Adiciona ações e parâmetros para automação deste componente.
@@ -37,20 +49,8 @@ namespace Skript.Business.Layout.Components.DialogHeader {
 
         /**
          * Ações e parâmetros para automação deste componente.
+         * @type {Automation.Set}
          */
-        public automation: { 
-
-            /**
-             * Lista para definir/ler os parâmetros da tela.
-             * @type {Framework.Types.Index<Framework.Types.Parameter<any>>}
-             */
-            parameters: Framework.Types.Index<Framework.Types.Parameter<any>>,
-
-            /**
-             * Lista para execução de ações.
-             * @type {Framework.Types.Index<Framework.Types.Action>}
-             */
-            actions: Framework.Types.Index<Framework.Types.Action>
-        }
+        public automation: Automation.Set;
     }
 }

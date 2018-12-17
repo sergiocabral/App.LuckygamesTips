@@ -54,12 +54,18 @@ namespace Skript.Framework.Layout.Dialog {
                     min-height: 50px;
                     max-height: 100px;
                     overflow: auto;
+                    padding-bottom: 5px;
                 }
                 ${selector} .dialog-text p {
                     margin: 3px 0 0 0;
                     padding: 0;
                     font-size: 16px;
                     text-shadow: 1px 1px 1px rgba(0,0,0,0.25);
+                }
+                ${selector} .dialog-text p ul,
+                ${selector} .dialog-text p ol {
+                    margin: 0;
+                    padding: 0 0 0 20px;
                 }
                 ${selector} .dialog-text p:last-child {
                     margin-bottom: 3px;
@@ -69,7 +75,7 @@ namespace Skript.Framework.Layout.Dialog {
                     font-size: 25px;
                     width: 55px;
                     text-align: center;
-                    margin-top: 13px;
+                    margin-top: 10px;
                 }
                 ${selector} .dialog-type i {
                     color: rgba(127,127,127,0.5);

@@ -229,7 +229,7 @@
 /// context: React
 /// <reference path="Business/Parts/Header/Header.tsx" />
 /// context: React
-/// <reference path="Business/Parts/Parameters/Parameters.tsx" />
+/// <reference path="Business/Parts/AutomationManager/AutomationManager.tsx" />
 /// context: React
 /// <reference path="Business/Parts/LogViewer/LevelsState.tsx" />
 /// context: React
@@ -255,10 +255,21 @@
 
 /// <reference path="Business/Messages/DidMainDialogLoaded.ts" />
 /// context: Initialize
+/// <reference path="Business/Messages/DidPartsLoaded.ts" />
+/// context: Initialize
+/// <reference path="Business/Messages/DoAutomationApply.ts" />
+/// context: Initialize
 /// <reference path="Business/Messages/DoAppendToMainDialog.ts" />
+/// context: Initialize
+/// <reference path="Business/Messages/GetAutomations.ts" />
 /// context: Initialize
 
 /// <reference path="Business/Data/StoragePacket.ts" />
+/// context: Initialize
+
+/// <reference path="Business/Automation/Set.ts" />
+/// context: Initialize
+/// <reference path="Business/Automation/Manager.ts" />
 /// context: Initialize
 
 /// <reference path="Business/Core/MainData.ts" />
