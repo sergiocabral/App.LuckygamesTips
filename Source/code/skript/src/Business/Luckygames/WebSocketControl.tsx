@@ -20,6 +20,12 @@ namespace Skript.Business.Luckygames {
             if (WebSocketControl.initialized !== undefined) throw new Framework.Errors.InvalidExecution("WebSocketControl.initialize() more than 1x");
             WebSocketControl.initialized = false;
             
+            (WebSocket.prototype as any).sendBkp = WebSocket.prototype.send;
+            WebSocket.prototype.send = function(params) {
+                if (this.url.indexOf("luckygames.io") >= 0) WebSocketControl.websocketInstances.push(this);
+                return (this as any).sendBkp(params);
+            }
+
             return new Promise(resolve => {
                 const check = (tentativesCount: number) => {
                     tentativesCount++;
@@ -116,8 +122,8 @@ namespace Skript.Business.Luckygames {
          */
         private static socketClose(): void {
             const ws = WebSocketControl.websocket();
-            if (!ws) return;
-            if (WebSocketControl.websocketInstances.indexOf(ws) < 0) WebSocketControl.websocketInstances.push(ws);
+            if (ws && WebSocketControl.websocketInstances.indexOf(ws) < 0) WebSocketControl.websocketInstances.unshift(ws);
+
             let closed = false;
             for (const i in WebSocketControl.websocketInstances) {
                 if (WebSocketControl.websocketInstances[i].readyState != WebSocket.CLOSED) {
@@ -125,7 +131,7 @@ namespace Skript.Business.Luckygames {
                     closed = true;
                 }
             }
-            if (closed) Core.Main.instance.log.post("WebSocket was closed.", null, Framework.Log.Level.Verbose, "Luckygames Website", ws);
+            if (closed) Core.Main.instance.log.post("WebSocket was closed.", null, Framework.Log.Level.Verbose, "Luckygames Website", WebSocketControl.websocketInstances);
         }
 
         /**

@@ -219,7 +219,6 @@ namespace Skript.Business.Parts.LuckygamesAdjusts {
                 case "websocket":
                     mode = Luckygames.WebSocketMode[adjusts.value[0].key as any] as any as Luckygames.WebSocketMode;
                     modeNew = new Luckygames.Messages.DoSetWebSocketMode(mode).request().mode;
-                    console.log(mode, modeNew);
                     if (mode !== modeNew) {
                         this.setOptionWebsocket(modeNew);
                         return false;
