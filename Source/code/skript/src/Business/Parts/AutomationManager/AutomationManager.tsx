@@ -204,10 +204,12 @@ namespace Skript.Business.Parts.AutomationManager {
          * Adiciona ações e parâmetros para automação deste componente.
          * @param {Framework.Types.Index<Framework.Types.Parameter<any>>} automationSet Conjunto de automação
          * @param {Framework.Types.Index<Framework.Types.Action>} actions Ações.
+         * @returns {string} Nome do módulo.
          */
-        protected configureAutomation(automationSet: Framework.Types.Index<Framework.Types.Parameter<any>>, actions: Framework.Types.Index<Framework.Types.Action>): void {
+        protected configureAutomation(automationSet: Framework.Types.Index<Framework.Types.Parameter<any>>, actions: Framework.Types.Index<Framework.Types.Action>): string {
             automationSet;
             actions;
+            return this.title;
         }
 
         /**
@@ -232,9 +234,6 @@ namespace Skript.Business.Parts.AutomationManager {
             this.json("");
             if (!this.elSelectAutomationSet.current) return;
             const value = this.elSelectAutomationSet.current.value();
-            const sel = this.elSelectAutomationSet.current;
-            sel;
-            eval("window.sel = sel;")
             if (value.length) switch (value[0].key) {
                 case "default":
                     this.json(this.defaults);

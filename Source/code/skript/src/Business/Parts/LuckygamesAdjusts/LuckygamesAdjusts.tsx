@@ -156,10 +156,11 @@ namespace Skript.Business.Parts.LuckygamesAdjusts {
          * Adiciona ações e parâmetros para automação deste componente.
          * @param {Framework.Types.Index<Framework.Types.Parameter<any>>} parameters Parâmetros.
          * @param {Framework.Types.Index<Framework.Types.Action>} actions Ações.
+         * @returns {string} Nome do módulo.
          */
-        protected configureAutomation(parameters: Framework.Types.Index<Framework.Types.Parameter<any>>): void {
+        protected configureAutomation(parameters: Framework.Types.Index<Framework.Types.Parameter<any>>): string {
             let parameter: Framework.Types.Parameter<string>;
-eval("window.zz = this");
+
             parameter = {
                 name: "Data updates",
                 get: (): string => Luckygames.WebSocketMode[this.valueOptionWebsocket],
@@ -201,6 +202,8 @@ eval("window.zz = this");
                 }
             };
             parameters[parameter.name] = parameter;
+
+            return this.title;
         }
 
         /**

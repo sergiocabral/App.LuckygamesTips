@@ -18,8 +18,8 @@ namespace Skript.Business.Layout.Components.DialogHeader {
             this.toast = Core.Main.instance.activator && Core.Main.instance.activator.toast ? Core.Main.instance.activator.toast : undefined as any;
 
             this.automation = { parameters: { }, actions: { } };
-            this.configureAutomation(this.automation.parameters, this.automation.actions);
-            Core.Main.instance.automation.add(Framework.Util.General.getName(this), this.automation);
+            const automationName = this.configureAutomation(this.automation.parameters, this.automation.actions);
+            Core.Main.instance.automation.add(automationName, this.automation);
         }
 
         /**
@@ -44,8 +44,9 @@ namespace Skript.Business.Layout.Components.DialogHeader {
          * Adiciona ações e parâmetros para automação deste componente.
          * @param {Framework.Types.Index<Framework.Types.Parameter<any>>} parameters Parâmetros.
          * @param {Framework.Types.Index<Framework.Types.Action>} actions Ações.
+         * @returns {string} Nome do módulo.
          */
-        protected abstract configureAutomation(parameters: Framework.Types.Index<Framework.Types.Parameter<any>>, actions: Framework.Types.Index<Framework.Types.Action>): void;
+        protected abstract configureAutomation(parameters: Framework.Types.Index<Framework.Types.Parameter<any>>, actions: Framework.Types.Index<Framework.Types.Action>): string;
 
         /**
          * Ações e parâmetros para automação deste componente.

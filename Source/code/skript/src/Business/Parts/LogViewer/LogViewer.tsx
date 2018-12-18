@@ -153,8 +153,9 @@ namespace Skript.Business.Parts.LogViewer {
          * Adiciona ações e parâmetros para automação deste componente.
          * @param {Framework.Types.Index<Framework.Types.Parameter<any>>} parameters Parâmetros.
          * @param {Framework.Types.Index<Framework.Types.Action>} actions Ações.
+         * @returns {string} Nome do módulo.
          */
-        protected configureAutomation(parameters: Framework.Types.Index<Framework.Types.Parameter<any>>, actions: Framework.Types.Index<Framework.Types.Action>): void {
+        protected configureAutomation(parameters: Framework.Types.Index<Framework.Types.Parameter<any>>, actions: Framework.Types.Index<Framework.Types.Action>): string {
             const filters: Framework.Types.Parameter<string[]> = {
                 name: "Filters",
                 get: (): string[] => {
@@ -197,6 +198,8 @@ namespace Skript.Business.Parts.LogViewer {
                 }
             }
             actions[clear.name] = clear;
+
+            return this.title;
         }
 
         /**
