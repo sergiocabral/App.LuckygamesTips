@@ -171,6 +171,7 @@ namespace Skript.Business.Parts.AutomationManager {
          */
         private onDidPartsLoaded(): void {
             this.defaults = this.extractJson(new Messages.GetCurrentAutomations().request().automations);
+            if (this.elSelectAutomationSet.current) this.elSelectAutomationSet.current.value("default");
         }
 
         /**
@@ -379,9 +380,6 @@ namespace Skript.Business.Parts.AutomationManager {
             this.objAceEditorJson.session.setTabSize(this.jsonTabSize);
             this.objAceEditorJson.session.setUseWrapMode(true);
             this.objAceEditorJson.on('change', () => this.jsonEditing(true));
-
-            const elSelectAutomationSet = this.elSelectAutomationSet.current;
-            setTimeout(() => elSelectAutomationSet.value("default"), 0);
         }
 
         /**
