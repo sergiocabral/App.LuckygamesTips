@@ -339,5 +339,5 @@
 /// #############################################
 
 window.skript = window.skript || new Skript.Business.Core.Main({ 
-    server: "https://tips.nominalsa.splitz.com.br/"
+    server: "https://dsv.luckygames.tips/"
 });
