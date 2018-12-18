@@ -3,7 +3,7 @@
   "version": "8.0.0",
   "description": "Do more in Luckygames with Tips",
   "scripts": {
-    "build": "tsc -p tsconfig.json && javascript-obfuscator ../wordpress/skript --output ./ --compact true --rename-globals false --unicode-escape-sequence true && cpx src/index.ts ../wordpress/skript && cpx src/Business/Data/Json/*.json ../wordpress/skript",
+    "build": "tsc -p tsconfig.json && javascript-obfuscator ../wordpress/skript --output ./ --compact true --rename-globals false --unicode-escape-sequence true --seed 547125 && cpx src/index.ts ../wordpress/skript && cpx src/Business/Data/Json/*.json ../wordpress/skript",
     "build-dev": "tsc -p tsconfig.json && cpx src/index.ts ../wordpress/skript && cpx src/Business/Data/Json/*.json ../wordpress/skript"
   },
   "author": "contact@luckygames.tips",
