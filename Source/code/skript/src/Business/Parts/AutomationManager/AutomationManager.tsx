@@ -209,7 +209,7 @@ namespace Skript.Business.Parts.AutomationManager {
         protected configureAutomation(automationSet: Framework.Types.Index<Framework.Types.Parameter<any>>, actions: Framework.Types.Index<Framework.Types.Action>): string {
             automationSet;
             actions;
-            return this.title;
+            return "Automation";
         }
 
         /**

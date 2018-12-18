@@ -191,7 +191,7 @@ namespace Skript.Business.Parts.LogViewer {
             parameters[levels.name] = levels;
 
             const clear: Framework.Types.Action = {
-                name: "Clear Log",
+                name: "ClearLog",
                 execute: (): void => {
                     if (!this.elClearLog.current) throw new Framework.Errors.NotReady("React");
                     this.elClearLog.current.click();
@@ -199,7 +199,7 @@ namespace Skript.Business.Parts.LogViewer {
             }
             actions[clear.name] = clear;
 
-            return this.title;
+            return "LogViewer";
         }
 
         /**

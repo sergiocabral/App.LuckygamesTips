@@ -162,7 +162,7 @@ namespace Skript.Business.Parts.LuckygamesAdjusts {
             let parameter: Framework.Types.Parameter<string>;
 
             parameter = {
-                name: "Data updates",
+                name: "DataUpdates",
                 get: (): string => Luckygames.WebSocketMode[this.valueOptionWebsocket],
                 set: (value: string): boolean => {
                     const setted = value === Luckygames.WebSocketMode[Luckygames.WebSocketMode[value as any] as any as Luckygames.WebSocketMode];
@@ -203,7 +203,7 @@ namespace Skript.Business.Parts.LuckygamesAdjusts {
             };
             parameters[parameter.name] = parameter;
 
-            return this.title;
+            return "LuckygamesAdjusts";
         }
 
         /**
