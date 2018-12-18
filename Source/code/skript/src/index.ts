@@ -229,6 +229,8 @@
 /// context: React
 /// <reference path="Business/Parts/Header/Header.tsx" />
 /// context: React
+/// <reference path="Business/Parts/AutomationManager/State.tsx" />
+/// context: React
 /// <reference path="Business/Parts/AutomationManager/AutomationManager.tsx" />
 /// context: React
 /// <reference path="Business/Parts/LogViewer/LevelsState.tsx" />
@@ -253,15 +255,25 @@
 /// | |_) | |_| \__ \ | | | |  __/\__ \__ \
 /// |____/ \__,_|___/_|_| |_|\___||___/___/
 
+/// <reference path="Business/Messages/DidAutomationApplied.ts" />
+/// context: Initialize
+/// <reference path="Business/Messages/DidAutomationUpdated.ts" />
+/// context: Initialize
 /// <reference path="Business/Messages/DidMainDialogLoaded.ts" />
 /// context: Initialize
 /// <reference path="Business/Messages/DidPartsLoaded.ts" />
 /// context: Initialize
 /// <reference path="Business/Messages/DoAutomationApply.ts" />
 /// context: Initialize
+/// <reference path="Business/Messages/DoAutomationDelete.ts" />
+/// context: Initialize
+/// <reference path="Business/Messages/DoAutomationSave.ts" />
+/// context: Initialize
 /// <reference path="Business/Messages/DoAppendToMainDialog.ts" />
 /// context: Initialize
-/// <reference path="Business/Messages/GetAutomations.ts" />
+/// <reference path="Business/Messages/GetCurrentAutomations.ts" />
+/// context: Initialize
+/// <reference path="Business/Messages/GetSavedAutomations.ts" />
 /// context: Initialize
 
 /// <reference path="Business/Data/StoragePacket.ts" />

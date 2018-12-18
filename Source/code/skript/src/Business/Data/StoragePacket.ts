@@ -1,10 +1,15 @@
 namespace Skript.Business.Data {
-    
+
     /**
      * Pacote de informações gravadas no storage.
      */
     export abstract class StoragePacket extends Skript.Framework.Data.StoragePacket {
 
+        /**
+         * Conjunto de automações.
+         * @type {Framework.Types.Index<Object>}
+         */
+        public automations?: Framework.Types.Index<Object>;
     }
 
     /**
@@ -18,5 +23,10 @@ namespace Skript.Business.Data {
          */
         public language: string = "pt";
 
+        /**
+         * Conjunto de automações.
+         * @type {Framework.Types.Index<Object>}
+         */
+        public automations: Framework.Types.Index<Object> = { };
     }
 }

@@ -302,12 +302,10 @@ namespace Skript.Framework.Layout.Dialog {
                     let button: HTMLButtonElement|null = null;
                     switch (evt.keyCode) {
                         case 27:
-                            const input = elDialog.querySelector("input");
-                            if (input) input.value = "";
                             button = elDialog.querySelector(".button-escape");
                             break;
                         case 13:
-                            button = elDialog.querySelector(".button-focus, button[data-index='0']");
+                            button = elDialog.querySelector(".button-focus");
                             break;
                     }
                     if (button) button.click();
@@ -444,7 +442,7 @@ namespace Skript.Framework.Layout.Dialog {
          * @param {string} labelOk Texto do botão Ok.
          * @returns {Promise<string>} Retorna o valor inserido.
          */
-        public static prompt(text?: string, title?: string, defaults: string = "", validate?: (value: string) => boolean, type: Type = Type.Input, labelOk: string = "Ok"): Promise<string> {
+        public static prompt(text?: string, title?: string, defaults: string = "", validate?: (value: string) => boolean, type: Type = Type.Input, labelCancel: string = "Cancel", labelOk: string = "Ok"): Promise<string> {
             return new Promise(resolve => {
                 Alert.show({
                     text: text ? text : "",
@@ -456,15 +454,21 @@ namespace Skript.Framework.Layout.Dialog {
                     },
                     buttons: [
                         {
+                            text: labelCancel.translate(),
+                            icon: "far fa-times-circle",
+                            escape: true,
+                            className: "button"
+                        },
+                        {
                             text: labelOk.translate(),
                             icon: "far fa-check-circle",
                             focus: true,
-                            escape: false,
                             className: "button"
                         }
                     ]
                 }).then(result => {
-                    resolve(result.input);
+                    if (result.button.escape) resolve()
+                    else resolve(result.input);
                 });
             });
         }

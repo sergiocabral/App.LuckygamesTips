@@ -104,6 +104,16 @@ namespace Skript.Framework.Layout.Components.Select {
         }
 
         /**
+         * Ao atualizar o componente.
+         */
+        public componentWillReceiveProps(newProps: Props): void { super.componentWillReceiveProps(newProps);
+            if (!this.select2) return;
+            const value = this.select2.val();
+            this.select2.select2("destroy").select2(this.select2Configuration);
+            this.select2.val(value);
+        }
+
+        /**
          * Ao desmontar componente.
          */
         public componentWillUnmount(): void { super.componentWillUnmount();

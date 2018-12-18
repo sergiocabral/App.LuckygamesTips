@@ -1,9 +1,9 @@
 namespace Skript.Business.Messages {
 
     /**
-     * Retorna a lista de automações.
+     * Retorna a lista de automações atual dos módulos..
      */
-    export class GetAutomations extends Framework.Bus.Message {
+    export class GetCurrentAutomations extends Framework.Bus.Message {
 
         /**
          * Lista de automações.

@@ -3,7 +3,7 @@ namespace Skript.Business.Parts.AutomationManager {
     /**
      * Componente: Principal do módulo.
      */
-    export class AutomationManager extends Layout.Components.DialogHeader.Content {
+    export class AutomationManager extends Layout.Components.DialogHeader.Content<Framework.Layout.Components.EmptyProps, State> {
 
         /**
          * Carrega e aplica os estilos css.
@@ -69,22 +69,34 @@ namespace Skript.Business.Parts.AutomationManager {
             this.icon = "fas fa-users-cog";
 
             this.elAceEditorJson = React.createRef();
-            this.elSelectParameter = React.createRef();
+            this.elSelectAutomationSet = React.createRef();
 
             this.onDeleteClick = this.onDeleteClick.bind(this);
             this.onReloadClick = this.onReloadClick.bind(this);
             this.onSaveClick = this.onSaveClick.bind(this);
             this.onApplyClick = this.onApplyClick.bind(this);
-            this.onParameterChange = this.onParameterChange.bind(this);
+            this.onAutomationSetChange = this.onAutomationSetChange.bind(this);
 
             this.toCaptureOff.push(Framework.Bus.Message.capture(Messages.DidPartsLoaded, this, this.onDidPartsLoaded));
+            this.toCaptureOff.push(Framework.Bus.Message.capture(Messages.DidAutomationUpdated, this, this.onDidAutomationUpdated));
+            this.toCaptureOff.push(Framework.Bus.Message.capture(Messages.DidAutomationApplied, this, this.onDidAutomationApplied));
+            this.state = { automationSets: [ ] };
+        }
+        
+        /**
+         * Carrega a lista de conjunto de automações.
+         */
+        private loadAutomationSetList(): void {
+            const automations = new Messages.GetSavedAutomations().request().automations;
+            if (!automations) throw new Framework.Errors.EmptyValue("Messages.GetSavedAutomations.automations");
+            this.setState({ automationSets: Object.keys(automations) });
         }
 
         /**
-         * Controle para seleção do parâmetro.
+         * Controle para seleção do conjunto de automação
          * @type {React.RefObject<Framework.Layout.Components.Select.Select>}
          */
-        private elSelectParameter: React.RefObject<Framework.Layout.Components.Select.Select>;
+        private elSelectAutomationSet: React.RefObject<Framework.Layout.Components.Select.Select>;
 
         /**
          * Id para componente AceEditor para o campo json.
@@ -118,15 +130,34 @@ namespace Skript.Business.Parts.AutomationManager {
 
         /**
          * Define um conteúdo json no AceEditor.
-         * @param json json
+         * @param {string|Object} json json
+         * @param {boolean} setEditing Opcional. Define o indicador de edição.
          */
-        private setJson(json: string|Object): void {
-            const text = typeof(json) === "string" ? json : (json ? JSON.stringify(json, null, this.jsonTabSize) : "");
-            if (!this.objAceEditorJson || !this.elAceEditorJson.current || !this.elAceEditorJson.current.parentElement) return;
-            this.objAceEditorJson.setValue(text);
-            this.objAceEditorJson.selection.clearSelection();
-            this.objAceEditorJson.selection.moveCursorFileStart();
-            this.elAceEditorJson.current.parentElement.classList.remove('editing');
+        private json(json?: string|Object, setEditing: boolean = false): string {
+            if (!this.objAceEditorJson || !this.elAceEditorJson.current || !this.elAceEditorJson.current.parentElement) return "";
+            if (json !== undefined) {
+                const text = typeof(json) === "string" ? json : (json ? JSON.stringify(json, null, this.jsonTabSize) : "");
+                this.objAceEditorJson.setValue(text);
+                this.objAceEditorJson.selection.clearSelection();
+                this.objAceEditorJson.selection.moveCursorFileStart();
+                this.jsonEditing(setEditing);
+            }
+            return this.objAceEditorJson.getValue();
+        }
+
+        /**
+         * Define o modo de edição para o editor de definições.
+         * @param {boolean} mode Opcional. Define a edição.
+         * @return {boolean}  Modo atual.
+         */
+        private jsonEditing(mode?: boolean): boolean {            
+            if (!this.elAceEditorJson.current || !this.elAceEditorJson.current.parentElement) throw new Framework.Errors.InvalidExecution("elAceEditorJson is not initialized."); 
+            const className = 'editing';
+            if (mode !== undefined) {
+                if (mode) this.elAceEditorJson.current.parentElement.classList.add(className);
+                else this.elAceEditorJson.current.parentElement.classList.remove(className);
+            }
+            return this.elAceEditorJson.current.parentElement.classList.contains(className);
         }
         
         /**
@@ -139,16 +170,43 @@ namespace Skript.Business.Parts.AutomationManager {
          * Mensagem: ao carregar módulos.
          */
         private onDidPartsLoaded(): void {
-            this.defaults = this.extractJson(new Messages.GetAutomations().request().automations);
+            this.defaults = this.extractJson(new Messages.GetCurrentAutomations().request().automations);
+        }
+
+        /**
+         * Mensagem: ao aplicar definições nos módulos.
+         */
+        private onDidAutomationApplied(): void {
+            if (!this.elSelectAutomationSet.current || !this.objAceEditorJson) return;
+            const selected = this.elSelectAutomationSet.current.value();
+            if (selected.length && selected[0].key === "current") this.jsonEditing(true);
+        }
+
+        /**
+         * Mensagem: Ao atualiza um conjunto de automação.
+         * @param {Messages.DidAutomationUpdated} message Mensagem
+         */
+        private onDidAutomationUpdated(message: Messages.DidAutomationUpdated): void {
+            if (!this.elSelectAutomationSet.current || !this.objAceEditorJson) return;
+            const selected = this.elSelectAutomationSet.current.value();
+            const json = this.json();
+            if (!message.edited) this.loadAutomationSetList();
+            if (selected.length && selected[0].key.substr(this.prefixValue.length) === message.name) {
+                if (message.deleted) {
+                    this.elSelectAutomationSet.current.value([]);
+                    this.json(json, true);
+                }
+                else this.jsonEditing(true);
+            }
         }
 
         /**
          * Adiciona ações e parâmetros para automação deste componente.
-         * @param {Framework.Types.Index<Framework.Types.Parameter<any>>} parameters Parâmetros.
+         * @param {Framework.Types.Index<Framework.Types.Parameter<any>>} automationSet Conjunto de automação
          * @param {Framework.Types.Index<Framework.Types.Action>} actions Ações.
          */
-        protected configureAutomation(parameters: Framework.Types.Index<Framework.Types.Parameter<any>>, actions: Framework.Types.Index<Framework.Types.Action>): void {
-            parameters;
+        protected configureAutomation(automationSet: Framework.Types.Index<Framework.Types.Parameter<any>>, actions: Framework.Types.Index<Framework.Types.Action>): void {
+            automationSet;
             actions;
         }
 
@@ -156,22 +214,38 @@ namespace Skript.Business.Parts.AutomationManager {
          * Evento: Apagar parâmetro.
          */
         private onDeleteClick(): void {
-            if (!this.elSelectParameter.current) return;
+            if (!this.elSelectAutomationSet.current) return;
+            const value = this.elSelectAutomationSet.current.value();
+            if (!value.length) this.toast.post("Before deleting select a automation set.", null, Framework.Log.Level.Warning);
+            else if (value[0].key.indexOf(this.prefixValue) !== 0) this.toast.post("System automation sets can not be deleted.", null, Framework.Log.Level.Warning);
+            else {
+                const name = value[0].key.substr(this.prefixValue.length);
+                console.Confirm("The deletion of automation set \"{0}\" will be irreversible. Do it anyway?".translate(name)).then(() => 
+                    new Messages.DoAutomationDelete(name).send());
+            }
         }
 
         /**
          * Evento: Recarregar definições do parâmetro.
          */
         private onReloadClick(): void {
-            this.setJson("");
-            if (!this.elSelectParameter.current) return;
-            const value = this.elSelectParameter.current.value();
+            this.json("");
+            if (!this.elSelectAutomationSet.current) return;
+            const value = this.elSelectAutomationSet.current.value();
+            const sel = this.elSelectAutomationSet.current;
+            sel;
+            eval("window.sel = sel;")
             if (value.length) switch (value[0].key) {
                 case "default":
-                    this.setJson(this.defaults);
+                    this.json(this.defaults);
                     break;
                 case "current":
-                    this.setJson(this.extractJson(new Messages.GetAutomations().request().automations));
+                    this.json(this.extractJson(new Messages.GetCurrentAutomations().request().automations));
+                    break;
+                default:
+                    const automations = new Messages.GetSavedAutomations().request().automations;
+                    if (!automations) throw new Framework.Errors.EmptyValue("Messages.GetSavedAutomations.automations");
+                    this.json(automations[value[0].key.substr(this.prefixValue.length)]);
                     break;
             }
         }
@@ -180,19 +254,42 @@ namespace Skript.Business.Parts.AutomationManager {
          * Evento: Gravar definições como parâmetro.
          */
         private onSaveClick(): void {
-            if (!this.elSelectParameter.current) return;
+            if (!this.objAceEditorJson || !this.elSelectAutomationSet.current) return;
+            const elSelectAutomationSet = this.elSelectAutomationSet.current;
+
+            let json: Object;
+            try {
+                json = JSON.parse(this.objAceEditorJson.getValue());
+            } catch (error) {
+                console.Error("Settings are not valid.\n{0}.".translate((error as Error).message), "Error applying settings");
+                return;
+            }
+
+            const currentAutomationSet = elSelectAutomationSet.value();            
+            const currentAutomationSetName = currentAutomationSet.length === 0 || currentAutomationSet[0].key.indexOf(this.prefixValue) !== 0 ? "" : currentAutomationSet[0].value;
+            console.Prompt("Save these settings in what automation set?", undefined, currentAutomationSetName, name => name.trim().length > 0).then(name => {
+                if (name) {
+                    new Messages.DoAutomationSave(name, json).send();
+                    setTimeout(() => { elSelectAutomationSet.value(this.prefixValue + name); }, 1);
+                }
+            });
         }
 
         /**
          * Evento: Aplicar definições.
          */
         private onApplyClick(): void {
-            if (!this.objAceEditorJson) return;
+            if (!this.objAceEditorJson || !this.elSelectAutomationSet.current) return;
+
+            const selected = this.elSelectAutomationSet.current.value();
+            const jsonEditing = this.jsonEditing();
+
             try {
                 const json: Object = JSON.parse(this.objAceEditorJson.getValue());
                 const message = new Messages.DoAutomationApply(json).request();
                 if (!message.success || !message.errors) throw new Framework.Errors.EmptyValue("Messages.DoAutomationApply.success or Messages.DoAutomationApply.errors");
                 if (message.errors.length) console.Error("<ol><li>" + message.errors.join("</li><li>") + "</li></ol>", "Error applying settings");
+                if (message.success.length && !jsonEditing && selected.length && selected[0].key === "current") this.jsonEditing(false);
             } catch (error) {                
                 console.Error("Settings are not valid.\n{0}.".translate((error as Error).message), "Error applying settings");
             }
@@ -201,7 +298,7 @@ namespace Skript.Business.Parts.AutomationManager {
         /**
         * Evento: ao selecionar parâmetro.
         */
-        private onParameterChange(): void {
+        private onAutomationSetChange(): void {
             this.onReloadClick();
         }
 
@@ -237,28 +334,28 @@ namespace Skript.Business.Parts.AutomationManager {
          * Renderizador do React.
          * @returns {JSX.Element}
          */
-        protected renderContent(): JSX.Element {            
+        protected renderContent(): JSX.Element {
             return (
                 <div id={this.id} className={this.classNameAttribute()}>
                     <Framework.Layout.Components.Select.Select 
-                        ref={this.elSelectParameter}
+                        ref={this.elSelectAutomationSet}
                         className="set" 
                         allowClear={true} 
-                        placeholder={"Select a parameter...".translate()}
-                        onChange={this.onParameterChange}>
+                        placeholder={"Select a automation set...".translate()}
+                        onChange={this.onAutomationSetChange}>
                         <optgroup label={"System".translate()}>
                             <option value="default">{"Default".translate()}</option>
                             <option value="current">{"Current".translate()}</option>
                         </optgroup>
-                        <optgroup label={Object.keys({}).length === 0 ? "No custom parameter".translate() : "Custom".translate()}>
-                            {Object.keys({}).sort().map(v => 
+                        <optgroup label={this.state.automationSets.length === 0 ? "No custom automation set".translate() : "Custom".translate()}>
+                            {this.state.automationSets.slice().sort().map(v => 
                                 <option key={v} value={this.prefixValue + v}>{v}</option>
                             )}
                         </optgroup>
                     </Framework.Layout.Components.Select.Select>
                     <div className="controls top">
-                        <button className="dialog-action button red" onClick={this.onDeleteClick} title={"Deletes the selected parameter.".translate()}>{"Delete".translate()}</button>
-                        <button className="dialog-action button" onClick={this.onReloadClick} title={"Reload the settings of the selected parameter.".translate()}>{"Reload".translate()}</button>
+                        <button className="dialog-action button red" onClick={this.onDeleteClick} title={"Deletes the selected automation set.".translate()}>{"Delete".translate()}</button>
+                        <button className="dialog-action button" onClick={this.onReloadClick} title={"Reload the settings of the selected automation set.".translate()}>{"Reload".translate()}</button>
                     </div>
                     <div className="json"><div id={this.idAceEditorJson} ref={this.elAceEditorJson}></div></div>
                     <div className="controls bottom">
@@ -273,20 +370,19 @@ namespace Skript.Business.Parts.AutomationManager {
          * Após montagem do componente.
          */
         public componentDidMount(): void {
-            if (!this.elAceEditorJson.current || !this.elSelectParameter.current) return;
+            if (!this.elAceEditorJson.current || !this.elSelectAutomationSet.current) return;
+
+            this.loadAutomationSetList();
 
             this.objAceEditorJson = (window as any).ace.edit(this.idAceEditorJson);
             this.objAceEditorJson.setTheme("ace/theme/twilight");
             this.objAceEditorJson.session.setMode("ace/mode/json");
             this.objAceEditorJson.session.setTabSize(this.jsonTabSize);
             this.objAceEditorJson.session.setUseWrapMode(true);
-            this.objAceEditorJson.on('change', () => {
-                if (!this.elAceEditorJson.current || !this.elAceEditorJson.current.parentElement) return; 
-                if (!this.elAceEditorJson.current.parentElement.classList.contains('editing')) 
-                    this.elAceEditorJson.current.parentElement.classList.add('editing'); });
+            this.objAceEditorJson.on('change', () => this.jsonEditing(true));
             
-            const elSelectParameter = this.elSelectParameter.current;
-            setTimeout(() => elSelectParameter.value("current"), 0);
+            const elSelectAutomationSet = this.elSelectAutomationSet.current;
+            setTimeout(() => elSelectAutomationSet.value("current"), 0);
         }
 
         /**
@@ -298,5 +394,6 @@ namespace Skript.Business.Parts.AutomationManager {
         }
     }
 
+    Base.toAppendToMainDialog.push(AutomationManager);
     Base.toAppendToMainDialog.push(AutomationManager);
 }

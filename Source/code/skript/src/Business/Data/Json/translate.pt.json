@@ -41,6 +41,9 @@
             "No": "Não",
             "Yes": "Sim"
         },
+        "Alert": {
+            "Cancel": "Cancelar"
+        },
         "Dialog": {
             "Close this window.": "Fechar esta janela.",
             "Maximize this window.": "Maximizar esta janela.",
@@ -90,18 +93,30 @@
             "A total of {0} settings have been successfully applied to the modules. But there was an error in {1}.": 
                 "Um total de {0} definições foram aplicadas com sucesso aos módulos. Mas ocorreu erro em {1}.",
             "All {0} definitions have errors when applied to the modules.": 
-                "Todas as {0} definições apresentaram erros ao serem aplicadas nos módulos."
+                "Todas as {0} definições apresentaram erros ao serem aplicadas nos módulos.",
+            "Automation set \"{0}\" was successfully created.":
+                "O conjunto de automação \"{0}\" foi criado com sucesso.",
+            "Automation set \"{0}\" has been updated successfully.":
+                "O conjunto de automação \"{0}\" foi atualizado com sucesso.",
+            "Automation set \"{0}\" was deleted successfully.":
+                "O conjunto de automação \"{0}\" foi excluído com sucesso.",
+            "Before deleting select a automation set.":
+                "Antes de apagar selecione um conjunto de automação.",
+            "System automation sets can not be deleted.":
+                "Conjuntos de automação do sistema não podem ser excluído.",
+            "The deletion of automation set \"{0}\" will be irreversible. Do it anyway?":
+                "Apagar o conjunto de automação \"{0}\" será irreversível. Prosseguir?"
         },
         "Automation: Part": {
             "Automation": "Automação",
-            "Select a parameter...": "Selecione um parâmetro...",
+            "Select a automation set...": "Selecione um conjunto de automação...",
             "System": "Sistema",
             "Default": "Padrão",
             "Current": "Atual",
             "Custom": "Personalizados",
-            "No custom parameter": "Sem parâmetros personalizados",
-            "Deletes the selected parameter.": "Apaga o parâmetro selecionado.",
-            "Reload the settings of the selected parameter.": "Recarregar as definições do parâmetro selecionado.",
+            "No custom automation set": "Sem conjunto de automação personalizados",
+            "Deletes the selected automation set.": "Apaga o conjunto de automação selecionado.",
+            "Reload the settings of the selected automation set.": "Recarregar as definições do conjunto de automação selecionado.",
             "Delete": "Apagar",
             "Reload": "Recarregar",
             "Save": "Salvar",
@@ -109,7 +124,8 @@
             "Saves the current settings.": "Grava as definições atuais.",
             "Applies the current settings to the modules.": "Aplica as definições atuais nos módulos.",
             "Settings are not valid.\n{0}.": "As definições não são válidas.\n{0}.",
-            "Error applying settings": "Erro ao aplicar as definições"
+            "Error applying settings": "Erro ao aplicar as definições",
+            "Save these settings in what automation set?": "Gravar essas definições em qual conjunto de automação?"
         }
     },
     "Business: Frases em geral": {
