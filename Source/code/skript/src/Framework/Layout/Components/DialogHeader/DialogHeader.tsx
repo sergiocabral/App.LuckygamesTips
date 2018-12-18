@@ -284,7 +284,10 @@ namespace Skript.Framework.Layout.Components.DialogHeader {
                 } else if (mode && !state) {
                     if (!container.style.maxHeight) container.style.maxHeight = "500px"; //Apenas para garantir a animação.
                     container.classList.remove("hidden");
-                    setTimeout(() => container.style.maxHeight = "", this.intervalAnimation);
+                    setTimeout(() => {
+                        container.style.maxHeight = "";
+                        if (this.onResize instanceof Function) this.onResize();
+                    }, this.intervalAnimation);
                 }
                 state = mode;
             }

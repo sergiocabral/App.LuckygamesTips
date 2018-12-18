@@ -88,11 +88,11 @@
             "Executed: {0}": "Executado: {0}",
             "Not executed: {0}": "Não executado: {0}",
             "There were no settings to apply.": "Não havia definições para serem aplicadas.",
-            "A total of {0} settings have been successfully applied to the modules.": 
+            "A total of {0} settings have been successfully applied to the modules.":
                 "Um total de {0} definições foram aplicadas com sucesso aos módulos.",
-            "A total of {0} settings have been successfully applied to the modules. But there was an error in {1}.": 
+            "A total of {0} settings have been successfully applied to the modules. But there was an error in {1}.":
                 "Um total de {0} definições foram aplicadas com sucesso aos módulos. Mas ocorreu erro em {1}.",
-            "All {0} definitions have errors when applied to the modules.": 
+            "All {0} definitions have errors when applied to the modules.":
                 "Todas as {0} definições apresentaram erros ao serem aplicadas nos módulos.",
             "Automation set \"{0}\" was successfully created.":
                 "O conjunto de automação \"{0}\" foi criado com sucesso.",

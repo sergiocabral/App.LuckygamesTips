@@ -43,7 +43,7 @@ namespace Skript.Business.Parts.AutomationManager {
                 ${this.classNameSelector()} > .controls.top {
                     display: inline-block;
                     float: right;
-                }            
+                }
                 ${this.classNameSelector()} > .controls.top > * {
                     margin: 0 0 0 ${this.theme.spacing / 2}px;
                 }
@@ -63,8 +63,8 @@ namespace Skript.Business.Parts.AutomationManager {
          * @param {Framework.Layout.Components.EmptyProps} props Propriedades.
          */
         public constructor(props: Framework.Layout.Components.EmptyProps) {
-            super(props);  
-            
+            super(props);
+
             this.title = "Automation";
             this.icon = "fas fa-users-cog";
 
@@ -82,7 +82,7 @@ namespace Skript.Business.Parts.AutomationManager {
             this.toCaptureOff.push(Framework.Bus.Message.capture(Messages.DidAutomationApplied, this, this.onDidAutomationApplied));
             this.state = { automationSets: [ ] };
         }
-        
+
         /**
          * Carrega a lista de conjunto de automações.
          */
@@ -150,8 +150,8 @@ namespace Skript.Business.Parts.AutomationManager {
          * @param {boolean} mode Opcional. Define a edição.
          * @return {boolean}  Modo atual.
          */
-        private jsonEditing(mode?: boolean): boolean {            
-            if (!this.elAceEditorJson.current || !this.elAceEditorJson.current.parentElement) throw new Framework.Errors.InvalidExecution("elAceEditorJson is not initialized."); 
+        private jsonEditing(mode?: boolean): boolean {
+            if (!this.elAceEditorJson.current || !this.elAceEditorJson.current.parentElement) throw new Framework.Errors.InvalidExecution("elAceEditorJson is not initialized.");
             const className = 'editing';
             if (mode !== undefined) {
                 if (mode) this.elAceEditorJson.current.parentElement.classList.add(className);
@@ -159,7 +159,7 @@ namespace Skript.Business.Parts.AutomationManager {
             }
             return this.elAceEditorJson.current.parentElement.classList.contains(className);
         }
-        
+
         /**
          * Definições padrão do sistema.
          * @type {Object}
@@ -220,7 +220,7 @@ namespace Skript.Business.Parts.AutomationManager {
             else if (value[0].key.indexOf(this.prefixValue) !== 0) this.toast.post("System automation sets can not be deleted.", null, Framework.Log.Level.Warning);
             else {
                 const name = value[0].key.substr(this.prefixValue.length);
-                console.Confirm("The deletion of automation set \"{0}\" will be irreversible. Do it anyway?".translate(name)).then(() => 
+                console.Confirm("The deletion of automation set \"{0}\" will be irreversible. Do it anyway?".translate(name)).then(() =>
                     new Messages.DoAutomationDelete(name).send());
             }
         }
@@ -265,7 +265,7 @@ namespace Skript.Business.Parts.AutomationManager {
                 return;
             }
 
-            const currentAutomationSet = elSelectAutomationSet.value();            
+            const currentAutomationSet = elSelectAutomationSet.value();
             const currentAutomationSetName = currentAutomationSet.length === 0 || currentAutomationSet[0].key.indexOf(this.prefixValue) !== 0 ? "" : currentAutomationSet[0].value;
             console.Prompt("Save these settings in what automation set?", undefined, currentAutomationSetName, name => name.trim().length > 0).then(name => {
                 if (name) {
@@ -290,11 +290,11 @@ namespace Skript.Business.Parts.AutomationManager {
                 if (!message.success || !message.errors) throw new Framework.Errors.EmptyValue("Messages.DoAutomationApply.success or Messages.DoAutomationApply.errors");
                 if (message.errors.length) console.Error("<ol><li>" + message.errors.join("</li><li>") + "</li></ol>", "Error applying settings");
                 if (message.success.length && !jsonEditing && selected.length && selected[0].key === "current") this.jsonEditing(false);
-            } catch (error) {                
+            } catch (error) {
                 console.Error("Settings are not valid.\n{0}.".translate((error as Error).message), "Error applying settings");
             }
         }
-        
+
         /**
         * Evento: ao selecionar parâmetro.
         */
@@ -337,10 +337,10 @@ namespace Skript.Business.Parts.AutomationManager {
         protected renderContent(): JSX.Element {
             return (
                 <div id={this.id} className={this.classNameAttribute()}>
-                    <Framework.Layout.Components.Select.Select 
+                    <Framework.Layout.Components.Select.Select
                         ref={this.elSelectAutomationSet}
-                        className="set" 
-                        allowClear={true} 
+                        className="set"
+                        allowClear={true}
                         placeholder={"Select a automation set...".translate()}
                         onChange={this.onAutomationSetChange}>
                         <optgroup label={"System".translate()}>
@@ -348,7 +348,7 @@ namespace Skript.Business.Parts.AutomationManager {
                             <option value="current">{"Current".translate()}</option>
                         </optgroup>
                         <optgroup label={this.state.automationSets.length === 0 ? "No custom automation set".translate() : "Custom".translate()}>
-                            {this.state.automationSets.slice().sort().map(v => 
+                            {this.state.automationSets.slice().sort().map(v =>
                                 <option key={v} value={this.prefixValue + v}>{v}</option>
                             )}
                         </optgroup>
@@ -380,7 +380,7 @@ namespace Skript.Business.Parts.AutomationManager {
             this.objAceEditorJson.session.setTabSize(this.jsonTabSize);
             this.objAceEditorJson.session.setUseWrapMode(true);
             this.objAceEditorJson.on('change', () => this.jsonEditing(true));
-            
+
             const elSelectAutomationSet = this.elSelectAutomationSet.current;
             setTimeout(() => elSelectAutomationSet.value("current"), 0);
         }
@@ -394,6 +394,5 @@ namespace Skript.Business.Parts.AutomationManager {
         }
     }
 
-    Base.toAppendToMainDialog.push(AutomationManager);
     Base.toAppendToMainDialog.push(AutomationManager);
 }
