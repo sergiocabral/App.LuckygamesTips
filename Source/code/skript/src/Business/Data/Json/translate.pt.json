@@ -172,6 +172,24 @@
             "Settings are not valid.\n{0}.": "As definições não são válidas.\n{0}.",
             "Error applying settings": "Erro ao aplicar as definições",
             "Save these settings in what automation set?": "Gravar essas definições em qual conjunto de automação?"
+        },
+        "Luckygames Adjusts": { 
+            "Website adjusts": "Ajustes do website",
+            "Data updates": "Atualizações de dados",
+            "Receiving global information from luckygames.io, such as Chat, All Bets, High Rollers, Rare Wins, Bets Made, Total Won, etc.":
+                "Recebimento de informações globais da luckygames.io, como Chat, Todas Apostas, Grandes Apostas, Vitórias Raras, Apostas Feitas, Total Ganho, etc.",
+            "Off increases performance by reducing internet bandwidth consumption.":
+                "Desligar aumenta a performance por reduzir o consumo de banda de internet.",
+            "Animations": "Animações",
+            "Audiovisual effects on the update of the balance, the Lucky Number type turnstile display, etc.":
+                "Efeitos audiovisuais na atualização do saldo, exibição do Número da Sorte tipo roleta giratória, etc.",
+            "Off increases performance by reducing processor and memory consumption on your computer.":
+                "Desligar aumenta a performance por reduzir o consumo de processador e memória do seu computador.",
+            "Theme": "Visual",
+            "Layout with light or dark visual of the site luckygames.io.":
+                "Layout com visual claro ou escuro do site luckygames.io.",
+            "It is a purely personal choice. Does not interfere with performance.":
+                "É uma escolha meramente pessoal. Não interfere na performance." 
         }
     }
 }

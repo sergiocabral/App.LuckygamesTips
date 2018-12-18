@@ -103,6 +103,12 @@ namespace Skript.Business.Layout.Components.Toast {
         private removeTimeout: Framework.Types.Index<NodeJS.Timeout> = { };
 
         /**
+         * Contagem das mensagens para exibição em ordem cronológica.
+         * @type {number}
+         */
+        private order: number = 0;
+
+        /**
          * Adiciona uma mensagem
          * @param {string} text Mensagem.
          * @param {Framework.Log.Level} level Nível.
@@ -116,6 +122,7 @@ namespace Skript.Business.Layout.Components.Toast {
 
             const messages = this.state.messages;
             messages[id] = {
+                order: ++this.order,
                 text: text,
                 level: level,
                 time: time,
@@ -191,7 +198,7 @@ namespace Skript.Business.Layout.Components.Toast {
         public render(): JSX.Element { super.render();
             return (
                 <div id={this.id} className={this.classNameAttribute()}>
-                    {Object.keys(this.state.messages).map((message) => (
+                    {Object.keys(this.state.messages).sort((a, b) => this.state.messages[a].order < this.state.messages[b].order ? -1 : 1).map((message) => (
                         <p key={message} className={Framework.Log.Level[this.state.messages[message].level] + (this.state.messages[message].removed ? " closing" : "")}>
                             <a href="#" className="no-underline" onClick={this.onCloseClick}>&times;</a>
                             <span className="text">{this.state.messages[message].text}</span>

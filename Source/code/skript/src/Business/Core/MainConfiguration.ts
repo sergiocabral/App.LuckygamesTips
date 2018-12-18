@@ -10,5 +10,10 @@ namespace Skript.Business.Core {
          * @type {string}
          */
         server: string,
+
+        /**
+         * Força o modo debug.
+         */
+        debug?: boolean
     }
 }

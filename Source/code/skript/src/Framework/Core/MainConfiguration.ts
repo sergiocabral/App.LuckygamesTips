@@ -56,5 +56,10 @@ namespace Skript.Framework.Core {
          * @type {string|undefined}
          */
         server: string|undefined,
+
+        /**
+         * Força o modo debug.
+         */
+        debug?: boolean
     }
 }

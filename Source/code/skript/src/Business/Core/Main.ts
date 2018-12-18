@@ -27,6 +27,7 @@ namespace Skript.Business.Core {
                     "{url}FastForward/font.css"
                 ],
                 server: configuration.server,
+                debug: configuration.debug
             });
         }
 

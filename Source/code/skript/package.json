@@ -12,8 +12,7 @@
     "src/**"
   ],
   "exclude": [
-    "../wordpress/**",
-    "src2/**"
+    "../wordpress/**"
   ],
   "devDependencies": {
     "@types/jquery": "^3.3.25",

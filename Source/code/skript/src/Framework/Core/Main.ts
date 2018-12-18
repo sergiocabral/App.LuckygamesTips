@@ -24,6 +24,8 @@ namespace Skript.Framework.Core {
             if (Main.instance) throw new Errors.InvalidExecution("Main cannot be instantiated multiple times.");
             Main.instance = this;
 
+            this.debug = configuration.debug !== undefined ? configuration.debug : this.constructor.name === "Main";
+
             this.log = new Log.History(this.debug, true);
             this.log.post("Loading infrastructure...");
 
@@ -80,7 +82,7 @@ namespace Skript.Framework.Core {
          * Determina se a execução está em modo debug.
          * @type {boolean}
          */
-        public debug: boolean = this.constructor.name === "Main";
+        public debug: boolean;
 
         /**
          * Manipulador do log de mensagens.

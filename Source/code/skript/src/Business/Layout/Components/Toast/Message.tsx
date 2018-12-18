@@ -6,6 +6,11 @@ namespace Skript.Business.Layout.Components.Toast {
     export type Message = {
 
         /**
+         * Posição na lista.
+         */
+        order: number,
+
+        /**
          * Mensagem.
          * @type {string}
          */
