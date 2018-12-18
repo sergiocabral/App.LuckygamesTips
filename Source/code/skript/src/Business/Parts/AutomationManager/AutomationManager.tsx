@@ -381,7 +381,7 @@ namespace Skript.Business.Parts.AutomationManager {
             this.objAceEditorJson.on('change', () => this.jsonEditing(true));
 
             const elSelectAutomationSet = this.elSelectAutomationSet.current;
-            setTimeout(() => elSelectAutomationSet.value("current"), 0);
+            setTimeout(() => elSelectAutomationSet.value("default"), 0);
         }
 
         /**
