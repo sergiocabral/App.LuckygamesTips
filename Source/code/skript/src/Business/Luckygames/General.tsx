@@ -91,9 +91,9 @@ namespace Skript.Business.Luckygames {
         }
     }
 
-    Framework.Bus.Message.capture(Messages.DoSetTheme, undefined, (message: Messages.DoSetTheme) => General.theme(message.mode));
+    Framework.Bus.Message.capture(Messages.DoSetTheme, undefined, (message: Messages.DoSetTheme) => message.mode = General.theme(message.mode));
     Framework.Bus.Message.capture(Messages.GetTheme, undefined, (message: Messages.GetTheme) => message.mode = General.theme());
 
-    Framework.Bus.Message.capture(Messages.DoSetAnimation, undefined, (message: Messages.DoSetAnimation) => General.animation(message.mode));
+    Framework.Bus.Message.capture(Messages.DoSetAnimation, undefined, (message: Messages.DoSetAnimation) => message.mode = General.animation(message.mode));
     Framework.Bus.Message.capture(Messages.GetAnimation, undefined, (message: Messages.GetAnimation) => message.mode = General.animation());
 }

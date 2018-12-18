@@ -207,6 +207,6 @@ namespace Skript.Business.Luckygames {
         }
     }
     
-    Framework.Bus.Message.capture(Messages.DoSetWebSocketMode, undefined, (message: Messages.DoSetWebSocketMode) => WebSocketControl.mode(message.mode));
+    Framework.Bus.Message.capture(Messages.DoSetWebSocketMode, undefined, (message: Messages.DoSetWebSocketMode) => message.mode = WebSocketControl.mode(message.mode));
     Framework.Bus.Message.capture(Messages.GetWebSocketMode, undefined, (message: Messages.GetWebSocketMode) => message.mode = WebSocketControl.mode());
 }

@@ -219,8 +219,9 @@ namespace Skript.Business.Parts.LuckygamesAdjusts {
                 case "websocket":
                     mode = Luckygames.WebSocketMode[adjusts.value[0].key as any] as any as Luckygames.WebSocketMode;
                     modeNew = new Luckygames.Messages.DoSetWebSocketMode(mode).request().mode;
+                    console.log(mode, modeNew);
                     if (mode !== modeNew) {
-                        this.setOptionWebsocket(mode);
+                        this.setOptionWebsocket(modeNew);
                         return false;
                     }
                     break;
@@ -228,7 +229,7 @@ namespace Skript.Business.Parts.LuckygamesAdjusts {
                     mode = Framework.Types.OffOn[adjusts.value[0].key as any] as any as Framework.Types.OffOn;
                     modeNew = new Luckygames.Messages.DoSetAnimation(mode).request().mode;
                     if (mode !== modeNew) {
-                        this.setOptionAnimation(mode);
+                        this.setOptionAnimation(modeNew);
                         return false;
                     }
                     break;
@@ -236,7 +237,7 @@ namespace Skript.Business.Parts.LuckygamesAdjusts {
                     mode = Luckygames.ThemeMode[adjusts.value[0].key as any] as any as Luckygames.ThemeMode;
                     modeNew = new Luckygames.Messages.DoSetTheme(mode).request().mode;
                     if (mode !== modeNew) {
-                        this.setOptionTheme(mode);
+                        this.setOptionTheme(modeNew);
                         return false;
                     }
                     break;
