@@ -49,7 +49,7 @@ namespace Skript.Business.Luckygames {
                 check(0);
             });
         }
-        
+
         /**
          * Instância do websocket da luckygames.io
          * @returns {WebSocket} Instância original, mas adaptada, do websockets da luckygames.io
@@ -104,6 +104,12 @@ namespace Skript.Business.Luckygames {
                 default: throw new Framework.Errors.InvalidArgument(`WebSocketMode = ${mode}`);
             }
         }
+        
+        /**
+         * Lista de websockets já instanciados.
+         * @type {any[]}
+         */
+        private static websocketInstances: WebSocket[] = [];
 
         /**
          * Finaliza a conexão do WebSocket.
@@ -111,10 +117,15 @@ namespace Skript.Business.Luckygames {
         private static socketClose(): void {
             const ws = WebSocketControl.websocket();
             if (!ws) return;
-            if (ws.readyState != WebSocket.CLOSED) {
-                ws.close();
-                Core.Main.instance.log.post("WebSocket was closed.", null, Framework.Log.Level.Verbose, "Luckygames Website", ws);
+            if (WebSocketControl.websocketInstances.indexOf(ws) < 0) WebSocketControl.websocketInstances.push(ws);
+            let closed = false;
+            for (const i in WebSocketControl.websocketInstances) {
+                if (WebSocketControl.websocketInstances[i].readyState != WebSocket.CLOSED) {
+                    WebSocketControl.websocketInstances[i].close();
+                    closed = true;
+                }
             }
+            if (closed) Core.Main.instance.log.post("WebSocket was closed.", null, Framework.Log.Level.Verbose, "Luckygames Website", ws);
         }
 
         /**
