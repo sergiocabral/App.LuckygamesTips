@@ -19,12 +19,6 @@ namespace Skript.Business.Luckygames {
         public static initialize(tentatives: number = 5, interval: number = 5000): Promise<boolean> {
             if (WebSocketControl.initialized !== undefined) throw new Framework.Errors.InvalidExecution("WebSocketControl.initialize() more than 1x");
             WebSocketControl.initialized = false;
-            
-            (WebSocket.prototype as any).sendBkp = WebSocket.prototype.send;
-            WebSocket.prototype.send = function(params) {
-                if (this.url.indexOf("luckygames.io") >= 0) WebSocketControl.websocketInstances.push(this);
-                return (this as any).sendBkp(params);
-            }
 
             return new Promise(resolve => {
                 const check = (tentativesCount: number) => {
@@ -73,9 +67,16 @@ namespace Skript.Business.Luckygames {
          */
         private static intercept(socket: any): void {
             if (!socket || socket.intercepted) return;
+            socket.intercepted = true;
+
             WebSocketControl.socketReconnectBackup = socket.Reconnect;
             socket.Reconnect = WebSocketControl.socketReconnectNew;
-            socket.intercepted = true;
+
+            (WebSocket.prototype as any).sendBackup = WebSocket.prototype.send;
+            WebSocket.prototype.send = function(params) {
+                if (this.url.indexOf("ws.luckygames.io") >= 0) WebSocketControl.websocketInstances.push(this);
+                return (this as any).sendBackup(params);
+            }
         }
 
         /**
