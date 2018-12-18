@@ -233,6 +233,14 @@
 /// context: React
 /// <reference path="Business/Parts/AutomationManager/AutomationManager.tsx" />
 /// context: React
+/// <reference path="Business/Parts/LuckygamesAdjusts/Adjusts.tsx" />
+/// context: React
+/// <reference path="Business/Parts/LuckygamesAdjusts/AdjustsProps.tsx" />
+/// context: React
+/// <reference path="Business/Parts/LuckygamesAdjusts/LuckygamesAdjusts.tsx" />
+/// context: React
+/// <reference path="Business/Parts/LuckygamesAdjusts/OptionWrapper.tsx" />
+/// context: React
 /// <reference path="Business/Parts/LogViewer/LevelsState.tsx" />
 /// context: React
 /// <reference path="Business/Parts/LogViewer/LevelsProps.tsx" />

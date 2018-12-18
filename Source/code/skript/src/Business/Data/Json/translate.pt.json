@@ -107,7 +107,6 @@
             "Types": {
                 "Normal": "Frequência normal",
                 "Reduce": "Frequência reduzida",
-                "Normal": "Desligado",
                 "Dark": "Escuro",
                 "Light": "Claro"
             }
