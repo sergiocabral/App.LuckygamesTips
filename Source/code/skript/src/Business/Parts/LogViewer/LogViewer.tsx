@@ -257,7 +257,7 @@ namespace Skript.Business.Parts.LogViewer {
                 let message: Framework.Log.Message | undefined;
                 while (message = this.onDidLogPostedDelayList.shift()) messages.unshift(message);
                 this.setState({ messages: messages });
-                setTimeout(() => this.lastMessages.length = 0, 1000);
+                setTimeout(() => { this.lastMessages.length = 0; this.forceUpdate(); }, 1000);
             }, 1000);
         }
 
