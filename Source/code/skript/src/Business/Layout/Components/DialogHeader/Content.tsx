@@ -19,6 +19,7 @@ namespace Skript.Business.Layout.Components.DialogHeader {
 
             this.automation = { parameters: { }, actions: { } };
             const automationName = this.configureAutomation(this.automation.parameters, this.automation.actions);
+            if (!automationName) throw new Framework.Errors.EmptyValue("configureAutomation name");
             Core.Main.instance.automation.add(automationName, this.automation);
         }
 
