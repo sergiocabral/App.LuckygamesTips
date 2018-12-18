@@ -1,6 +1,14 @@
 {
-    "Business: Traduções do sistema": {
-        "en": "English",
-        "pt": "Portuguese"
+    "Business: Classes": {
+        "Main": {
+            "en": "English",
+            "pt": "Portuguese"
+        },
+        "Luckygames": {
+            "Types": {
+                "Normal": "Normal frequency",
+                "Reduce": "Reduced frequency"
+            }
+        }
     }
 }

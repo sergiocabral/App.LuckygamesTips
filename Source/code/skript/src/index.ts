@@ -87,9 +87,9 @@
 /// context: Initialize
 /// <reference path="Framework/Errors/InvalidExecution.ts" />
 /// context: Initialize
-/// <reference path="Framework/Errors/RequestFail.ts" />
+/// <reference path="Framework/Errors/NotReady.ts" />
 /// context: Initialize
-/// <reference path="Framework/Errors/ReactNotReady.ts" />
+/// <reference path="Framework/Errors/RequestFail.ts" />
 /// context: Initialize
 /// <reference path="Framework/Errors/EmptyValue.ts" />
 /// context: Initialize
@@ -298,6 +298,34 @@
 /// <reference path="Business/Layout/ThemeConfiguration.ts" />
 /// context: Initialize
 /// <reference path="Business/Layout/Theme.ts" />
+/// context: Initialize
+
+/// <reference path="Business/Luckygames/Messages/DidAnimationSetted.ts" />
+/// context: Initialize
+/// <reference path="Business/Luckygames/Messages/DidThemeSetted.ts" />
+/// context: Initialize
+/// <reference path="Business/Luckygames/Messages/DidWebSocketModeSetted.ts" />
+/// context: Initialize
+/// <reference path="Business/Luckygames/Messages/DoSetAnimation.ts" />
+/// context: Initialize
+/// <reference path="Business/Luckygames/Messages/DoSetTheme.ts" />
+/// context: Initialize
+/// <reference path="Business/Luckygames/Messages/DoSetWebSocketMode.ts" />
+/// context: Initialize
+/// <reference path="Business/Luckygames/Messages/GetAnimation.ts" />
+/// context: Initialize
+/// <reference path="Business/Luckygames/Messages/GetTheme.ts" />
+/// context: Initialize
+/// <reference path="Business/Luckygames/Messages/GetWebSocketMode.ts" />
+/// context: Initialize
+
+/// <reference path="Business/Luckygames/ThemeMode.tsx" />
+/// context: Initialize
+/// <reference path="Business/Luckygames/General.tsx" />
+/// context: Initialize
+/// <reference path="Business/Luckygames/WebSocketMode.tsx" />
+/// context: Initialize
+/// <reference path="Business/Luckygames/WebSocketControl.tsx" />
 /// context: Initialize
 
 /// #############################################

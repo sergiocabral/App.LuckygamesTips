@@ -50,6 +50,7 @@ namespace Skript.Business.Core {
                 });
                 this.automation = new Automation.Manager();
                 this.activator = Layout.Components.Activator.Activator.create();
+                Luckygames.WebSocketControl.initialize();
                 Framework.Bus.Message.capture(Messages.DidPartsLoaded, this, this.onDidPartsLoaded);
             });
         }

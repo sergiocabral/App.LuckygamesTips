@@ -39,7 +39,14 @@
         },
         "Types": {
             "No": "Não",
-            "Yes": "Sim"
+            "Yes": "Sim",
+            "Information": "Informativo",
+            "Warning": "Alerta",
+            "Error": "Erro",
+            "Debug": "Depuração",
+            "Verbose": "Detalhado",
+            "On": "Ligado",
+            "Off": "Desligado"
         },
         "Alert": {
             "Cancel": "Cancelar"
@@ -60,28 +67,52 @@
             "The log message list has been cleared.": "A lista de mensagens de log foi limpa."
         }
     },
-    "Business: Traduções do sistema": {
-        "Theme colors loaded.": "Tema de cores carregado.",
-        "Great! Tips were loaded successfully.": "Ótimo! O Tips foi carregado com sucesso.",
-        "en": "Inglês",
-        "pt": "Português"
-    },
-    "Business: Módulos": {
-        "MainHeader": {
-            "Refresh page.": "Atualizar página.",
-            "Refreshing the page will cause any activity in progress to be interrupted. Update anyway?": "Atualizar a página fará com que qualquer atividade em andamento seja interrompida. Atualizar assim mesmo?",
-            "Expand all modules.": "Expande todos os módulos.",
-            "Collapse all modules.": "Recolhe todos os módulos.",
-            "Close all the module windows.": "Fecha todas as janelas dos módulos.",
-            "Select language.": "Seleção de idioma."
+    "Business: Classes": {
+        "Main": {
+            "do more, much more": "faça mais, muito mais",
+            "Great! Tips were loaded successfully.": "Ótimo! O Tips foi carregado com sucesso.",
+            "Theme colors loaded.": "Tema de cores carregado.",
+            "en": "Inglês",
+            "pt": "Português"
         },
-        "LogViewer": {
-            "Log Viewer": "Mensagens de Log",
-            "Clear log": "Limpar log",
-            "All": "Todos",
-            "Filter": "Filtro"
+        "Luckygames": {
+            "WebSocketControl": {
+                "Failed to set up receiving global information from luckygames.io. But do not worry. This is not a serious problem.":
+                    "Não foi possível configurar o recebimento de informações globais da luckygames.io. Mas não se preocupe. Isso não representa um problema grave.",
+                "After {0] attempts it was not possible to set up global information for luckygames.io. But do not worry. This is not a serious problem.":
+                    "Depois de {0} tentativas não foi possível configurar o recebimento de informações globais da luckygames.io. Mas não se preocupe. Isso não representa um problema grave.",
+                "Defined as \"{0}\" receiving global information from luckygames.io.":
+                    "Definido como \"{0}\" o recebimento de informações globais da luckygames.io.",
+                "Trying to intercept WebSocket. Attempt {0}.":
+                    "Tentando interceptar o WebSocket. Tentativa {0}.",
+                "WebSocket successfully intercepted.":
+                    "WebSocket interceptado com sucesso.",
+                "Request to reconnect WebSocket was accepted. Current interceptor mode: {0}":
+                    "Solicitação para reconectar o WebSocket foi aceita. Modo interceptador atual: {0}",
+                "Request to reconnect WebSocket was ignored. Current interceptor mode: {0}":
+                    "Solicitação para reconectar o WebSocket foi ignorada. Modo interceptador atual: {0}",
+                "Change WebSocket mode to: {0}":
+                    "Ajustado modo WebSocket para: {0}",
+                "WebSocket was closed.":
+                    "WebSocket foi fechado."
+            },
+            "General": {
+                "It was not possible to change the look between light and dark.":
+                    "Não foi possível alterar o visual entre claro e escuro.",
+                "Site theme changed to {0}":
+                    "O visual do site foi trocado para {0}",
+                "Site animation: {0}":
+                    "Animação do site: {0}"
+            },
+            "Types": {
+                "Normal": "Frequência normal",
+                "Reduce": "Frequência reduzida",
+                "Normal": "Desligado",
+                "Dark": "Escuro",
+                "Light": "Claro"
+            }
         },
-        "Automation: Base": {
+        "Automation": {
             "Defined: {0}": "Definido: {0}",
             "Invalid value for: {0}": "Valor inválido para: {0}",
             "Not exists: {0}": "Não existe: {0}",
@@ -106,8 +137,24 @@
                 "Conjuntos de automação do sistema não podem ser excluído.",
             "The deletion of automation set \"{0}\" will be irreversible. Do it anyway?":
                 "Apagar o conjunto de automação \"{0}\" será irreversível. Prosseguir?"
+        }
+    },
+    "Business: Módulos": {
+        "MainHeader": {
+            "Refresh page.": "Atualizar página.",
+            "Refreshing the page will cause any activity in progress to be interrupted. Update anyway?": "Atualizar a página fará com que qualquer atividade em andamento seja interrompida. Atualizar assim mesmo?",
+            "Expand all modules.": "Expande todos os módulos.",
+            "Collapse all modules.": "Recolhe todos os módulos.",
+            "Close all the module windows.": "Fecha todas as janelas dos módulos.",
+            "Select language.": "Seleção de idioma."
         },
-        "Automation: Part": {
+        "LogViewer": {
+            "Log Viewer": "Mensagens de Log",
+            "Clear log": "Limpar log",
+            "All": "Todos",
+            "Filter": "Filtro"
+        },
+        "AutomationManager": {
             "Automation": "Automação",
             "Select a automation set...": "Selecione um conjunto de automação...",
             "System": "Sistema",
@@ -127,8 +174,5 @@
             "Error applying settings": "Erro ao aplicar as definições",
             "Save these settings in what automation set?": "Gravar essas definições em qual conjunto de automação?"
         }
-    },
-    "Business: Frases em geral": {
-        "do more, much more": "faça mais, muito mais"
     }
 }

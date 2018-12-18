@@ -1,9 +1,9 @@
 namespace Skript.Framework.Errors {
 
     /**
-     * React não estava pronto.
+     * Não estava pronto.
      */
-    export class ReactNotReady extends Framework.Errors.Base {
+    export class NotReady extends Framework.Errors.Base {
 
         /**
          * Construtor.
@@ -11,7 +11,7 @@ namespace Skript.Framework.Errors {
          * @param {Error} innerError Erro interno.
          */
         public constructor(message?: string, public innerError?: Error) {
-            super("React not ready", message, innerError);
+            super("Not ready", message, innerError);
         }
     }
 }

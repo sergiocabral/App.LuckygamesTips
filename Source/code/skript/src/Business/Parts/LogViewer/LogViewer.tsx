@@ -158,11 +158,11 @@ namespace Skript.Business.Parts.LogViewer {
             const filters: Framework.Types.Parameter<string[]> = {
                 name: "Filters",
                 get: (): string[] => {
-                    if (!this.elFilter.current) throw new Framework.Errors.ReactNotReady();
+                    if (!this.elFilter.current) throw new Framework.Errors.NotReady("React");
                     return this.elFilter.current.value().map(v => v.key);
                 },
                 set: (value: string[]): boolean => {
-                    if (!this.elFilter.current) throw new Framework.Errors.ReactNotReady();
+                    if (!this.elFilter.current) throw new Framework.Errors.NotReady("React");
                     if (!Array.isArray(value) ||
                     value.filter(v => typeof(v) !== "string" || !v).length) return false;
                     this.elFilter.current.value(value);
@@ -174,11 +174,11 @@ namespace Skript.Business.Parts.LogViewer {
             const levels: Framework.Types.Parameter<string[]> = {
                 name: "Levels",
                 get: (): string[] => {
-                    if (!this.elLevels.current) throw new Framework.Errors.ReactNotReady();
+                    if (!this.elLevels.current) throw new Framework.Errors.NotReady("React");
                     return this.elLevels.current.checkeds().map(v => Framework.Log.Level[v]);
                 },
                 set: (value: string[]): boolean => {
-                    if (!this.elLevels.current) throw new Framework.Errors.ReactNotReady();
+                    if (!this.elLevels.current) throw new Framework.Errors.NotReady("React");
                     if (!Array.isArray(value) ||
                     value.filter(v => typeof(v) !== "string").length ||
                     value.filter(v => Framework.Log.Level[v as any] === undefined).length) return false;
@@ -192,7 +192,7 @@ namespace Skript.Business.Parts.LogViewer {
             const clear: Framework.Types.Action = {
                 name: "Clear Log",
                 execute: (): void => {
-                    if (!this.elClearLog.current) throw new Framework.Errors.ReactNotReady();
+                    if (!this.elClearLog.current) throw new Framework.Errors.NotReady("React");
                     this.elClearLog.current.click();
                 }
             }
