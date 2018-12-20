@@ -876,7 +876,8 @@ if (window.Tips.Modulos) {
                         if (response.gameResult === "lose") Modulo.Params.andamento.evitarPerdas++;
                         else if (response.gameResult === "win") Modulo.Params.andamento.evitarPerdas = 0;
                         
-                        if (Modulo.Params.andamento.evitarPerdas >= Modulo.Params.andamento.evitar) {
+                        if (Instancia.Estatisticas.Dados.sequenciaPerdendo < Modulo.Params.andamento.evitarPerdas &&
+                            Modulo.Params.andamento.evitarPerdas >= Modulo.Params.andamento.evitar) {
                             Modulo.Params.andamento.evitar = 0;                                
                         }
                         Modulo.Processamento();
@@ -946,6 +947,8 @@ if (window.Tips.Modulos) {
                         Modulo.Processamento(!venceu && !limiteDePerda);
                     };
                     const fApostaMinima = vencer === 0 ? null : () => {
+                        Modulo.Params.andamento.evitar = null;
+                        Modulo.Params.andamento.evitarPerdas = null;
                         Instancia.LuckygamesIo.Apostar('0.00000001', Modulo.Params.andamento.direcao, Modulo.Params.andamento.prediction)
                             .then((response2) => {
                                 if (Modulo.Params.controle.parar) {
