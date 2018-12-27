@@ -1,3 +1,4 @@
 .vs
-/Webserver/*
+Webserver/3-PRD/relatorios/*
 !/Webserver/3-PRD
+/Webserver/*
