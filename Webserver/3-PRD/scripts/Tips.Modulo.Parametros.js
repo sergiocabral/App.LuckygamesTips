@@ -457,7 +457,13 @@ if (window.Tips.Modulos) {
                 if (!container.is(":visible")) container.prev().click();
                 const btn = Instancia.Modulos.MartinBot.Objetos.$btnLigar;
                 if (btn.is(":visible") && btn.text() == "Ligar") btn.click();
-            }
+            },
+            LigarBotRatwo: () => {
+                const container = Instancia.Modulos.RatwoBot.Objetos.$controleBtnLigar.closest('article');
+                if (!container.is(":visible")) container.prev().click();
+                const btn = Instancia.Modulos.RatwoBot.Objetos.$controleBtnLigar;
+                if (btn.is(":visible") && btn.text() == "Ligar") btn.click();
+            },
         };
 
         Modulo.Mapa = [

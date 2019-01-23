@@ -175,5 +175,5 @@ if (window.Tips.Modulos) {
             },
         };
         
-   })();
+    })();
 }

@@ -155,7 +155,8 @@ if (window.Tips.Modulos) {
                         Instancia.Modulos.Parametros.Parametros.AplicarNaTela(json);
                         if (!Modulo.Parametros.processamentoIniciado) {                        
                             Instancia.Modulos.Parametros.Comandos.AbrirJanela();
-                            Instancia.Modulos.Parametros.Comandos.LigarBotMarin();
+                            //Instancia.Modulos.Parametros.Comandos.LigarBotMarin();
+                            Instancia.Modulos.Parametros.Comandos.LigarBotRatwo();
                             Instancia.Modulos.Parametros.Comandos.AbrirEstatisticas();
                             Modulo.Parametros.processamentoIniciado = true;
                         }
