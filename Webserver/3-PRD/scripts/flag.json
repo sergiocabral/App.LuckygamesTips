@@ -22,7 +22,7 @@
             "saldoMinimo": "100%",
             "atualizar": false,
             "relatorio": true,
-            "ligado": true,
+            "ligado": false,
             "mensagem": "",
             "script": [
                 "Global [ Atualização da tela ] = 0",
@@ -30,7 +30,7 @@
                 "Alertas [ Emails ] = sergio@cabral.br.com",
                 "Alertas [ Saldo abaixo ] = null",
                 "Alertas [ Saldo acima ] = null",
-                "Limites [ Saldo mínimo ] = 90%",
+                "Limites [ Saldo mínimo ] = null",
                 "Limites [ Saldo mínimo automático ] = true",
                 "Espera [ Depois de apostas ] = 1",
                 "Espera [ Depois de apostas esperar ] = 300",
