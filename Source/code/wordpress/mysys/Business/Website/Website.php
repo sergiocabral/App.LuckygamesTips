@@ -15,7 +15,7 @@ class Website extends \Mysys\Framework\Website\WebsiteBase {
      * Inicia os afazeres do Website.
      */
     function Init() {
-        \Mysys\Framework\Core\Event::instance()->bind('OnMysysSetDefaults', function() { \Mysys\Wordpress\Util::activateTheme("twentyseventeen"); });
+        \Mysys\Framework\Core\Event::instance()->bind('OnMysysSetDefaults', function() { \Mysys\Business\Wordpress\Util::activateTheme("twentyseventeen"); });
         
         \Mysys\Framework\Script\Loader::instance()->setEventScript("page_script");
     }
