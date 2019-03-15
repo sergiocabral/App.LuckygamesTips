@@ -357,7 +357,7 @@ if (window.Tips.Modulos) {
                                 Modulo.Parametros.controleMensagem = "Venceu";
                             } else {
                                 Modulo.Parametros.RecalcularApostaAposPerder();
-                                if (estourou = Modulo.Parametros.andamentoApostaRecalculo.nivelEstouro) Modulo.Parametros.PararBot();
+                                if (estourou = Modulo.Parametros.andamentoApostaRecalculo.nivelEstouro && !Modulo.Parametros.telaContinuarAoZerar) Modulo.Parametros.PararBot();
                             }
                             Modulo.Parametros.PrepararDadosDoLog();
 
