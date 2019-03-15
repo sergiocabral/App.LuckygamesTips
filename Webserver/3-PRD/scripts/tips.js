@@ -12,6 +12,7 @@ window.Tips = new (function() {
         EmailDeContato: 'luckygames.tips@luckygames.tips',
         CssClass: 'tips',
         Debug: false,
+        AbrirJanela: true,
         DigitosDecimais: 8,
         SeparadorDecimal: ',',
     };
@@ -1103,7 +1104,7 @@ window.Tips = new (function() {
                     setTimeout(Instancia.Layout.AtualizarExibicao.Executar, 1000);
                 }
             });
-            if (Instancia.Definicoes.Debug) {
+            if (Instancia.Definicoes.Debug || Instancia.Definicoes.AbrirJanela) {
                 Instancia.Objetos.$janelaModal.open();
             }
         },
@@ -1409,11 +1410,10 @@ window.Tips = new (function() {
                         if (Number.isFinite(meta) && meta < saldo) {
                             $(this).val(saldo).blur();
                         }
-                        modulo.Componentes.QuantoArriscar.meta = meta;
+                        modulo.Componentes.QuantoArriscar.meta = meta === null || meta >= modulo.Componentes.QuantoArriscar.saldo ? meta : modulo.Componentes.QuantoArriscar.saldo;
                     });
                     modulo.Objetos.componenteQuantoArriscar$SaldoMeta.get(0).valor_inicial = Instancia.LuckygamesIo.Parametros.Balance;
 
-                    
                     modulo.Objetos.componenteQuantoArriscar$Arriscar.blur(function() {
                         const arriscar = this.number() / 100;
                         const arriscado = Instancia.LuckygamesIo.Parametros.Balance() * arriscar;
@@ -1565,7 +1565,7 @@ window.Tips = new (function() {
                     for (let i = 0; i < keys.length; i++) {
                         chaves.push(keys[i]);
                         chavesLength = chaves[chaves.length - 1].length > chavesLength ? chaves[chaves.length - 1].length : chavesLength;
-                        valores.push(String(json[keys[i]]));
+                        valores.push(String(json[keys[i]] === null ? "—" : json[keys[i]]));
                         valoresLength = valores[valores.length - 1].length > valoresLength ? valores[valores.length - 1].length : valoresLength;
                     }
                     for (let i = 0; i < keys.length; i++) {
@@ -1847,6 +1847,7 @@ window.Tips = new (function() {
         
         ApostaEmCurso: false,
         Apostar: (betAmount, direction, prediction) => {
+            betAmount = typeof(betAmount) === 'number' ? betAmount.toFixed(8) : String(betAmount);
             return new Promise((resolve, reject) => {
                 if (Instancia.LuckygamesIo.ApostaEmCurso) {
                     reject('ERR-K211E');
