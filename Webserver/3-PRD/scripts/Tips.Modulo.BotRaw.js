@@ -320,10 +320,12 @@ if (window.Tips.Modulos) {
             ObterAposta: () => {
                 if (!Modulo.Parametros.andamento) Modulo.Parametros.ParametrosAndamentoInicializar();
                 const ignorar = Modulo.Parametros.telaSequencia.indexOf(Instancia.Estatisticas.Dados.sequenciaPerdendo) < 0;
+                if (ignorar) Modulo.Parametros.controleMensagem = "Ignorando";
                 return {
                     valor:      ignorar ? 0.00000001 : Modulo.Parametros.andamentoApostaProxima,
                     prediction: Modulo.Parametros.andamentoUsuarioPrediction,
                     direcao:    Instancia.LuckygamesIo.ValoresMultiplicadores['_' + Modulo.Parametros.andamentoUsuarioPrediction] >= 1 ? 'over' : 'under',
+                    ignorar:    ignorar,
                 };
             },
 
@@ -348,6 +350,8 @@ if (window.Tips.Modulos) {
 
                     Instancia.LuckygamesIo.Apostar(aposta.valor, aposta.direcao, aposta.prediction)
                         .then((response) => {
+                            if (aposta.ignorar) return resolve(false);
+
                             const venceu = response.gameResult == "win";
                             let estourou = false;
 
