@@ -19,7 +19,7 @@ if (window.Tips.Modulos) {
             titulo: 'BOT Raw',
 
             css: `
-                :host table.base input {
+                :host table.base input[number] {
                     max-width: 100px;
                 }
                 {componenteQuantoArriscar}
@@ -48,6 +48,12 @@ if (window.Tips.Modulos) {
                         <td class="niveis"><input type="text" number number-min="1" number-digitos="0" number-padrao="5" value="5" /></td>
                     </tr>
                 </table>
+                <table>
+                    <tr>
+                        <td class="label"><label>Sequência</label></td>
+                        <td class="sequencia"><input type="text" value="3-8,15-20" /></td>
+                    </tr>
+                </table>
                 <div class="divisor"></div>
                 <table class="mitigar">
                     <tr>
@@ -73,6 +79,8 @@ if (window.Tips.Modulos) {
                 Modulo.Objetos.multiplicador = container.find('.multiplicador input[type="text"]').get(0);
                 Modulo.Objetos.niveis = container.find('.niveis input[type="text"]').get(0);
 
+                Modulo.Objetos.$sequencia = container.find('.sequencia input[type="text"]');
+
                 Modulo.Objetos.$mitigarContinuarAoZerarLabel = container.find('.mitigar .continuarAoZerar span.label');
 
                 Modulo.Objetos.icheckbug_mitigarContinuarAoZerar = { };
@@ -81,6 +89,59 @@ if (window.Tips.Modulos) {
                     Modulo.Parametros.telaContinuarAoZerar = this.checked;
                 }).trigger('ifChanged');
 
+                Modulo.Objetos.$sequencia.blur(function() {
+                    let mask = this.value;
+                    const numbers = [];
+
+                    if (!/(^[^0-9]|[^0-9\,\-]|[^0-9]$|[^0-9][^0-9])/.test(mask)) {
+                        let sinal = "";
+                        while (mask.length) {
+                            let number = mask.replace(/[^0-9]+.*/, "");
+                            mask = mask.substr(number.length);
+                            number = parseInt(number);
+                            if (number > 9999) number = 9999;
+
+                            if (numbers.length && numbers[numbers.length - 1] > number) {
+                                numbers.length = 0;
+                                break;
+                            }
+                            if (sinal == "-") {
+                                for (let i = numbers[numbers.length - 1] + 1; i <= number; i++) {
+                                    numbers.push(i);
+                                }
+                            } else if (numbers[numbers.length - 1] != number) {
+                                numbers.push(number);
+                            }
+
+                            sinal = mask.substr(0, 1);
+                            mask = mask.substr(sinal.length);
+                        }
+                    }
+
+                    if (numbers.length == 0) this.value = "0-9999";
+                    else {
+                        mask = "";
+                        let ultimo;
+                        let aberto = false;
+                        for (let i = 0; i <= numbers.length; i++) {
+                            const number = i <= numbers.length ? numbers[i] : undefined;
+                            if (ultimo == number - 1) {
+                                aberto = true;
+                            } else {
+                                if (aberto) {
+                                    aberto = false;
+                                    mask += "-" + ultimo;
+                                }
+                                if (number) mask += (mask ? "," : "") + numbers[i];
+                            }
+                            ultimo = numbers[i];
+                        }
+                        this.value = mask;
+                    }
+
+                    Modulo.Parametros.telaSequencia = numbers;
+                });
+                Modulo.Objetos.$sequencia.blur();
             },
 
             atualizarExibicao: () => {
@@ -96,7 +157,8 @@ if (window.Tips.Modulos) {
 
         Modulo.Parametros = {
             //Parâmetros de tela.
-            telaContinuarAoZerar: null,
+            telaContinuarAoZerar: null,                     //Indica que mesmo ao zerar deve reiniciar.
+            telaSequencia: null,                            //Sequência usadas para apostar.
 
             //Informações do andamento da tentativa
             andamentoUsuarioSaldoMinimo: null,              //Parâmetros recebidos do usuário. Não pode mudar durante a tentativa.
@@ -122,6 +184,7 @@ if (window.Tips.Modulos) {
             controleGanhoMenor: 0,                          //Menor ganho
             controleGanhoMaior: 0,                          //Maior ganho
             controleGanhoAtual: 0,                          //Ganho atual
+            controleZerado: 0,                              //Quantas vezes zerou.
             controleNivel: "—",                             //Último nível
             controlePerdas: "—",                            //Última contagem de perdas.
             controleMensagem: "",                           //Mensagem de log.
@@ -129,22 +192,25 @@ if (window.Tips.Modulos) {
             log: () => {
                 let log = {
                     "Ligado":           Modulo.Componentes.LigaDesliga.executando ? "Sim" : "Não",
+                    "Zerou":            Modulo.Parametros.controleZerado + "x",
                     "Nivel":            Modulo.Parametros.controleNivel,
                     "Perdas":           Modulo.Parametros.controlePerdas,
-                    "Ganho - menor":    "% " + (Modulo.Parametros.controleGanhoMenor >= 0 ? "+" : "-") + Math.abs(100 * Modulo.Parametros.controleGanhoMenor).toFixed(8),
-                    "  +---- ATUAL":    "% " + (Modulo.Parametros.controleGanhoAtual >= 0 ? "+" : "-") + Math.abs(100 * Modulo.Parametros.controleGanhoAtual).toFixed(8),
-                    "  +---- maior":    "% " + (Modulo.Parametros.controleGanhoMaior >= 0 ? "+" : "-") + Math.abs(100 * Modulo.Parametros.controleGanhoMaior).toFixed(8),
+                    "Ganho: menor":    "% " + (Modulo.Parametros.controleGanhoMenor >= 0 ? "+" : "-") + Math.abs(100 * Modulo.Parametros.controleGanhoMenor).toFixed(8),
+                    "Ganho: ATUAL":    "% " + (Modulo.Parametros.controleGanhoAtual >= 0 ? "+" : "-") + Math.abs(100 * Modulo.Parametros.controleGanhoAtual).toFixed(8),
+                    "Ganho: maior":    "% " + (Modulo.Parametros.controleGanhoMaior >= 0 ? "+" : "-") + Math.abs(100 * Modulo.Parametros.controleGanhoMaior).toFixed(8),
                     "Status":           Modulo.Parametros.controleMensagem,
                 };
                 Modulo.Componentes.LigaDesliga.Log(log);
             },
 
             InicializarBot: () => {
+                Modulo.Parametros.ParametrosAndamentoInicializar(false);
                 Modulo.Parametros.controleSaldoInicialTotal = Instancia.LuckygamesIo.Parametros.Balance();
                 Modulo.Parametros.controleSaldoInicialArriscado = Modulo.Componentes.QuantoArriscar.arriscado;
                 Modulo.Parametros.controleGanhoMenor = 0;
                 Modulo.Parametros.controleGanhoMaior = 0;
                 Modulo.Parametros.controleGanhoAtual = 0;
+                Modulo.Parametros.controleZerado = 0;
                 Modulo.Parametros.controleNivel = "—";
                 Modulo.Parametros.controlePerdas = "—";
                 Modulo.Parametros.controleMensagem = "";
@@ -211,13 +277,15 @@ if (window.Tips.Modulos) {
 
                     //Redefine alvo de saldo esperado.
                     Modulo.Parametros.andamentoSaldoEsperado = Instancia.LuckygamesIo.Parametros.Balance() + (Modulo.Parametros.andamentoApostaProxima * Modulo.Parametros.andamentoUsuarioPredictionMultiplicador);
+
+                    Modulo.Parametros.controleMensagem = "Subiu de nível";
                 } else {
                     //Ajusta aposta para poder alcançar o saldo esperado: aposta = (saldo_esperado - saldo_atual) / multiplicador_luckygames
                     Modulo.Parametros.andamentoApostaProxima = (Modulo.Parametros.andamentoSaldoEsperado - Instancia.LuckygamesIo.Parametros.Balance()) / Modulo.Parametros.andamentoUsuarioPredictionMultiplicador;
                 }
 
                 if (Modulo.Parametros.andamentoApostaRecalculo.nivelEstouro = Modulo.Parametros.andamentoNivel > Modulo.Parametros.andamentoUsuarioNiveis) {
-                    Modulo.Parametros.controleMensagem = "Perdeu em todos os níveis.";
+                    Modulo.Parametros.controleMensagem = "Perdeu em todos os níveis";
                 }
             },
 
@@ -241,6 +309,7 @@ if (window.Tips.Modulos) {
                     Modulo.Parametros.controleMensagem = "Saldo máximo atingido";
                     return "max";
                 } else if (Instancia.LuckygamesIo.Parametros.Balance() - aposta.valor < Modulo.Parametros.andamentoUsuarioSaldoMinimo) {
+                    Modulo.Parametros.controleZerado++;
                     Modulo.Parametros.controleMensagem = "Saldo mínimo atingido";
                     return "min";
                 }
@@ -250,8 +319,9 @@ if (window.Tips.Modulos) {
             //Obtem o valor da próxima aposta
             ObterAposta: () => {
                 if (!Modulo.Parametros.andamento) Modulo.Parametros.ParametrosAndamentoInicializar();
+                const ignorar = Modulo.Parametros.telaSequencia.indexOf(Instancia.Estatisticas.Dados.sequenciaPerdendo) < 0;
                 return {
-                    valor:      Modulo.Parametros.andamentoApostaProxima,
+                    valor:      ignorar ? 0.00000001 : Modulo.Parametros.andamentoApostaProxima,
                     prediction: Modulo.Parametros.andamentoUsuarioPrediction,
                     direcao:    Instancia.LuckygamesIo.ValoresMultiplicadores['_' + Modulo.Parametros.andamentoUsuarioPrediction] >= 1 ? 'over' : 'under',
                 };
@@ -284,6 +354,7 @@ if (window.Tips.Modulos) {
                             Modulo.Parametros.CalcularGanho();
                             if (venceu) {
                                 Modulo.Parametros.ParametrosAndamentoInicializar(false);
+                                Modulo.Parametros.controleMensagem = "Venceu";
                             } else {
                                 Modulo.Parametros.RecalcularApostaAposPerder();
                                 if (estourou = Modulo.Parametros.andamentoApostaRecalculo.nivelEstouro) Modulo.Parametros.PararBot();
