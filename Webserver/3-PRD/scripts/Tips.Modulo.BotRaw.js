@@ -19,8 +19,17 @@ if (window.Tips.Modulos) {
             titulo: 'BOT Raw',
 
             css: `
+                :host .label label {
+                    left: 0;
+                }
                 :host table.base input[number] {
                     max-width: 100px;
+                }
+                :host .mitigar .riscoTemporario input.risco {
+                    width: 80px;
+                }
+                :host .mitigar .riscoTemporario input.tempo {
+                    width: 50px;
                 }
                 {componenteQuantoArriscar}
             `
@@ -37,29 +46,43 @@ if (window.Tips.Modulos) {
                 <table class="base">
                     <tr>
                         <td class="label"><label>Prediction</label></td>
-                        <td class="prediction"><input type="text" number number-min="1" number-max="98" number-digitos="0" number-padrao="89" value="89" /></td>
+                        <td class="prediction"><input type="text" number number-min="1" number-max="98" number-digitos="0" number-padrao="50" value="50" /></td>
                         <td class="label"><label>Perdas</label></td>
-                        <td class="perdas"><input type="text" number number-min="0" number-digitos="0" number-padrao="10" value="10" /></td>
+                        <td class="perdas"><input type="text" number number-min="0" number-digitos="0" number-padrao="3" value="3" /></td>
                     </tr>
                     <tr>
                         <td class="label"><label>Multiplicador</label></td>
                         <td class="multiplicador"><input type="text" number number-min="1,1" number-digitos="1" number-padrao="10" value="10" /></td>
                         <td class="label"><label>Niveis</label></td>
-                        <td class="niveis"><input type="text" number number-min="1" number-digitos="0" number-padrao="5" value="5" /></td>
+                        <td class="niveis"><input type="text" number number-min="1" number-digitos="0" number-padrao="3" value="3" /></td>
                     </tr>
                 </table>
                 <table>
                     <tr>
                         <td class="label"><label>Sequência</label></td>
-                        <td class="sequencia"><input type="text" value="3-8,15-20" /></td>
+                        <td class="sequencia"><input type="text" value="0-2" /></td>
                     </tr>
                 </table>
                 <div class="divisor"></div>
                 <table class="mitigar">
                     <tr>
                         <td>
+                            <div class="checkbox riscoTemporario">
+                                <input type="checkbox" checked />
+                                <span class="label">
+                                    <label>Após perda, risco em</label>
+                                    <input class="risco" type="text" number number-digitos="1" number-min="0,1" number-min="100" number-padrao="10" value="10" />
+                                    <label>por</label>
+                                    <input class="tempo" type="text" number number-digitos="0" number-min="1" number-padrao="5" maxlength="3" value="5" />
+                                    <label>segundos</label>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             <div class="checkbox continuarAoZerar">
-                                <input type="checkbox" />
+                                <input type="checkbox" checked />
                                 <span class="label">
                                     <label>Continuar mesmo após zerar.</label>
                                 </span>
@@ -82,12 +105,35 @@ if (window.Tips.Modulos) {
                 Modulo.Objetos.$sequencia = container.find('.sequencia input[type="text"]');
 
                 Modulo.Objetos.$mitigarContinuarAoZerarLabel = container.find('.mitigar .continuarAoZerar span.label');
-
                 Modulo.Objetos.icheckbug_mitigarContinuarAoZerar = { };
                 Instancia.LuckygamesIo.BugICheckEvent('.' + secaoId + ' .mitigar .continuarAoZerar input[type="checkbox"]', Modulo.Objetos.icheckbug_mitigarContinuarAoZerar, function() {
                     Modulo.Objetos.$mitigarContinuarAoZerarLabel.css('opacity', this.checked ? 1 : 0.5);
                     Modulo.Parametros.telaContinuarAoZerar = this.checked;
                 }).trigger('ifChanged');
+
+                Modulo.Objetos.$mitigarRiscoTemporarioRisco = container.find('.mitigar .riscoTemporario input[type="text"].risco');
+                Modulo.Objetos.$mitigarRiscoTemporarioTempo = container.find('.mitigar .riscoTemporario input[type="text"].tempo');
+
+                Modulo.Objetos.$mitigarRiscoTemporarioLabel = container.find('.mitigar .riscoTemporario span.label');
+                Modulo.Objetos.icheckbug_mitigarRiscoTemporario = { };
+                Instancia.LuckygamesIo.BugICheckEvent('.' + secaoId + ' .mitigar .riscoTemporario input[type="checkbox"]', Modulo.Objetos.icheckbug_mitigarRiscoTemporario, function() {
+                    Modulo.Objetos.$mitigarRiscoTemporarioLabel.css('opacity', this.checked ? 1 : 0.5);
+                    Modulo.Parametros.telaRiscoTemporario = !this.checked ? null : {
+                        risco: Modulo.Objetos.$mitigarRiscoTemporarioRisco.get(0).number(),
+                        tempo: Modulo.Objetos.$mitigarRiscoTemporarioTempo.get(0).number()
+                    };
+                    if (!Modulo.Parametros.telaRiscoTemporario) clearTimeout(Modulo.Parametros.controleRiscoTemporarioTimeout);
+                }).trigger('ifChanged');
+                Modulo.Objetos.$mitigarRiscoTemporarioRisco.blur(function() {
+                    if (Modulo.Parametros.telaRiscoTemporario !== null) {
+                        Modulo.Parametros.telaRiscoTemporario.risco = this.number();
+                    }
+                });
+                Modulo.Objetos.$mitigarRiscoTemporarioTempo.blur(function() {
+                    if (Modulo.Parametros.telaRiscoTemporario !== null) {
+                        Modulo.Parametros.telaRiscoTemporario.tempo = this.number();
+                    }
+                });
 
                 Modulo.Objetos.$sequencia.blur(function() {
                     let mask = this.value;
@@ -132,7 +178,7 @@ if (window.Tips.Modulos) {
                                     aberto = false;
                                     mask += "-" + ultimo;
                                 }
-                                if (number) mask += (mask ? "," : "") + numbers[i];
+                                if (number >= 0) mask += (mask ? "," : "") + numbers[i];
                             }
                             ultimo = numbers[i];
                         }
@@ -149,8 +195,9 @@ if (window.Tips.Modulos) {
                 if (componenteQuantoArriscar instanceof Function) { componenteQuantoArriscar(); }
 
                 Modulo.Parametros.log();
-                if (!Modulo.Componentes.LigaDesliga.executando) {
+                if (!Modulo.Componentes.LigaDesliga.executando && !Modulo.Componentes.LigaDesliga.pausado) {
                     Modulo.Parametros.controleBotParado = true;
+                    clearTimeout(Modulo.Parametros.controleRiscoTemporarioTimeout);
                 }
             },
         };
@@ -159,6 +206,7 @@ if (window.Tips.Modulos) {
             //Parâmetros de tela.
             telaContinuarAoZerar: null,                     //Indica que mesmo ao zerar deve reiniciar.
             telaSequencia: null,                            //Sequência usadas para apostar.
+            telaRiscoTemporario: null,                      //Risco temporário.
 
             //Informações do andamento da tentativa
             andamentoUsuarioSaldoMinimo: null,              //Parâmetros recebidos do usuário. Não pode mudar durante a tentativa.
@@ -189,6 +237,11 @@ if (window.Tips.Modulos) {
             controlePerdas: "—",                            //Última contagem de perdas.
             controleMensagem: "",                           //Mensagem de log.
 
+            //Controles do recurso de risco temporário.
+            controleRiscoTemporarioTimeout: null,
+            controleRiscoTemporarioRiscoOriginal: null,
+            controleRiscoTemporarioCount: 0,
+
             log: () => {
                 let log = {
                     "Ligado":           Modulo.Componentes.LigaDesliga.executando ? "Sim" : "Não",
@@ -198,6 +251,7 @@ if (window.Tips.Modulos) {
                     "Ganho: menor":    "% " + (Modulo.Parametros.controleGanhoMenor >= 0 ? "+" : "-") + Math.abs(100 * Modulo.Parametros.controleGanhoMenor).toFixed(8),
                     "Ganho: ATUAL":    "% " + (Modulo.Parametros.controleGanhoAtual >= 0 ? "+" : "-") + Math.abs(100 * Modulo.Parametros.controleGanhoAtual).toFixed(8),
                     "Ganho: maior":    "% " + (Modulo.Parametros.controleGanhoMaior >= 0 ? "+" : "-") + Math.abs(100 * Modulo.Parametros.controleGanhoMaior).toFixed(8),
+                    "Risco temporário": Modulo.Parametros.controleRiscoTemporarioCount,
                     "Status":           Modulo.Parametros.controleMensagem,
                 };
                 Modulo.Componentes.LigaDesliga.Log(log);
@@ -303,12 +357,48 @@ if (window.Tips.Modulos) {
                 }
             },
 
+            //Habilita o risco temporário.
+            RiscoTemporario: () => {
+                if (Modulo.Parametros.telaRiscoTemporario) {
+                    var random = () => (Math.floor(Math.random() * 10 / 2) + 1) * 1000;
+
+                    Modulo.Parametros.controleRiscoTemporarioCount++;
+
+                    if (Modulo.Parametros.controleRiscoTemporarioTimeout) return;
+
+                    if (Modulo.Parametros.controleRiscoTemporarioRiscoOriginal == null) Modulo.Parametros.controleRiscoTemporarioRiscoOriginal = Modulo.Objetos.componenteQuantoArriscar$Arriscar.get(0).number();
+
+                    Modulo.Parametros.controleRiscoTemporarioTimeout = setTimeout(() => {
+                        if (Modulo.Parametros.telaRiscoTemporario && Modulo.Componentes.LigaDesliga.executando) {
+                            Modulo.Objetos.componenteQuantoArriscar$Arriscar.val(Modulo.Parametros.telaRiscoTemporario.risco).blur();
+                            Modulo.Parametros.controleRiscoTemporarioTimeout = setTimeout(() => {
+                                Modulo.Objetos.componenteQuantoArriscar$Arriscar.val(Modulo.Parametros.controleRiscoTemporarioRiscoOriginal).blur();
+                                if (--Modulo.Parametros.controleRiscoTemporarioCount == 0) {
+                                    Modulo.Parametros.controleRiscoTemporarioRiscoOriginal = null;
+                                    Modulo.Parametros.controleRiscoTemporarioTimeout = null;
+                                } else {
+                                    Modulo.Parametros.controleRiscoTemporarioTimeout = setTimeout(() => {
+                                        Modulo.Parametros.controleRiscoTemporarioTimeout = null;
+                                        Modulo.Parametros.controleRiscoTemporarioCount--;
+                                        Modulo.Parametros.RiscoTemporario();
+                                    }, random());
+                                }
+
+                            }, Modulo.Parametros.telaRiscoTemporario.tempo * 1000);
+                        } else {
+                            Modulo.Parametros.controleRiscoTemporarioTimeout = null;
+                        }
+                    }, random());
+                }
+            },
+
             //Verifica os limites de saldo atingido.
             ValidarSaldoMinimoEMaximo: (aposta) => {
                 if (Modulo.Parametros.andamentoUsuarioSaldoMaximo !== null && Instancia.LuckygamesIo.Parametros.Balance() >= Modulo.Parametros.andamentoUsuarioSaldoMaximo) {
                     Modulo.Parametros.controleMensagem = "Saldo máximo atingido";
                     return "max";
                 } else if (Instancia.LuckygamesIo.Parametros.Balance() - aposta.valor < Modulo.Parametros.andamentoUsuarioSaldoMinimo) {
+                    if (Modulo.Parametros.telaContinuarAoZerar) Modulo.Parametros.RiscoTemporario();
                     Modulo.Parametros.controleZerado++;
                     Modulo.Parametros.controleMensagem = "Saldo mínimo atingido";
                     return "min";
