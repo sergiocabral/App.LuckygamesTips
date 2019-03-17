@@ -25,11 +25,23 @@ if (window.Tips.Modulos) {
                 :host table.base input[number] {
                     max-width: 100px;
                 }
-                :host .mitigar .riscoTemporario input.risco {
+                :host .mitigar .riscoTemporario input.risco,
+                :host .turbo input.risco,
+                :host .mitigar .turboAleatorio input,
+                :host .turbo input.aleatorio {
                     width: 80px;
                 }
-                :host .mitigar .riscoTemporario input.tempo {
+                :host .mitigar .riscoTemporario input.tempo,
+                :host .turbo input.tempo {
                     width: 50px;
+                }
+                :host .turbo {
+                    text-align: left;
+                }
+                :host .turbo .label {
+                    position: relative;
+                    top: 2px;
+                    left: 7px;
                 }
                 {componenteQuantoArriscar}
             `
@@ -60,7 +72,7 @@ if (window.Tips.Modulos) {
                 <table>
                     <tr>
                         <td class="label"><label>Sequência</label></td>
-                        <td class="sequencia"><input type="text" value="0-2" /></td>
+                        <td class="sequencia"><input type="text" value="0-1" /></td>
                     </tr>
                 </table>
                 <div class="divisor"></div>
@@ -71,9 +83,9 @@ if (window.Tips.Modulos) {
                                 <input type="checkbox" checked />
                                 <span class="label">
                                     <label>Após perda, risco em</label>
-                                    <input class="risco" type="text" number number-digitos="1" number-min="0,1" number-min="100" number-padrao="10" value="10" />
+                                    <input class="risco" type="text" number number-digitos="1" number-min="0,1" number-max="100" number-padrao="10" value="10" />
                                     <label>por</label>
-                                    <input class="tempo" type="text" number number-digitos="0" number-min="1" number-padrao="5" maxlength="3" value="5" />
+                                    <input class="tempo" type="text" number number-digitos="0" number-min="1" maxlength="3" number-padrao="1" value="1" />
                                     <label>segundos</label>
                                 </span>
                             </div>
@@ -89,13 +101,37 @@ if (window.Tips.Modulos) {
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <div class="checkbox turboAleatorio">
+                                <input type="checkbox" checked />
+                                <span class="label">
+                                    <label>Usar o turbo aleatoriamente 1 a cada</label>
+                                    <input class="aleatorio" type="text" number number-digitos="0" number-min="10" maxlength="5" number-padrao="200" value="200" />
+                                    <label>vezes.</label>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
                 </table>
+                <div class="turbo">
+                    <button class="btn turbo red">Turbo</button>
+                    <span class="label">
+                        <label>Definir risco em</label>
+                        <input class="risco" type="text" number number-digitos="1" number-min="0,1" number-max="100" number-padrao="50" value="50" />
+                        <label>por</label>
+                        <input class="tempo" type="text" number number-digitos="0" number-min="1" maxlength="3" number-padrao="1" value="1" />
+                        <label>segundos</label>
+                    </span>
+                </div>
             `
             .replace('{componenteQuantoArriscar}', Instancia.BotConstrutor.ComponenteQuantoArriscar(Modulo, 'html')),
 
             js: (container, secaoId) => {
                 const componenteQuantoArriscar = Instancia.BotConstrutor.ComponenteQuantoArriscar(Modulo, 'js');
                 if (componenteQuantoArriscar instanceof Function) { componenteQuantoArriscar(container, secaoId); }
+
+                Modulo.Objetos.componenteQuantoArriscar$Arriscar.val("0").blur();
 
                 Modulo.Objetos.prediction = container.find('.prediction input[type="text"]').get(0);
                 Modulo.Objetos.perdas = container.find('.perdas input[type="text"]').get(0);
@@ -109,6 +145,22 @@ if (window.Tips.Modulos) {
                 Instancia.LuckygamesIo.BugICheckEvent('.' + secaoId + ' .mitigar .continuarAoZerar input[type="checkbox"]', Modulo.Objetos.icheckbug_mitigarContinuarAoZerar, function() {
                     Modulo.Objetos.$mitigarContinuarAoZerarLabel.css('opacity', this.checked ? 1 : 0.5);
                     Modulo.Parametros.telaContinuarAoZerar = this.checked;
+                }).trigger('ifChanged');
+
+                Modulo.Objetos.$turboAleatorio = container.find('.turboAleatorio input[type="text"]');
+                Modulo.Objetos.$turboAleatorio.blur(function() {
+                    if (Modulo.Parametros.telaTurboAleatorio) {
+                        Modulo.Parametros.telaTurboAleatorio.aleatorio = this.number();
+                    }
+                });
+
+                Modulo.Objetos.$mitigarTurboAleatorioLabel = container.find('.mitigar .turboAleatorio span.label');
+                Modulo.Objetos.icheckbug_mitigarTurboAleatorio = { };
+                Instancia.LuckygamesIo.BugICheckEvent('.' + secaoId + ' .mitigar .turboAleatorio input[type="checkbox"]', Modulo.Objetos.icheckbug_mitigarTurboAleatorio, function() {
+                    Modulo.Objetos.$mitigarTurboAleatorioLabel.css('opacity', this.checked ? 1 : 0.5);
+                    Modulo.Parametros.telaTurboAleatorio = !this.checked ? null : { 
+                        aleatorio: Modulo.Objetos.$turboAleatorio.get(0).number()   
+                    };
                 }).trigger('ifChanged');
 
                 Modulo.Objetos.$mitigarRiscoTemporarioRisco = container.find('.mitigar .riscoTemporario input[type="text"].risco');
@@ -133,6 +185,16 @@ if (window.Tips.Modulos) {
                     if (Modulo.Parametros.telaRiscoTemporario !== null) {
                         Modulo.Parametros.telaRiscoTemporario.tempo = this.number();
                     }
+                });
+
+                Modulo.Objetos.$turboRiscoTemporarioRisco = container.find('.turbo input[type="text"].risco');
+                Modulo.Objetos.$turboRiscoTemporarioTempo = container.find('.turbo input[type="text"].tempo');
+                Modulo.Objetos.$turboButton = container.find('.turbo button');
+                Modulo.Objetos.$turboButton.click(() => {
+                    Modulo.Parametros.RiscoTemporario(
+                        Modulo.Objetos.$turboRiscoTemporarioRisco.get(0).number(),
+                        Modulo.Objetos.$turboRiscoTemporarioTempo.get(0).number()
+                    );
                 });
 
                 Modulo.Objetos.$sequencia.blur(function() {
@@ -207,6 +269,7 @@ if (window.Tips.Modulos) {
             telaContinuarAoZerar: null,                     //Indica que mesmo ao zerar deve reiniciar.
             telaSequencia: null,                            //Sequência usadas para apostar.
             telaRiscoTemporario: null,                      //Risco temporário.
+            telaTurboAleatorio: null,                       //Usar o turbo de forma aleatória.
 
             //Informações do andamento da tentativa
             andamentoUsuarioSaldoMinimo: null,              //Parâmetros recebidos do usuário. Não pode mudar durante a tentativa.
@@ -358,9 +421,16 @@ if (window.Tips.Modulos) {
             },
 
             //Habilita o risco temporário.
-            RiscoTemporario: () => {
-                if (Modulo.Parametros.telaRiscoTemporario) {
-                    var random = () => (Math.floor(Math.random() * 10 / 2) + 1) * 1000;
+            RiscoTemporario: (risco = null, tempo = null) => {
+                var random = () => (Math.floor(Math.random() * 10) + 1) * 1000;
+                if (Modulo.Parametros.telaRiscoTemporario || risco) {
+
+                    if (risco && (Modulo.Parametros.controleRiscoTemporarioCount != 0 || Modulo.Parametros.controleRiscoTemporarioTimeout)) {
+                        Instancia.Geral.Toast('Turbo não é possível no momento. Espere o Risco Temporário zerar.', 'warning');
+                        return;
+                    } else if (risco) {
+                        Instancia.Geral.Toast('Turbo ativado.', 'info');
+                    }
 
                     Modulo.Parametros.controleRiscoTemporarioCount++;
 
@@ -370,7 +440,7 @@ if (window.Tips.Modulos) {
 
                     Modulo.Parametros.controleRiscoTemporarioTimeout = setTimeout(() => {
                         if (Modulo.Parametros.telaRiscoTemporario && Modulo.Componentes.LigaDesliga.executando) {
-                            Modulo.Objetos.componenteQuantoArriscar$Arriscar.val(Modulo.Parametros.telaRiscoTemporario.risco).blur();
+                            Modulo.Objetos.componenteQuantoArriscar$Arriscar.val(risco != null ? risco : Modulo.Parametros.telaRiscoTemporario.risco).blur();
                             Modulo.Parametros.controleRiscoTemporarioTimeout = setTimeout(() => {
                                 Modulo.Objetos.componenteQuantoArriscar$Arriscar.val(Modulo.Parametros.controleRiscoTemporarioRiscoOriginal).blur();
                                 if (--Modulo.Parametros.controleRiscoTemporarioCount == 0) {
@@ -381,14 +451,14 @@ if (window.Tips.Modulos) {
                                         Modulo.Parametros.controleRiscoTemporarioTimeout = null;
                                         Modulo.Parametros.controleRiscoTemporarioCount--;
                                         Modulo.Parametros.RiscoTemporario();
-                                    }, random());
+                                    }, random() * 5);
                                 }
 
-                            }, Modulo.Parametros.telaRiscoTemporario.tempo * 1000);
+                            }, (tempo != null ? tempo : Modulo.Parametros.telaRiscoTemporario.tempo) * 1000);
                         } else {
                             Modulo.Parametros.controleRiscoTemporarioTimeout = null;
                         }
-                    }, random());
+                    }, risco != null ? 1 : random());
                 }
             },
 
@@ -419,7 +489,21 @@ if (window.Tips.Modulos) {
                 };
             },
 
+            //Responde se é hora do turbo aleatório.
+            TurboAleatorio: () => {
+                if (!Modulo.Parametros.telaTurboAleatorio) return;
+
+                const random = (min, max) => {
+                    return Math.floor(Math.random() * (max - min + 1) ) + min;
+                }
+                if (random(1, Modulo.Parametros.telaTurboAleatorio.aleatorio) == parseInt(Modulo.Parametros.telaTurboAleatorio.aleatorio / 2)) {
+                    Modulo.Objetos.$turboButton.click();
+                }
+            },
+
             Processar: () => {
+                Modulo.Parametros.TurboAleatorio();
+
                 return new Promise(resolve => {
                     if (Modulo.Parametros.controleBotParado) {
                         Modulo.Parametros.controleBotParado = false;
