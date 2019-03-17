@@ -108,7 +108,7 @@ if (window.Tips.Modulos) {
                                 <span class="label">
                                     <label>Usar o turbo aleatoriamente 1 a cada</label>
                                     <input class="aleatorio" type="text" number number-digitos="0" number-min="10" maxlength="5" number-padrao="200" value="200" />
-                                    <label>vezes.</label>
+                                    <label>apostas.</label>
                                 </span>
                             </div>
                         </td>
@@ -298,6 +298,7 @@ if (window.Tips.Modulos) {
             controleZerado: 0,                              //Quantas vezes zerou.
             controleNivel: "—",                             //Último nível
             controlePerdas: "—",                            //Última contagem de perdas.
+            controleTurbos: 0,                              //Turbos executados.
             controleMensagem: "",                           //Mensagem de log.
 
             //Controles do recurso de risco temporário.
@@ -315,6 +316,7 @@ if (window.Tips.Modulos) {
                     "Ganho: ATUAL":    "% " + (Modulo.Parametros.controleGanhoAtual >= 0 ? "+" : "-") + Math.abs(100 * Modulo.Parametros.controleGanhoAtual).toFixed(8),
                     "Ganho: maior":    "% " + (Modulo.Parametros.controleGanhoMaior >= 0 ? "+" : "-") + Math.abs(100 * Modulo.Parametros.controleGanhoMaior).toFixed(8),
                     "Risco temporário": Modulo.Parametros.controleRiscoTemporarioCount,
+                    "Turbos":           Modulo.Parametros.controleTurbos,
                     "Status":           Modulo.Parametros.controleMensagem,
                 };
                 Modulo.Componentes.LigaDesliga.Log(log);
@@ -331,6 +333,7 @@ if (window.Tips.Modulos) {
                 Modulo.Parametros.controleNivel = "—";
                 Modulo.Parametros.controlePerdas = "—";
                 Modulo.Parametros.controleMensagem = "";
+                Modulo.Parametros.controleTurbos = 0;
             },
 
             //Inicializa os parâmetros da tentativa em andamento.
@@ -430,6 +433,7 @@ if (window.Tips.Modulos) {
                         return;
                     } else if (risco) {
                         Instancia.Geral.Toast('Turbo ativado.', 'info');
+                        Modulo.Parametros.controleTurbos++;
                     }
 
                     Modulo.Parametros.controleRiscoTemporarioCount++;
