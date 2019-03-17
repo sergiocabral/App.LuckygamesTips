@@ -83,9 +83,9 @@ if (window.Tips.Modulos) {
                                 <input type="checkbox" checked />
                                 <span class="label">
                                     <label>Após perda, risco em</label>
-                                    <input class="risco" type="text" number number-digitos="1" number-min="0,1" number-max="100" number-padrao="10" value="10" />
+                                    <input class="risco" type="text" number number-digitos="1" number-min="0,1" number-max="100" number-padrao="5" value="5" />
                                     <label>por</label>
-                                    <input class="tempo" type="text" number number-digitos="0" number-min="1" maxlength="3" number-padrao="1" value="1" />
+                                    <input class="tempo" type="text" number number-digitos="0" number-min="1" maxlength="3" number-padrao="5" value="5" />
                                     <label>segundos</label>
                                 </span>
                             </div>
@@ -118,7 +118,7 @@ if (window.Tips.Modulos) {
                     <button class="btn turbo red">Turbo</button>
                     <span class="label">
                         <label>Definir risco em</label>
-                        <input class="risco" type="text" number number-digitos="1" number-min="0,1" number-max="100" number-padrao="50" value="50" />
+                        <input class="risco" type="text" number number-digitos="1" number-min="0,1" number-max="100" number-padrao="10" value="10" />
                         <label>por</label>
                         <input class="tempo" type="text" number number-digitos="0" number-min="1" maxlength="3" number-padrao="1" value="1" />
                         <label>segundos</label>
@@ -566,6 +566,7 @@ if (window.Tips.Modulos) {
                                 aposta: aposta,
                                 error: error,
                             });
+                            setTimeout(() => Modulo.Objetos.$controleBtnPausar.click(), 10000);
                         });
 
                 });
