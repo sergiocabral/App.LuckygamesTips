@@ -66,7 +66,7 @@ if (window.Tips.Modulos) {
                         <td class="label"><label>Multiplicador</label></td>
                         <td class="multiplicador"><input type="text" number number-min="1,1" number-digitos="1" number-padrao="10" value="10" /></td>
                         <td class="label"><label>Niveis</label></td>
-                        <td class="niveis"><input type="text" number number-min="1" number-digitos="0" number-padrao="3" value="3" /></td>
+                        <td class="niveis"><input type="text" number number-min="1" number-digitos="0" number-padrao="4" value="4" /></td>
                     </tr>
                 </table>
                 <table>
@@ -83,9 +83,9 @@ if (window.Tips.Modulos) {
                                 <input type="checkbox" checked />
                                 <span class="label">
                                     <label>Após perda, risco em</label>
-                                    <input class="risco" type="text" number number-digitos="1" number-min="0,1" number-max="100" number-padrao="5" value="5" />
+                                    <input class="risco" type="text" number number-digitos="1" number-min="0,1" number-max="100" number-padrao="10" value="10" />
                                     <label>por</label>
-                                    <input class="tempo" type="text" number number-digitos="0" number-min="1" maxlength="3" number-padrao="5" value="5" />
+                                    <input class="tempo" type="text" number number-digitos="0" number-min="1" maxlength="3" number-padrao="10" value="10" />
                                     <label>segundos</label>
                                 </span>
                             </div>
@@ -107,7 +107,7 @@ if (window.Tips.Modulos) {
                                 <input type="checkbox" checked />
                                 <span class="label">
                                     <label>Usar o turbo aleatoriamente 1 a cada</label>
-                                    <input class="aleatorio" type="text" number number-digitos="0" number-min="10" maxlength="5" number-padrao="200" value="200" />
+                                    <input class="aleatorio" type="text" number number-digitos="0" number-min="10" maxlength="5" number-padrao="1000" value="1000" />
                                     <label>apostas.</label>
                                 </span>
                             </div>
@@ -118,9 +118,9 @@ if (window.Tips.Modulos) {
                     <button class="btn turbo red">Turbo</button>
                     <span class="label">
                         <label>Definir risco em</label>
-                        <input class="risco" type="text" number number-digitos="1" number-min="0,1" number-max="100" number-padrao="10" value="10" />
+                        <input class="risco" type="text" number number-digitos="1" number-min="0,1" number-max="100" number-padrao="100" value="100" />
                         <label>por</label>
-                        <input class="tempo" type="text" number number-digitos="0" number-min="1" maxlength="3" number-padrao="1" value="1" />
+                        <input class="tempo" type="text" number number-digitos="0" number-min="1" maxlength="3" number-padrao="10" value="10" />
                         <label>segundos</label>
                     </span>
                 </div>
@@ -374,8 +374,7 @@ if (window.Tips.Modulos) {
 
             //Calcula os ganhos
             CalcularGanho: () => {
-                const ganho = Instancia.LuckygamesIo.Parametros.Balance() - Modulo.Parametros.controleSaldoInicialTotal;
-                Modulo.Parametros.controleGanhoAtual = ganho / Modulo.Parametros.controleSaldoInicialArriscado;
+                Modulo.Parametros.controleGanhoAtual = Instancia.LuckygamesIo.Parametros.Balance() / Modulo.Parametros.controleSaldoInicialTotal - 1;
                 if (Modulo.Parametros.controleGanhoAtual < Modulo.Parametros.controleGanhoMenor) Modulo.Parametros.controleGanhoMenor = Modulo.Parametros.controleGanhoAtual;
                 if (Modulo.Parametros.controleGanhoAtual > Modulo.Parametros.controleGanhoMaior) Modulo.Parametros.controleGanhoMaior = Modulo.Parametros.controleGanhoAtual;
             },
@@ -566,7 +565,10 @@ if (window.Tips.Modulos) {
                                 aposta: aposta,
                                 error: error,
                             });
-                            setTimeout(() => Modulo.Objetos.$controleBtnPausar.click(), 10000);
+                            setTimeout(() => {
+                                console.log("Recomeçando...");
+                                Modulo.Objetos.$controleBtnPausar.click();
+                            }, 10000);
                         });
 
                 });
