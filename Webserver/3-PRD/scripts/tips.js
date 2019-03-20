@@ -12,7 +12,7 @@ window.Tips = new (function() {
         EmailDeContato: 'luckygames.tips@luckygames.tips',
         CssClass: 'tips',
         Debug: false,
-        AbrirJanela: true,
+        AbrirJanela: false,
         DigitosDecimais: 8,
         SeparadorDecimal: ',',
     };
