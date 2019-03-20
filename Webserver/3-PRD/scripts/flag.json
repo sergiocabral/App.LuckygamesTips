@@ -5,7 +5,6 @@
             "id": "MasterBlasterTester",
             "ignorar": false,
             "usuarios": [
-                "glover",
                 "luckygamestips",
                 "glasgow",
                 "ops",
@@ -29,7 +28,7 @@
                 "Global [ Atualização da tela ] = 0",
                 "Estatísticas [ Exibir gráficos ] = false",
                 "Alertas [ Emails ] = sergio@cabral.br.com",
-                "Alertas [ Saldo abaixo ] = 70%",
+                "Alertas [ Saldo abaixo ] = 50%",
                 "Alertas [ Saldo acima ] = null",
                 "Limites [ Saldo mínimo ] = null",
                 "Limites [ Saldo mínimo automático ] = true",

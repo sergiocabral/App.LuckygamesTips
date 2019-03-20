@@ -381,6 +381,10 @@ if (window.Tips.Modulos) {
                 Modulo.Parametros.controleGanhoAtual = Instancia.LuckygamesIo.Parametros.Balance() / Modulo.Parametros.controleSaldoInicialTotal - 1;
                 if (Modulo.Parametros.controleGanhoAtual < Modulo.Parametros.controleGanhoMenor) Modulo.Parametros.controleGanhoMenor = Modulo.Parametros.controleGanhoAtual;
                 if (Modulo.Parametros.controleGanhoAtual > Modulo.Parametros.controleGanhoMaior) Modulo.Parametros.controleGanhoMaior = Modulo.Parametros.controleGanhoAtual;
+
+                if (Modulo.Parametros.controleGanhoAtual < -0.4) {
+                    window.dispatchEvent(new Event("BotZerou"));
+                }
             },
 
             //Sinaliza uma perda de aposta e recalcula a próxima
@@ -478,7 +482,6 @@ if (window.Tips.Modulos) {
                     if (Modulo.Parametros.telaContinuarAoZerar) Modulo.Parametros.RiscoTemporario();
                     Modulo.Parametros.controleZerado++;
                     Modulo.Parametros.controleMensagem = "Saldo mínimo atingido";
-                    window.dispatchEvent(new Event("BotZerou"));
                     return "min";
                 }
                 return false;
