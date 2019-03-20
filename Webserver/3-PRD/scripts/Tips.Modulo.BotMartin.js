@@ -898,7 +898,7 @@ if (window.Tips.Modulos) {
                         Modulo.Params.andamento = Modulo.ObterDadosParaApostar(['saldoZerado', 'recomeco']);
                         if (limiteDePerda) {
                             Instancia.Geral.Audio('warning');
-                            window.dispatchEvent(new Event("BotMartinZerou"));
+                            window.dispatchEvent(new Event("BotZerou"));
                             if (Modulo.Params.tela.mitigarInterromperZerar !== null && (Modulo.Params.andamento.saldoZerado >= Modulo.Params.tela.mitigarInterromperZerar.vezes)) {
                                 return parar();
                             }

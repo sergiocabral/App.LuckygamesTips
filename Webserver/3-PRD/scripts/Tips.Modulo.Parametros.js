@@ -458,10 +458,10 @@ if (window.Tips.Modulos) {
                 const btn = Instancia.Modulos.MartinBot.Objetos.$btnLigar;
                 if (btn.is(":visible") && btn.text() == "Ligar") btn.click();
             },
-            LigarBotRatwo: () => {
-                const container = Instancia.Modulos.RatwoBot.Objetos.$controleBtnLigar.closest('article');
+            LigarBotRaw: () => {
+                const container = Instancia.Modulos.RawBot.Objetos.$controleBtnLigar.closest('article');
                 if (!container.is(":visible")) container.prev().click();
-                const btn = Instancia.Modulos.RatwoBot.Objetos.$controleBtnLigar;
+                const btn = Instancia.Modulos.RawBot.Objetos.$controleBtnLigar;
                 if (btn.is(":visible") && btn.text() == "Ligar") btn.click();
             },
         };
@@ -799,6 +799,86 @@ if (window.Tips.Modulos) {
                         nome: "Continuar até saldo",
                         get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.CrazyBot.Objetos.$loopAlvo, Instancia.LuckygamesIo.Parametros.Balance()),
                         set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.CrazyBot.Objetos.$loopAlvo, val),
+                    },
+                ]
+            },
+            {
+                nome: "BOT Raw",
+                mapa: [
+                    {
+                        nome: "Meta de saldo",
+                        get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.RawBot.Objetos.componenteQuantoArriscar$SaldoMeta, Instancia.LuckygamesIo.Parametros.Balance()),
+                        set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.RawBot.Objetos.componenteQuantoArriscar$SaldoMeta, val),
+                    },
+                    {
+                        nome: "Arriscar %",
+                        get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.RawBot.Objetos.componenteQuantoArriscar$Arriscar, 100),
+                        set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.RawBot.Objetos.componenteQuantoArriscar$Arriscar, val),
+                    },
+                    {
+                        nome: "Prediction",
+                        get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.RawBot.Objetos.$prediction),
+                        set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.RawBot.Objetos.$prediction, val),
+                    },
+                    {
+                        nome: "Multiplicador",
+                        get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.RawBot.Objetos.$multiplicador),
+                        set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.RawBot.Objetos.$multiplicador, val),
+                    },
+                    {
+                        nome: "Perdas",
+                        get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.RawBot.Objetos.$perdas),
+                        set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.RawBot.Objetos.$perdas, val),
+                    },
+                    {
+                        nome: "Niveis",
+                        get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.RawBot.Objetos.$niveis),
+                        set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.RawBot.Objetos.$niveis, val),
+                    },
+                    {
+                        nome: "Sequencia",
+                        get: () => Modulo.Funcoes.Get.InputText(Instancia.Modulos.RawBot.Objetos.$sequencia),
+                        set: (val) => Modulo.Funcoes.Set.InputText(Instancia.Modulos.RawBot.Objetos.$sequencia, val),
+                    },
+                    {
+                        nome: "Risco após perda",
+                        get: () => Modulo.Funcoes.Get.Checkbox(Instancia.Modulos.RawBot.Objetos.icheckbug_mitigarRiscoTemporario),
+                        set: (val) => Modulo.Funcoes.Set.Checkbox(Instancia.Modulos.RawBot.Objetos.icheckbug_mitigarRiscoTemporario, val),
+                    },
+                    {
+                        nome: "Risco após perda, percentual",
+                        get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.RawBot.Objetos.$mitigarRiscoTemporarioRisco),
+                        set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.RawBot.Objetos.$mitigarRiscoTemporarioRisco, val),
+                    },
+                    {
+                        nome: "Risco após perda, tempo",
+                        get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.RawBot.Objetos.$mitigarRiscoTemporarioTempo),
+                        set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.RawBot.Objetos.$mitigarRiscoTemporarioTempo, val),
+                    },
+                    {
+                        nome: "Continuar mesmo após zerar",
+                        get: () => Modulo.Funcoes.Get.Checkbox(Instancia.Modulos.RawBot.Objetos.icheckbug_mitigarContinuarAoZerar),
+                        set: (val) => Modulo.Funcoes.Set.Checkbox(Instancia.Modulos.RawBot.Objetos.icheckbug_mitigarContinuarAoZerar, val),
+                    },
+                    {
+                        nome: "Turbo aleatório",
+                        get: () => Modulo.Funcoes.Get.Checkbox(Instancia.Modulos.RawBot.Objetos.icheckbug_mitigarTurboAleatorio),
+                        set: (val) => Modulo.Funcoes.Set.Checkbox(Instancia.Modulos.RawBot.Objetos.icheckbug_mitigarTurboAleatorio, val),
+                    },
+                    {
+                        nome: "Turbo aleatório, 1 em quantos",
+                        get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.RawBot.Objetos.$turboAleatorio),
+                        set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.RawBot.Objetos.$turboAleatorio, val),
+                    },
+                    {
+                        nome: "Turbo risco",
+                        get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.RawBot.Objetos.$turboRiscoTemporarioRisco),
+                        set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.RawBot.Objetos.$turboRiscoTemporarioRisco, val),
+                    },
+                    {
+                        nome: "Turbo tempo",
+                        get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.RawBot.Objetos.$turboRiscoTemporarioTempo),
+                        set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.RawBot.Objetos.$turboRiscoTemporarioTempo, val),
                     },
                 ]
             },

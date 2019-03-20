@@ -38,7 +38,7 @@ if (window.Tips.Modulos) {
             js: (container) => {
                 Modulo.Objetos.log = container.find("div").get(0);
                 Modulo.Escutar();
-                window.addEventListener('BotMartinZerou', () => {
+                window.addEventListener('BotZerou', () => {
                     const saldo = Tips.LuckygamesIo.Parametros.Balance();
                     if (!Number.isFinite(Modulo.Parametros.saldoMinimo) || saldo <= Modulo.Parametros.saldoMinimo) {
                         Modulo.PararTudoNoServidor();
@@ -88,10 +88,16 @@ if (window.Tips.Modulos) {
 
         Modulo.PararBots = () => {
             console.logg("Remoto: parar");
-            const btn = Instancia.Modulos.MartinBot.Objetos.$btnLigar;
+
+            //const bot = "Martin";
+            //const btn = Instancia.Modulos.MartinBot.Objetos.$btnLigar;
+
+            const bot = "Raw";
+            const btn = Instancia.Modulos.RawBot.Objetos.$controleBtnLigar;
+
             if (btn.get(0).style.display !== "none") {
                 if (btn.text() == "Desligar") btn.click();
-                Modulo.Log(`Bot Martin interrompido.`, 'info');
+                Modulo.Log(`Bot ${bot} interrompido.`, 'info');
                 console.logg("Remoto: parado!");
                 return true;
             }
@@ -155,8 +161,10 @@ if (window.Tips.Modulos) {
                         Instancia.Modulos.Parametros.Parametros.AplicarNaTela(json);
                         if (!Modulo.Parametros.processamentoIniciado) {                        
                             Instancia.Modulos.Parametros.Comandos.AbrirJanela();
+
                             //Instancia.Modulos.Parametros.Comandos.LigarBotMarin();
-                            Instancia.Modulos.Parametros.Comandos.LigarBotRatwo();
+                            Instancia.Modulos.Parametros.Comandos.LigarBotRaw();
+                            
                             Instancia.Modulos.Parametros.Comandos.AbrirEstatisticas();
                             Modulo.Parametros.processamentoIniciado = true;
                         }

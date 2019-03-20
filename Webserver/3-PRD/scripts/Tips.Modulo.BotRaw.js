@@ -133,10 +133,14 @@ if (window.Tips.Modulos) {
 
                 Modulo.Objetos.componenteQuantoArriscar$Arriscar.val("0").blur();
 
-                Modulo.Objetos.prediction = container.find('.prediction input[type="text"]').get(0);
-                Modulo.Objetos.perdas = container.find('.perdas input[type="text"]').get(0);
-                Modulo.Objetos.multiplicador = container.find('.multiplicador input[type="text"]').get(0);
-                Modulo.Objetos.niveis = container.find('.niveis input[type="text"]').get(0);
+                Modulo.Objetos.$prediction = container.find('.prediction input[type="text"]');
+                Modulo.Objetos.prediction = Modulo.Objetos.$prediction.get(0);
+                Modulo.Objetos.$perdas = container.find('.perdas input[type="text"]');
+                Modulo.Objetos.perdas = Modulo.Objetos.$perdas.get(0);
+                Modulo.Objetos.$multiplicador = container.find('.multiplicador input[type="text"]');
+                Modulo.Objetos.multiplicador = Modulo.Objetos.$multiplicador.get(0);
+                Modulo.Objetos.$niveis = container.find('.niveis input[type="text"]');
+                Modulo.Objetos.niveis = Modulo.Objetos.$niveis.get(0);
 
                 Modulo.Objetos.$sequencia = container.find('.sequencia input[type="text"]');
 
@@ -159,7 +163,7 @@ if (window.Tips.Modulos) {
                 Instancia.LuckygamesIo.BugICheckEvent('.' + secaoId + ' .mitigar .turboAleatorio input[type="checkbox"]', Modulo.Objetos.icheckbug_mitigarTurboAleatorio, function() {
                     Modulo.Objetos.$mitigarTurboAleatorioLabel.css('opacity', this.checked ? 1 : 0.5);
                     Modulo.Parametros.telaTurboAleatorio = !this.checked ? null : { 
-                        aleatorio: Modulo.Objetos.$turboAleatorio.get(0).number()   
+                        aleatorio: Modulo.Objetos.$turboAleatorio.get(0).number()
                     };
                 }).trigger('ifChanged');
 
@@ -474,6 +478,7 @@ if (window.Tips.Modulos) {
                     if (Modulo.Parametros.telaContinuarAoZerar) Modulo.Parametros.RiscoTemporario();
                     Modulo.Parametros.controleZerado++;
                     Modulo.Parametros.controleMensagem = "Saldo mínimo atingido";
+                    window.dispatchEvent(new Event("BotZerou"));
                     return "min";
                 }
                 return false;
