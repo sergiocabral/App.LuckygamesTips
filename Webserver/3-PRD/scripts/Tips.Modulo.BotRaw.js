@@ -43,6 +43,20 @@ if (window.Tips.Modulos) {
                     top: 2px;
                     left: 7px;
                 }
+                :host .pulsar {
+                    margin-top: 10px;
+                }
+                :host .pulsar label {
+                    position: relative;
+                    top: 2px;
+                }
+                :host .pulsar button {
+                    width: 40px;
+                    margin-left: 5px;
+                }
+                :host .pulsar button.click {
+                    box-shadow: 0 0 5px white, 0 0 15px black;
+                }
                 {componenteQuantoArriscar}
             `
             .replace('{componenteQuantoArriscar}', Instancia.BotConstrutor.ComponenteQuantoArriscar(Modulo, 'css')),
@@ -115,7 +129,7 @@ if (window.Tips.Modulos) {
                     </tr>
                 </table>
                 <div class="turbo">
-                    <button class="btn turbo red">Turbo</button>
+                    <button class="btn turbo blue">Turbo</button>
                     <span class="label">
                         <label>Definir risco em</label>
                         <input class="risco" type="text" number number-digitos="1" number-min="0,1" number-max="100" number-padrao="100" value="100" />
@@ -123,6 +137,14 @@ if (window.Tips.Modulos) {
                         <input class="tempo" type="text" number number-digitos="0" number-min="1" maxlength="3" number-padrao="10" value="10" />
                         <label>segundos</label>
                     </span>
+                </div>
+                <div class="pulsar">
+                    <label>Definir risco em</label>
+                    <button class="btn red">0,1</button>
+                    <button class="btn red">1</button>
+                    <button class="btn red">10</button>
+                    <button class="btn red">50</button>
+                    <button class="btn red">100</button>
                 </div>
             `
             .replace('{componenteQuantoArriscar}', Instancia.BotConstrutor.ComponenteQuantoArriscar(Modulo, 'html')),
@@ -251,6 +273,24 @@ if (window.Tips.Modulos) {
                         this.value = mask;
                     }
 
+                    let ultimoArriscar = null;
+                    Modulo.Objetos.$pulsarButtons = container.find('.pulsar button');
+                    Modulo.Objetos.$pulsarButtons.mousedown(function() {
+                        const button = $(this);
+                        button.addClass("click");
+                        const value = button.text();
+                        if (ultimoArriscar == null) ultimoArriscar = Modulo.Objetos.componenteQuantoArriscar$Arriscar.val();
+                        Modulo.Objetos.componenteQuantoArriscar$Arriscar.val(value).blur();
+                    });
+                    Modulo.Objetos.$pulsarButtons.mouseup(function() {
+                        const button = $(this);
+                        button.removeClass("click");
+                        if (ultimoArriscar != null) {
+                            Modulo.Objetos.componenteQuantoArriscar$Arriscar.val(ultimoArriscar).blur();
+                            ultimoArriscar = null;
+                        }
+                    });
+
                     Modulo.Parametros.telaSequencia = numbers;
                 });
                 Modulo.Objetos.$sequencia.blur();
@@ -338,6 +378,10 @@ if (window.Tips.Modulos) {
                 Modulo.Parametros.controlePerdas = "—";
                 Modulo.Parametros.controleMensagem = "";
                 Modulo.Parametros.controleTurbos = 0;
+
+                clearTimeout(Modulo.Parametros.controleRiscoTemporarioTimeout);
+                Modulo.Parametros.controleRiscoTemporarioCount = 0;
+                Modulo.Parametros.controleRiscoTemporarioTimeout = null;
             },
 
             //Inicializa os parâmetros da tentativa em andamento.
