@@ -114,6 +114,26 @@ if (window.Tips.Modulos) {
                 :host .mitigar input.perdas { width: 50px; }
                 :host .mitigar input.tempo { width: 70px; }
                 :host .mitigar input.zerar { width: 50px; }
+                :host .pulsar {
+                    margin-top: 10px;
+                }
+                :host .pulsar label {
+                    position: relative;
+                    top: 2px;
+                }
+                :host .pulsar button {
+                    width: 40px;
+                    margin: 0 2px;
+                }
+                :host .pulsar input {
+                    width: 150px;
+                }
+                :host .pulsar label {
+                    margin-right: 2px;
+                }
+                :host .pulsar button.click {
+                    box-shadow: 0 0 5px white, 0 0 15px black;
+                }
             `,
     
             html: `
@@ -263,6 +283,16 @@ if (window.Tips.Modulos) {
                         </td>
                     </tr>
                 </table>
+                <div class="pulsar">
+                    <label>Risco</label>
+                    <button class="btn red">0,1</button>
+                    <button class="btn red">1</button>
+                    <button class="btn red">10</button>
+                    <button class="btn red">50</button>
+                    <button class="btn red">100</button>
+                    <label>Limite</label>
+                    <input type="text" number number-min="0.00000001" />
+                </div>
                 <div class="controles">
                     <span class="info">Nunca foi ligado</span>
                     &nbsp;
@@ -490,6 +520,30 @@ if (window.Tips.Modulos) {
                 Modulo.Objetos.$apostaPorcento.val('0,1').blur();
                 Modulo.CalcularAposta();
 
+                let pulsarUltimo = null;
+                Modulo.Objetos.$pulsarLimite = container.find('.pulsar input');
+                Modulo.Objetos.$pulsarButtons = container.find('.pulsar button');
+                Modulo.Objetos.$pulsarButtons.mousedown(function() {
+                    const button = $(this);
+                    button.addClass("click");
+                    const value = button.text();
+                    if (pulsarUltimo == null) pulsarUltimo = {
+                        arriscar: Modulo.Objetos.$arriscar.val(),
+                        limite: Instancia.Modulos.Limites.Objetos.$saldoMinimo.val(),
+                    };
+                    Modulo.Objetos.$arriscar.val(value).blur();
+                    Instancia.Modulos.Limites.Objetos.$saldoMinimo.val(Modulo.Objetos.$pulsarLimite.val()).blur();
+                });
+                Modulo.Objetos.$pulsarButtons.mouseup(function() {
+                    const button = $(this);
+                    button.removeClass("click");
+                    if (pulsarUltimo != null) {
+                        Modulo.Objetos.$arriscar.val(pulsarUltimo.arriscar).blur();
+                        Instancia.Modulos.Limites.Objetos.$saldoMinimo.val(pulsarUltimo.limite).blur();
+                        pulsarUltimo = null;
+                    }
+                });
+
                 Modulo.Objetos.$btnParar.on('click', function() { 
                     Modulo.Status('parar');
                 });
@@ -505,7 +559,7 @@ if (window.Tips.Modulos) {
                 Modulo.Objetos.$btnPulsar.on('mouseup', function() { 
                     Modulo.Status('pulsar-off'); 
                 });
-                Modulo.Status('desligado'); 
+                Modulo.Status('desligado');
             },
 
             atualizarExibicao: () => {

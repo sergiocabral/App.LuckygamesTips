@@ -22,7 +22,7 @@
             "saldoMinimo": "100%",
             "atualizar": false,
             "relatorio": true,
-            "ligado": true,
+            "ligado": false,
             "mensagem": "",
             "script": [
                 "Global [ Atualização da tela ] = 0",
