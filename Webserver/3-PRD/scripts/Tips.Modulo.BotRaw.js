@@ -283,6 +283,7 @@ if (window.Tips.Modulos) {
 
                     let pulsarUltimo = null;
                     Modulo.Objetos.$pulsarLimite = container.find('.pulsar input');
+                    Modulo.Objetos.$pulsarLimite.get(0).valor_inicial = () => Instancia.Estatisticas.Dados.Calculo.saldoAtual();
                     Modulo.Objetos.$pulsarButtons = container.find('.pulsar button');
                     Modulo.Objetos.$pulsarButtons.mousedown(function() {
                         const button = $(this);

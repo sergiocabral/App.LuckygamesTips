@@ -22,7 +22,7 @@
             "saldoMinimo": "100%",
             "atualizar": false,
             "relatorio": true,
-            "ligado": false,
+            "ligado": true,
             "mensagem": "",
             "script": [
                 "Global [ Atualização da tela ] = 0",
@@ -51,6 +51,7 @@
                 "BOT Raw [ Turbo aleatório, 1 em quantos ] = 1000",
                 "BOT Raw [ Turbo risco ] = 1",
                 "BOT Raw [ Turbo tempo ] = 30",
+                "BOT Raw [ Botao de risco, limite ] = 80%",
                 "BOT Martin [ Meta de saldo ] = 101,6%",
                 "BOT Martin [ Arriscar % ] = 1",
                 "BOT Martin [ Prediction ] = 10",

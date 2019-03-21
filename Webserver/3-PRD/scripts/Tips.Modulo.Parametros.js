@@ -880,6 +880,11 @@ if (window.Tips.Modulos) {
                         get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.RawBot.Objetos.$turboRiscoTemporarioTempo),
                         set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.RawBot.Objetos.$turboRiscoTemporarioTempo, val),
                     },
+                    {
+                        nome: "Botao de risco, limite",
+                        get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.RawBot.Objetos.$pulsarLimite, Instancia.LuckygamesIo.Parametros.Balance()),
+                        set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.RawBot.Objetos.$pulsarLimite, val),
+                    },
                 ]
             },
         ];
