@@ -103,7 +103,7 @@ if (window.Tips.Modulos) {
                                 <input type="checkbox" checked />
                                 <span class="label">
                                     <label>Após perda, risco em</label>
-                                    <input class="risco" type="text" number number-digitos="1" number-min="0,1" number-max="100" number-padrao="10" value="10" />
+                                    <input class="risco" type="text" number number-digitos="1" number-min="0,1" number-max="100" number-padrao="50" value="50" />
                                     <label>por</label>
                                     <input class="tempo" type="text" number number-digitos="0" number-min="1" maxlength="3" number-padrao="10" value="10" />
                                     <label>segundos</label>
@@ -138,7 +138,7 @@ if (window.Tips.Modulos) {
                     <button class="btn turbo blue">Turbo</button>
                     <span class="label">
                         <label>Definir risco em</label>
-                        <input class="risco" type="text" number number-digitos="1" number-min="0,1" number-max="100" number-padrao="50" value="50" />
+                        <input class="risco" type="text" number number-digitos="1" number-min="0,1" number-max="100" number-padrao="25" value="25" />
                         <label>por</label>
                         <input class="tempo" type="text" number number-digitos="0" number-min="1" maxlength="3" number-padrao="10" value="10" />
                         <label>segundos</label>
