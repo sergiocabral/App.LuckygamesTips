@@ -114,8 +114,10 @@ if (window.Tips.Modulos) {
                 :host .mitigar input.perdas { width: 50px; }
                 :host .mitigar input.tempo { width: 70px; }
                 :host .mitigar input.zerar { width: 50px; }
+                :host .mitigar .riscoMais input,
+                :host .mitigar .riscoSeguro input { width: 100px; }
                 :host .pulsar {
-                    margin-top: 10px;
+                    margin: 10px 0;
                 }
                 :host .pulsar label {
                     position: relative;
@@ -126,7 +128,7 @@ if (window.Tips.Modulos) {
                     margin: 0 2px;
                 }
                 :host .pulsar input {
-                    width: 150px;
+                    width: 140px;
                 }
                 :host .pulsar label {
                     margin-right: 2px;
@@ -282,6 +284,32 @@ if (window.Tips.Modulos) {
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <div class="checkbox riscoMais">
+                                <input type="checkbox" />
+                                <span class="label">
+                                    <label>Multiplica o risco por </label>
+                                    <input class="multiplicador" type="text" number number-digitos="0" number-min="1" maxlength="3" number-padrao="10" value="10" />
+                                    <label> até o limite de </label>
+                                    <input class="limite" type="text" number number-digitos="0" number-min="1" number-max="100" maxlength="3" number-padrao="10" value="10" />
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkbox riscoSeguro">
+                                <input type="checkbox" />
+                                <span class="label">
+                                    <label>Se perder mais de </label>
+                                    <input class="perdas" type="text" number number-digitos="0" number-min="1" maxlength="4" number-padrao="30" value="30" />
+                                    <label> arrisca na próxima </label>
+                                    <input class="risco" type="text" number number-digitos="0" number-min="1" number-max="100" maxlength="3" number-padrao="10" value="10" />
+                                </span>
+                            </div>
+                        </td>
+                    </tr>                
                 </table>
                 <div class="pulsar">
                     <label>Risco</label>
@@ -339,6 +367,12 @@ if (window.Tips.Modulos) {
                 Modulo.Objetos.$mitigarDesistirTempo = container.find('.mitigar .desistir input[type="text"].tempo');
                 Modulo.Objetos.$mitigarContinuarLabel = container.find('.mitigar .continuar span.label');
                 Modulo.Objetos.$mitigarContinuarTempo = container.find('.mitigar .continuar input[type="text"].tempo');
+                Modulo.Objetos.$mitigarRiscoMaisLabel = container.find('.mitigar .riscoMais span.label');
+                Modulo.Objetos.$mitigarRiscoMaisMultiplicador = container.find('.mitigar .riscoMais input[type="text"].multiplicador');
+                Modulo.Objetos.$mitigarRiscoMaisLimite = container.find('.mitigar .riscoMais input[type="text"].limite');
+                Modulo.Objetos.$mitigarRiscoSeguroLabel = container.find('.mitigar .riscoSeguro span.label');
+                Modulo.Objetos.$mitigarRiscoSeguroPerdas = container.find('.mitigar .riscoSeguro input[type="text"].perdas');
+                Modulo.Objetos.$mitigarRiscoSeguroRisco = container.find('.mitigar .riscoSeguro input[type="text"].risco');
                 Modulo.Objetos.$info = container.find('.controles .info');
                 Modulo.Objetos.$btns = container.find('.controles .btn');
                 Modulo.Objetos.$btnParar = container.find('.controles .parar');
@@ -481,6 +515,47 @@ if (window.Tips.Modulos) {
                     Modulo.Objetos.$mitigarContinuarLabel.css('opacity', this.checked ? 1 : 0.5);
                     Modulo.Params.tela.mitigarContinuar = !this.checked ? null : {
                         tempo: Modulo.Objetos.$mitigarContinuarTempo.get(0).number(),
+                    };
+                }).trigger('ifChanged');
+
+                Modulo.Objetos.$mitigarRiscoMaisMultiplicador.blur(function() {
+                    if (Modulo.Params.tela.mitigarRiscoMais !== null) {
+                        Modulo.Params.tela.mitigarRiscoMais.multiplicador = this.number();
+                    }
+                });
+                Modulo.Objetos.$mitigarRiscoMaisLimite.blur(function() {
+                    if (Modulo.Params.tela.mitigarRiscoMais !== null) {
+                        Modulo.Params.tela.mitigarRiscoMais.limite = this.number();
+                    }
+                });
+
+                Modulo.Objetos.icheckbug_mitigarRiscoMais = {};
+                Instancia.LuckygamesIo.BugICheckEvent('.' + secaoId + ' .mitigar .riscoMais input[type="checkbox"]', Modulo.Objetos.icheckbug_mitigarRiscoMais, function() {
+                    Modulo.Objetos.$mitigarRiscoMaisLabel.css('opacity', this.checked ? 1 : 0.5);
+                    Modulo.Params.tela.mitigarRiscoMais = !this.checked ? null : {
+                        multiplicador: Modulo.Objetos.$mitigarRiscoMaisMultiplicador.get(0).number(),
+                        limite: Modulo.Objetos.$mitigarRiscoMaisLimite.get(0).number()
+                    };
+                    Modulo.Params.risco.reset();
+                }).trigger('ifChanged');
+
+                Modulo.Objetos.$mitigarRiscoSeguroPerdas.blur(function() {
+                    if (Modulo.Params.tela.mitigarRiscoSeguro !== null) {
+                        Modulo.Params.tela.mitigarRiscoSeguro.perdas = this.number();
+                    }
+                });
+                Modulo.Objetos.$mitigarRiscoSeguroRisco.blur(function() {
+                    if (Modulo.Params.tela.mitigarRiscoSeguro !== null) {
+                        Modulo.Params.tela.mitigarRiscoSeguro.risco = this.number();
+                    }
+                });
+
+                Modulo.Objetos.icheckbug_mitigarRiscoSeguro = {};
+                Instancia.LuckygamesIo.BugICheckEvent('.' + secaoId + ' .mitigar .riscoSeguro input[type="checkbox"]', Modulo.Objetos.icheckbug_mitigarRiscoSeguro, function() {
+                    Modulo.Objetos.$mitigarRiscoSeguroLabel.css('opacity', this.checked ? 1 : 0.5);
+                    Modulo.Params.tela.mitigarRiscoSeguro = !this.checked ? null : {
+                        perdas: Modulo.Objetos.$mitigarRiscoSeguroPerdas.get(0).number(),
+                        risco: Modulo.Objetos.$mitigarRiscoSeguroRisco.get(0).number()
                     };
                 }).trigger('ifChanged');
 
@@ -927,6 +1002,18 @@ if (window.Tips.Modulos) {
                         return parar();
                     }
 
+                    if (Modulo.Params.tela.mitigarRiscoSeguro !== null && !Modulo.Params.risco.atual) {
+                        if (Modulo.Params.tela.mitigarRiscoSeguro.arriscarOriginal &&
+                            Tips.Estatisticas.Dados.sequenciaPerdendo < Modulo.Params.tela.mitigarRiscoSeguro.sequenciaPerdendo) {
+                            Modulo.Objetos.$arriscar.val(Modulo.Params.tela.mitigarRiscoSeguro.arriscarOriginal).blur();
+                            Modulo.Params.tela.mitigarRiscoSeguro.arriscarOriginal = null;
+                        } else if (Tips.Estatisticas.Dados.sequenciaPerdendo == Modulo.Params.tela.mitigarRiscoSeguro.perdas) {
+                            Modulo.Params.tela.mitigarRiscoSeguro.sequenciaPerdendo = Tips.Estatisticas.Dados.sequenciaPerdendo;
+                            if (!Modulo.Params.tela.mitigarRiscoSeguro.arriscarOriginal) Modulo.Params.tela.mitigarRiscoSeguro.arriscarOriginal = Modulo.Objetos.$arriscar.get(0).number();
+                            Modulo.Objetos.$arriscar.val(Modulo.Params.tela.mitigarRiscoSeguro.risco).blur();
+                        }
+                    }
+
                     if (Modulo.Params.andamento.evitar > 0) {
                         if (response.gameResult === "lose") Modulo.Params.andamento.evitarPerdas++;
                         else if (response.gameResult === "win") Modulo.Params.andamento.evitarPerdas = 0;
@@ -960,36 +1047,31 @@ if (window.Tips.Modulos) {
                             Instancia.Geral.Audio('warning');
                             window.dispatchEvent(new Event("BotZerou"));
 
-                            //RISCO RAW aqui.
-                            Modulo.Params.risco.novoNivel++;
-                            if (!Modulo.Params.risco.interval) {
-                                Modulo.Params.risco.interval = setInterval(() => {
-                                    if (!Modulo.Params.risco.atual) {
-                                        Modulo.Params.risco.atual = Modulo.Objetos.$arriscar.get(0).number();
-                                        Modulo.Params.risco.saldoAlvo = Modulo.Params.risco.saldoMaior;
-                                    }
-                                    const saldoAtual = Instancia.LuckygamesIo.Parametros.Balance();
-                                    let desistir = false;
-                                    if (Modulo.Params.risco.novoNivel != Modulo.Params.risco.ultimoNivel) {
-                                        Modulo.Params.risco.ultimoNivel = Modulo.Params.risco.novoNivel;
-                                        const novoArriscar = Modulo.Params.risco.atual * Math.pow(Modulo.Params.risco.multiplicador, Modulo.Params.risco.novoNivel);
-                                        if (novoArriscar > Modulo.Params.risco.arriscarMaximo) {
-                                            desistir = true;
-                                            Modulo.Params.risco.saldoMaior = saldoAtual;
-                                        } else {
-                                            Modulo.Objetos.$arriscar.val(novoArriscar).blur();
+                            if (Modulo.Params.tela.mitigarRiscoMais !== null && (!Modulo.Params.tela.mitigarRiscoSeguro || !Modulo.Params.tela.mitigarRiscoSeguro.arriscarOriginal)) {
+                                Modulo.Params.risco.novoNivel++;
+                                if (!Modulo.Params.risco.interval) {
+                                    Modulo.Params.risco.interval = setInterval(() => {
+                                        if (!Modulo.Params.risco.atual) {
+                                            Modulo.Params.risco.atual = Modulo.Objetos.$arriscar.get(0).number();
+                                            Modulo.Params.risco.saldoAlvo = Modulo.Params.risco.saldoMaior;
                                         }
-                                    }
-                                    if (desistir || saldoAtual >= Modulo.Params.risco.saldoAlvo) {
-                                        clearInterval(Modulo.Params.risco.interval);
-                                        Modulo.Objetos.$arriscar.val(Modulo.Params.risco.atual).blur();
-                                        Modulo.Params.risco.interval = null;
-                                        Modulo.Params.risco.atual = null;
-                                        Modulo.Params.risco.novoNivel = 0;
-                                        Modulo.Params.risco.ultimoNivel = null;
-                                        Modulo.Params.risco.saldoAlvo = null;
-                                    }
-                                }, 100);
+                                        const saldoAtual = Instancia.LuckygamesIo.Parametros.Balance();
+                                        let desistir = false;
+                                        if (Modulo.Params.risco.novoNivel != Modulo.Params.risco.ultimoNivel) {
+                                            Modulo.Params.risco.ultimoNivel = Modulo.Params.risco.novoNivel;
+                                            const novoArriscar = Modulo.Params.risco.atual * Math.pow(Modulo.Params.tela.mitigarRiscoMais.multiplicador, Modulo.Params.risco.novoNivel);
+                                            if (novoArriscar > Modulo.Params.tela.mitigarRiscoMais.limite) {
+                                                desistir = true;
+                                                Modulo.Params.risco.saldoMaior = saldoAtual;
+                                            } else {
+                                                Modulo.Objetos.$arriscar.val(novoArriscar).blur();
+                                            }
+                                        }
+                                        if (desistir || saldoAtual >= Modulo.Params.risco.saldoAlvo) {
+                                            Modulo.Params.risco.reset();
+                                        }
+                                    }, 100);
+                                }
                             }
 
                             if (Modulo.Params.tela.mitigarInterromperZerar !== null && (Modulo.Params.andamento.saldoZerado >= Modulo.Params.tela.mitigarInterromperZerar.vezes)) {
@@ -1136,6 +1218,15 @@ if (window.Tips.Modulos) {
                 mitigarContinuar: {
                     tempo: null,
                 },
+                mitigarRiscoMais: {
+                    multiplicador: null,
+                    limite: null,
+                },
+                mitigarRiscoSeguro: {
+                    perdas: null,
+                    risco: null,
+                    ativo: null,
+                },
             },
             andamento: {
                 direcao: null,
@@ -1153,15 +1244,22 @@ if (window.Tips.Modulos) {
                 evitarPerdas: null,
             },
             risco: {
-                multiplicador: 10,  //Parametros
-                arriscarMaximo: 10, //Parametros
-
                 atual: null,
                 novoNivel: 0,
                 ultimoNivel: null,
                 interval: null,
                 saldoAlvo: null,
                 saldoMaior: null,
+
+                reset: () => {
+                    clearInterval(Modulo.Params.risco.interval);
+                    if (Modulo.Params.risco.atual) Modulo.Objetos.$arriscar.val(Modulo.Params.risco.atual).blur();
+                    Modulo.Params.risco.interval = null;
+                    Modulo.Params.risco.atual = null;
+                    Modulo.Params.risco.novoNivel = 0;
+                    Modulo.Params.risco.ultimoNivel = null;
+                    Modulo.Params.risco.saldoAlvo = null;
+                },
             }
         };
 
