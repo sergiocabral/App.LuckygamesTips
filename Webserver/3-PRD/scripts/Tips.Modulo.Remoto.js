@@ -62,6 +62,7 @@ if (window.Tips.Modulos) {
             intervaloSemComunicacao: 10000,
             usuario: Tips.LuckygamesIo.Parametros.Usuario().toLowerCase().trim(),
             moeda: Instancia.LuckygamesIo.Parametros.Moeda(),
+            bot: null,
         };
 
         Modulo.Escutar = () => {
@@ -89,11 +90,8 @@ if (window.Tips.Modulos) {
         Modulo.PararBots = () => {
             console.logg("Remoto: parar");
 
-            //const bot = "Martin";
-            //const btn = Instancia.Modulos.MartinBot.Objetos.$btnLigar;
-
-            const bot = "Raw";
-            const btn = Instancia.Modulos.RawBot.Objetos.$controleBtnLigar;
+            if (Modulo.Config.bot == "Martin") btn = Instancia.Modulos.MartinBot.Objetos.$btnLigar;
+            if (Modulo.Config.bot == "Raw") btn = Instancia.Modulos.RawBot.Objetos.$controleBtnLigar;
 
             if (btn.get(0).style.display !== "none") {
                 if (btn.text() == "Desligar") btn.click();
@@ -130,6 +128,7 @@ if (window.Tips.Modulos) {
                     c : a, null);
 
             if (automacao) {
+                Modulo.Config.bot = automacao.bot;
                 if (automacao.saldoMinimo) {
                     let saldoMinimo = parseFloat(String(automacao.saldoMinimo).replace(",", ".")) / 100;
                     saldoMinimo *= Tips.LuckygamesIo.Parametros.Balance();
@@ -162,9 +161,9 @@ if (window.Tips.Modulos) {
                         if (!Modulo.Parametros.processamentoIniciado) {                        
                             Instancia.Modulos.Parametros.Comandos.AbrirJanela();
 
-                            //Instancia.Modulos.Parametros.Comandos.LigarBotMarin();
-                            Instancia.Modulos.Parametros.Comandos.LigarBotRaw();
-                            
+                            if (Modulo.Config.bot == "Martin") Instancia.Modulos.Parametros.Comandos.LigarBotMarin();
+                            if (Modulo.Config.bot == "Raw") Instancia.Modulos.Parametros.Comandos.LigarBotRaw();
+
                             Instancia.Modulos.Parametros.Comandos.AbrirEstatisticas();
                             Modulo.Parametros.processamentoIniciado = true;
                         }
@@ -203,7 +202,7 @@ if (window.Tips.Modulos) {
                     Instancia.Estatisticas.Dados.Formatado.SaldoAtual(),
                     Modulo.Parametros.id);
 
-                Instancia.Api.Email(Instancia.Api.Licenca().email, assunto, mensagem).then((data) => { 
+                Instancia.Api.Email(Instancia.Api.Licenca().email, assunto, mensagem).then((data) => {
                     if (!data || !data.sucesso || !data.response || data.response.erro) {
                         const erro = data && data.response && data.response.mensagem ? ': ' + data.response.mensagem : '.';
                         Instancia.Geral.Toast('Ocorreu um erro ao enviar o e-mail de notificação' + erro, 'error');

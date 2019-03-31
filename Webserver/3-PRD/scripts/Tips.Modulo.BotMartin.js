@@ -941,6 +941,11 @@ if (window.Tips.Modulos) {
                     if (response.gameResult === "win") {
                         Modulo.Params.andamento.evitar = null;
                         Modulo.Params.andamento.evitarPerdas = null;
+
+                        const saldoAtual = Instancia.LuckygamesIo.Parametros.Balance();
+                        if (Modulo.Params.risco.saldoMaior == null || Modulo.Params.risco.saldoMaior < saldoAtual) {
+                            Modulo.Params.risco.saldoMaior = saldoAtual;
+                        }
                     }
 
                     Modulo.Params.andamento.lucro += parseFloat(response.profit);
@@ -954,6 +959,39 @@ if (window.Tips.Modulos) {
                         if (limiteDePerda) {
                             Instancia.Geral.Audio('warning');
                             window.dispatchEvent(new Event("BotZerou"));
+
+                            //RISCO RAW aqui.
+                            Modulo.Params.risco.novoNivel++;
+                            if (!Modulo.Params.risco.interval) {
+                                Modulo.Params.risco.interval = setInterval(() => {
+                                    if (!Modulo.Params.risco.atual) {
+                                        Modulo.Params.risco.atual = Modulo.Objetos.$arriscar.get(0).number();
+                                        Modulo.Params.risco.saldoAlvo = Modulo.Params.risco.saldoMaior;
+                                    }
+                                    const saldoAtual = Instancia.LuckygamesIo.Parametros.Balance();
+                                    let desistir = false;
+                                    if (Modulo.Params.risco.novoNivel != Modulo.Params.risco.ultimoNivel) {
+                                        Modulo.Params.risco.ultimoNivel = Modulo.Params.risco.novoNivel;
+                                        const novoArriscar = Modulo.Params.risco.atual * Math.pow(Modulo.Params.risco.multiplicador, Modulo.Params.risco.novoNivel);
+                                        if (novoArriscar > Modulo.Params.risco.arriscarMaximo) {
+                                            desistir = true;
+                                            Modulo.Params.risco.saldoMaior = saldoAtual;
+                                        } else {
+                                            Modulo.Objetos.$arriscar.val(novoArriscar).blur();
+                                        }
+                                    }
+                                    if (desistir || saldoAtual >= Modulo.Params.risco.saldoAlvo) {
+                                        clearInterval(Modulo.Params.risco.interval);
+                                        Modulo.Objetos.$arriscar.val(Modulo.Params.risco.atual).blur();
+                                        Modulo.Params.risco.interval = null;
+                                        Modulo.Params.risco.atual = null;
+                                        Modulo.Params.risco.novoNivel = 0;
+                                        Modulo.Params.risco.ultimoNivel = null;
+                                        Modulo.Params.risco.saldoAlvo = null;
+                                    }
+                                }, 100);
+                            }
+
                             if (Modulo.Params.tela.mitigarInterromperZerar !== null && (Modulo.Params.andamento.saldoZerado >= Modulo.Params.tela.mitigarInterromperZerar.vezes)) {
                                 return parar();
                             }
@@ -1114,6 +1152,17 @@ if (window.Tips.Modulos) {
                 evitar: null,
                 evitarPerdas: null,
             },
+            risco: {
+                multiplicador: 10,  //Parametros
+                arriscarMaximo: 10, //Parametros
+
+                atual: null,
+                novoNivel: 0,
+                ultimoNivel: null,
+                interval: null,
+                saldoAlvo: null,
+                saldoMaior: null,
+            }
         };
 
     })();
