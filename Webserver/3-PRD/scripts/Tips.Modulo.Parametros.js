@@ -770,6 +770,38 @@ if (window.Tips.Modulos) {
                         get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarContinuarTempo),
                         set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarContinuarTempo, val),
                     },
+
+                    {
+                        nome: "Multiplica o risco",
+                        get: () => Modulo.Funcoes.Get.Checkbox(Instancia.Modulos.MartinBot.Objetos.icheckbug_mitigarRiscoMais),
+                        set: (val) => Modulo.Funcoes.Set.Checkbox(Instancia.Modulos.MartinBot.Objetos.icheckbug_mitigarRiscoMais, val),
+                    },
+                    {
+                        nome: "Multiplica o risco por X vezes",
+                        get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoMaisMultiplicador),
+                        set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoMaisMultiplicador, val),
+                    },
+                    {
+                        nome: "Multiplica o risco até o limite de",
+                        get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoMaisLimite),
+                        set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoMaisLimite, val),
+                    },
+
+                    {
+                        nome: "Arrisca após perda",
+                        get: () => Modulo.Funcoes.Get.Checkbox(Instancia.Modulos.MartinBot.Objetos.icheckbug_mitigarRiscoSeguro),
+                        set: (val) => Modulo.Funcoes.Set.Checkbox(Instancia.Modulos.MartinBot.Objetos.icheckbug_mitigarRiscoSeguro, val),
+                    },
+                    {
+                        nome: "Arrisca após perda de X vezes",
+                        get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoSeguroPerdas),
+                        set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoSeguroPerdas, val),
+                    },
+                    {
+                        nome: "Arrisca após perda o total de",
+                        get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoSeguroRisco),
+                        set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoSeguroRisco, val),
+                    },
                 ]
             },
             {

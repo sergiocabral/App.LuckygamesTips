@@ -106,7 +106,7 @@ if (window.Tips.Modulos) {
                     top: 1px;
                 }
                 :host .saldoMeta input { width: 200px; }
-                :host .arriscar input { width: 100px; }
+                :host .arriscar input { width: 200px; }
                 :host .prediction input { width: 100px; }
                 :host .aposta input { width: 200px; }
                 :host .aposta input.perdas { width: 80px; }                
@@ -155,7 +155,7 @@ if (window.Tips.Modulos) {
                     </tr>
                     <tr>
                         <td class="label right"><label title="Quantos porcentos do seu saldo&lt;br&gt;você quer arriscar">Arriscar %</label></td>
-                        <td class="arriscar"><input type="text" number number-min="0,1" number-max="100" number-digitos="1" number-padrao="1" value="1" /></td>
+                        <td class="arriscar"><input type="text" number number-min="0,00000001" number-max="100" number-padrao="1" value="1" /></td>
                         <td class="label right"><label title="Cálculo do campo 'Arriscar %'.&lt;br&gt;Total que você está disposto a perder.&lt;br&gt;Você nunca perderá mais do que isso.">Arriscado</label></td>
                         <td class="arriscar right"><label>—</label></td>
                     </tr>
@@ -1003,13 +1003,18 @@ if (window.Tips.Modulos) {
                     }
 
                     if (Modulo.Params.tela.mitigarRiscoSeguro !== null && !Modulo.Params.risco.atual) {
+
                         if (Modulo.Params.tela.mitigarRiscoSeguro.arriscarOriginal &&
                             Tips.Estatisticas.Dados.sequenciaPerdendo < Modulo.Params.tela.mitigarRiscoSeguro.sequenciaPerdendo) {
+
                             Modulo.Objetos.$arriscar.val(Modulo.Params.tela.mitigarRiscoSeguro.arriscarOriginal).blur();
                             Modulo.Params.tela.mitigarRiscoSeguro.arriscarOriginal = null;
-                        } else if (Tips.Estatisticas.Dados.sequenciaPerdendo == Modulo.Params.tela.mitigarRiscoSeguro.perdas) {
+
+                        } else if (!Modulo.Params.tela.mitigarRiscoSeguro.arriscarOriginal &&
+                                    Tips.Estatisticas.Dados.sequenciaPerdendo == Modulo.Params.tela.mitigarRiscoSeguro.perdas) {
+
                             Modulo.Params.tela.mitigarRiscoSeguro.sequenciaPerdendo = Tips.Estatisticas.Dados.sequenciaPerdendo;
-                            if (!Modulo.Params.tela.mitigarRiscoSeguro.arriscarOriginal) Modulo.Params.tela.mitigarRiscoSeguro.arriscarOriginal = Modulo.Objetos.$arriscar.get(0).number();
+                            Modulo.Params.tela.mitigarRiscoSeguro.arriscarOriginal = Modulo.Objetos.$arriscar.get(0).number();
                             Modulo.Objetos.$arriscar.val(Modulo.Params.tela.mitigarRiscoSeguro.risco).blur();
                         }
                     }
