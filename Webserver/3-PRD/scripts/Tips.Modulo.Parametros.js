@@ -818,6 +818,11 @@ if (window.Tips.Modulos) {
                         get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoNoMinimoRisco),
                         set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoNoMinimoRisco, val),
                     },
+                    {
+                        nome: "Modo",
+                        get: () => Modulo.Funcoes.Get.Select(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoNoMinimoModo),
+                        set: (val) => Modulo.Funcoes.Set.Select(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoNoMinimoModo, val, false),
+                    },
                 ]
             },
             {

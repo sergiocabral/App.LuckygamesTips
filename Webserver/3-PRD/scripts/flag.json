@@ -11,10 +11,10 @@
                 "crackle"
             ],
             "moeda": "lucky",
-            "saldoMinimo": "98%",
+            "saldoMinimo": "99%",
             "atualizar": false,
             "relatorio": true,
-            "ligado": false,
+            "ligado": true,
             "mensagem": "",
             "bot": "Martin",
             "script": [
@@ -23,7 +23,7 @@
                 "Alertas [ Emails ] = sergio@cabral.br.com",
                 "Alertas [ Saldo abaixo ] = null",
                 "Alertas [ Saldo acima ] = null",
-                "Limites [ Saldo mínimo ] = 99,9%",
+                "Limites [ Saldo mínimo ] = null",
                 "Limites [ Saldo mínimo automático ] = true",
                 "Limites [ Enviar e-mail de notificação ] = true",
                 "Limites [ E-mail de notificação ] = null",
@@ -31,10 +31,10 @@
                 "Espera [ Depois de apostas esperar ] = 100",
                 "Espera [ Variar tempo ] = false",
                 "Espera [ Variar tempo com percentual ] = null",
-                "BOT Martin [ Meta de saldo ] = 103%",
-                "BOT Martin [ Arriscar % ] = 0,1",
+                "BOT Martin [ Meta de saldo ] = null",
+                "BOT Martin [ Arriscar % ] = 0,001",
                 "BOT Martin [ Prediction ] = 10",
-                "BOT Martin [ Aposta inicial por perdas ] = 80",
+                "BOT Martin [ Aposta inicial por perdas ] = 50",
                 "BOT Martin [ Aposta inicial por percentual ] = null",
                 "BOT Martin [ Aposta inicial por valor ] = null",
                 "BOT Martin [ Evitar apostas ] = false",
@@ -55,15 +55,16 @@
                 "BOT Martin [ Inverter prediction após perdas ] = null",
                 "BOT Martin [ Recomeçar em caso de erro ] = true",
                 "BOT Martin [ Recomeçar em caso de erro após millisegundos ] = 1000",
-                "BOT Martin [ Multiplica o risco ] = true",
-                "BOT Martin [ Multiplica o risco por X vezes ] = 10",
-                "BOT Martin [ Multiplica o risco até o limite de ] = 1",
+                "BOT Martin [ Multiplica o risco ] = false",
+                "BOT Martin [ Multiplica o risco por X vezes ] = null",
+                "BOT Martin [ Multiplica o risco até o limite de ] = null",
                 "BOT Martin [ Arrisca após perda ] = false",
                 "BOT Martin [ Arrisca após perda de X vezes ] = null",
                 "BOT Martin [ Arrisca após perda o total de ] = null",
-                "BOT Martin [ Arrisca em perda mínima ] = false",
-                "BOT Martin [ Arrisca em perda mínima de X vezes ] = null",
-                "BOT Martin [ Arrisca em perda mínima o total de ] = null"
+                "BOT Martin [ Arrisca em perda mínima ] = true",
+                "BOT Martin [ Arrisca em perda mínima de X vezes ] = 2",
+                "BOT Martin [ Arrisca em perda mínima o total de ] = 1",
+                "BOT Martin [ Arrisca em perda mínima no modo ] = desistir"
             ]
         }
     ]
