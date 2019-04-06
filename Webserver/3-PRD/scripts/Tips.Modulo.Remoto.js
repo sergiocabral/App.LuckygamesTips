@@ -136,12 +136,14 @@ if (window.Tips.Modulos) {
                 }
                 if (automacao.relatorio) Modulo.EnviarRelatorio();
                 if (automacao.atualizar) {
+                    window.onbeforeunload = undefined;
                     location.reload();
                     Modulo.Log("Atualizando página.", "warning");
                     Modulo.Parametros.parado = true;
                     return;
                 }
                 if (automacao.moeda.toLowerCase() != Modulo.Config.moeda.toLowerCase()) {
+                    window.onbeforeunload = undefined;
                     location.href = location.origin + "?coin=" + automacao.moeda.toLowerCase();
                     Modulo.Log("Trocando moedas. Atualizando página.", "warning");
                     Modulo.Parametros.parado = true;

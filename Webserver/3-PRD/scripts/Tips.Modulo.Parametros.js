@@ -802,6 +802,22 @@ if (window.Tips.Modulos) {
                         get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoSeguroRisco),
                         set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoSeguroRisco, val),
                     },
+
+                    {
+                        nome: "Arrisca em perda mínima",
+                        get: () => Modulo.Funcoes.Get.Checkbox(Instancia.Modulos.MartinBot.Objetos.icheckbug_mitigarRiscoNoMinimo),
+                        set: (val) => Modulo.Funcoes.Set.Checkbox(Instancia.Modulos.MartinBot.Objetos.icheckbug_mitigarRiscoNoMinimo, val),
+                    },
+                    {
+                        nome: "Arrisca em perda mínima de X vezes",
+                        get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoNoMinimoPerdas),
+                        set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoNoMinimoPerdas, val),
+                    },
+                    {
+                        nome: "Arrisca em perda mínima o total de",
+                        get: () => Modulo.Funcoes.Get.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoNoMinimoRisco),
+                        set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoNoMinimoRisco, val),
+                    },
                 ]
             },
             {

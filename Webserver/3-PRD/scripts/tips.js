@@ -26,6 +26,8 @@ window.Tips = new (function() {
     Instancia.Objetos = { };
 
     Instancia.Inicializar = () => {
+        window.onbeforeunload = function() { return "Sair mesmo da página?"; }
+
         Instancia.Geral.PrepararAmbiente();
 
         Instancia.LuckygamesIo.EsperarAmbiente().then(() => {

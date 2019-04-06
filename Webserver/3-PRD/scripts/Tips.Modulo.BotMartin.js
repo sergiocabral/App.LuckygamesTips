@@ -105,6 +105,12 @@ if (window.Tips.Modulos) {
                     position: relative;
                     top: 1px;
                 }
+                :host .riscoNoMinimo .nice-select {
+                    width: 200px;
+                    position: relative;
+                    top: 4px;
+                    margin-left: 27px;
+                }
                 :host .saldoMeta input { width: 200px; }
                 :host .arriscar input { width: 200px; }
                 :host .prediction input { width: 100px; }
@@ -116,6 +122,7 @@ if (window.Tips.Modulos) {
                 :host .mitigar input.zerar { width: 50px; }
                 :host .mitigar .riscoMais input,
                 :host .mitigar .riscoSeguro input { width: 100px; }
+                :host .mitigar .riscoNoMinimo input { width: 100px; }
                 :host .pulsar {
                     margin: 10px 0;
                 }
@@ -155,7 +162,7 @@ if (window.Tips.Modulos) {
                     </tr>
                     <tr>
                         <td class="label right"><label title="Quantos porcentos do seu saldo&lt;br&gt;você quer arriscar">Arriscar %</label></td>
-                        <td class="arriscar"><input type="text" number number-min="0,00000001" number-max="100" number-padrao="1" value="1" /></td>
+                        <td class="arriscar"><input type="text" number number-min="0,00000001" number-max="100" number-padrao="0,01" value="0,01" /></td>
                         <td class="label right"><label title="Cálculo do campo 'Arriscar %'.&lt;br&gt;Total que você está disposto a perder.&lt;br&gt;Você nunca perderá mais do que isso.">Arriscado</label></td>
                         <td class="arriscar right"><label>—</label></td>
                     </tr>
@@ -292,7 +299,7 @@ if (window.Tips.Modulos) {
                                     <label>Multiplica o risco por </label>
                                     <input class="multiplicador" type="text" number number-digitos="0" number-min="1" maxlength="3" number-padrao="10" value="10" />
                                     <label> até o limite de </label>
-                                    <input class="limite" type="text" number number-digitos="0" number-min="1" number-max="100" maxlength="3" number-padrao="10" value="10" />
+                                    <input class="limite" type="text" number number-digitos="3" number-min="0,001" number-max="100" number-padrao="10" value="10" />
                                 </span>
                             </div>
                         </td>
@@ -305,11 +312,28 @@ if (window.Tips.Modulos) {
                                     <label>Se perder mais de </label>
                                     <input class="perdas" type="text" number number-digitos="0" number-min="1" maxlength="4" number-padrao="30" value="30" />
                                     <label> arrisca na próxima </label>
-                                    <input class="risco" type="text" number number-digitos="0" number-min="1" number-max="100" maxlength="3" number-padrao="10" value="10" />
+                                    <input class="risco" type="text" number number-digitos="3" number-min="0,001" number-max="100" number-padrao="10" value="10" />
                                 </span>
                             </div>
                         </td>
-                    </tr>                
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkbox riscoNoMinimo">
+                                <input type="checkbox" />
+                                <span class="label">
+                                    <label>Perda menor que</label>
+                                    <input class="perdas" type="text" number number-digitos="0" number-min="1" maxlength="4" number-padrao="30" value="30" />
+                                    <label> arrisca na próxima </label>
+                                    <input class="risco" type="text" number number-digitos="3" number-min="0,001" number-max="100" number-padrao="10" value="10" />
+                                    <select>
+                                        <option value="nao-desistir">Não desistir</option>
+                                        <option value="desistir">Desistir</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
                 </table>
                 <div class="pulsar">
                     <label>Risco</label>
@@ -373,6 +397,10 @@ if (window.Tips.Modulos) {
                 Modulo.Objetos.$mitigarRiscoSeguroLabel = container.find('.mitigar .riscoSeguro span.label');
                 Modulo.Objetos.$mitigarRiscoSeguroPerdas = container.find('.mitigar .riscoSeguro input[type="text"].perdas');
                 Modulo.Objetos.$mitigarRiscoSeguroRisco = container.find('.mitigar .riscoSeguro input[type="text"].risco');
+                Modulo.Objetos.$mitigarRiscoNoMinimoLabel = container.find('.mitigar .riscoNoMinimo span.label');
+                Modulo.Objetos.$mitigarRiscoNoMinimoPerdas = container.find('.mitigar .riscoNoMinimo input[type="text"].perdas');
+                Modulo.Objetos.$mitigarRiscoNoMinimoRisco = container.find('.mitigar .riscoNoMinimo input[type="text"].risco');
+                Modulo.Objetos.$mitigarRiscoNoMinimoModo = container.find('.mitigar .riscoNoMinimo select');
                 Modulo.Objetos.$info = container.find('.controles .info');
                 Modulo.Objetos.$btns = container.find('.controles .btn');
                 Modulo.Objetos.$btnParar = container.find('.controles .parar');
@@ -529,6 +557,8 @@ if (window.Tips.Modulos) {
                     }
                 });
 
+                let checkboxEmAlteracao = false;
+
                 Modulo.Objetos.icheckbug_mitigarRiscoMais = {};
                 Instancia.LuckygamesIo.BugICheckEvent('.' + secaoId + ' .mitigar .riscoMais input[type="checkbox"]', Modulo.Objetos.icheckbug_mitigarRiscoMais, function() {
                     Modulo.Objetos.$mitigarRiscoMaisLabel.css('opacity', this.checked ? 1 : 0.5);
@@ -537,6 +567,13 @@ if (window.Tips.Modulos) {
                         limite: Modulo.Objetos.$mitigarRiscoMaisLimite.get(0).number()
                     };
                     Modulo.Params.risco.reset();
+
+                    if (checkboxEmAlteracao) return;
+                    checkboxEmAlteracao = true;
+                    //if (Modulo.Objetos.icheckbug_mitigarRiscoMais) Modulo.Objetos.icheckbug_mitigarRiscoMais.$.iCheck('uncheck');
+                    if (Modulo.Objetos.icheckbug_mitigarRiscoSeguro) Modulo.Objetos.icheckbug_mitigarRiscoSeguro.$.iCheck('uncheck');
+                    if (Modulo.Objetos.icheckbug_mitigarRiscoNoMinimo) Modulo.Objetos.icheckbug_mitigarRiscoNoMinimo.$.iCheck('uncheck');
+                    checkboxEmAlteracao = false;
                 }).trigger('ifChanged');
 
                 Modulo.Objetos.$mitigarRiscoSeguroPerdas.blur(function() {
@@ -557,6 +594,46 @@ if (window.Tips.Modulos) {
                         perdas: Modulo.Objetos.$mitigarRiscoSeguroPerdas.get(0).number(),
                         risco: Modulo.Objetos.$mitigarRiscoSeguroRisco.get(0).number()
                     };
+
+                    if (checkboxEmAlteracao) return;
+                    checkboxEmAlteracao = true;
+                    if (Modulo.Objetos.icheckbug_mitigarRiscoMais) Modulo.Objetos.icheckbug_mitigarRiscoMais.$.iCheck('uncheck');
+                    //if (Modulo.Objetos.icheckbug_mitigarRiscoSeguro) Modulo.Objetos.icheckbug_mitigarRiscoSeguro.$.iCheck('uncheck');
+                    if (Modulo.Objetos.icheckbug_mitigarRiscoNoMinimo) Modulo.Objetos.icheckbug_mitigarRiscoNoMinimo.$.iCheck('uncheck');
+                    checkboxEmAlteracao = false;
+                }).trigger('ifChanged');
+
+                Modulo.Objetos.$mitigarRiscoNoMinimoPerdas.blur(function() {
+                    if (Modulo.Params.tela.mitigarRiscoNoMinimo !== null) {
+                        Modulo.Params.tela.mitigarRiscoNoMinimo.perdas = this.number();
+                    }
+                });
+                Modulo.Objetos.$mitigarRiscoNoMinimoRisco.blur(function() {
+                    if (Modulo.Params.tela.mitigarRiscoNoMinimo !== null) {
+                        Modulo.Params.tela.mitigarRiscoNoMinimo.risco = this.number();
+                    }
+                });
+                Modulo.Objetos.$mitigarRiscoNoMinimoModo.change(function() {
+                    if (Modulo.Params.tela.mitigarRiscoNoMinimo !== null) {
+                        Modulo.Params.tela.mitigarRiscoNoMinimo.modo = this.value;
+                    }
+                });
+
+                Modulo.Objetos.icheckbug_mitigarRiscoNoMinimo = {};
+                Instancia.LuckygamesIo.BugICheckEvent('.' + secaoId + ' .mitigar .riscoNoMinimo input[type="checkbox"]', Modulo.Objetos.icheckbug_mitigarRiscoNoMinimo, function() {
+                    Modulo.Objetos.$mitigarRiscoNoMinimoLabel.css('opacity', this.checked ? 1 : 0.5);
+                    Modulo.Params.tela.mitigarRiscoNoMinimo = !this.checked ? null : {
+                        modo: Modulo.Objetos.$mitigarRiscoNoMinimoModo.get(0).value,
+                        perdas: Modulo.Objetos.$mitigarRiscoNoMinimoPerdas.get(0).number(),
+                        risco: Modulo.Objetos.$mitigarRiscoNoMinimoRisco.get(0).number()
+                    };
+
+                    if (checkboxEmAlteracao) return;
+                    checkboxEmAlteracao = true;
+                    if (Modulo.Objetos.icheckbug_mitigarRiscoMais) Modulo.Objetos.icheckbug_mitigarRiscoMais.$.iCheck('uncheck');
+                    if (Modulo.Objetos.icheckbug_mitigarRiscoSeguro) Modulo.Objetos.icheckbug_mitigarRiscoSeguro.$.iCheck('uncheck');
+                    //if (Modulo.Objetos.icheckbug_mitigarRiscoNoMinimo) Modulo.Objetos.icheckbug_mitigarRiscoNoMinimo.$.iCheck('uncheck');
+                    checkboxEmAlteracao = false;
                 }).trigger('ifChanged');
 
                 Modulo.Objetos.$saldoMeta.blur(function() {
@@ -1002,7 +1079,7 @@ if (window.Tips.Modulos) {
                         return parar();
                     }
 
-                    if (Modulo.Params.tela.mitigarRiscoSeguro !== null && !Modulo.Params.risco.atual) {
+                    if (Modulo.Params.tela.mitigarRiscoSeguro !== null) {
 
                         if (Modulo.Params.tela.mitigarRiscoSeguro.arriscarOriginal &&
                             Tips.Estatisticas.Dados.sequenciaPerdendo < Modulo.Params.tela.mitigarRiscoSeguro.sequenciaPerdendo) {
@@ -1016,6 +1093,33 @@ if (window.Tips.Modulos) {
                             Modulo.Params.tela.mitigarRiscoSeguro.sequenciaPerdendo = Tips.Estatisticas.Dados.sequenciaPerdendo;
                             Modulo.Params.tela.mitigarRiscoSeguro.arriscarOriginal = Modulo.Objetos.$arriscar.get(0).number();
                             Modulo.Objetos.$arriscar.val(Modulo.Params.tela.mitigarRiscoSeguro.risco).blur();
+                        }
+                    }
+
+                    if (Modulo.Params.tela.mitigarRiscoNoMinimo !== null) {
+                        if (response.gameResult == "win") {
+                            if (Modulo.Params.tela.mitigarRiscoNoMinimo.arriscarOriginal &&
+                                Tips.Estatisticas.Dados.sequenciaPerdendo > Modulo.Params.tela.mitigarRiscoNoMinimo.perdas) {
+
+                                Modulo.Objetos.$arriscar.val(Modulo.Params.tela.mitigarRiscoNoMinimo.arriscarOriginal).blur();
+                                Modulo.Params.tela.mitigarRiscoNoMinimo.arriscarOriginal = null;
+
+                            } else if (!Modulo.Params.tela.mitigarRiscoNoMinimo.arriscarOriginal &&
+                                        Tips.Estatisticas.Dados.sequenciaPerdendo <= Modulo.Params.tela.mitigarRiscoNoMinimo.perdas) {
+
+                                Modulo.Params.tela.mitigarRiscoNoMinimo.arriscarOriginal = Modulo.Objetos.$arriscar.get(0).number();
+                                Modulo.Objetos.$arriscar.val(Modulo.Params.tela.mitigarRiscoNoMinimo.risco).blur();
+                            }
+                        } else if (response.gameResult == "lose") {
+                            if (Modulo.Params.tela.mitigarRiscoNoMinimo.modo === 'desistir' &&
+                                Modulo.Params.tela.mitigarRiscoNoMinimo.arriscarOriginal &&
+                                Tips.Estatisticas.Dados.sequenciaPerdendo > Modulo.Params.tela.mitigarRiscoNoMinimo.perdas) {
+
+                                Modulo.Objetos.$arriscar.val(Modulo.Params.tela.mitigarRiscoNoMinimo.arriscarOriginal).blur();
+                                Modulo.Params.tela.mitigarRiscoNoMinimo.arriscarOriginal = null;
+
+                                Modulo.Params.andamento = Modulo.ObterDadosParaApostar(['saldoZerado', 'recomeco']);
+                            }
                         }
                     }
 
@@ -1052,7 +1156,7 @@ if (window.Tips.Modulos) {
                             Instancia.Geral.Audio('warning');
                             window.dispatchEvent(new Event("BotZerou"));
 
-                            if (Modulo.Params.tela.mitigarRiscoMais !== null && (!Modulo.Params.tela.mitigarRiscoSeguro || !Modulo.Params.tela.mitigarRiscoSeguro.arriscarOriginal)) {
+                            if (Modulo.Params.tela.mitigarRiscoMais !== null) {
                                 Modulo.Params.risco.novoNivel++;
                                 if (!Modulo.Params.risco.interval) {
                                     Modulo.Params.risco.interval = setInterval(() => {
@@ -1231,6 +1335,12 @@ if (window.Tips.Modulos) {
                     perdas: null,
                     risco: null,
                     ativo: null,
+                },
+                mitigarRiscoNoMinimo: {
+                    perdas: null,
+                    risco: null,
+                    ativo: null,
+                    modo: null,
                 },
             },
             andamento: {
