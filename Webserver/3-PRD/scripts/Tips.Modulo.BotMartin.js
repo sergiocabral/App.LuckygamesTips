@@ -1113,7 +1113,7 @@ if (window.Tips.Modulos) {
                         } else if (response.gameResult == "lose") {
                             if (Modulo.Params.tela.mitigarRiscoNoMinimo.modo === 'desistir' &&
                                 Modulo.Params.tela.mitigarRiscoNoMinimo.arriscarOriginal &&
-                                Tips.Estatisticas.Dados.sequenciaPerdendo > Modulo.Params.tela.mitigarRiscoNoMinimo.perdas) {
+                                Tips.Estatisticas.Dados.sequenciaPerdendo >= Modulo.Params.tela.mitigarRiscoNoMinimo.perdas - 1) {
 
                                 Modulo.Objetos.$arriscar.val(Modulo.Params.tela.mitigarRiscoNoMinimo.arriscarOriginal).blur();
                                 Modulo.Params.tela.mitigarRiscoNoMinimo.arriscarOriginal = null;

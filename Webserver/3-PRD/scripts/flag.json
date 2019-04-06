@@ -14,7 +14,7 @@
             "saldoMinimo": "99%",
             "atualizar": false,
             "relatorio": true,
-            "ligado": true,
+            "ligado": false,
             "mensagem": "",
             "bot": "Martin",
             "script": [
@@ -63,7 +63,7 @@
                 "BOT Martin [ Arrisca após perda o total de ] = null",
                 "BOT Martin [ Arrisca em perda mínima ] = true",
                 "BOT Martin [ Arrisca em perda mínima de X vezes ] = 2",
-                "BOT Martin [ Arrisca em perda mínima o total de ] = 1",
+                "BOT Martin [ Arrisca em perda mínima o total de ] = 10",
                 "BOT Martin [ Arrisca em perda mínima no modo ] = desistir"
             ]
         }

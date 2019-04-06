@@ -819,7 +819,7 @@ if (window.Tips.Modulos) {
                         set: (val) => Modulo.Funcoes.Set.InputNumber(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoNoMinimoRisco, val),
                     },
                     {
-                        nome: "Modo",
+                        nome: "Arrisca em perda mínima no modo",
                         get: () => Modulo.Funcoes.Get.Select(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoNoMinimoModo),
                         set: (val) => Modulo.Funcoes.Set.Select(Instancia.Modulos.MartinBot.Objetos.$mitigarRiscoNoMinimoModo, val, false),
                     },
