@@ -7,7 +7,7 @@ class BancoConexaoMySQL {
      * Endereço do servidor
      * @var string
      */
-    private $_dataSource = "www.luckygames.tips";
+    private $_dataSource = "mysql.cabral.srv.br";
 
     /**
      * Nome de usuário.
@@ -19,7 +19,7 @@ class BancoConexaoMySQL {
      * Senha de conexão.
      * @var string
      */
-    private $_password = "XlF6XYB1JHvUDMGA";
+    private $_password = "bicicl0#";
 
     /**
      * Nome do repositório no banco de dados.

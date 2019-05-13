@@ -14,26 +14,26 @@
     },
     "database": {
         "dsv": {
-            "DB_HOST": "dsv.luckygames.tips",
+            "DB_HOST": "mysql.cabral.srv.br",
             "DB_NAME": "luckygames_dsv",
             "DB_USER": "luckygames_dsv",
-            "DB_PASSWORD": "d0A5LpieIttkil83",
+            "DB_PASSWORD": "bicicl0#",
             "DB_CHARSET": "'utf8mb4');",
             "DB_COLLATE": ""
         },
         "tst": {
-            "DB_HOST": "tst.luckygames.tips",
+            "DB_HOST": "mysql.cabral.srv.br",
             "DB_NAME": "luckygames_tst",
             "DB_USER": "luckygames_tst",
-            "DB_PASSWORD": "Um4ZmttFNAmNAZai",
+            "DB_PASSWORD": "bicicl0#",
             "DB_CHARSET": "'utf8mb4');",
             "DB_COLLATE": ""
         },
         "prd": {
-            "DB_HOST": "www.luckygames.tips",
+            "DB_HOST": "mysql.cabral.srv.br",
             "DB_NAME": "luckygames_prd",
             "DB_USER": "luckygames_prd",
-            "DB_PASSWORD": "XlF6XYB1JHvUDMGA",
+            "DB_PASSWORD": "bicicl0#",
             "DB_CHARSET": "'utf8mb4');",
             "DB_COLLATE": ""
         }

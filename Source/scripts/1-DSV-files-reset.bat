@@ -1,5 +1,5 @@
-@set srv=dsv.luckygames.tips
+@set srv=mysql.cabral.srv.br
 @set usr=luckygames_dsv
-@set pwd=d0A5LpieIttkil83
+@set pwd=bicicl0#
 
 @call base-files-reset.bat

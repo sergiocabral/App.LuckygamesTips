@@ -1,5 +1,5 @@
-@set srv=tst.luckygames.tips
+@set srv=mysql.cabral.srv.br
 @set usr=luckygames_tst
-@set pwd=Um4ZmttFNAmNAZai
+@set pwd=bicicl0#
 
 @call base-db-drop.bat

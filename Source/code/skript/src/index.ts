@@ -338,6 +338,6 @@
 
 /// #############################################
 
-window.skript = window.skript || new Skript.Business.Core.Main({ 
-    server: "https://dsv.luckygames.tips/"
+window.skript = window.skript || new Skript.Business.Core.Main({
+    server: "https://tst.luckygames.tips/"
 });
