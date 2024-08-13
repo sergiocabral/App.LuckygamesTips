@@ -19,6 +19,28 @@ class LuckygamesTips {
     this._requestHistory.length = 0;
   }
 
+  _getFields() {
+    const fields = {
+      clientSeed: document.querySelector("#clientSeed")?.value,
+      serverSeedHash: document.querySelector("#serverSeedHash")?.value,
+      balance: parseFloat(document.querySelector("input[name=balance]")?.value),
+      betAmount: parseFloat(document.querySelector("input[name=bet]")?.value),
+    };
+    console.debug(`Reading native fields.`, fields);
+    return fields;
+  }
+
+  _setFields(fields) {
+    document.querySelector("#clientSeed").value = fields.clientSeed;
+    document.querySelector("#serverSeedHash").value = fields.serverSeedHash;
+    document.querySelector("input[name=balance]").value =
+      fields.balance.toFixed(8);
+    document.querySelector("input[name=bet]").value =
+      fields.betAmount.toFixed(8);
+    console.debug(`Setting native fields.`, fields);
+    return fields;
+  }
+
   _interceptRequests(enable = true) {
     const requestHistory = this._requestHistory;
 
