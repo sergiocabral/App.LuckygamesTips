@@ -5,8 +5,26 @@ window.Cabot = new (function () {
 
   this.Instancia = this;
 
+  window.$val_lista = {};
+  window.$val = function (selector, valor) {
+    let obj;
+    if (window.$val_lista.hasOwnProperty(selector)) {
+      obj = window.$val_lista[selector];
+    } else {
+      obj = $(selector).get(0);
+      window.$val_lista[selector] = obj;
+    }
+    if (valor !== undefined) {
+      obj.value = valor;
+      return valor;
+    }
+    return obj.value;
+  };
+
   this.Inicializar = function () {
     const _this = this;
+
+    window.desativarGraficos = _this.Instancia.Definicoes.DesativarGraficos;
 
     this.Instancia.Configuracao.CarregarBibliotecas().then(function () {
       _this.Instancia.InterceptadorAjax.Ativar(true);
@@ -24,6 +42,7 @@ window.Cabot = new (function () {
     SeparadorDecimal: ",",
     DigitosDecimais: 8,
     Debug: false,
+    DesativarGraficos: true,
   };
 
   this.Objetos = {};
@@ -133,7 +152,7 @@ window.Cabot = new (function () {
     this.Multiplicadores[98] = 98.0;
 
     this.ValorSaldo = function () {
-      return parseFloat($("#balance").val());
+      return parseFloat($val("#balance"));
     };
 
     this.apostaEmExecucao = false;
@@ -151,14 +170,14 @@ window.Cabot = new (function () {
 
         const backup = {
           animation: Game.animation,
-          prediction: $("#prediction").val(),
-          betAmount: $("#betAmount").val(),
+          prediction: $val("#prediction"),
+          betAmount: $val("#betAmount"),
         };
 
         Game.animation = "off";
-        $("#betAmount").val((0).toFixed(8));
+        $val("#betAmount", (0).toFixed(8));
         const predictionMarcador = "-" + String(Math.random()).slice(-1);
-        $("#prediction").val(predictionMarcador);
+        $val("#prediction", predictionMarcador);
 
         _this.Instancia.InterceptadorAjax.Anexar(
           100,
@@ -174,9 +193,9 @@ window.Cabot = new (function () {
 
             request.mark = request.prediction;
             request.prediction = backup.prediction;
-            $("#prediction").val(request.prediction);
+            $val("#prediction", request.prediction);
             request.betAmount = backup.betAmount;
-            $("#betAmount").val(request.betAmount);
+            $val("#betAmount", request.betAmount);
           }
         );
         _this.Instancia.InterceptadorAjax.Anexar(
@@ -184,6 +203,8 @@ window.Cabot = new (function () {
           "response",
           "Apostar",
           function (response, request) {
+            _this.apostaEmExecucao = false;
+
             if (response !== null && request !== null) {
               if (request.game !== "dice") {
                 return;
@@ -213,8 +234,6 @@ window.Cabot = new (function () {
               request: request,
               estatisticas: _this.Instancia.Regras.Estatisticas(),
             });
-
-            _this.apostaEmExecucao = false;
           }
         );
         Game.play();
@@ -222,7 +241,7 @@ window.Cabot = new (function () {
     };
 
     this.ValorAposta = function () {
-      return parseFloat($("#betAmount").val());
+      return parseFloat($val("#betAmount"));
     };
 
     this.Parametros = function (parametros) {
@@ -410,7 +429,7 @@ window.Cabot = new (function () {
                   if (response === null || !response.result) {
                     _this.Instancia.Geral.Toast(
                       "error",
-                      "O Client Seed não foi trocado no modo normal. Ocorreu um erro de comunicação com o servidor."
+                      "O Client Seed n&atilde;o foi trocado no modo normal. Ocorreu um erro de comunica&ccedil;&atilde;o com o servidor."
                     );
                   } else {
                     _this.Instancia.Geral.Toast(
@@ -435,11 +454,11 @@ window.Cabot = new (function () {
             .map((x) => Math.random().toString(15).substr(2))
             .join("")
             .substr(0, 32);
-          $("#clientSeed").val(seed);
+          $val("#clientSeed", seed);
           this.Instancia.Geral.Toast("Client Seed trocado. Modo customizado.");
         }
       }
-      return $("#clientSeed").val();
+      return $val("#clientSeed");
     };
   })(this);
 
@@ -452,7 +471,7 @@ window.Cabot = new (function () {
       try {
         if (this.notificacaoAudio === null) {
           this.notificacaoAudio = new Audio(
-            "http://info.cabral.srv.br/GameBot/alerta-alta.ogg"
+            "https://cabral.br.com/GameBot/alerta-alta.ogg"
           );
         }
         this.notificacaoAudio.pause();
@@ -463,6 +482,7 @@ window.Cabot = new (function () {
 
     this.toastMensagens = [];
     this.Toast = function (toast, param2, param3) {
+      if (window.desativarGraficos) return; //TODO: Performance
       if (typeof toast === "string") {
         if (typeof param2 !== "string") {
           toast = { icon: "info", text: toast };
@@ -683,7 +703,7 @@ window.Cabot = new (function () {
           _this.Instancia.InterceptadorAjax.XMLHttpRequestLoad
         );
         this.addEventListener(
-          "error",
+          "loadend",
           _this.Instancia.InterceptadorAjax.XMLHttpRequestLoad
         );
       }
@@ -727,11 +747,16 @@ window.Cabot = new (function () {
 
       const xhr = e.currentTarget;
       const request = xhr.dataRequest;
-      let response;
-      try {
-        response = JSON.parse(xhr.responseText);
-      } catch (ex) {
-        response = null;
+      let response = null;
+      if (e.type === "load") {
+        xhr.carregado = true;
+        try {
+          response = JSON.parse(xhr.responseText);
+        } catch (ex) {}
+      } else if (e.type === "loadend") {
+        if (xhr.carregado) {
+          return;
+        }
       }
 
       if (_this.Instancia.InterceptadorAjax.Ativado) {
@@ -807,7 +832,7 @@ window.Cabot = new (function () {
                     min-height: 50px;
                     background: #f8f8f8;
                     margin: 5px 0;
-                    padding: 5px;
+                    padding: 5px 0;
                     text-align: center;
                     border: 1px solid lightgray;
                     border-radius: 4px;
@@ -840,7 +865,7 @@ window.Cabot = new (function () {
 
         Css: `
                     :host > div {
-                        background-image: url('http://info.cabral.srv.br/GameBot/r2d2.jpg');
+                        background-image: url('https://cabral.br.com/GameBot/r2d2.jpg');
                         background-position: 20px 0;
                         background-repeat: no-repeat;
                         background-size: contain;
@@ -1052,7 +1077,8 @@ window.Cabot = new (function () {
         content: this.Instancia.Objetos.Janela,
         attach: this.Instancia.Objetos.BotaoAtivador,
         width: 450,
-        maxHeight: window.innerHeight * 0.85,
+        height: 400,
+        maxHeight: window.innerHeight * 0.8,
         overlay: false,
         draggable: "title",
         repositionOnOpen: false,
@@ -1121,13 +1147,17 @@ window.Cabot = new (function () {
 
           inputText = inputText.get(0);
           inputText.valor = data.valor;
+          inputText.valor_number = _this.Instancia.Geral.Numerico(
+            data.valor,
+            null
+          );
           if (typeof inputText.number === "undefined") {
             inputText.number = function (valor) {
               if (arguments.length) {
                 inputText.value = valor;
                 $(inputText).blur();
               }
-              return _this.Instancia.Geral.Numerico(inputText.valor, null);
+              return inputText.valor_number;
             };
           }
         });
@@ -1325,15 +1355,21 @@ window.Cabot = new (function () {
                     :host table .sorteados .grafico {
                         overflow: overlay;
                         height: 115px;
-                        width: 379px;
+                        width: 387px;
                     }
                 `;
 
         this.Html = this.Instancia.Geral.FormatarString(`
                         <table>
                             <tr>
+                                <td>In&iacute;cio</td>
+                                <td class="tempoInicio">?</td>
                                 <td>Tempo corrido</td>
                                 <td class="tempoCorrido">?</td>
+                            </tr>
+                            <tr>
+                                <td>Fim</td>
+                                <td class="tempoFim">?</td>
                                 <td>Velocidade</td>
                                 <td class="velocidade">?</td>
                             </tr>
@@ -1347,14 +1383,23 @@ window.Cabot = new (function () {
                             <tr>
                                 <td>Total apostado</td>
                                 <td class="totalApostado">?</td>
-                                <td>Lucro</td>
-                                <td class="lucro">?</td>
+                                <td>&Uacute;ltima aposta</td>
+                                <td class="ultimaAposta">?</td>
                             </tr>
                             <tr>
                                 <td>Saldo inicial</td>
                                 <td class="saldoInicial">?</td>
                                 <td>Saldo final</td>
                                 <td class="saldoFinal">?</td>
+                            </tr>
+                            <tr>
+                                <td>Menor e Maior</td>
+                                <td>
+                                    <div class="menorSaldo" style="color: indianred;"></div>
+                                    <div class="maiorSaldo" style="color: green;"></div>
+                                </td>
+                                <td>Lucro</td>
+                                <td class="lucro">?</td>
                             </tr>
                             <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
                             <tr>
@@ -1364,9 +1409,9 @@ window.Cabot = new (function () {
                                 <td class="apostasPerdidas">?</td>
                             </tr>
                             <tr>
-                                <td>Sequ&ecirc;ncia vencendo</td>
+                                <td>Sequ&ecirc;ncia</td>
                                 <td class="sequenciaVencendo">?</td>
-                                <td>Sequ&ecirc;ncia perdendo</td>
+                                <td>Sequ&ecirc;ncia</td>
                                 <td class="sequenciaPerdendo">?</td>
                             </tr>
                             <tr>
@@ -1387,7 +1432,7 @@ window.Cabot = new (function () {
                             </tr>
                             <tr>
                                 <td colspan="1" class="predicao">
-                                    <h2>Estat&iacute;sica</h2>
+                                    <h2>Estat&iacute;sticas</h2>
                                     <div class="grafico">Carregando gr&aacute;fico...</div>
                                 </td>
                                 <td colspan="3" class="sequencias">
@@ -1407,6 +1452,12 @@ window.Cabot = new (function () {
                                     <div class="grafico">Carregando gr&aacute;fico...</div>
                                 </td>
                             </tr>
+                            <tr>
+                                <td colspan="4" class="melhoresApostas">
+                                    <h2>Apostas com melhores resultados</h2>
+                                    <ul></ul>
+                                </td>
+                            </tr>
                         </table>
                         <button class="reiniciar btn grey">Reiniciar contadores</button>
                     `);
@@ -1417,6 +1468,7 @@ window.Cabot = new (function () {
           _this.Grafico.Sequencias.Inicializar();
           _this.Grafico.SequenciasRecorrentes.Inicializar();
           _this.Grafico.Sorteados.Inicializar();
+          _this.Grafico.MelhoresApostas.Inicializar();
 
           _this.Instancia.Objetos.SecaoEstatisticasBtnReiniciar =
             this.Container.find(".reiniciar");
@@ -1492,6 +1544,7 @@ window.Cabot = new (function () {
             },
 
             Adicionar: function (valor) {
+              if (window.desativarGraficos) return; //TODO: Performance
               if (isNaN(parseFloat(valor))) {
                 return;
               }
@@ -1585,6 +1638,7 @@ window.Cabot = new (function () {
             },
 
             Adicionar: function (valor) {
+              if (window.desativarGraficos) return; //TODO: Performance
               if (isNaN(parseFloat(valor))) {
                 return;
               }
@@ -1708,6 +1762,7 @@ window.Cabot = new (function () {
             },
 
             Adicionar: function (valor) {
+              if (window.desativarGraficos) return; //TODO: Performance
               if (isNaN(parseFloat(valor))) {
                 return;
               }
@@ -1805,6 +1860,7 @@ window.Cabot = new (function () {
             },
 
             Adicionar: function (resultado, sequencia) {
+              if (window.desativarGraficos) return; //TODO: Performance
               const fAdicionarBloco = function () {
                 const html = _this.Instancia.Geral.ReplaceAll(
                   `
@@ -1937,6 +1993,111 @@ window.Cabot = new (function () {
             },
           },
 
+          MelhoresApostas: {
+            Inicializar: function () {
+              const css = _this.Instancia.Geral.ReplaceAll(
+                `
+                            `,
+                ":host",
+                "." + _this.Instancia.Definicoes.ClassCss
+              );
+              _this.Instancia.Geral.CarregarStylesheetCode(css);
+
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoMelhoresApostasUl =
+                _this.Container.find(".melhoresApostas ul");
+            },
+
+            Reiniciar: function (valorInicial) {
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoMelhoresApostasUl.html(
+                "<li>Nenhuma ainda.</li>"
+              );
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoMelhoresApostasProfits =
+                [];
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoMelhoresApostasProfitsId =
+                {};
+            },
+
+            Adicionar: function (response, request) {
+              if (window.desativarGraficos) return; //TODO: Performance
+              if (!response) {
+                return;
+              }
+              if (response.gameResult === "lose") {
+                return;
+              }
+
+              const profit = parseInt(parseFloat(response.profit) * 100000000);
+              if (isNaN(profit)) {
+                return;
+              }
+
+              const limite = 10;
+              if (
+                _this.Instancia.Objetos
+                  .SecaoEstatisticasGraficoMelhoresApostasProfits.length ===
+                  0 ||
+                profit >
+                  _this.Instancia.Objetos
+                    .SecaoEstatisticasGraficoMelhoresApostasProfits[0]
+              ) {
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoMelhoresApostasProfits.push(
+                  profit
+                );
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoMelhoresApostasProfits.sort(
+                  (a, b) => a - b
+                );
+
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoMelhoresApostasProfitsId[
+                  "id" + profit
+                ] = {
+                  id: response.id,
+                  betAmount: request.betAmount.replace(".", ","),
+                  profit: response.profit.replace(".", ","),
+                };
+
+                while (
+                  _this.Instancia.Objetos
+                    .SecaoEstatisticasGraficoMelhoresApostasProfits.length >
+                  limite
+                ) {
+                  const valor =
+                    _this.Instancia.Objetos.SecaoEstatisticasGraficoMelhoresApostasProfits.shift();
+                  delete _this.Instancia.Objetos
+                    .SecaoEstatisticasGraficoMelhoresApostasProfitsId[
+                    "id" + valor
+                  ];
+                }
+
+                let htmlLi = "";
+                for (
+                  let i = 0;
+                  i <
+                  _this.Instancia.Objetos
+                    .SecaoEstatisticasGraficoMelhoresApostasProfits.length;
+                  i++
+                ) {
+                  const dados =
+                    _this.Instancia.Objetos
+                      .SecaoEstatisticasGraficoMelhoresApostasProfitsId[
+                      "id" +
+                        _this.Instancia.Objetos
+                          .SecaoEstatisticasGraficoMelhoresApostasProfits[i]
+                    ];
+                  htmlLi =
+                    _this.Instancia.Geral.FormatarString(
+                      '<li><a href="https://luckygames.io/bet/{0}/" target="_blank">{0}</a>: Apostou <span>{1}</span> e ganhou <span>{2}</span></li>',
+                      dados.id,
+                      dados.betAmount,
+                      dados.profit
+                    ) + htmlLi;
+                }
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoMelhoresApostasUl.html(
+                  htmlLi
+                );
+              }
+            },
+          },
+
           Predicao: {
             Inicializar: function () {
               const css = _this.Instancia.Geral.ReplaceAll(
@@ -2006,6 +2167,7 @@ window.Cabot = new (function () {
             },
 
             Adicionar: function (valor) {
+              if (window.desativarGraficos) return; //TODO: Performance
               if (
                 _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoData
                   .Reiniciado
@@ -2048,17 +2210,19 @@ window.Cabot = new (function () {
           const sequenciaVencendo = _this.Dados.sequenciaVencendo;
           const sequenciaPerdendo = _this.Dados.sequenciaPerdendo;
 
+          _this.Dados.lucroUltimo = parseFloat(response.profit);
+          _this.Dados.saldoFinal = parseFloat(response.balance);
+          _this.Dados.lucro += _this.Dados.lucroUltimo;
           _this.Dados.saldoInicial =
             _this.Dados.saldoInicial !== null
               ? _this.Dados.saldoInicial
-              : parseFloat(response.balance) - parseFloat(response.profit);
-          _this.Dados.saldoFinal = parseFloat(response.balance);
+              : _this.Dados.saldoFinal - _this.Dados.lucroUltimo;
           _this.Dados.apostasFeitas++;
-          _this.Dados.lucro += parseFloat(response.profit);
-          _this.Dados.totalApostado += parseFloat(request.betAmount);
+          _this.Dados.ultimaAposta = parseFloat(request.betAmount);
+          _this.Dados.totalApostado += _this.Dados.ultimaAposta;
           _this.Dados.maiorAposta =
-            parseFloat(request.betAmount) > _this.Dados.maiorAposta
-              ? parseFloat(request.betAmount)
+            _this.Dados.ultimaAposta > _this.Dados.maiorAposta
+              ? _this.Dados.ultimaAposta
               : _this.Dados.maiorAposta;
           _this.Dados.apostasVencidas += response.gameResult === "win" ? 1 : 0;
           _this.Dados.apostasPerdidas += response.gameResult === "lose" ? 1 : 0;
@@ -2079,13 +2243,24 @@ window.Cabot = new (function () {
               ? _this.Dados.sequenciaPerdendo
               : _this.Dados.maiorSequenciaPerdendo;
           _this.Dados.velocidade = _this.Dados.apostasFeitas / horasCorridas;
+          _this.Dados.menorSaldo =
+            _this.Dados.menorSaldo === null ||
+            _this.Dados.saldoFinal < _this.Dados.menorSaldo
+              ? _this.Dados.saldoFinal
+              : _this.Dados.menorSaldo;
+          _this.Dados.maiorSaldo =
+            _this.Dados.maiorSaldo === null ||
+            _this.Dados.saldoFinal > _this.Dados.maiorSaldo
+              ? _this.Dados.saldoFinal
+              : _this.Dados.maiorSaldo;
 
           _this.Dados.AtualizarCamposDaTela();
 
           _this.Grafico.Saldo.Adicionar(_this.Dados.saldoFinal);
-          _this.Grafico.Sequencias.Adicionar(parseFloat(response.profit));
-          _this.Grafico.Predicao.Adicionar(parseFloat(response.profit));
+          _this.Grafico.Sequencias.Adicionar(_this.Dados.lucroUltimo);
+          _this.Grafico.Predicao.Adicionar(_this.Dados.lucroUltimo);
           _this.Grafico.Sorteados.Adicionar(parseFloat(response.resultNumber));
+          _this.Grafico.MelhoresApostas.Adicionar(response, request);
 
           if (sequenciaPerdendo > 0 && _this.Dados.sequenciaPerdendo === 0) {
             _this.Grafico.SequenciasRecorrentes.Adicionar(
@@ -2111,6 +2286,9 @@ window.Cabot = new (function () {
             _this.Dados.Lucro(_this.Dados.lucro);
             _this.Dados.TotalApostado(_this.Dados.totalApostado);
             _this.Dados.MaiorAposta(_this.Dados.maiorAposta);
+            _this.Dados.UltimaAposta(_this.Dados.ultimaAposta);
+            _this.Dados.MenorSaldo(_this.Dados.menorSaldo);
+            _this.Dados.MaiorSaldo(_this.Dados.maiorSaldo);
             _this.Dados.ApostasVencidas(_this.Dados.apostasVencidas);
             _this.Dados.ApostasPerdidas(_this.Dados.apostasPerdidas);
             _this.Dados.SequenciaVencendo(_this.Dados.sequenciaVencendo);
@@ -2132,6 +2310,9 @@ window.Cabot = new (function () {
             _this.Dados.lucro = 0;
             _this.Dados.totalApostado = 0;
             _this.Dados.maiorAposta = 0;
+            _this.Dados.ultimaAposta = 0;
+            _this.Dados.menorSaldo = null;
+            _this.Dados.maiorSaldo = null;
             _this.Dados.apostasVencidas = 0;
             _this.Dados.apostasPerdidas = 0;
             _this.Dados.sequenciaVencendo = 0;
@@ -2143,21 +2324,30 @@ window.Cabot = new (function () {
             _this.Grafico.Sequencias.Reiniciar();
             _this.Grafico.Predicao.Reiniciar();
             _this.Grafico.SequenciasRecorrentes.Reiniciar();
+            _this.Grafico.MelhoresApostas.Reiniciar();
             _this.Grafico.Sorteados.Reiniciar();
           },
 
           tempoCorrido: undefined,
           TempoCorrido: function (valor) {
             if (valor !== undefined) {
+              let tempoInicio;
+              let tempoFim;
               if (valor instanceof Date) {
+                tempoInicio = valor.toLocaleString();
+                tempoFim = new Date().toLocaleString();
                 valor = new Date(new Date().getTime() - valor.getTime());
                 valor = new RegExp("(?<=T).*?(?=\\.)").exec(
                   valor.toISOString()
                 )[0];
               } else {
                 valor = "&dash;";
+                tempoInicio = "&dash;";
+                tempoFim = "&dash;";
               }
               _this.Container.find(".tempoCorrido").html(valor);
+              _this.Container.find(".tempoInicio").html(tempoInicio);
+              _this.Container.find(".tempoFim").html(tempoFim);
             }
 
             const conteudo = _this.Container.find(".tempoCorrido").html();
@@ -2251,6 +2441,53 @@ window.Cabot = new (function () {
             }
             return _this.Instancia.Geral.Numerico(
               _this.Container.find(".maiorAposta").text()
+            );
+          },
+          ultimaAposta: undefined,
+          UltimaAposta: function (valor) {
+            if (valor !== undefined) {
+              _this.Container.find(".ultimaAposta").html(
+                _this.Instancia.Geral.NumericoTexto(valor)
+              );
+            }
+            return _this.Instancia.Geral.Numerico(
+              _this.Container.find(".ultimaAposta").text()
+            );
+          },
+          menorSaldo: undefined,
+          MenorSaldo: function (valor) {
+            const saldoAtual = _this.Instancia.LuckygamesIo.ValorSaldo();
+
+            if (valor !== undefined) {
+              if (valor === null) {
+                valor = saldoAtual;
+              }
+              _this.Container.find(".menorSaldo").html(
+                _this.Instancia.Geral.NumericoTexto(valor)
+              );
+            }
+
+            const result = _this.Container.find(".menorSaldo").text();
+            return _this.Instancia.Geral.Numerico(
+              isFinite(parseFloat(result)) ? result : saldoAtual
+            );
+          },
+          maiorSaldo: undefined,
+          MaiorSaldo: function (valor) {
+            const saldoAtual = _this.Instancia.LuckygamesIo.ValorSaldo();
+
+            if (valor !== undefined) {
+              if (valor === null) {
+                valor = saldoAtual;
+              }
+              _this.Container.find(".maiorSaldo").html(
+                _this.Instancia.Geral.NumericoTexto(valor)
+              );
+            }
+
+            const result = _this.Container.find(".maiorSaldo").text();
+            return _this.Instancia.Geral.Numerico(
+              isFinite(parseFloat(result)) ? result : saldoAtual
             );
           },
           saldoInicial: undefined,
@@ -2617,9 +2854,9 @@ window.Cabot = new (function () {
 
         this.Html = this.Instancia.Geral.FormatarString(`
                         <span class="info">
-                            A geração de um número aleatório depende de um valor inicial
+                            A gera&ccedil;&atilde;o de um n&uacute;mero aleat&oacute;rio depende de um valor inicial
                             chamado Seed. Trocar o Seed contribui para tornar o processo
-                            mais aleatório.
+                            mais aleat&oacute;rio.
                             <hr />
                             Saiba mais sobre como o Luckygames trabalha com isso em:
                             <a target="_blank" href="https://luckygames.io/page/fair/">https://luckygames.io/page/fair/</a>
@@ -2642,12 +2879,12 @@ window.Cabot = new (function () {
                             <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
                             <tr class="tempo">
                                 <td>Trocar o Seed depois de quantos segundos</td>
-                                <td><input type="text" data-tipo="number" data-min="1" data-digitos="0" value="60" /></td>
+                                <td><input type="text" data-tipo="number" data-min="1" data-digitos="0" /></td>
                             </tr>
                             <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
                             <tr class="apostas">
                                 <td>Trocar o Seed depois de quantas apostas</td>
-                                <td><input type="text" data-tipo="number" data-min="1" data-digitos="0" /></td>
+                                <td><input type="text" data-tipo="number" data-min="1" data-digitos="0" value="30" /></td>
                             </tr>
                             <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
                             <tr class="apostasPerdidas">
@@ -2730,6 +2967,10 @@ window.Cabot = new (function () {
               }
             }
           });
+
+          setTimeout(() => {
+            _this.Container.find(".botoes .btn.trocarCustomizado").click();
+          }, 1000);
         };
 
         this.OnAjaxRequest = null;
@@ -2863,6 +3104,7 @@ window.Cabot = new (function () {
         this.Botoes = [
           { id: "desativar", nome: "Desativado" },
           { id: "ativar", nome: "Ativado" },
+          { id: "ativarSempre", nome: "Ativado sempre" },
         ];
 
         this.BotoesFunction = function (id, data) {
@@ -2871,6 +3113,9 @@ window.Cabot = new (function () {
               break;
             case "ativar":
               this.FazerApostas();
+              break;
+            case "ativarSempre":
+              this.ManterAtivado();
               break;
           }
         };
@@ -2901,7 +3146,11 @@ window.Cabot = new (function () {
                                 <td>Aposta inicial</td>
                                 <td>
                                     <input type="text" data-tipo="number" data-min="0,00000002" data-padrao="0,00000002" />
-                                    <div>Com esta aposta inicial a sequ&ecirc;ncia perdendo m&aacute;xima antes de zerar o saldo &eacute; de: <span>708</span></div>
+                                    <div>
+                                        Com esta aposta inicial a sequ&ecirc;ncia perdendo m&aacute;xima
+                                        antes de zerar o saldo &eacute; de: <span>708</span>
+                                        <em style="color: gray;">(ideal maior que 13)</em>
+                                    </div>
                                 </td>
                             </tr>
                             <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
@@ -2917,6 +3166,19 @@ window.Cabot = new (function () {
                                     </div>
                                 </td>
                             </tr>
+                            <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
+                            <tr class="espera">
+                                <td>Espera ap&oacute;s perder</td>
+                                <td>
+                                    <input type="text" data-tipo="number" data-min="0" data-min="9" data-digitos="0" data-padrao="2" />
+                                    <div>
+                                        0 - Sem espera<br />
+                                        1 - Espera m&iacute;nima<br />
+                                        2 - Espera maior<br />
+                                        3 ou maior - Espera muito longa<br />
+                                    </div>
+                                </td>
+                            </tr>
                         </table>
                     `);
 
@@ -2925,6 +3187,8 @@ window.Cabot = new (function () {
             this.Container.find(".apostaInicial input");
           _this.Instancia.Objetos.SecaoBotMartingaleInputSequenciasPerdendo =
             this.Container.find(".sequenciasPerdendo input");
+          _this.Instancia.Objetos.SecaoBotMartingaleInputEspera =
+            this.Container.find(".espera input");
           _this.Instancia.Objetos.SecaoBotMartingaleDivMaximoSequenciasPerdendo =
             this.Container.find(".apostaInicial div span");
 
@@ -2964,7 +3228,51 @@ window.Cabot = new (function () {
 
         this.OnAjaxResponse = null;
 
+        this.manterAtivadoTimeout = null;
+        this.ManterAtivado = function () {
+          if (_this.manterAtivadoTimeout === null) {
+            _this.Instancia.Geral.Toast(
+              "info",
+              _this.Instancia.Geral.FormatarString(
+                "ATIVADO SEMPRE. Caso desative por erro de rede, reativa automaticamente. Os limites definidos continuam v&aacute;lidos.",
+                _this.Titulo
+              )
+            );
+            const fAtivadoSempre = function () {
+              _this.Container.find(".botoes .btn.ativar").click();
+              _this.manterAtivadoTimeout = setTimeout(fAtivadoSempre, 30000);
+            };
+            fAtivadoSempre();
+          } else {
+            clearTimeout(_this.manterAtivadoTimeout);
+            _this.manterAtivadoTimeout = null;
+            _this.Container.find(".botoes .btn.desativar").click();
+            _this.Instancia.Geral.Toast(
+              "info",
+              _this.Instancia.Geral.FormatarString(
+                "ATIVADO SEMPRE cancelado.",
+                _this.Titulo
+              )
+            );
+          }
+        };
+
+        this.fazerApostasEmAndamento = false;
         this.FazerApostas = function () {
+          if (_this.fazerApostasEmAndamento) {
+            _this.Container.find(".botoes .btn.desativar").click();
+            _this.Instancia.Geral.Toast(
+              "error",
+              _this.Instancia.Geral.FormatarString(
+                "Apostas em andamento para recuperar o valor inicial. Aguarde ou atualize a p&aacute;gina para parar.",
+                _this.Titulo
+              )
+            );
+            return;
+          }
+          _this.fazerApostasEmAndamento = true;
+
+          const predicao = 50;
           let perdas = 0;
 
           const fApostar = function (aposta) {
@@ -2976,13 +3284,14 @@ window.Cabot = new (function () {
                   ).number();
             _this.Instancia.LuckygamesIo.Apostar({
               aposta: aposta,
-              predicao: 50,
+              predicao: predicao,
             }).then((data) => {
               if (!data) {
-                //Execução duplicada. Ignorar.
+                //Execucao duplicada. Ignorar.
                 return;
               } else if (!data.response && !data.request) {
                 //Limite disparado.
+                _this.fazerApostasEmAndamento = false;
                 _this.Container.find(".botoes .btn.desativar").click();
               } else if (!data.response) {
                 //Erro de rede. Tenta novamente.
@@ -2996,6 +3305,8 @@ window.Cabot = new (function () {
                   )
                 ) {
                   fApostar();
+                } else {
+                  _this.fazerApostasEmAndamento = false;
                 }
               } else if (data.response.gameResult === "lose") {
                 //Perdeu. Dobra a aposta.
@@ -3005,8 +3316,27 @@ window.Cabot = new (function () {
                     0
                   ).number() >= data.estatisticas.sequenciaPerdendo
                 ) {
-                  let esperarRodadas =
-                    Math.pow(perdas, 2) + parseInt(Math.random() * 10);
+                  const esperaNivel =
+                    _this.Instancia.Objetos.SecaoBotMartingaleInputEspera.get(
+                      0
+                    ).number();
+                  let esperarRodadas;
+                  switch (esperaNivel) {
+                    case 0:
+                      esperarRodadas = 0;
+                      break;
+                    case 1:
+                      esperarRodadas = parseInt(Math.random() * 10);
+                      break;
+                    case 2:
+                      esperarRodadas =
+                        Math.pow(perdas, 2) + parseInt(Math.random() * 10);
+                      break;
+                    default:
+                      esperarRodadas =
+                        Math.pow(perdas + (esperaNivel - 1), 3) +
+                        parseInt(Math.random() * 10);
+                  }
                   const fEsperar = function (data) {
                     if (
                       esperarRodadas > 0 ||
@@ -3016,7 +3346,7 @@ window.Cabot = new (function () {
                     ) {
                       esperarRodadas--;
                       _this.Instancia.LuckygamesIo.Apostar({
-                        predicao: 50,
+                        predicao: predicao,
                       }).then(fEsperar);
                     } else {
                       fApostar(aposta * 2);
@@ -3034,7 +3364,293 @@ window.Cabot = new (function () {
                     _this.Titulo
                   )
                 );
+                _this.fazerApostasEmAndamento = false;
                 _this.Container.find(".botoes .btn.desativar").click();
+              }
+            });
+          };
+          fApostar();
+        };
+      })(this.Instancia),
+
+      new (function (instancia) {
+        this.Instancia = instancia;
+        const _this = this;
+
+        this.Titulo = "BOT Ninitygale";
+
+        this.Container;
+
+        this.Botoes = [
+          { id: "desativar", nome: "Desativado" },
+          { id: "ativar", nome: "Ativado" },
+          { id: "ativarSempre", nome: "Ativado sempre" },
+        ];
+
+        this.BotoesFunction = function (id, data) {
+          switch (id) {
+            case "desativar":
+              break;
+            case "ativar":
+              this.FazerApostas();
+              break;
+            case "ativarSempre":
+              this.ManterAtivado();
+              break;
+          }
+        };
+
+        this.Css = `
+                    :host input {
+                        text-align: center;
+                    }
+                    :host td:last-child {
+                        width: 55%;
+                    }
+                    :host td div span {
+                        color: red;
+                    }
+                `;
+
+        this.Html = this.Instancia.Geral.FormatarString(`
+                        <span class="info">
+                            Este BOT, Ninitygale, faz algo similar a estrat&eacute;gia Martingale. Mas ao inv&eacute;s
+                            de apostar em predi&ccedil;&atilde;o de 50% com ganho dobrado, aposta em predi&ccedil;&atilde;o
+                            de 1% com ganho x 98. &Eacute; mais seguro, lucro um pouco mais demorado, mas fica mais
+                            dif&iacute;cil de zerar o saldo.
+                            <hr />
+                            A estrat&eacute;gia &eacute; aplicada somente quando a sequ&amp;ecirc;ncia perdendo
+                            n&atilde;o for muito grande. Isso reduz a chance de zerar seu saldo.
+                        </span>
+                        <table>
+                            <tr class="apostaInicial">
+                                <td>Aposta inicial</td>
+                                <td>
+                                    <input type="text" data-tipo="number" data-min="0,00000002" data-padrao="0,00000002" />
+                                    <div>
+                                        Com esta aposta inicial a sequ&ecirc;ncia perdendo m&aacute;xima antes de
+                                        zerar o saldo &eacute; de: <span>708</span>
+                                        <em style="color: gray;">(ideal maior que 600)</em>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
+                            <tr class="sequenciasPerdendo">
+                                <td>Aceitar sequ&ecirc;ncia perdendo</td>
+                                <td>
+                                    <input type="text" data-tipo="number" data-min="1" data-digitos="0" data-padrao="500" />
+                                    <div>
+                                        Aceita apostas apenas at&eacute; certo limite de sequ&ecirc;ncias perdendo.
+                                        Depois desse limite passa a apostar o valor m&iacute;nimo (0,00000001) e
+                                        n&atilde;o aplica a estrat&eacute;gia deste BOT.
+                                        Fica esperando vencer para voltar com a estrat&eacute;gia.
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="sequenciasPerdendo2">
+                                <td>Aceitar sequ&ecirc;ncia perdendo após perder</td>
+                                <td>
+                                    <input type="text" data-tipo="number" data-min="1" data-digitos="0" data-padrao="500" />
+                                    <div>
+                                        Depois de aceitar o valor acima passa a aceitar este valor.
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    `);
+
+        this.Js = function () {
+          _this.Instancia.Objetos.SecaoBotNinitygaleInputApostaInicial =
+            this.Container.find(".apostaInicial input");
+          _this.Instancia.Objetos.SecaoBotNinitygaleInputSequenciasPerdendo =
+            this.Container.find(".sequenciasPerdendo input");
+          _this.Instancia.Objetos.SecaoBotNinitygaleInputSequenciasPerdendo2 =
+            this.Container.find(".sequenciasPerdendo2 input");
+          _this.Instancia.Objetos.SecaoBotNinitygaleDivMaximoSequenciasPerdendo =
+            this.Container.find(".apostaInicial div span");
+
+          _this.Instancia.Objetos.SecaoBotNinitygaleInputApostaInicial.blur(
+            function () {
+              const apostaInicial = $(this).get(0).number();
+              const saldoInicial = _this.Instancia.LuckygamesIo.ValorSaldo();
+              const multiplicador = 98;
+
+              if (
+                apostaInicial !== null &&
+                apostaInicial > 0 &&
+                saldoInicial !== null &&
+                saldoInicial > 0
+              ) {
+                let sequencias = 0;
+                let saldo = saldoInicial;
+                let aposta = apostaInicial;
+                while (saldo > 0 && aposta < saldo) {
+                  saldo -= aposta;
+                  aposta =
+                    (saldoInicial + apostaInicial * multiplicador - saldo) /
+                    multiplicador;
+                  sequencias++;
+                }
+                _this.Instancia.Objetos.SecaoBotNinitygaleDivMaximoSequenciasPerdendo.html(
+                  sequencias
+                );
+              } else {
+                _this.Instancia.Objetos.SecaoBotNinitygaleDivMaximoSequenciasPerdendo.html(
+                  "&dash; &dash; &dash;"
+                );
+              }
+            }
+          );
+          _this.Instancia.Objetos.SecaoBotNinitygaleInputApostaInicial.blur();
+        };
+
+        this.OnAjaxRequest = null;
+
+        this.OnAjaxResponse = null;
+
+        this.manterAtivadoTimeout = null;
+        this.ManterAtivado = function () {
+          if (_this.manterAtivadoTimeout === null) {
+            _this.Instancia.Geral.Toast(
+              "info",
+              _this.Instancia.Geral.FormatarString(
+                "ATIVADO SEMPRE. Caso desative por erro de rede, reativa automaticamente. Os limites definidos continuam v&aacute;lidos.",
+                _this.Titulo
+              )
+            );
+            const fAtivadoSempre = function () {
+              _this.Container.find(".botoes .btn.ativar").click();
+              _this.manterAtivadoTimeout = setTimeout(fAtivadoSempre, 30000);
+            };
+            fAtivadoSempre();
+          } else {
+            clearTimeout(_this.manterAtivadoTimeout);
+            _this.manterAtivadoTimeout = null;
+            _this.Container.find(".botoes .btn.desativar").click();
+            _this.Instancia.Geral.Toast(
+              "info",
+              _this.Instancia.Geral.FormatarString(
+                "ATIVADO SEMPRE cancelado.",
+                _this.Titulo
+              )
+            );
+          }
+        };
+
+        this.fazerApostasEmAndamento = false;
+        this.FazerApostas = function () {
+          if (_this.fazerApostasEmAndamento) {
+            _this.Container.find(".botoes .btn.desativar").click();
+            _this.Instancia.Geral.Toast(
+              "error",
+              _this.Instancia.Geral.FormatarString(
+                "Apostas em andamento para recuperar o valor inicial. Aguarde ou atualize a p&aacute;gina para parar.",
+                _this.Titulo
+              )
+            );
+            return;
+          }
+          _this.fazerApostasEmAndamento = true;
+
+          const apostaInicial =
+            _this.Instancia.Objetos.SecaoBotNinitygaleInputApostaInicial.get(
+              0
+            ).number();
+          const multiplicador = 98;
+          const predicao = 98;
+          let saldoInicial = null;
+
+          let apostaMinimaMinima = null;
+
+          const fApostar = function () {
+            saldoInicial =
+              saldoInicial !== null
+                ? saldoInicial
+                : _this.Instancia.LuckygamesIo.ValorSaldo();
+            const saldo = _this.Instancia.LuckygamesIo.ValorSaldo();
+            const aposta =
+              (saldoInicial + apostaInicial * multiplicador - saldo) /
+              multiplicador;
+
+            _this.Instancia.LuckygamesIo.Apostar({
+              aposta: aposta,
+              predicao: predicao,
+            }).then((data) => {
+              if (!data) {
+                //Execucao duplicada. Ignorar.
+                return;
+              } else if (!data.response && !data.request) {
+                //Limite disparado.
+                _this.fazerApostasEmAndamento = false;
+                _this.Container.find(".botoes .btn.desativar").click();
+              } else if (!data.response) {
+                //Erro de rede. Tenta novamente.
+                fApostar();
+              } else if (data.response.gameResult === "win") {
+                //Venceu. Usa aposta inicial.
+                apostaMinimaMinima = null;
+                if (
+                  !_this.Container.find(".botoes .btn.desativar").hasClass(
+                    "ativo"
+                  )
+                ) {
+                  saldoInicial = null;
+                  fApostar();
+                } else {
+                  _this.fazerApostasEmAndamento = false;
+                }
+              } else if (data.response.gameResult === "lose") {
+                //Perdeu. Dobra a aposta.
+                let apostaMinima;
+                if (apostaMinimaMinima === null) {
+                  apostaMinima =
+                    _this.Instancia.Objetos.SecaoBotNinitygaleInputSequenciasPerdendo.get(
+                      0
+                    ).number();
+                } else {
+                  apostaMinima = apostaMinimaMinima;
+                }
+                var fProcessar = () => {
+                  if (apostaMinima < data.estatisticas.sequenciaPerdendo) {
+                    apostaMinimaMinima =
+                      _this.Instancia.Objetos.SecaoBotNinitygaleInputSequenciasPerdendo2.get(
+                        0
+                      ).number();
+                    const fEsperar = function (data) {
+                      if (
+                        data === undefined ||
+                        (data.response && data.response.gameResult === "lose")
+                      ) {
+                        _this.Instancia.LuckygamesIo.Apostar({
+                          predicao: predicao,
+                        }).then(fEsperar);
+                      } else {
+                        fApostar();
+                      }
+                    };
+                    fEsperar();
+                  } else {
+                    fApostar();
+                  }
+                };
+                if (data.estatisticas.sequenciaPerdendo % 100 === 0) {
+                  setTimeout(
+                    fProcessar,
+                    2000 + 1000 * (data.estatisticas.sequenciaPerdendo / 100)
+                  );
+                } else {
+                  fProcessar();
+                }
+              } else {
+                _this.Instancia.Geral.Toast(
+                  "error",
+                  _this.Instancia.Geral.FormatarString(
+                    "O {0} foi interrompido. Saldo insuficiente para a &uacute;ltima aposta.",
+                    _this.Titulo
+                  )
+                );
+                _this.Container.find(".botoes .btn.desativar").click();
+                _this.fazerApostasEmAndamento = false;
               }
             });
           };
@@ -3048,3 +3664,11 @@ window.Cabot = new (function () {
 
   return this;
 })();
+
+$.fn.animateAmount = () => {};
+$.fn.animateBalance = function (e) {
+  "text" == this.attr("type") ? this.val(e) : this.html(e);
+  return this;
+};
+Game.sound = "on";
+Game.uSound();
