@@ -1,5 +1,3 @@
-//Inverter WIN e LOSE
-//Randomize Seed custom seed
 window.Cabot = new (function () {
   if (window.Cabot) {
     return window.Cabot;
@@ -30,15 +28,339 @@ window.Cabot = new (function () {
 
   this.Objetos = {};
 
+  this.LuckygamesIo = new (function (instancia) {
+    this.Instancia = instancia;
+    const _this = this;
+
+    this.Multiplicadores = [];
+    this.Multiplicadores[1] = 0.01;
+    this.Multiplicadores[2] = 0.02;
+    this.Multiplicadores[3] = 0.03;
+    this.Multiplicadores[4] = 0.04;
+    this.Multiplicadores[5] = 0.05;
+    this.Multiplicadores[6] = 0.06;
+    this.Multiplicadores[7] = 0.08;
+    this.Multiplicadores[8] = 0.09;
+    this.Multiplicadores[9] = 0.1;
+    this.Multiplicadores[10] = 0.11;
+    this.Multiplicadores[11] = 0.13;
+    this.Multiplicadores[12] = 0.14;
+    this.Multiplicadores[13] = 0.15;
+    this.Multiplicadores[14] = 0.16;
+    this.Multiplicadores[15] = 0.18;
+    this.Multiplicadores[16] = 0.19;
+    this.Multiplicadores[17] = 0.21;
+    this.Multiplicadores[18] = 0.22;
+    this.Multiplicadores[19] = 0.24;
+    this.Multiplicadores[20] = 0.25;
+    this.Multiplicadores[21] = 0.27;
+    this.Multiplicadores[22] = 0.29;
+    this.Multiplicadores[23] = 0.3;
+    this.Multiplicadores[24] = 0.32;
+    this.Multiplicadores[25] = 0.34;
+    this.Multiplicadores[26] = 0.36;
+    this.Multiplicadores[27] = 0.38;
+    this.Multiplicadores[28] = 0.39;
+    this.Multiplicadores[29] = 0.41;
+    this.Multiplicadores[30] = 0.43;
+    this.Multiplicadores[31] = 0.46;
+    this.Multiplicadores[32] = 0.48;
+    this.Multiplicadores[33] = 0.5;
+    this.Multiplicadores[34] = 0.52;
+    this.Multiplicadores[35] = 0.55;
+    this.Multiplicadores[36] = 0.57;
+    this.Multiplicadores[37] = 0.6;
+    this.Multiplicadores[38] = 0.62;
+    this.Multiplicadores[39] = 0.65;
+    this.Multiplicadores[40] = 0.68;
+    this.Multiplicadores[41] = 0.71;
+    this.Multiplicadores[42] = 0.74;
+    this.Multiplicadores[43] = 0.77;
+    this.Multiplicadores[44] = 0.8;
+    this.Multiplicadores[45] = 0.83;
+    this.Multiplicadores[46] = 0.87;
+    this.Multiplicadores[47] = 0.9;
+    this.Multiplicadores[48] = 0.94;
+    this.Multiplicadores[49] = 0.98;
+    this.Multiplicadores[50] = 1.02;
+    this.Multiplicadores[51] = 1.06;
+    this.Multiplicadores[52] = 1.11;
+    this.Multiplicadores[53] = 1.15;
+    this.Multiplicadores[54] = 1.2;
+    this.Multiplicadores[55] = 1.25;
+    this.Multiplicadores[56] = 1.3;
+    this.Multiplicadores[57] = 1.36;
+    this.Multiplicadores[58] = 1.41;
+    this.Multiplicadores[59] = 1.48;
+    this.Multiplicadores[60] = 1.54;
+    this.Multiplicadores[61] = 1.61;
+    this.Multiplicadores[62] = 1.68;
+    this.Multiplicadores[63] = 1.75;
+    this.Multiplicadores[64] = 1.83;
+    this.Multiplicadores[65] = 1.91;
+    this.Multiplicadores[66] = 2.0;
+    this.Multiplicadores[67] = 2.09;
+    this.Multiplicadores[68] = 2.19;
+    this.Multiplicadores[69] = 2.3;
+    this.Multiplicadores[70] = 2.41;
+    this.Multiplicadores[71] = 2.54;
+    this.Multiplicadores[72] = 2.67;
+    this.Multiplicadores[73] = 2.81;
+    this.Multiplicadores[74] = 2.96;
+    this.Multiplicadores[75] = 3.13;
+    this.Multiplicadores[76] = 3.3;
+    this.Multiplicadores[77] = 3.5;
+    this.Multiplicadores[78] = 3.71;
+    this.Multiplicadores[79] = 3.95;
+    this.Multiplicadores[80] = 4.21;
+    this.Multiplicadores[81] = 4.5;
+    this.Multiplicadores[82] = 4.82;
+    this.Multiplicadores[83] = 5.19;
+    this.Multiplicadores[84] = 5.6;
+    this.Multiplicadores[85] = 6.07;
+    this.Multiplicadores[86] = 6.62;
+    this.Multiplicadores[87] = 7.25;
+    this.Multiplicadores[88] = 8.0;
+    this.Multiplicadores[89] = 8.9;
+    this.Multiplicadores[90] = 10.0;
+    this.Multiplicadores[91] = 11.38;
+    this.Multiplicadores[92] = 13.14;
+    this.Multiplicadores[93] = 15.5;
+    this.Multiplicadores[94] = 18.8;
+    this.Multiplicadores[95] = 23.75;
+    this.Multiplicadores[96] = 32.0;
+    this.Multiplicadores[97] = 48.5;
+    this.Multiplicadores[98] = 98.0;
+
+    this.ValorSaldo = function () {
+      return parseFloat($("#balance").val());
+    };
+
+    this.ValorAposta = function () {
+      return parseFloat($("#betAmount").val());
+    };
+
+    this.Definir = function (dados) {
+      const fInputText = function (selector, valor, digitosDecimais) {
+        if (isNaN(parseFloat(valor))) {
+          return;
+        }
+
+        if (valor === "") {
+          $(selector).val("");
+        } else {
+          $(selector).val(
+            _this.Instancia.Geral.NumericoTexto(valor, digitosDecimais, ".")
+          );
+        }
+      };
+
+      const fSelect = function (selector, valor) {
+        if (valor === undefined) {
+          return;
+        }
+
+        let val = null;
+        $(selector + " option").each(function (i, o) {
+          const option = $(o);
+          if (option.text() === valor) {
+            val = option.val();
+          }
+        });
+        if (val !== null) {
+          $(selector).val(val);
+        }
+        $(selector).niceSelect("update");
+      };
+
+      const fInputRadio = function (selector, valor) {
+        if (valor === undefined) {
+          return;
+        }
+
+        $(selector).each(function (i, o) {
+          const inputRadio = $(o);
+          const text = inputRadio.parent().parent().find("span").text();
+          inputRadio.prop("checked", text === valor);
+        });
+
+        $(selector).iCheck("update");
+      };
+
+      const fInputCheckbox = function (selector, valor) {
+        if (valor === undefined) {
+          return;
+        }
+
+        $(selector).prop("checked", !!valor).iCheck("update");
+      };
+
+      const fSlider = function (selector, valor) {
+        if (valor === undefined) {
+          return;
+        }
+
+        $(selector).jRange("setValue", String(valor));
+      };
+
+      dados = $.extend(
+        {
+          predicao: undefined,
+          aposta: undefined,
+          aoPerderTipo: undefined,
+          aoPerderVezes: undefined,
+          aoPerderModo: undefined,
+          aoPerderIncrementar: undefined,
+          aoPerderDecrementar: undefined,
+          aoPerderReverter: undefined,
+          aoPerderParar: undefined,
+          aoVencerTipo: undefined,
+          aoVencerVezes: undefined,
+          aoVencerModo: undefined,
+          aoVencerIncrementar: undefined,
+          aoVencerDecrementar: undefined,
+          aoVencerReverter: undefined,
+          aoVencerParar: undefined,
+          velocidade: undefined,
+          apostaTotal: undefined,
+          saldoMinimo: undefined,
+          saldoMaximo: undefined,
+          apostaMaxima: undefined,
+        },
+        dados
+      );
+
+      fInputText("#prediction", dados.predicao, 0);
+
+      fInputText("#betAmount", dados.aposta, 8);
+
+      fSelect('select[name="on-loss-term"]', dados.aoPerderTipo);
+      fInputText('input[name="on-loss-bets"]', dados.aoPerderVezes, 0);
+      fInputRadio('.radioBox.left input[type="radio"]', dados.aoPerderModo);
+      fInputText('input[name="on-loss-inc"]', dados.aoPerderIncrementar, 0);
+      fInputText('input[name="on-loss-dec"]', dados.aoPerderDecrementar, 0);
+      fInputCheckbox('input[name="on-loss-rev"]', dados.aoPerderReverter);
+      fInputCheckbox('input[name="on-loss-stop"]', dados.aoPerderParar);
+
+      fSelect('select[name="on-win-term"]', dados.aoVencerTipo);
+      fInputText('input[name="on-win-bets"]', dados.aoVencerVezes, 0);
+      fInputRadio('.radioBox.right input[type="radio"]', dados.aoVencerModo);
+      fInputText('input[name="on-win-inc"]', dados.aoVencerIncrementar, 0);
+      fInputText('input[name="on-win-dec"]', dados.aoVencerDecrementar, 0);
+      fInputCheckbox('input[name="on-win-rev"]', dados.aoVencerReverter);
+      fInputCheckbox('input[name="on-win-stop"]', dados.aoVencerParar);
+
+      fSlider('input[name="acceleration"]', dados.velocidade);
+
+      fInputText('input[name="bets-limit"]', dados.apostaTotal, 0);
+      fInputText('input[name="balance-under-limit"]', dados.saldoMinimo, 8);
+      fInputText('input[name="balance-over-limit"]', dados.saldoMaximo, 8);
+      fInputText('input[name="bet-over-limit"]', dados.apostaMaxima, 8);
+    };
+
+    this.Apostar = function () {
+      Game.play();
+    };
+
+    this.PararApostas = function () {
+      Game.stopAutoplay();
+      Game.playFlag = false;
+    };
+
+    this.ApostaEmExecucao = function () {
+      return Game.playFlag || Game.autoPlayFlag;
+    };
+
+    this.Animacao = function (modo) {
+      if (modo !== undefined) {
+        Game.animation = !!modo ? "on" : "off";
+      }
+      return Game.animation === "on";
+    };
+
+    this.interceptadorClientSeed = null;
+    this.ClientSeed = function (trocar, customizado) {
+      if (trocar) {
+        if (!customizado) {
+          if (this.interceptadorClientSeed === null) {
+            this.interceptadorClientSeed = false;
+            this.Instancia.InterceptadorAjax.Anexar(
+              "request",
+              "ClientSeed",
+              function (request) {
+                if (request.action === "randomizeSeed") {
+                  _this.interceptadorClientSeed = true;
+                  _this.Instancia.Geral.Toast(
+                    "Solicitando novo Client Seed ao servidor."
+                  );
+                }
+              }
+            );
+            this.Instancia.InterceptadorAjax.Anexar(
+              "response",
+              "ClientSeed",
+              function (response, request) {
+                if (request.action === "randomizeSeed") {
+                  _this.interceptadorClientSeed = false;
+                  if (response === null || !response.result) {
+                    _this.Instancia.Geral.Toast(
+                      "error",
+                      "O Client Seed não foi trocado no modo normal. Ocorreu um erro de comunicação com o servidor."
+                    );
+                  } else {
+                    _this.Instancia.Geral.Toast(
+                      "Client Seed trocado. Modo normal."
+                    );
+                  }
+                }
+              }
+            );
+          }
+          if (_this.interceptadorClientSeed !== true) {
+            window.randomizeSeed();
+          } else {
+            _this.Instancia.Geral.Toast(
+              "Um novo Client Seed j&aacute; foi solicitado ao servidor, mas ainda n&atilde;o houve resposta."
+            );
+          }
+        } else {
+          const seed = "0"
+            .repeat(3)
+            .split("")
+            .map((x) => Math.random().toString(15).substr(2))
+            .join("")
+            .substr(0, 32);
+          $("#clientSeed").val(seed);
+          this.Instancia.Geral.Toast("Client Seed trocado. Modo customizado.");
+        }
+      }
+      return $("#clientSeed").val();
+    };
+  })(this);
+
   this.Geral = new (function (instancia) {
     this.Instancia = instancia;
 
-    this.Toast = function (toast) {
+    this.Toast = function (toast, param2, param3) {
       if (typeof toast === "string") {
-        if (arguments.length === 1) {
+        if (typeof param2 !== "string") {
           toast = { icon: "info", text: toast };
         } else {
-          toast = { icon: arguments[0], text: arguments[1] };
+          toast = { icon: toast, text: param2 };
+        }
+      }
+
+      if (
+        arguments.length &&
+        typeof arguments[arguments.length - 1] === "boolean"
+      ) {
+        const exibirSempre = arguments[arguments.length - 1];
+        if (
+          !exibirSempre &&
+          (!this.Instancia.Objetos.JanelaModal ||
+            !this.Instancia.Objetos.JanelaModal.isOpen)
+        ) {
+          return;
         }
       }
 
@@ -169,22 +491,6 @@ window.Cabot = new (function () {
     };
   })(this);
 
-  this.LuckygamesIo = new (function (instancia) {
-    this.Instancia = instancia;
-
-    this.PararApostas = function () {
-      try {
-        Game.stopAutoplay();
-      } catch (e) {}
-    };
-
-    this.TrocarSeed = function () {
-      try {
-        window.randomizeSeed();
-      } catch (e) {}
-    };
-  })(this);
-
   this.InterceptadorAjax = new (function (instancia) {
     this.Instancia = instancia;
 
@@ -236,6 +542,10 @@ window.Cabot = new (function () {
           "load",
           _this.Instancia.InterceptadorAjax.XMLHttpRequestLoad
         );
+        this.addEventListener(
+          "error",
+          _this.Instancia.InterceptadorAjax.XMLHttpRequestLoad
+        );
       }
 
       if (processarAjax) {
@@ -248,7 +558,7 @@ window.Cabot = new (function () {
         }
         this.sendOriginal(queryStringArray.map((x) => x.join("=")).join("&"));
       } else {
-        Game.playFlag = false;
+        _this.Instancia.LuckygamesIo.PararApostas();
       }
 
       _this.Instancia.Configuracao.Log(
@@ -266,7 +576,12 @@ window.Cabot = new (function () {
 
       const xhr = e.currentTarget;
       const request = xhr.dataRequest;
-      const response = JSON.parse(xhr.responseText);
+      let response;
+      try {
+        response = JSON.parse(xhr.responseText);
+      } catch (ex) {
+        response = null;
+      }
 
       if (_this.Instancia.InterceptadorAjax.Ativado) {
         const lista = _this.Instancia.InterceptadorAjax.Lista;
@@ -275,10 +590,6 @@ window.Cabot = new (function () {
             lista[key](response, request, xhr, e);
           }
         }
-        this.addEventListener(
-          "load",
-          _this.Instancia.InterceptadorAjax.XMLHttpRequestLoad
-        );
       }
 
       _this.Instancia.Configuracao.Log(
@@ -293,6 +604,7 @@ window.Cabot = new (function () {
 
   this.Layout = new (function (instancia) {
     this.Instancia = instancia;
+    const _this = this.Instancia;
 
     this.OnAbrirJanela = [];
 
@@ -302,6 +614,9 @@ window.Cabot = new (function () {
                 .jq-toast-wrap { 
                     z-index: 10000000!important; 
                 }
+                #ativador {
+                    line-height: 40px;
+                }
                 :host a {
                     color: darkgreen
                 }
@@ -310,17 +625,23 @@ window.Cabot = new (function () {
                 }
                 :host.btn, :host .btn {
                     width: auto;
-                    padding: 0 10px;
+                    padding: 0px 10px;
                     float: none;
-                }                
+                    font-size: 12px;
+                    line-height: 25px;
+                }
+                :host .botoes .btn {
+                    margin: 0;
+                }
                 :host input[type="text"] {
                     font-family: 'Cousine', monospace;
                     font-size: 20px;
                     background-color: #f0f0f0;
                     border: 1px solid gainsboro;
+                    width: 100%;
                 }
                 :host article h1, :host article h2, :host article h3, :host article h4, :host article h5, :host article h6 {
-                    margin: 0;
+                    margin: 3px 0 6px 0;
                     padding: 0;
                     text-align: center;
                     font-size: 13px;
@@ -336,6 +657,17 @@ window.Cabot = new (function () {
                     text-align: center;
                     border: 1px solid lightgray;
                     border-radius: 4px;
+                }
+                :host span.info {
+                    display: block;
+                    margin: 0 0 10px 0;
+                    font-size: 12px;
+                    text-align: justify;
+                }
+                :host .divisor {
+                    border-bottom: 2px solid gainsboro;
+                    font-size: 0;
+                    margin: 5px 0;
                 }
             `,
         ":host",
@@ -464,9 +796,24 @@ window.Cabot = new (function () {
         )
       );
 
-      let html = this.Instancia.Geral.FormatarString(
-        '<article class="{1}">{0}</article>',
+      let html = "";
+
+      if (Array.isArray(secao.Botoes)) {
+        html += '<div class="divisor">&nbsp;</div><div class="botoes">';
+        for (let i = 0; i < secao.Botoes.length; i++) {
+          html += this.Instancia.Geral.FormatarString(
+            '<button class="btn {0}">{1}</button> ',
+            secao.Botoes[i].id,
+            secao.Botoes[i].nome
+          );
+        }
+        html += "</div>";
+      }
+
+      html = this.Instancia.Geral.FormatarString(
+        '<article class="{2}">{0}{1}</article>',
         secao.Html instanceof Function ? secao.Html() : secao.Html,
+        html,
         cssId
       );
       if (secao.Titulo) {
@@ -484,8 +831,32 @@ window.Cabot = new (function () {
         ".secoes > article:last",
         "." + this.Instancia.Definicoes.ClassCss
       );
+
+      this.Configurador.InputNumber(
+        $('input[data-tipo="number"]', secao.Container)
+      );
+
       if (secao.Js instanceof Function) {
         secao.Js();
+      }
+
+      if (Array.isArray(secao.Botoes)) {
+        for (let i = 0; i < secao.Botoes.length; i++) {
+          $(".botoes .btn." + secao.Botoes[i].id, secao.Container).click(
+            function () {
+              const btn = $(this);
+              if (btn.hasClass("ativo")) {
+                return;
+              }
+              btn.siblings(".btn").removeClass("red").removeClass("ativo");
+              btn.addClass("red").addClass("ativo");
+              if (secao.BotoesFunction instanceof Function) {
+                secao.BotoesFunction(secao.Botoes[i].id, secao.Botoes[i]);
+              }
+            }
+          );
+        }
+        $(".botoes .btn:first-child", secao.Container).click();
       }
     };
 
@@ -549,6 +920,65 @@ window.Cabot = new (function () {
           }, 1000);
         },
       });
+    };
+
+    this.Configurador = {
+      InputNumber: function (selector) {
+        const objs = $(selector);
+        objs.blur(function () {
+          let inputText = $(this);
+
+          const data = {};
+
+          data.padrao = parseFloat(
+            String(inputText.attr("data-padrao")).replace(",", ".")
+          );
+          data.padrao = isFinite(data.padrao) ? data.padrao : "";
+
+          data.digitos = parseInt(inputText.attr("data-digitos"));
+          data.digitos = isFinite(data.digitos) ? data.digitos : undefined;
+
+          data.min = parseFloat(
+            String(inputText.attr("data-min")).replace(",", ".")
+          );
+          data.min = isFinite(data.min) ? data.min : undefined;
+
+          data.max = parseFloat(
+            String(inputText.attr("data-max")).replace(",", ".")
+          );
+          data.max = isFinite(data.max) ? data.max : undefined;
+
+          data.valor = inputText.val().trim();
+          data.valor = _this.Instancia.Geral.Numerico(data.valor, data.padrao);
+
+          if (typeof data.valor === "number") {
+            if (data.min !== undefined && data.valor < data.min) {
+              data.valor = data.min;
+            } else if (data.max !== undefined && data.valor > data.max) {
+              data.valor = data.max;
+            }
+            data.valor = _this.Instancia.Geral.NumericoTexto(
+              data.valor,
+              data.digitos
+            );
+          }
+
+          inputText.val(data.valor);
+
+          inputText = inputText.get(0);
+          inputText.valor = data.valor;
+          if (typeof inputText.number === "undefined") {
+            inputText.number = function (valor) {
+              if (arguments.length) {
+                inputText.value = valor;
+                $(inputText).blur();
+              }
+              return _this.Instancia.Geral.Numerico(inputText.valor, null);
+            };
+          }
+        });
+        objs.blur();
+      },
     };
   })(this);
 
@@ -691,6 +1121,10 @@ window.Cabot = new (function () {
       }
     };
 
+    this.Estatisticas = function () {
+      return this.Lista[0].Dados;
+    };
+
     this.Lista = [
       new (function (instancia) {
         this.Instancia = instancia;
@@ -719,16 +1153,18 @@ window.Cabot = new (function () {
                         padding: 3px 0 3px 5px;
                         border-left: 2px solid gainsboro;
                     }
-                    :host .divisor {
-                        background-color: gainsboro;
-                        font-size: 0;
-                        height: 2px;
-                        margin: 3px 0;
-                    }
                     :host table td[colspan] {
                         text-align: left;
                         border-width: 0;
                         padding: 0;
+                    }
+                    :host .saldo .pontos {
+                        text-align: right;
+                        margin: 4px 0 0 0;
+                    }
+                    :host .saldo .pontos input {
+                        width: 80px;
+                        text-align: center;
                     }
                     :host table .sorteados .grafico {
                         overflow: overlay;
@@ -787,6 +1223,9 @@ window.Cabot = new (function () {
                             <tr>
                                 <td colspan="4" class="saldo">
                                     <h2>Progress&atilde;o do saldo</h2>
+                                    <div class="pontos">Limite de pontos no gr&aacute;fico:
+                                        <input type="text" data-tipo="number" data-digitos="0" data-min="10" maxlength="6" value="1000" />
+                                    </div>
                                     <div class="grafico">Carregando gr&aacute;fico...</div>
                                 </td>
                             </tr>
@@ -797,6 +1236,12 @@ window.Cabot = new (function () {
                                 </td>
                                 <td colspan="3" class="sequencias">
                                     <h2>Vis&atilde;o de <span></span> Sequ&ecirc;ncias</h2>
+                                    <div class="grafico">Carregando gr&aacute;fico...</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="sequenciasRecorrentes">
+                                    <h2>Sequ&ecirc;ncias mais recorrentes</h2>
                                     <div class="grafico">Carregando gr&aacute;fico...</div>
                                 </td>
                             </tr>
@@ -814,19 +1259,23 @@ window.Cabot = new (function () {
           _this.Grafico.Saldo.Inicializar();
           _this.Grafico.Predicao.Inicializar();
           _this.Grafico.Sequencias.Inicializar();
+          _this.Grafico.SequenciasRecorrentes.Inicializar();
           _this.Grafico.Sorteados.Inicializar();
 
-          _this.Instancia.Objetos.BtnEstatisticasReiniciar =
+          _this.Instancia.Objetos.SecaoEstatisticasBtnReiniciar =
             this.Container.find(".reiniciar");
-          _this.Instancia.Objetos.BtnEstatisticasReiniciar.click(function () {
-            _this.Dados.ReiniciarValores();
-            _this.Dados.AtualizarCamposDaTela();
+          _this.Instancia.Objetos.SecaoEstatisticasBtnReiniciar.click(
+            function () {
+              _this.Dados.ReiniciarValores();
+              _this.Dados.AtualizarCamposDaTela();
 
-            if (_this.Instancia.Objetos.JanelaModal.isOpen) {
-              _this.Instancia.Geral.Toast("Estat&iacute;sticas reiniciadas.");
+              _this.Instancia.Geral.Toast(
+                "Estat&iacute;sticas reiniciadas.",
+                false
+              );
             }
-          });
-          _this.Instancia.Objetos.BtnEstatisticasReiniciar.click();
+          );
+          _this.Instancia.Objetos.SecaoEstatisticasBtnReiniciar.click();
         };
 
         this.Grafico = {
@@ -844,16 +1293,21 @@ window.Cabot = new (function () {
               );
               _this.Instancia.Geral.CarregarStylesheetCode(css);
 
-              _this.Instancia.Objetos.GraficoEstatisticasSaldoDiv =
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSaldoPontosInput =
+                _this.Container.find(".saldo .pontos input");
+
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSaldoDiv =
                 _this.Container.find(".saldo .grafico");
-              _this.Instancia.Objetos.GraficoEstatisticasSaldoDiv.html("");
-              _this.Instancia.Objetos.GraficoEstatisticasSaldoData = {
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSaldoDiv.html("");
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSaldoData = {
                 series: [[]],
               };
-              _this.Instancia.Objetos.GraficoEstatisticasSaldoChartist =
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSaldoChartist =
                 new Chartist.Line(
-                  _this.Instancia.Objetos.GraficoEstatisticasSaldoDiv.get(0),
-                  _this.Instancia.Objetos.GraficoEstatisticasSaldoData,
+                  _this.Instancia.Objetos.SecaoEstatisticasGraficoSaldoDiv.get(
+                    0
+                  ),
+                  _this.Instancia.Objetos.SecaoEstatisticasGraficoSaldoData,
                   {
                     width: "100%",
                     height: "100px",
@@ -870,25 +1324,38 @@ window.Cabot = new (function () {
                 );
 
               _this.Instancia.Layout.OnAbrirJanela.push(function () {
-                _this.Instancia.Objetos.GraficoEstatisticasSaldoChartist.update();
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSaldoChartist.update();
               });
             },
 
             Reiniciar: function (valorInicial) {
-              _this.Instancia.Objetos.GraficoEstatisticasSaldoData.series[0].length = 0;
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSaldoData.series[0].length = 0;
               _this.Grafico.Saldo.Adicionar(valorInicial);
               _this.Grafico.Saldo.Adicionar(valorInicial);
-              _this.Instancia.Objetos.GraficoEstatisticasSaldoChartist.update();
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSaldoChartist.update();
             },
 
             Adicionar: function (valor) {
               if (isNaN(parseFloat(valor))) {
                 return;
               }
-              _this.Instancia.Objetos.GraficoEstatisticasSaldoData.series[0].push(
+
+              const limiteDeBarras =
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSaldoPontosInput.get(
+                  0
+                ).number();
+              while (
+                limiteDeBarras > 0 &&
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSaldoData
+                  .series[0].length > limiteDeBarras
+              ) {
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSaldoData.series[0].shift();
+              }
+
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSaldoData.series[0].push(
                 valor
               );
-              _this.Instancia.Objetos.GraficoEstatisticasSaldoChartist.update();
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSaldoChartist.update();
             },
           },
 
@@ -910,21 +1377,23 @@ window.Cabot = new (function () {
               );
               _this.Instancia.Geral.CarregarStylesheetCode(css);
 
-              _this.Instancia.Objetos.GraficoEstatisticasSequenciasContador =
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasContador =
                 _this.Container.find(".sequencias h2 span");
 
-              _this.Instancia.Objetos.GraficoEstatisticasSequenciasDiv =
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasDiv =
                 _this.Container.find(".sequencias .grafico");
-              _this.Instancia.Objetos.GraficoEstatisticasSequenciasDiv.html("");
-              _this.Instancia.Objetos.GraficoEstatisticasSequenciasData = {
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasDiv.html(
+                ""
+              );
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasData = {
                 series: [[], []],
               };
-              _this.Instancia.Objetos.GraficoEstatisticasSequenciasChartist =
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasChartist =
                 new Chartist.Bar(
-                  _this.Instancia.Objetos.GraficoEstatisticasSequenciasDiv.get(
+                  _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasDiv.get(
                     0
                   ),
-                  _this.Instancia.Objetos.GraficoEstatisticasSequenciasData,
+                  _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasData,
                   {
                     width: "100%",
                     height: "100px",
@@ -946,17 +1415,17 @@ window.Cabot = new (function () {
                 );
 
               _this.Instancia.Layout.OnAbrirJanela.push(function () {
-                _this.Instancia.Objetos.GraficoEstatisticasSequenciasChartist.update();
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasChartist.update();
               });
             },
 
             Reiniciar: function (valorInicial) {
-              _this.Instancia.Objetos.GraficoEstatisticasSequenciasData.series[0].length = 0;
-              _this.Instancia.Objetos.GraficoEstatisticasSequenciasData.series[1].length = 0;
-              _this.Instancia.Objetos.GraficoEstatisticasSequenciasContador.text(
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasData.series[0].length = 0;
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasData.series[1].length = 0;
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasContador.text(
                 ""
               );
-              _this.Instancia.Objetos.GraficoEstatisticasSequenciasChartist.update();
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasChartist.update();
             },
 
             Adicionar: function (valor) {
@@ -964,17 +1433,17 @@ window.Cabot = new (function () {
                 return;
               }
               if (valor >= 0) {
-                _this.Instancia.Objetos.GraficoEstatisticasSequenciasData.series[0].push(
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasData.series[0].push(
                   1
                 );
-                _this.Instancia.Objetos.GraficoEstatisticasSequenciasData.series[1].push(
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasData.series[1].push(
                   0
                 );
               } else {
-                _this.Instancia.Objetos.GraficoEstatisticasSequenciasData.series[0].push(
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasData.series[0].push(
                   0
                 );
-                _this.Instancia.Objetos.GraficoEstatisticasSequenciasData.series[1].push(
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasData.series[1].push(
                   1
                 );
               }
@@ -985,18 +1454,18 @@ window.Cabot = new (function () {
                   _this.Dados.MaiorSequenciaPerdendo());
               limiteDeBarras = limiteDeBarras < 40 ? limiteDeBarras : 40;
               if (
-                _this.Instancia.Objetos.GraficoEstatisticasSequenciasData
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasData
                   .series[0].length > limiteDeBarras
               ) {
-                _this.Instancia.Objetos.GraficoEstatisticasSequenciasData.series[0].shift();
-                _this.Instancia.Objetos.GraficoEstatisticasSequenciasData.series[1].shift();
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasData.series[0].shift();
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasData.series[1].shift();
               }
-              _this.Instancia.Objetos.GraficoEstatisticasSequenciasContador.text(
-                _this.Instancia.Objetos.GraficoEstatisticasSequenciasData
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasContador.text(
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasData
                   .series[0].length
               );
 
-              _this.Instancia.Objetos.GraficoEstatisticasSequenciasChartist.update();
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasChartist.update();
             },
           },
 
@@ -1018,10 +1487,12 @@ window.Cabot = new (function () {
               );
               _this.Instancia.Geral.CarregarStylesheetCode(css);
 
-              _this.Instancia.Objetos.GraficoEstatisticasSorteadosDiv =
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSorteadosDiv =
                 _this.Container.find(".sorteados .grafico");
-              _this.Instancia.Objetos.GraficoEstatisticasSorteadosDiv.html("");
-              _this.Instancia.Objetos.GraficoEstatisticasSorteadosData = {
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSorteadosDiv.html(
+                ""
+              );
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSorteadosData = {
                 labels: "0"
                   .repeat(100)
                   .split("")
@@ -1035,12 +1506,12 @@ window.Cabot = new (function () {
                     .map((x) => parseInt(x)),
                 ],
               };
-              _this.Instancia.Objetos.GraficoEstatisticasSorteadosChartist =
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSorteadosChartist =
                 new Chartist.Bar(
-                  _this.Instancia.Objetos.GraficoEstatisticasSorteadosDiv.get(
+                  _this.Instancia.Objetos.SecaoEstatisticasGraficoSorteadosDiv.get(
                     0
                   ),
-                  _this.Instancia.Objetos.GraficoEstatisticasSorteadosData,
+                  _this.Instancia.Objetos.SecaoEstatisticasGraficoSorteadosData,
                   {
                     width: "2500px",
                     height: "100px",
@@ -1059,12 +1530,9 @@ window.Cabot = new (function () {
                     },
                   }
                 );
-              //_this.Instancia.Objetos.GraficoEstatisticasSorteadosChartist.on('draw', function() {
-              //    $('foreignObject[y="-15.299999999999955"').attr('y', '-6');
-              //});
 
               _this.Instancia.Layout.OnAbrirJanela.push(function () {
-                _this.Instancia.Objetos.GraficoEstatisticasSequenciasChartist.update();
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasChartist.update();
               });
             },
 
@@ -1072,24 +1540,244 @@ window.Cabot = new (function () {
               for (
                 let i = 0;
                 i <
-                _this.Instancia.Objetos.GraficoEstatisticasSorteadosData
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSorteadosData
                   .series[0].length;
                 i++
               ) {
-                _this.Instancia.Objetos.GraficoEstatisticasSorteadosData.series[0][
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSorteadosData.series[0][
                   i
                 ] = 0;
               }
-              _this.Instancia.Objetos.GraficoEstatisticasSorteadosChartist.update();
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSorteadosChartist.update();
             },
 
             Adicionar: function (valor) {
               if (isNaN(parseFloat(valor))) {
                 return;
               }
-              _this.Instancia.Objetos.GraficoEstatisticasSorteadosData
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSorteadosData
                 .series[0][valor]++;
-              _this.Instancia.Objetos.GraficoEstatisticasSorteadosChartist.update();
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSorteadosChartist.update();
+            },
+          },
+
+          SequenciasRecorrentes: {
+            Inicializar: function () {
+              const css = _this.Instancia.Geral.ReplaceAll(
+                `
+                                :host .sequenciasRecorrentes .grafico {
+                                    overflow: auto;
+                                    height: 115px;
+                                    width: 100%;
+                                }
+                                :host .sequenciasRecorrentes .grafico > span:first-child {
+                                    display: none;
+                                }
+                                :host .sequenciasRecorrentes .grafico > span:last-child {
+                                    display: block;
+                                }
+                                :host .sequenciasRecorrentes .valor.sequencia {
+                                    display: inline-block;
+                                    width: 10%;
+                                    background-color: #ccc;
+                                    border-radius: 5px;
+                                    margin: 1px 0;
+                                    color: black;
+                                }
+                                :host .sequenciasRecorrentes .lose, 
+                                :host .sequenciasRecorrentes .win {
+                                    display: inline-block;
+                                    width: 44%;
+                                }
+                                :host .sequenciasRecorrentes .lose .percentual {
+                                    text-align: left;
+                                }
+                                :host .sequenciasRecorrentes .win .percentual {
+                                    text-align: right;
+                                }
+                                :host .sequenciasRecorrentes .valor.total,
+                                :host .sequenciasRecorrentes .valor.percentual {
+                                    display: inline-block;
+                                    width: 25%;
+                                    text-align: center;
+                                }
+                                :host .sequenciasRecorrentes .percentual {
+                                    display: inline-block;
+                                    width: 45%;
+                                }
+                                :host .sequenciasRecorrentes .percentual .barra {
+                                    display: inline-block;
+                                    min-width: 3px;
+                                }
+                                :host .sequenciasRecorrentes .win .barra {
+                                    background-color: #2EAB5B;
+                                }
+                                :host .sequenciasRecorrentes .lose .barra {
+                                    background-color: #AB2E40;
+                                }
+                            `,
+                ":host",
+                "." + _this.Instancia.Definicoes.ClassCss
+              );
+              _this.Instancia.Geral.CarregarStylesheetCode(css);
+
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasRecorrentesDiv =
+                _this.Container.find(".sequenciasRecorrentes .grafico");
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasRecorrentesDiv.html(
+                ""
+              );
+            },
+
+            Reiniciar: function (valorInicial) {
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasRecorrentesDiv.html(
+                "<span>Sem dados para contabilizar</span>"
+              );
+              if (
+                !_this.Instancia.Objetos
+                  .SecaoEstatisticasGraficoSequenciasRecorrentesSequencias
+              ) {
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasRecorrentesSequencias =
+                  {};
+              }
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasRecorrentesSequencias.contagem = 0;
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasRecorrentesSequencias.win =
+                [];
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasRecorrentesSequencias.lose =
+                [];
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasRecorrentesSequencias.winTotal = 0;
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasRecorrentesSequencias.loseTotal = 0;
+            },
+
+            Adicionar: function (resultado, sequencia) {
+              const fAdicionarBloco = function () {
+                const html = _this.Instancia.Geral.ReplaceAll(
+                  `
+                                    <div class="sequencia sequencia{seq}">
+                                        <span class="lose">
+                                            <span class="valor total">0</span>
+                                            <span class="valor percentual">0</span>
+                                            <span class="percentual">
+                                                <span class="barra">&nbsp;</span>
+                                            </span>
+                                        </span>
+                                        <span class="valor sequencia">{seq}</span>
+                                        <span class="win">
+                                            <span class="percentual">
+                                                <span class="barra">&nbsp;</span>
+                                            </span>
+                                            <span class="valor percentual">0</span>
+                                            <span class="valor total">0</span>
+                                        </span>
+                                    </div>`,
+                  "{seq}",
+                  ++_this.Instancia.Objetos
+                    .SecaoEstatisticasGraficoSequenciasRecorrentesSequencias
+                    .contagem
+                );
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasRecorrentesDiv.append(
+                  html
+                );
+                return _this.Instancia.Objetos
+                  .SecaoEstatisticasGraficoSequenciasRecorrentesSequencias
+                  .contagem;
+              };
+              const fIncrementar = function (resultado, sequencia) {
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasRecorrentesSequencias.winTotal +=
+                  resultado === "win" ? 1 : 0;
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoSequenciasRecorrentesSequencias.loseTotal +=
+                  resultado === "lose" ? 1 : 0;
+                const dados =
+                  resultado === "win"
+                    ? _this.Instancia.Objetos
+                        .SecaoEstatisticasGraficoSequenciasRecorrentesSequencias
+                        .win
+                    : resultado === "lose"
+                    ? _this.Instancia.Objetos
+                        .SecaoEstatisticasGraficoSequenciasRecorrentesSequencias
+                        .lose
+                    : null;
+                dados[sequencia - 1] =
+                  dados[sequencia - 1] === undefined
+                    ? 1
+                    : dados[sequencia - 1] + 1;
+                $(
+                  ".sequencia" + sequencia + " ." + resultado + " .valor.total",
+                  _this.Instancia.Objetos
+                    .SecaoEstatisticasGraficoSequenciasRecorrentesDiv
+                ).html(dados[sequencia - 1]);
+              };
+              const fAtualizar = function () {
+                const divs = $(
+                  ".sequencia",
+                  _this.Instancia.Objetos
+                    .SecaoEstatisticasGraficoSequenciasRecorrentesDiv
+                );
+                for (var i = 0; i < divs.length; i++) {
+                  const win =
+                    _this.Instancia.Objetos
+                      .SecaoEstatisticasGraficoSequenciasRecorrentesSequencias
+                      .win[i] !== undefined
+                      ? _this.Instancia.Objetos
+                          .SecaoEstatisticasGraficoSequenciasRecorrentesSequencias
+                          .win[i]
+                      : 0;
+                  let winPorcento =
+                    (100 * win) /
+                    _this.Instancia.Objetos
+                      .SecaoEstatisticasGraficoSequenciasRecorrentesSequencias
+                      .winTotal;
+                  winPorcento =
+                    (isNaN(winPorcento) ? 0 : winPorcento).toFixed(2) + "%";
+
+                  $(
+                    ".sequencia" + (i + 1) + " .win .valor.percentual",
+                    _this.Instancia.Objetos
+                      .SecaoEstatisticasGraficoSequenciasRecorrentesDiv
+                  ).html(winPorcento);
+                  $(
+                    ".sequencia" + (i + 1) + " .win .barra",
+                    _this.Instancia.Objetos
+                      .SecaoEstatisticasGraficoSequenciasRecorrentesDiv
+                  ).css("width", winPorcento);
+
+                  const lose =
+                    _this.Instancia.Objetos
+                      .SecaoEstatisticasGraficoSequenciasRecorrentesSequencias
+                      .lose[i] !== undefined
+                      ? _this.Instancia.Objetos
+                          .SecaoEstatisticasGraficoSequenciasRecorrentesSequencias
+                          .lose[i]
+                      : 0;
+                  let losePorcento =
+                    (100 * lose) /
+                    _this.Instancia.Objetos
+                      .SecaoEstatisticasGraficoSequenciasRecorrentesSequencias
+                      .loseTotal;
+                  losePorcento =
+                    (isNaN(losePorcento) ? 0 : losePorcento).toFixed(2) + "%";
+
+                  $(
+                    ".sequencia" + (i + 1) + " .lose .valor.percentual",
+                    _this.Instancia.Objetos
+                      .SecaoEstatisticasGraficoSequenciasRecorrentesDiv
+                  ).html(losePorcento);
+                  $(
+                    ".sequencia" + (i + 1) + " .lose .barra",
+                    _this.Instancia.Objetos
+                      .SecaoEstatisticasGraficoSequenciasRecorrentesDiv
+                  ).css("width", losePorcento);
+                }
+              };
+              if (
+                sequencia >
+                _this.Instancia.Objetos
+                  .SecaoEstatisticasGraficoSequenciasRecorrentesSequencias
+                  .contagem
+              ) {
+                while (sequencia > fAdicionarBloco());
+              }
+              fIncrementar(resultado, sequencia);
+              fAtualizar();
             },
           },
 
@@ -1113,16 +1801,20 @@ window.Cabot = new (function () {
               );
               _this.Instancia.Geral.CarregarStylesheetCode(css);
 
-              _this.Instancia.Objetos.GraficoEstatisticasPredicaoDiv =
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoDiv =
                 _this.Container.find(".predicao .grafico");
-              _this.Instancia.Objetos.GraficoEstatisticasPredicaoDiv.html("");
-              _this.Instancia.Objetos.GraficoEstatisticasPredicaoData = {
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoDiv.html(
+                ""
+              );
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoData = {
                 series: [0, 0],
               };
-              _this.Instancia.Objetos.GraficoEstatisticasPredicaoChartist =
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoChartist =
                 new Chartist.Pie(
-                  _this.Instancia.Objetos.GraficoEstatisticasPredicaoDiv.get(0),
-                  _this.Instancia.Objetos.GraficoEstatisticasPredicaoData,
+                  _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoDiv.get(
+                    0
+                  ),
+                  _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoData,
                   {
                     width: "100%",
                     height: "100px",
@@ -1130,13 +1822,13 @@ window.Cabot = new (function () {
                     chartPadding: 0,
                     labelInterpolationFnc: function (value, serie) {
                       var total =
-                        _this.Instancia.Objetos.GraficoEstatisticasPredicaoData
-                          .series[0] +
-                        _this.Instancia.Objetos.GraficoEstatisticasPredicaoData
-                          .series[1];
+                        _this.Instancia.Objetos
+                          .SecaoEstatisticasGraficoPredicaoData.series[0] +
+                        _this.Instancia.Objetos
+                          .SecaoEstatisticasGraficoPredicaoData.series[1];
                       var valor = parseInt(
-                        (_this.Instancia.Objetos.GraficoEstatisticasPredicaoData
-                          .series[serie] /
+                        (_this.Instancia.Objetos
+                          .SecaoEstatisticasGraficoPredicaoData.series[serie] /
                           total) *
                           100
                       );
@@ -1146,31 +1838,31 @@ window.Cabot = new (function () {
                 );
 
               _this.Instancia.Layout.OnAbrirJanela.push(function () {
-                _this.Instancia.Objetos.GraficoEstatisticasPredicaoChartist.update();
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoChartist.update();
               });
             },
 
             Reiniciar: function () {
-              _this.Instancia.Objetos.GraficoEstatisticasPredicaoData.series[0] = 1;
-              _this.Instancia.Objetos.GraficoEstatisticasPredicaoData.series[1] = 1;
-              _this.Instancia.Objetos.GraficoEstatisticasPredicaoData.Reiniciado = true;
-              _this.Instancia.Objetos.GraficoEstatisticasPredicaoChartist.update();
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoData.series[0] = 1;
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoData.series[1] = 1;
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoData.Reiniciado = true;
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoChartist.update();
             },
 
             Adicionar: function (valor) {
               if (
-                _this.Instancia.Objetos.GraficoEstatisticasPredicaoData
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoData
                   .Reiniciado
               ) {
-                _this.Instancia.Objetos.GraficoEstatisticasPredicaoData.Reiniciado = false;
-                _this.Instancia.Objetos.GraficoEstatisticasPredicaoData.series[0] = 0;
-                _this.Instancia.Objetos.GraficoEstatisticasPredicaoData.series[1] = 0;
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoData.Reiniciado = false;
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoData.series[0] = 0;
+                _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoData.series[1] = 0;
               }
-              _this.Instancia.Objetos.GraficoEstatisticasPredicaoData.series[0] +=
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoData.series[0] +=
                 valor > 0 ? 1 : 0;
-              _this.Instancia.Objetos.GraficoEstatisticasPredicaoData.series[1] +=
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoData.series[1] +=
                 valor < 0 ? 1 : 0;
-              _this.Instancia.Objetos.GraficoEstatisticasPredicaoChartist.update();
+              _this.Instancia.Objetos.SecaoEstatisticasGraficoPredicaoChartist.update();
             },
           },
         };
@@ -1185,7 +1877,7 @@ window.Cabot = new (function () {
           if (request.game !== "dice") {
             return;
           }
-          if (!response.result) {
+          if (response === null || !response.result) {
             return;
           }
 
@@ -1196,6 +1888,9 @@ window.Cabot = new (function () {
           let horasCorridas =
             new Date().getTime() - _this.Dados.tempoCorrido.getTime();
           horasCorridas = horasCorridas / 1000 / 60;
+
+          const sequenciaVencendo = _this.Dados.sequenciaVencendo;
+          const sequenciaPerdendo = _this.Dados.sequenciaPerdendo;
 
           _this.Dados.saldoInicial =
             _this.Dados.saldoInicial !== null
@@ -1235,6 +1930,19 @@ window.Cabot = new (function () {
           _this.Grafico.Sequencias.Adicionar(parseFloat(response.profit));
           _this.Grafico.Predicao.Adicionar(parseFloat(response.profit));
           _this.Grafico.Sorteados.Adicionar(parseFloat(response.resultNumber));
+
+          if (sequenciaPerdendo > 0 && _this.Dados.sequenciaPerdendo === 0) {
+            _this.Grafico.SequenciasRecorrentes.Adicionar(
+              "lose",
+              sequenciaPerdendo
+            );
+          }
+          if (sequenciaVencendo > 0 && _this.Dados.sequenciaVencendo === 0) {
+            _this.Grafico.SequenciasRecorrentes.Adicionar(
+              "win",
+              sequenciaVencendo
+            );
+          }
         };
 
         this.Dados = {
@@ -1278,6 +1986,7 @@ window.Cabot = new (function () {
             _this.Grafico.Saldo.Reiniciar(_this.Dados.SaldoInicial());
             _this.Grafico.Sequencias.Reiniciar();
             _this.Grafico.Predicao.Reiniciar();
+            _this.Grafico.SequenciasRecorrentes.Reiniciar();
             _this.Grafico.Sorteados.Reiniciar();
           },
 
@@ -1285,10 +1994,10 @@ window.Cabot = new (function () {
           TempoCorrido: function (valor) {
             if (valor !== undefined) {
               if (valor instanceof Date) {
-                valor = new Date(
-                  new Date().getTime() - valor.getTime() + 1000 * 60 * 60 * 2
-                );
-                valor = _this.Instancia.Geral.FormatarData(valor, "h:m:s");
+                valor = new Date(new Date().getTime() - valor.getTime());
+                valor = new RegExp("(?<=T).*?(?=\\.)").exec(
+                  valor.toISOString()
+                )[0];
               } else {
                 valor = "&dash;";
               }
@@ -1380,7 +2089,7 @@ window.Cabot = new (function () {
           },
           saldoInicial: undefined,
           SaldoInicial: function (valor) {
-            const saldoAtual = parseFloat($("#balance").val());
+            const saldoAtual = _this.Instancia.LuckygamesIo.ValorSaldo();
 
             if (valor !== undefined) {
               if (valor === null) {
@@ -1398,10 +2107,10 @@ window.Cabot = new (function () {
           },
           saldoFinal: undefined,
           SaldoFinal: function (valor) {
-            const saldoAtual = parseFloat($("#balance").val());
+            const saldoAtual = _this.Instancia.LuckygamesIo.ValorSaldo();
 
             if (valor !== undefined) {
-              valor = parseFloat($("#balance").val());
+              valor = saldoAtual;
               const saldoInicial = _this.Dados.SaldoInicial();
               _this.Container.find(".saldoFinal").html(
                 _this.Instancia.Geral.FormatarString(
@@ -1515,11 +2224,6 @@ window.Cabot = new (function () {
                         border-right: 2px solid gainsboro;
                         padding-right: 10px;
                     }
-                    :host table td input[type="text"] {
-                        text-align: right;
-                        width: 83%;
-                        padding: 2px 10px 0 0;
-                    }
                     :host table td input[type="text"].ativo {
                         background-color: steelblue;
                         color: white;
@@ -1527,26 +2231,16 @@ window.Cabot = new (function () {
                     :host table td input[type="text"].disparado {
                         background-color: indianred;
                     }
-                    :host span.info {
-                        display: block;
-                        margin: 0 0 10px 0;
-                        font-size: 12px;
-                        text-align: justify;
-                    }
-                    :host .divisor {
-                        border-bottom: 2px solid gainsboro;
-                        font-size: 0;
-                        margin: 5px 0;
+                    :host input {
+                        text-align: right;
                     }
                 `;
 
         this.Html = this.Instancia.Geral.FormatarString(`
                         <span class="info">
-                            Para ativar um limite basta informar o valor desejado.
-                            Quando um limite &eacute; atingido o site n&atilde;o consegue mais se
-                            comunicar com o servidor impossibilitando qualquer aposta.
-                            Ajuste ou remova o limite em quest&atilde;o para que
-                            o site retorne ao seu funcionamento normal.
+                            Define limites para evitar perdas.
+                            Se um limite for atingido toda a comunica&ccedil;&atilde;o
+                            com o servidor &eacute; bloqueada.
                             <hr />
                             Os limites ativos s&atilde;o indicados em azul.
                             Os limites atingidos s&atilde;o indicados em vermelho.
@@ -1555,66 +2249,69 @@ window.Cabot = new (function () {
                             <tr>
                                 <td rowspan="2">Saldo</td>
                                 <td>M&iacute;nimo</td>
-                                <td class="saldoMinimo"><input type="text" /></td>
+                                <td class="saldoMinimo">
+                                    <input type="text" data-tipo="number" data-min="0" />
+                                </td>
                             </tr>
                             <tr>
                                 <td>M&aacute;ximo</td>
-                                <td class="saldoMaximo"><input type="text" /></td>
+                                <td class="saldoMaximo">
+                                    <input type="text" data-tipo="number" data-min="0" />
+                                </td>
                             </tr>
                             <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
                             <tr>
                                 <td rowspan="2">Aposta</td>
                                 <td>M&iacute;nima</td>
-                                <td class="apostaMinima"><input type="text" /></td>
+                                <td class="apostaMinima">
+                                    <input type="text" data-tipo="number" data-min="0" />
+                                </td>
                             </tr>
                             <tr>
                                 <td>M&aacute;xima</td>
-                                <td class="apostaMaxima"><input type="text" /></td>
+                                <td class="apostaMaxima">
+                                    <input type="text" data-tipo="number" data-min="0" />
+                                </td>
                             </tr>
                             <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
                             <tr>
                                 <td rowspan="2">Sequ&ecirc;ncia</td>
                                 <td>Vencendo</td>
-                                <td class="sequenciaVencendo"><input type="text" data-digitos="0" /></td>
+                                <td class="sequenciaVencendo">
+                                    <input type="text" data-tipo="number" data-min="0" data-digitos="0" />
+                                </td>
                             </tr>
                             <tr>
                                 <td>Perdendo</td>
-                                <td class="sequenciaPerdendo"><input type="text" data-digitos="0" /></td>
+                                <td class="sequenciaPerdendo">
+                                    <input type="text" data-tipo="number" data-min="0" data-digitos="0" />
+                                </td>
                             </tr>
                         </table>
                         <button class="reiniciar btn grey">Remover todos os limites</button>
                     `);
 
         this.Js = function () {
-          _this.Instancia.Objetos.BtnLimitesReiniciar =
+          _this.Instancia.Objetos.SecaoLimitesBtnReiniciar =
             this.Container.find(".reiniciar");
-          _this.Instancia.Objetos.BtnLimitesReiniciar.click(function () {
+          _this.Instancia.Objetos.SecaoLimitesBtnReiniciar.click(function () {
             _this.Container.find('input[type="text"]').val("").blur();
-
-            if (_this.Instancia.Objetos.JanelaModal.isOpen) {
-              _this.Instancia.Geral.Toast("Todos os limites foram removidos.");
-            }
+            _this.Instancia.Geral.Toast(
+              "Todos os limites foram removidos.",
+              false
+            );
           });
-          _this.Instancia.Objetos.BtnLimitesReiniciar.click();
+          _this.Instancia.Objetos.SecaoLimitesBtnReiniciar.click();
 
           const inputsText = this.Container.find('input[type="text"]');
           inputsText.blur(function () {
             const inputText = $(this);
-            let valor = inputText.val();
 
-            let digitosDecimais = parseInt(inputText.attr("data-digitos"));
-            digitosDecimais = isFinite(digitosDecimais)
-              ? digitosDecimais
-              : undefined;
-
-            valor = _this.Instancia.Geral.NumericoTexto(valor, digitosDecimais);
-            if (valor !== "") {
+            if (inputText.get(0).number() !== null) {
               inputText.addClass("ativo").removeClass("disparado");
             } else {
               inputText.removeClass("ativo").removeClass("disparado");
             }
-
-            inputText.val(valor);
           });
           inputsText.blur();
         };
@@ -1644,133 +2341,65 @@ window.Cabot = new (function () {
           return result;
         };
 
-        this.OnAjaxResponse = function (response, request) {
-          if (request.game !== "dice") {
-            return;
-          }
-          if (!response.result) {
-            return;
-          }
-
-          _this.Dados.sequenciaVencendo =
-            response.gameResult === "win"
-              ? _this.Dados.sequenciaVencendo + 1
-              : 0;
-          _this.Dados.sequenciaPerdendo =
-            response.gameResult === "lose"
-              ? _this.Dados.sequenciaPerdendo + 1
-              : 0;
-        };
-
-        this.Dados = {
-          sequenciaPerdendo: 0,
-          sequenciaVencendo: 0,
-        };
+        this.OnAjaxResponse = null;
 
         this.Validar = {
-          SaldoMinimo: function () {
-            const input = _this.Container.find(
-              '.saldoMinimo input[type="text"]'
-            );
-            let valor = input.val();
-            if (valor !== "") {
-              valor = _this.Instancia.Geral.Numerico(valor);
-              const valorTeste = _this.Instancia.Geral.Numerico(
-                $("#balance").val()
-              );
-              if (valorTeste <= valor) {
+          Generico: function (valorTeste, teste, selectorInput) {
+            const input = _this.Container.find(selectorInput);
+            const valor = input.get(0).number();
+            if (valor !== null) {
+              valorTeste = _this.Instancia.Geral.Numerico(valorTeste);
+              if (eval("valorTeste " + teste + " valor")) {
                 input.addClass("disparado");
                 return false;
               }
             }
             input.removeClass("disparado");
             return true;
+          },
+          SaldoMinimo: function () {
+            return _this.Validar.Generico(
+              _this.Instancia.LuckygamesIo.ValorSaldo(),
+              "<=",
+              ".saldoMinimo input"
+            );
           },
           SaldoMaximo: function () {
-            const input = _this.Container.find(
-              '.saldoMaximo input[type="text"]'
+            return _this.Validar.Generico(
+              _this.Instancia.LuckygamesIo.ValorSaldo(),
+              ">=",
+              ".saldoMaximo input"
             );
-            let valor = input.val();
-            if (valor !== "") {
-              valor = _this.Instancia.Geral.Numerico(valor);
-              const valorTeste = _this.Instancia.Geral.Numerico(
-                $("#balance").val()
-              );
-              if (valorTeste >= valor) {
-                input.addClass("disparado");
-                return false;
-              }
-            }
-            input.removeClass("disparado");
-            return true;
           },
           ApostaMinima: function () {
-            const input = _this.Container.find(
-              '.apostaMinima input[type="text"]'
+            return _this.Validar.Generico(
+              _this.Instancia.LuckygamesIo.ValorAposta(),
+              "<=",
+              ".apostaMinima input"
             );
-            let valor = input.val();
-            if (valor !== "") {
-              valor = _this.Instancia.Geral.Numerico(valor);
-              const valorTeste = _this.Instancia.Geral.Numerico(
-                $("#betAmount").val()
-              );
-              if (valorTeste <= valor) {
-                input.addClass("disparado");
-                return false;
-              }
-            }
-            input.removeClass("disparado");
-            return true;
           },
           ApostaMaxima: function () {
-            const input = _this.Container.find(
-              '.apostaMaxima input[type="text"]'
+            return _this.Validar.Generico(
+              _this.Instancia.LuckygamesIo.ValorAposta(),
+              ">=",
+              ".apostaMaxima input"
             );
-            let valor = input.val();
-            if (valor !== "") {
-              valor = _this.Instancia.Geral.Numerico(valor);
-              const valorTeste = _this.Instancia.Geral.Numerico(
-                $("#betAmount").val()
-              );
-              if (valorTeste >= valor) {
-                input.addClass("disparado");
-                return false;
-              }
-            }
-            input.removeClass("disparado");
-            return true;
           },
           SequenciaPerdendo: function () {
-            const input = _this.Container.find(
-              '.sequenciaPerdendo input[type="text"]'
+            const estatisticas = _this.Instancia.Regras.Estatisticas();
+            return _this.Validar.Generico(
+              estatisticas.sequenciaPerdendo,
+              ">=",
+              ".sequenciaPerdendo input"
             );
-            let valor = input.val();
-            if (valor !== "") {
-              valor = _this.Instancia.Geral.Numerico(valor);
-              const valorTeste = _this.Dados.sequenciaPerdendo;
-              if (valorTeste >= valor) {
-                input.addClass("disparado");
-                return false;
-              }
-            }
-            input.removeClass("disparado");
-            return true;
           },
           SequenciaVencendo: function () {
-            const input = _this.Container.find(
-              '.sequenciaVencendo input[type="text"]'
+            const estatisticas = _this.Instancia.Regras.Estatisticas();
+            return _this.Validar.Generico(
+              estatisticas.sequenciaVencendo,
+              ">=",
+              ".sequenciaVencendo input"
             );
-            let valor = input.val();
-            if (valor !== "") {
-              valor = _this.Instancia.Geral.Numerico(valor);
-              const valorTeste = _this.Dados.sequenciaVencendo;
-              if (valorTeste >= valor) {
-                input.addClass("disparado");
-                return false;
-              }
-            }
-            input.removeClass("disparado");
-            return true;
           },
         };
       })(this.Instancia),
@@ -1779,1649 +2408,538 @@ window.Cabot = new (function () {
         this.Instancia = instancia;
         const _this = this;
 
-        this.Titulo = "BOT ForceRandomize";
+        this.Titulo = "BOT SeedRandomize";
 
         this.Container;
 
-        this.Css = `
-                    :host table td {
-                        font-size: 13px;
-                        vertical-align: middle;
-                        text-align: right;
-                        padding: 1px 5px;
-                    }
-                    :host table td:first-child {
-                        position: relative;
-                        top: -2px;
-                    }
-                    :host table td:last-child {
-                        text-align: left;
-                        padding-left: 2px;
-                        width: 20%;
-                    }
-                    :host table td input[type="text"] {
-                        text-align: center;
-                        width: 100%;
-                    }
-                    :host span.info {
-                        display: block;
-                        margin: 0 0 10px 0;
-                        font-size: 12px;
-                        text-align: justify;
-                    }
-                    :host .divisor {
-                        border-bottom: 2px solid gainsboro;
-                        font-size: 0;
-                        margin: 5px 0;
-                    }
-                    :host .btn {
-                        float: none;
-                    }
-                    :host .estado {
-                        display: inline-block;
-                        padding: 0 15px;
-                        font-size: 18px;
-                        position: relative;
-                        top: 1px;
-                        font-weight: bold;
-                        color: darkgrey;
-                    }
-                    :host .estado.ativado {
-                        color: darkcyan;
-                    }
-                    :host .seed input[type="text"] {
-                        font-size: 18px;
-                        background-color: transparent;
-                        color: red;
-                        border-width: 0;
-                        margin-top: 10px;
-                    }
-                    :host .seed.server input[type="text"] {
-                        font-size: 9px;
-                        color: darkred;
-                    }
-                `;
+        this.Botoes = [
+          { id: "desativar", nome: "Desativado" },
+          { id: "trocar", nome: "Trocar Seed" },
+          { id: "trocarCustomizado", nome: "Trocar Seed Customizado" },
+        ];
 
-        this.Html = this.Instancia.Geral.FormatarString(`
-                        <span class="info">
-                            O processo de obter um n&uacute;mero aleat&oacute;rio depende da defini&ccedil;&atilde;o do Seed,
-                            que por sua vez &eacute; um valor qualquer que serve para inicializar o gerador.
-                            Alterando o valor do Seed isso torna o processo ainda mais aleat&oacute;rio.
-                            Saiba mais sobre como o Luckygames trabalha com isso em:
-                            <a target="_blank" href="https://luckygames.io/page/fair/">https://luckygames.io/page/fair/</a>
-                            <hr />
-                            Este BOT for&ccedil;a a troca do valor do Seed.
-                            N&atilde;o &eacute; poss&iacute;vel alterar o Seed do servidor.
-                            Somente o Seed do seu navegador.
-                            <hr />
-                            Use valores maiores que zero.
-                        </span>
-                        <table>
-                            <tr>
-                                <td colspan="2" class="seed client">
-                                    <h1>Valor atual do Seed</h1>
-                                    <input type="text" readonly />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="seed server">
-                                    <h1>Seed no Servidor (hash)</h1>
-                                    <input type="text" readonly />
-                                </td>
-                            </tr>
-                            <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
-                            <tr>
-                                <td>Trocar o Seed depois de quantas apostas</td>
-                                <td class="rodadas"><input type="text" value="600" /></td>
-                            </tr>
-                            <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
-                            <tr>
-                                <td>Trocar o Seed depois de quantas apostas perdidas</td>
-                                <td class="apostasPerdidas"><input type="text" value="" /></td>
-                            </tr>
-                            <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
-                            <tr>
-                                <td>Trocar o Seed depois de quantas apostas vencidas</td>
-                                <td class="apostasVencidas"><input type="text" value="" /></td>
-                            </tr>
-                        </table>
-                        <button class="trocarSeed btn red">Trocar Seed</button>
-                        <button class="desativar btn">Desativar</button>
-                        <button class="ativar btn">Ativar</button>
-                        <div class="estado"></div>
-                    `);
-
-        this.Js = function () {
-          _this.Instancia.Objetos.DivBotForceRandomizeSeedClient =
-            this.Container.find(".seed.client input");
-          _this.Instancia.Objetos.DivBotForceRandomizeSeedServer =
-            this.Container.find(".seed.server input");
-
-          _this.Instancia.Objetos.DivBotForceRandomizeEstado =
-            this.Container.find(".estado");
-
-          _this.Instancia.Objetos.BtnBotForceRandomizeTrocarSeed =
-            this.Container.find(".trocarSeed");
-          _this.Instancia.Objetos.BtnBotForceRandomizeTrocarSeed.click(
-            function () {
-              _this.AtualizarSeed(true);
-            }
-          );
-
-          _this.Instancia.Objetos.BtnBotForceRandomizeAtivar =
-            this.Container.find(".ativar");
-          _this.Instancia.Objetos.BtnBotForceRandomizeAtivar.click(function () {
-            if (_this.Ativo()) {
-              return;
-            }
-
-            if (!_this.Parametros.Validar(true)) {
-              return;
-            }
-
-            _this.Ativo(true);
-          });
-
-          _this.Instancia.Objetos.BtnBotForceRandomizeDesativar =
-            this.Container.find(".desativar");
-          _this.Instancia.Objetos.BtnBotForceRandomizeDesativar.click(
-            function () {
-              if (!_this.Ativo()) {
+        this.BotoesFunction = function (id, data) {
+          switch (id) {
+            case "desativar":
+              break;
+            case "trocar":
+            case "trocarCustomizado":
+              _this.Instancia.Objetos.SecaoSeedRandomizeInputTempo.change();
+              if (!_this.ValidarParametros(true)) {
+                _this.Container.find(".btn.desativar").click();
                 return;
               }
-
-              _this.Ativo(false);
-            }
-          );
-
-          _this.Ativo(false);
-
-          const inputsText = this.Container.find(
-            'input[type="text"]:not([readonly])'
-          );
-          inputsText.change(function () {
-            if (_this.Ativo() && !_this.Parametros.Validar(true)) {
-              _this.Ativo(false);
-            } else {
-              _this.Reiniciar();
-            }
-          });
-          inputsText.blur(function () {
-            const inputText = $(this);
-            const valor = _this.Instancia.Geral.NumericoTexto(
-              inputText.val(),
-              0
-            );
-            inputText.val(valor);
-          });
-          inputsText.blur();
-
-          _this.AtualizarSeed();
-        };
-
-        this.OnAjaxRequest = function (request) {
-          if (request.game !== "dice") {
-            return;
-          }
-          if (!_this.Ativo()) {
-            return;
-          }
-
-          return true;
-        };
-
-        this.OnAjaxResponse = function (response, request) {
-          _this.AtualizarSeed(
-            false,
-            response.clientSeed,
-            response.serverSeedHash
-          );
-
-          if (request.game !== "dice") {
-            return;
-          }
-          if (!response.result) {
-            return;
-          }
-          if (!_this.Ativo()) {
-            return;
-          }
-
-          _this.Dados.rodadas++;
-          _this.Dados.sequenciaPerdendo =
-            response.gameResult === "lose"
-              ? _this.Dados.sequenciaPerdendo + 1
-              : 0;
-          _this.Dados.sequenciaVencendo =
-            response.gameResult === "win"
-              ? _this.Dados.sequenciaVencendo + 1
-              : 0;
-
-          const valorRodadas = _this.Parametros.ValorRodadas();
-          const valorApostasPerdidas = _this.Parametros.ValorApostasPerdidas();
-          const valorApostasVencidas = _this.Parametros.ValorApostasVencidas();
-
-          if (
-            (valorRodadas > 0 && _this.Dados.rodadas >= valorRodadas) ||
-            (valorApostasPerdidas > 0 &&
-              _this.Dados.sequenciaPerdendo >= valorApostasPerdidas) ||
-            (valorApostasVencidas > 0 &&
-              _this.Dados.sequenciaVencendo >= valorApostasVencidas)
-          ) {
-            _this.AtualizarSeed(true);
+              break;
           }
         };
-
-        this.Reiniciar = function () {
-          _this.Dados.rodadas = 0;
-          _this.Dados.sequenciaPerdendo = 0;
-          _this.Dados.sequenciaVencendo = 0;
-        };
-
-        this.AtualizarSeed = function (atualizar, clientSeed, serverSeedHash) {
-          if (atualizar) {
-            _this.Instancia.LuckygamesIo.TrocarSeed();
-            _this.Reiniciar();
-            _this.Instancia.Geral.Toast("O Seed foi trocado.");
-          } else {
-            clientSeed = clientSeed ? clientSeed : $("#clientSeed").val();
-            serverSeedHash = serverSeedHash
-              ? serverSeedHash
-              : $("#serverSeedHash").html();
-            _this.Instancia.Objetos.DivBotForceRandomizeSeedClient.val(
-              clientSeed
-            );
-            _this.Instancia.Objetos.DivBotForceRandomizeSeedServer.val(
-              serverSeedHash
-            );
-          }
-        };
-
-        this.Ativo = function (modo) {
-          const cssClass = "grey";
-
-          if (modo !== undefined) {
-            if (modo) {
-              _this.Instancia.Objetos.BtnBotForceRandomizeDesativar.addClass(
-                cssClass
-              );
-              _this.Instancia.Objetos.BtnBotForceRandomizeAtivar.removeClass(
-                cssClass
-              );
-              _this.Instancia.Objetos.DivBotForceRandomizeEstado.addClass(
-                "ativado"
-              ).html("Ativado");
-            } else {
-              _this.Instancia.Objetos.BtnBotForceRandomizeDesativar.removeClass(
-                cssClass
-              );
-              _this.Instancia.Objetos.BtnBotForceRandomizeAtivar.addClass(
-                cssClass
-              );
-              _this.Instancia.Objetos.DivBotForceRandomizeEstado.removeClass(
-                "ativado"
-              ).html("Desativado");
-            }
-            if (_this.Instancia.Objetos.JanelaModal.isOpen) {
-              _this.Instancia.Geral.Toast(
-                _this.Instancia.Geral.FormatarString(
-                  "O {0} foi {1}.",
-                  _this.Titulo,
-                  modo ? "ativado" : "desativado"
-                )
-              );
-            }
-          }
-
-          return _this.Instancia.Objetos.DivBotForceRandomizeEstado.hasClass(
-            "ativado"
-          );
-        };
-
-        this.Dados = {
-          rodadas: 0,
-          sequenciaPerdendo: 0,
-          sequenciaVencendo: 0,
-        };
-
-        this.Parametros = {
-          Validar: function (exibirAlerta) {
-            const result =
-              _this.Parametros.ValorRodadas() > 0 ||
-              _this.Parametros.ValorApostasPerdidas() > 0 ||
-              _this.Parametros.ValorApostasVencidas() > 0;
-
-            if (!result && exibirAlerta) {
-              if (_this.Instancia.Objetos.JanelaModal.isOpen) {
-                _this.Instancia.Geral.Toast(
-                  "error",
-                  _this.Instancia.Geral.FormatarString(
-                    "O {0} tem um ou mais par&acirc;metros inv&aacute;lidos.",
-                    _this.Titulo
-                  )
-                );
-              }
-            }
-            return result;
-          },
-
-          ValorRodadas: function () {
-            return _this.Instancia.Geral.Numerico(
-              _this.Container.find(".rodadas input").val()
-            );
-          },
-
-          ValorApostasPerdidas: function () {
-            return _this.Instancia.Geral.Numerico(
-              _this.Container.find(".apostasPerdidas input").val()
-            );
-          },
-
-          ValorApostasVencidas: function () {
-            return _this.Instancia.Geral.Numerico(
-              _this.Container.find(".apostasVencidas input").val()
-            );
-          },
-        };
-      })(this.Instancia),
-
-      new (function (instancia) {
-        this.Instancia = instancia;
-        const _this = this;
-
-        this.Titulo = "BOT EverGain";
-
-        this.Container;
 
         this.Css = `
-                    :host table td {
-                        font-size: 13px;
-                        vertical-align: middle;
-                        text-align: right;
-                        padding: 1px 5px;
-                    }
-                    :host table td:first-child {
-                        position: relative;
-                        top: -2px;
-                    }
-                    :host table td:last-child {
-                        text-align: left;
-                        padding-left: 2px;
-                        width: 50%;
-                    }
-                    :host table td input[type="text"] {
+                    :host input {
                         text-align: center;
-                        width: 100%;
                     }
-                    :host span.info {
-                        display: block;
-                        margin: 0 0 10px 0;
-                        font-size: 12px;
-                        text-align: justify;
+                    :host input[readonly] {
+                        color: red;
                     }
-                    :host .divisor {
-                        border-bottom: 2px solid gainsboro;
-                        font-size: 0;
-                        margin: 5px 0;
+                    :host table td[colspan] {
+                        text-align: center;
                     }
-                    :host .btn {
-                        float: none;
-                    }
-                    :host .estado {
-                        display: inline-block;
-                        padding: 0 15px;
-                        font-size: 18px;
-                        position: relative;
-                        top: 1px;
-                        font-weight: bold;
-                        color: darkgrey;
-                    }
-                    :host .estado.ativado {
-                        color: darkcyan;
-                    }
-                `;
-
-        this.Html = this.Instancia.Geral.FormatarString(`
-                        <span class="info">
-                            Esse BOT sempre ganha. De pouco em pouco, mas de forma constante.
-                        </span>
-                        <table>
-                            <tr class="saldo">
-                                <td>Saldo inicial</td>
-                                <td><input type="text" value="600" /></td>
-                            </tr>
-                            <tr><td colspan="2"><div class='divisor'>&nbsp;</div></td></tr>
-                            <tr class="aposta">
-                                <td>Aposta inicial</td>
-                                <td><input type="text" value="" /></td>
-                            </tr>
-                            <tr><td colspan="2"><div class='divisor'>&nbsp;</div></td></tr>
-                            <tr class="multiplicador">
-                                <td>Multiplicador</td>
-                                <td><input type="text" value="98" data-digitos="0" /></td>
-                            </tr>
-                        </table>
-                        <button class="desativar btn">Desativar</button>
-                        <button class="ativar btn">Ativar</button>
-                        <div class="estado"></div>
-                    `);
-
-        this.Js = function () {
-          _this.Instancia.Objetos.InputBotEverGainSaldo =
-            this.Container.find(".saldo input");
-          _this.Instancia.Objetos.InputBotEverGainAposta =
-            this.Container.find(".aposta input");
-          _this.Instancia.Objetos.InputBotEverGainMultiplicador =
-            this.Container.find(".multiplicador input");
-
-          _this.Instancia.Objetos.DivBotEverGainEstado =
-            this.Container.find(".estado");
-
-          _this.Instancia.Objetos.BtnBotEverGainAtivar =
-            this.Container.find(".ativar");
-          _this.Instancia.Objetos.BtnBotEverGainAtivar.click(function () {
-            if (_this.Ativo()) {
-              return;
-            }
-
-            if (!_this.Parametros.Validar(true)) {
-              return;
-            }
-
-            _this.Ativo(true);
-          });
-
-          _this.Instancia.Objetos.BtnBotEverGainDesativar =
-            this.Container.find(".desativar");
-          _this.Instancia.Objetos.BtnBotEverGainDesativar.click(function () {
-            if (!_this.Ativo()) {
-              return;
-            }
-
-            _this.Ativo(false);
-          });
-
-          _this.Ativo(false);
-
-          const inputsText = this.Container.find(
-            'input[type="text"]:not([readonly])'
-          );
-          inputsText.change(function () {
-            if (_this.Ativo() && !_this.Parametros.Validar(true)) {
-              _this.Ativo(false);
-            } else {
-              _this.Reiniciar();
-            }
-          });
-          inputsText.blur(function () {
-            const inputText = $(this);
-
-            let digitosDecimais = parseInt(inputText.attr("data-digitos"));
-            digitosDecimais = isFinite(digitosDecimais)
-              ? digitosDecimais
-              : undefined;
-
-            const valor = _this.Instancia.Geral.NumericoTexto(
-              inputText.val(),
-              digitosDecimais
-            );
-
-            inputText.val(valor);
-          });
-          inputsText.blur();
-        };
-
-        this.OnAjaxRequest = function (request) {
-          if (request.game !== "dice") {
-            return;
-          }
-          if (!_this.Ativo()) {
-            return;
-          }
-
-          _this.Dados.saldoInicial =
-            _this.Dados.saldoInicial === null
-              ? _this.Parametros.ValorSaldo()
-              : _this.Dados.saldoInicial;
-          const valorSaldoAtual = _this.Instancia.Geral.Numerico(
-            $("#balance").val()
-          );
-          const valorAposta = _this.Parametros.ValorAposta();
-          const valorMultiplicador = _this.Parametros.ValorMultiplicador();
-
-          if (_this.Dados.rodadas == 0) {
-            _this.Dados.saldoInicial =
-              _this.Dados.saldoInicial < valorSaldoAtual
-                ? valorSaldoAtual
-                : _this.Dados.saldoInicial;
-          }
-
-          let alvo =
-            _this.Dados.saldoInicial + valorAposta * valorMultiplicador;
-          let apostaNecessaria = (alvo - valorSaldoAtual) / valorMultiplicador;
-
-          apostaNecessaria =
-            Math.round(apostaNecessaria * 100000000) / 100000000;
-
-          request.betAmount = apostaNecessaria.toFixed(8);
-
-          //console.log('rodada: ' + _this.Dados.rodadas, 'apostaNecessaria: ' + apostaNecessaria.toFixed(9), 'valorSaldoAtual: ' + valorSaldoAtual.toFixed(9), '_this.Dados.saldoInicial: ' + _this.Dados.saldoInicial.toFixed(9));
-
-          return true;
-        };
-
-        this.OnAjaxResponse = function (response, request) {
-          if (request.game !== "dice") {
-            return;
-          }
-          if (!response.result) {
-            return;
-          }
-          if (!_this.Ativo()) {
-            return;
-          }
-
-          _this.Dados.sequenciaPerdendo =
-            response.gameResult === "lose"
-              ? _this.Dados.sequenciaPerdendo + 1
-              : 0;
-          _this.Dados.sequenciaVencendo =
-            response.gameResult === "win"
-              ? _this.Dados.sequenciaVencendo + 1
-              : 0;
-
-          _this.Dados.rodadas =
-            response.gameResult === "win" ? 0 : _this.Dados.rodadas + 1;
-        };
-
-        this.Reiniciar = function () {
-          _this.Dados.saldoInicial = null;
-          _this.Dados.rodadas = 0;
-          _this.Dados.sequenciaPerdendo = 0;
-          _this.Dados.sequenciaVencendo = 0;
-        };
-
-        this.Ativo = function (modo) {
-          const cssClass = "grey";
-
-          if (modo !== undefined) {
-            if (modo) {
-              _this.Instancia.Objetos.BtnBotEverGainDesativar.addClass(
-                cssClass
-              );
-              _this.Instancia.Objetos.BtnBotEverGainAtivar.removeClass(
-                cssClass
-              );
-              _this.Instancia.Objetos.DivBotEverGainEstado.addClass(
-                "ativado"
-              ).html("Ativado");
-            } else {
-              _this.Instancia.Objetos.BtnBotEverGainDesativar.removeClass(
-                cssClass
-              );
-              _this.Instancia.Objetos.BtnBotEverGainAtivar.addClass(cssClass);
-              _this.Instancia.Objetos.DivBotEverGainEstado.removeClass(
-                "ativado"
-              ).html("Desativado");
-            }
-            if (_this.Instancia.Objetos.JanelaModal.isOpen) {
-              _this.Instancia.Geral.Toast(
-                _this.Instancia.Geral.FormatarString(
-                  "O {0} foi {1}.",
-                  _this.Titulo,
-                  modo ? "ativado" : "desativado"
-                )
-              );
-            }
-          }
-
-          return _this.Instancia.Objetos.DivBotEverGainEstado.hasClass(
-            "ativado"
-          );
-        };
-
-        this.Dados = {
-          rodadas: 0,
-          sequenciaPerdendo: 0,
-          sequenciaVencendo: 0,
-        };
-
-        this.Parametros = {
-          Validar: function (exibirAlerta) {
-            const result =
-              _this.Parametros.ValorSaldo() > 0 ||
-              _this.Parametros.ValorAposta() > 0 ||
-              _this.Parametros.ValorMultiplicador() > 0;
-
-            if (!result && exibirAlerta) {
-              if (_this.Instancia.Objetos.JanelaModal.isOpen) {
-                _this.Instancia.Geral.Toast(
-                  "error",
-                  _this.Instancia.Geral.FormatarString(
-                    "O {0} tem um ou mais par&acirc;metros inv&aacute;lidos.",
-                    _this.Titulo
-                  )
-                );
-              }
-            }
-            return result;
-          },
-
-          ValorSaldo: function () {
-            return _this.Instancia.Geral.Numerico(
-              _this.Container.find(".saldo input").val()
-            );
-          },
-
-          ValorAposta: function () {
-            return _this.Instancia.Geral.Numerico(
-              _this.Container.find(".aposta input").val()
-            );
-          },
-
-          ValorMultiplicador: function () {
-            return _this.Instancia.Geral.Numerico(
-              _this.Container.find(".multiplicador input").val()
-            );
-          },
-        };
-      })(this.Instancia),
-
-      new (function (instancia) {
-        this.Instancia = instancia;
-        const _this = this;
-
-        this.Titulo = "BOT PlusChance";
-
-        this.Container;
-
-        this.Css = `
-                    :host table td {
-                        font-size: 13px;
-                        vertical-align: middle;
-                        text-align: right;
-                        padding: 1px 5px;
-                    }
-                    :host table td:first-child {
-                        position: relative;
-                        top: -2px;
-                    }
-                    :host table td:last-child {
-                        text-align: left;
-                        padding-left: 2px;
+                    :host table td:last-child:not([colspan]) {
                         width: 20%;
                     }
-                    :host table td input[type="text"] {
-                        text-align: center;
-                        width: 100%;
-                    }
-                    :host span.info {
-                        display: block;
-                        margin: 0 0 10px 0;
-                        font-size: 12px;
-                        text-align: justify;
-                    }
-                    :host .divisor {
-                        border-bottom: 2px solid gainsboro;
-                        font-size: 0;
-                        margin: 5px 0;
-                    }
-                    :host .btn {
-                        float: none;
-                    }
-                    :host .estado {
-                        display: inline-block;
-                        padding: 0 15px;
-                        font-size: 18px;
-                        position: relative;
-                        top: 1px;
-                        font-weight: bold;
-                        color: darkgrey;
-                    }
-                    :host .estado.ativado {
-                        color: darkcyan;
-                    }
-                    :host .indicadores {
-                        margin: 10px 0;
-                        display: none;
-                    }
-                    :host .indicador {
-                        background-color: #CB9BA0;
-                        display: inline-block;
-                        width: 10px;
-                        height: 10px;
-                        margin: 2px;
-                        border: 2px solid #CB9BA0;
-                    }
-                    :host .indicador.atual {
-                        background-color: #AB2E40;
-                        border-color: #AB2E40;
-                    }
-                    :host .indicador.atual.aposta {
-                        border-radius: 8px;
-                    }
-                    :host .indicadores span.info {
-                        display: block;
-                        margin: 0 0 5px 0;
-                    }
-                    :host .frequentes .grafico .seq {
-                        text-align: left;
-                    }
-                    :host .frequentes .grafico .key,
-                    :host .frequentes .grafico .value,
-                    :host .frequentes .grafico .value-percent,
-                    :host .frequentes .grafico .percentual .barra {
-                        display: inline-block;
-                        margin: 1px;
-                        padding: 2px 5px;
-                        text-align: right;
-                    }
-                    :host .frequentes .grafico .percentual .barra {
-                        text-align: left;
-                    }
-                    :host .frequentes .grafico .percentual .barra .momento {
-                        white-space: nowrap;
-                        color: black;
-                        text-shadow: 0 0 5px white, 0 0 5px white, 0 0 5px white;
-                    }
-                    :host .frequentes .grafico {
-                        height: 150px;
-                        overflow: auto;
-                    }
-                    :host .frequentes .grafico .percentual {
-                        width: 190px;
-                        display: inline-block;
-                    }
-                    :host .frequentes .grafico .key {
-                        width: 30px;
-                        background-color: gainsboro;
-                    }
-                    :host .frequentes .grafico .value { 
-                        width: 40px;
-                    }
-                    :host .frequentes .grafico .value-percent {
-                        width: 50px;
-                    }
-                    :host .frequentes .grafico .percentual .barra {
-                        background-color: darkgray;
-                        min-width: 2px;
-                    }
-                    :host .frequentes .grafico .percentual .barra[ocorrido] {
-                        background-color: #333;
-                    }
-                    :host .ultimaVencida {
-                        max-height: 112px;
-                        overflow: auto;
-                        display: block;
-                        padding: 0 5px 0 0;
-                        border: 1px solid #f0f0f0;
-                    }
-                    :host .ultimaVencida span {
-                        display: block;
-                        margin: 4px;
-                    }
-                    :host .ultimaVencida span:not(.vazio) {
-                        color: forestgreen;
-                    }
-                    :host .ultimaVencida span:not(.vazio):before {
-                        content: "●";
-                        position: relative;
-                        top: -1px;
-                    }
                 `;
 
         this.Html = this.Instancia.Geral.FormatarString(`
                         <span class="info">
-                            Este BOT garante que sua aposta s&oacute; ser&aacute; submetida depois que
-                            uma sequ&ecirc;ncia de perdas seja atingida. Por exemplo, se o
-                            valor de Prediction for 81, em geral sua aposta vence
-                            com muito mais chance depois de perder consecutivamente 16 vezes.
-                            Enquanto a sequ&ecirc;ncia perdendo n&atilde;o &eacute; atingida o valor da aposta
-                            que &eacute; enviado &eacute; de 0.00000001 independente do valor que voc&ecirc; definiu.
+                            A geração de um número aleatório depende de um valor inicial
+                            chamado Seed. Trocar o Seed contribui para tornar o processo
+                            mais aleatório.
                             <hr />
-                            Depois de ativar este BOT basta iniciar normalmente as
-                            apostas autom&aacute;ticas pelo pr&oacute;prio site.
+                            Saiba mais sobre como o Luckygames trabalha com isso em:
+                            <a target="_blank" href="https://luckygames.io/page/fair/">https://luckygames.io/page/fair/</a>
                         </span>
                         <table>
-                            <tr>
-                                <td>Esperar quantas rodadas antes de come&ccedil;ar a apostar</td>
-                                <td class="espera"><input type="text" value="50" /></td>
+                            <tr class="seed">
+                                <td colspan="2">
+                                    <h1>Client Seed</h1>
+                                    <input type="text" readonly />
+                                    <button class="trocar btn grey">Trocar Seed</button>
+                                    <button class="trocarCustomizado btn grey">Trocar Seed Customizado</button>
+                                    <span class="info">
+                                        <br />
+                                        A troca do seed no modo comum solicita ao servidor um novo Seed.
+                                        Usando o modo Customizado o Seed &eacute; gerado localmente sem recorrer ao servidor.
+                                        Isso contribui mais para que n&atilde;o haja manipula&ccedil;&atilde;o de resultados.
+                                    </span>
+                                </td>
                             </tr>
                             <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
-                            <tr>
-                                <td>Apostar depois de quantas sequ&ecirc;ncias perdendo</td>
-                                <td class="sequencias"><input type="text" value="16" /></td>
+                            <tr class="tempo">
+                                <td>Trocar o Seed depois de quantos segundos</td>
+                                <td><input type="text" data-tipo="number" data-min="1" data-digitos="0" value="60" /></td>
                             </tr>
                             <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
-                            <tr>
-                                <td>Apostar por quantas vezes consecutivas</td>
-                                <td class="tentativas"><input type="text" value="4" /></td>
+                            <tr class="apostas">
+                                <td>Trocar o Seed depois de quantas apostas</td>
+                                <td><input type="text" data-tipo="number" data-min="1" data-digitos="0" /></td>
+                            </tr>
+                            <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
+                            <tr class="apostasPerdidas">
+                                <td>Trocar o Seed depois de quantas apostas perdidas</td>
+                                <td><input type="text" data-tipo="number" data-min="1" data-digitos="0" /></td>
+                            </tr>
+                            <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
+                            <tr class="apostasVencidas">
+                                <td>Trocar o Seed depois de quantas apostas vencidas</td>
+                                <td><input type="text" data-tipo="number" data-min="1" data-digitos="0" /></td>
                             </tr>
                         </table>
-                        <div class="indicadores"><span class="info">&Uacute;ltima vez que venceu: <span class="ultimaVencida"></span><br />Sequ&ecirc;ncias perdendo: <span class="contagem">0</span>/<span class="total">0</span></span><div class="indicador atual"></div><div class="indicador atual"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div><div class="indicador"></div></div>
-                        <div class="frequentes">
-                            <h2>Sequ&ecirc;ncias mais frequentes</h2>
-                            <div class="grafico"></div>
-                            <span class="info">
-                                No primeiro gr&aacute;fico, cada ponto quadrado indica uma aposta perdida.
-                                Se a cor for mais forte indica que acabou de acontecer e foi inclu&iacute;da
-                                na sequ&ecirc;ncia perdendo.
-                                Se o ponto for um c&iacute;rculo indica que sua aposta foi enviada nesse momento,
-                                mas perdeu.
-                                <h1 />
-                                No segundo gr&aacute;fico acima cada linha representa uma sequ&ecirc;ncia perdendo.
-                                Ao lado &eacute; informado quantas vezes ela aconteceu, numericamente e
-                                percentualente. Tamb&eacute;m mostra a &uacute;ltima vez que ela ocorreu.
-                            </span>
-                        </div>
-                        <button class="desativar btn">Desativar</button>
-                        <button class="ativar btn">Ativar</button>
-                        <div class="estado"></div>
                     `);
 
         this.Js = function () {
-          _this.Instancia.Objetos.DivBotPlusChanceUltimaVencida =
-            this.Container.find(".ultimaVencida");
-
-          _this.Instancia.Objetos.DivBotPlusChanceIndicadores =
-            this.Container.find(".indicadores");
-
-          _this.Instancia.Objetos.DivBotPlusChanceFrequentes =
-            this.Container.find(".frequentes");
-          _this.Instancia.Objetos.DivBotPlusChanceFrequentesGrafico =
-            this.Container.find(".frequentes .grafico");
-
-          _this.Instancia.Objetos.DivBotPlusChanceEstado =
-            this.Container.find(".estado");
-
-          _this.Instancia.Objetos.BtnBotPlusChanceAtivar =
-            this.Container.find(".ativar");
-          _this.Instancia.Objetos.BtnBotPlusChanceAtivar.click(function () {
-            if (_this.Ativo()) {
-              return;
-            }
-
-            if (!_this.Parametros.Validar(true)) {
-              return;
-            }
-
-            _this.Ativo(true);
-          });
-
-          _this.Instancia.Objetos.BtnBotPlusChanceDesativar =
-            this.Container.find(".desativar");
-          _this.Instancia.Objetos.BtnBotPlusChanceDesativar.click(function () {
-            if (!_this.Ativo()) {
-              return;
-            }
-
-            _this.Ativo(false);
-          });
-
-          _this.Ativo(false);
-
-          const inputsText = this.Container.find('input[type="text"]');
-          inputsText.change(function () {
-            if (_this.Ativo() && !_this.Parametros.Validar(true)) {
-              _this.Ativo(false);
-            }
-          });
-          inputsText.blur(function () {
-            const inputText = $(this);
-            const valor = _this.Instancia.Geral.NumericoTexto(
-              inputText.val(),
-              0
-            );
-            inputText.val(valor);
-          });
-          inputsText.blur();
-        };
-
-        this.OnAjaxRequest = function (request) {
-          if (request.game !== "dice") {
-            return;
-          }
-          if (!_this.Ativo()) {
-            return;
-          }
-
-          const valorMinimo = "0.00000001";
-
-          if (
-            _this.Dados.rodadas < _this.Parametros.ValorEspera() ||
-            _this.Dados.sequenciaPerdendo < _this.Parametros.ValorSequencias()
-          ) {
-            request.betAmount = valorMinimo;
-
-            if (
-              !_this.Dados.rodadasRealizadas &&
-              _this.Dados.rodadas == _this.Parametros.ValorEspera()
-            ) {
-              _this.Dados.rodadasRealizadas = true;
-              _this.Dados.sequenciaVencendo = 0;
-              _this.Dados.sequenciaPerdendo = 0;
-              _this.Dados.tentativas = 0;
-            }
-          } else {
-            if (_this.Dados.tentativas >= _this.Parametros.ValorTentativas()) {
-              request.betAmount = valorMinimo;
-            }
-            _this.Dados.tentativas++;
-          }
-
-          _this.Dados.rodadas++;
-
-          return true;
-        };
-
-        this.OnAjaxResponse = function (response, request) {
-          if (request.game !== "dice") {
-            return;
-          }
-          if (!response.result) {
-            return;
-          }
-          if (!_this.Ativo()) {
-            return;
-          }
-
-          if (
-            _this.Dados.sequenciaPerdendo > 0 &&
-            response.gameResult === "win"
-          ) {
-            _this.Sequencias.Registrar(_this.Dados.sequenciaPerdendo);
-          }
-
-          if (
-            response.gameResult === "win" &&
-            parseFloat(request.betAmount) > 0.00000001
-          ) {
-            _this.Venceu(
-              _this.Dados.sequenciaPerdendo,
-              _this.Dados.tentativas - 1,
-              _this.Instancia.Geral.Numerico(request.betAmount),
-              _this.Instancia.Geral.Numerico(response.profit)
-            );
-          }
-
-          _this.Dados.sequenciaVencendo =
-            response.gameResult === "win"
-              ? _this.Dados.sequenciaVencendo + 1
-              : 0;
-          _this.Dados.sequenciaPerdendo =
-            response.gameResult === "lose"
-              ? _this.Dados.sequenciaPerdendo + 1
-              : 0;
-          _this.Dados.maiorSequenciaVencendo =
-            _this.Dados.sequenciaVencendo > _this.Dados.maiorSequenciaVencendo
-              ? _this.Dados.sequenciaVencendo
-              : _this.Dados.maiorSequenciaVencendo;
-          _this.Dados.maiorSequenciaPerdendo =
-            _this.Dados.sequenciaPerdendo > _this.Dados.maiorSequenciaPerdendo
-              ? _this.Dados.sequenciaPerdendo
-              : _this.Dados.maiorSequenciaPerdendo;
-          _this.Dados.tentativas =
-            response.gameResult === "win" ? 0 : _this.Dados.tentativas;
-
-          _this.IndicarPerda(
-            _this.Dados.sequenciaPerdendo > 0,
-            parseFloat(request.betAmount) > 0.00000001
+          _this.Instancia.Objetos.SecaoSeedRandomizeInput =
+            this.Container.find(".seed input");
+          _this.Instancia.Objetos.SecaoSeedRandomizeInput.val(
+            _this.Instancia.LuckygamesIo.ClientSeed()
           );
-        };
 
-        this.Venceu = function (sequencia, tentativas, aposta, lucro) {
-          if (sequencia === false) {
-            _this.Instancia.Objetos.DivBotPlusChanceUltimaVencida.html(
-              '<span class="vazio">Nenhuma vez ainda.</span>'
-            );
-          } else {
-            const apostaFinal = aposta + (aposta + tentativas);
-            const lucroFinal = lucro - apostaFinal;
-            const html = _this.Instancia.Geral.FormatarString(
-              "<span>Depois de {0} sequ&ecirc;ncia(s) perdendo, {1} tentativa(s) sem sucesso, apostou {2} e {5} {3} &agrave;s {4}.</span> ",
-              sequencia,
-              tentativas,
-              _this.Instancia.Geral.NumericoTexto(apostaFinal),
-              _this.Instancia.Geral.NumericoTexto(lucroFinal),
-              _this.Instancia.Geral.FormatarData(new Date(), "d/M/y h:m:s"),
-              lucroFinal >= 0 ? "ganhou" : "perdeu"
-            );
-            _this.Instancia.Objetos.DivBotPlusChanceUltimaVencida.find(
-              ".vazio"
-            ).remove();
-            _this.Instancia.Objetos.DivBotPlusChanceUltimaVencida.prepend(html);
-          }
-        };
+          _this.Instancia.Objetos.SecaoSeedRandomizeInputTempo =
+            this.Container.find(".tempo input");
+          _this.Instancia.Objetos.SecaoSeedRandomizeInputApostas =
+            this.Container.find(".apostas input");
+          _this.Instancia.Objetos.SecaoSeedRandomizeInputApostasPerdidas =
+            this.Container.find(".apostasPerdidas input");
+          _this.Instancia.Objetos.SecaoSeedRandomizeInputApostasVencidas =
+            this.Container.find(".apostasVencidas input");
 
-        this.Sequencias = {
-          Reiniciar: function () {
-            _this.Venceu(false);
-            _this.Instancia.Objetos.DivBotPlusChanceFrequentesGrafico.html(
-              "Nenhuma sequ&ecirc;ncia definida ainda."
-            );
-            _this.Sequencias.Contagem = 0;
-            _this.Dados.rodadasRealizadas = false;
-          },
-
-          Registrar: function (sequencia) {
-            if (
-              !_this.Instancia.Objetos.DivBotPlusChanceFrequentesGrafico.find(
-                "div"
-              ).length
-            ) {
-              _this.Instancia.Objetos.DivBotPlusChanceFrequentesGrafico.html(
-                ""
-              );
-            }
-            let divSequencia =
-              _this.Instancia.Objetos.DivBotPlusChanceFrequentesGrafico.find(
-                "div.seq" + sequencia
-              );
-            if (!divSequencia.length) {
-              let htmlSequencias = "";
-              let i = 0;
-              while (
-                _this.Instancia.Objetos.DivBotPlusChanceFrequentesGrafico.find(
-                  "div.seq" + (i + 1)
-                ).length
-              ) {
-                i++;
-              }
-              for (i = i; i < sequencia; i++) {
-                htmlSequencias +=
-                  '<div class="seq seq' +
-                  (i + 1) +
-                  '"><span class="key">' +
-                  (i + 1) +
-                  '</span> <span class="value">0</span> <span class="value-percent">0%</span> <span class="percentual"><span class="barra">&nbsp;<span class="momento"></span></span></span></div>';
-              }
-              _this.Instancia.Objetos.DivBotPlusChanceFrequentesGrafico.append(
-                htmlSequencias
-              );
-              divSequencia =
-                _this.Instancia.Objetos.DivBotPlusChanceFrequentesGrafico.find(
-                  "div.seq" + sequencia
+          _this.Instancia.Objetos.SecaoSeedRandomizeInterval = null;
+          _this.Instancia.Objetos.SecaoSeedRandomizeInputTempo.change(
+            function () {
+              const __this = this;
+              setTimeout(function () {
+                const tempo = $(__this).get(0).number();
+                clearInterval(
+                  _this.Instancia.Objetos.SecaoSeedRandomizeInterval
                 );
-            }
-            const contagemSequencia =
-              parseInt(divSequencia.find(".value").html()) + 1;
-            divSequencia.find(".value").html(contagemSequencia);
-            divSequencia
-              .find(".momento")
-              .html(
-                _this.Instancia.Geral.FormatarData(new Date(), "d/M/y h:m:s")
-              );
-            _this.Sequencias.Contagem++;
-
-            const listaValores =
-              _this.Instancia.Objetos.DivBotPlusChanceFrequentesGrafico.find(
-                ".value"
-              );
-            for (var i = 0; i < listaValores.length; i++) {
-              const valorAtual = parseInt(listaValores[i].innerText);
-              const percentual = (valorAtual / _this.Sequencias.Contagem) * 100;
-              const percentualTexto = percentual.toFixed(2) + "%";
-
-              const spanContainer = $(listaValores[i]).parent();
-              const spanPercentualValue = spanContainer.find(".value-percent");
-              const spanPercentualGrafico =
-                spanContainer.find(".percentual .barra");
-              spanPercentualValue.html(percentualTexto);
-              spanPercentualGrafico.css("width", percentualTexto);
-              if (percentual) {
-                spanPercentualGrafico.attr("ocorrido", true);
-              }
-            }
-          },
-
-          Contagem: 0,
-        };
-
-        this.IndicarPerda = function (incrementarPerda, aposta) {
-          if (incrementarPerda === null) {
-            _this.Sequencias.Reiniciar();
-            _this.Instancia.Objetos.DivBotPlusChanceFrequentes.hide();
-            _this.Instancia.Objetos.DivBotPlusChanceIndicadores.hide();
-            _this.Instancia.Objetos.DivBotPlusChanceIndicadores.find(
-              ".info span.contagem, .info span.total"
-            ).html("0");
-            _this.Instancia.Objetos.DivBotPlusChanceIndicadores.find(
-              ".indicador"
-            ).remove();
-            _this.Dados.tentativas = 0;
-            _this.Dados.rodadas = 0;
-            _this.Dados.sequenciaVencendo = 0;
-            _this.Dados.sequenciaPerdendo = 0;
-            _this.Dados.maiorSequenciaVencendo = 0;
-            _this.Dados.maiorSequenciaPerdendo = 0;
-          } else {
-            _this.Instancia.Objetos.DivBotPlusChanceFrequentes.show();
-            _this.Instancia.Objetos.DivBotPlusChanceIndicadores.show();
-            _this.Instancia.Objetos.DivBotPlusChanceIndicadores.find(
-              ".info span.total"
-            ).html(_this.Dados.maiorSequenciaPerdendo);
-            if (!incrementarPerda) {
-              _this.Instancia.Objetos.DivBotPlusChanceIndicadores.find(
-                ".indicador.atual"
-              )
-                .removeClass("aposta")
-                .removeClass("atual");
-              _this.Instancia.Objetos.DivBotPlusChanceIndicadores.find(
-                ".info span.contagem"
-              ).html(0);
-            } else {
-              _this.Instancia.Objetos.DivBotPlusChanceIndicadores.find(
-                ".info span.contagem"
-              ).html(
-                parseInt(
-                  _this.Instancia.Objetos.DivBotPlusChanceIndicadores.find(
-                    ".info span.contagem"
-                  ).html()
-                ) + 1
-              );
-              const listaIndicador =
-                _this.Instancia.Objetos.DivBotPlusChanceIndicadores.find(
-                  ".indicador"
-                );
-              for (let i = 0; i < listaIndicador.length; i++) {
-                const jIndicador = $(listaIndicador[i]);
-                if (!jIndicador.hasClass("atual")) {
-                  jIndicador.addClass("atual " + (aposta ? "aposta" : ""));
-                  return;
+                if (tempo !== null) {
+                  _this.Instancia.Objetos.SecaoSeedRandomizeInterval =
+                    setInterval(function () {
+                      if (
+                        _this.Container.find(".botoes .btn.desativar").hasClass(
+                          "ativo"
+                        )
+                      ) {
+                        return;
+                      }
+                      const customizado =
+                        _this.Container.find(".botoes .btn.ativo").hasClass(
+                          "trocarCustomizado"
+                        );
+                      _this.Instancia.Objetos.SecaoSeedRandomizeInput.val(
+                        _this.Instancia.LuckygamesIo.ClientSeed(
+                          true,
+                          customizado
+                        )
+                      );
+                    }, tempo * 1000);
                 }
-              }
-              _this.Instancia.Objetos.DivBotPlusChanceIndicadores.append(
-                '<div class="indicador atual ' +
-                  (aposta ? "aposta" : "") +
-                  '"></div>'
-              );
+              }, 100);
             }
-          }
-        };
-
-        this.Ativo = function (modo) {
-          const cssClass = "grey";
-
-          if (modo !== undefined) {
-            if (modo) {
-              _this.Instancia.Objetos.BtnBotPlusChanceDesativar.addClass(
-                cssClass
-              );
-              _this.Instancia.Objetos.BtnBotPlusChanceAtivar.removeClass(
-                cssClass
-              );
-              _this.Instancia.Objetos.DivBotPlusChanceEstado.addClass(
-                "ativado"
-              ).html("Ativado");
-            } else {
-              _this.Instancia.Objetos.BtnBotPlusChanceDesativar.removeClass(
-                cssClass
-              );
-              _this.Instancia.Objetos.BtnBotPlusChanceAtivar.addClass(cssClass);
-              _this.Instancia.Objetos.DivBotPlusChanceEstado.removeClass(
-                "ativado"
-              ).html("Desativado");
-              _this.Instancia.LuckygamesIo.PararApostas();
-              _this.IndicarPerda(null);
-            }
-            if (_this.Instancia.Objetos.JanelaModal.isOpen) {
-              _this.Instancia.Geral.Toast(
-                _this.Instancia.Geral.FormatarString(
-                  "O {0} foi {1}.",
-                  _this.Titulo,
-                  modo ? "ativado" : "desativado"
-                )
-              );
-            }
-          }
-
-          return _this.Instancia.Objetos.DivBotPlusChanceEstado.hasClass(
-            "ativado"
           );
-        };
 
-        this.Dados = {
-          tentativas: 0,
-          rodadas: 0,
-          sequenciaPerdendo: 0,
-          sequenciaVencendo: 0,
-          maiorSequenciaVencendo: 0,
-          maiorSequenciaPerdendo: 0,
-          rodadasRealizadas: false,
-        };
+          this.Container.find(".seed .trocar, .seed .trocarCustomizado").click(
+            function () {
+              const customizado = $(this).hasClass("trocarCustomizado");
+              _this.Instancia.Objetos.SecaoSeedRandomizeInput.val(
+                _this.Instancia.LuckygamesIo.ClientSeed(true, customizado)
+              );
+            }
+          );
 
-        this.Parametros = {
-          Validar: function (exibirAlerta) {
-            const result =
-              _this.Parametros.ValorEspera() >= 0 &&
-              _this.Parametros.ValorSequencias() >= 0 &&
-              _this.Parametros.ValorTentativas() >= 0;
-
-            if (!result && exibirAlerta) {
-              if (_this.Instancia.Objetos.JanelaModal.isOpen) {
-                _this.Instancia.Geral.Toast(
-                  "error",
-                  _this.Instancia.Geral.FormatarString(
-                    "O {0} tem um ou mais par&acirc;metros inv&aacute;lidos.",
-                    _this.Titulo
-                  )
-                );
+          this.Container.find("input:not([readonly])").blur(function () {
+            if (!_this.Container.find(".btn.desativar").hasClass("ativo")) {
+              if (!_this.ValidarParametros(true)) {
+                _this.Container.find(".botoes .btn.desativar").click();
+                return;
               }
             }
-            return result;
-          },
-
-          ValorEspera: function () {
-            return _this.Instancia.Geral.Numerico(
-              _this.Container.find(".espera input").val(),
-              -1
-            );
-          },
-
-          ValorSequencias: function () {
-            return _this.Instancia.Geral.Numerico(
-              _this.Container.find(".sequencias input").val(),
-              -1
-            );
-          },
-
-          ValorTentativas: function () {
-            return _this.Instancia.Geral.Numerico(
-              _this.Container.find(".tentativas input").val(),
-              -1
-            );
-          },
-        };
-      })(this.Instancia),
-
-      new (function (instancia) {
-        this.Instancia = instancia;
-        const _this = this;
-
-        this.Titulo = "BOT StepUp";
-
-        this.Container;
-
-        this.Css = `
-                    :host table td {
-                        font-size: 13px;
-                        vertical-align: middle;
-                        text-align: right;
-                        padding: 1px 5px;
-                    }
-                    :host table td:first-child {
-                        position: relative;
-                        top: -2px;
-                    }
-                    :host table td:last-child {
-                        text-align: left;
-                        padding-left: 2px;
-                        width: 50%;
-                        white-space: nowrap;
-                    }
-                    :host table td input[type="text"] {
-                        text-align: center;
-                        width: 100%;
-                    }
-                    :host span.info {
-                        display: block;
-                        margin: 0 0 10px 0;
-                        font-size: 12px;
-                        text-align: justify;
-                    }
-                    :host .divisor {
-                        border-bottom: 2px solid gainsboro;
-                        font-size: 0;
-                        margin: 5px 0;
-                    }
-                    :host .estado {
-                        display: inline-block;
-                        padding: 0 15px;
-                        font-size: 18px;
-                        position: relative;
-                        top: 1px;
-                        font-weight: bold;
-                        color: darkgrey;
-                    }
-                    :host .estado.ativado {
-                        color: darkcyan;
-                    }
-                `;
-
-        this.Html = this.Instancia.Geral.FormatarString(`
-                        <span class="info">
-                            Este BOT usa um m&eacute;todo de apostas que sempre ganha,
-                            desde que voc&ecirc; tenha recursos para apostar. Ou seja,
-                            Use valores baixos porque do contr&aacute;rio vai zerar seu saldo.
-                        </span>
-                        <table>
-                            <tr class="prediction">
-                                <td>Valor do Prediction, entre 0 e 98</td>
-                                <td><input type="text" value="81" data-digitos="0" /></td>
-                            </tr>
-                            <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
-                            <tr class="aposta">
-                                <td>Fazer da aposta inicial quantos porcento do saldo atual. Deixe em branco para usar o menor valor de 0,00000001</td>
-                                <td><input type="text" value="0,00200000" />%</td>
-                            </tr>
-                            <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
-                            <tr class="alvo">
-                                <td>Percentual de ganho em rela&ccedil;&atilde;o ao saldo atual para cada rodada</td>
-                                <td><input type="text" value="0,001" />%</td>
-                            </tr>
-                            <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
-                            <tr class="incrementoAoPerder">
-                                <td>Aumenta a aposta em quantos porcento após <u>perder</u>. Entre 0% e 9999%</td>
-                                <td><input type="text" value="0" data-digitos="0" />%</td>
-                            </tr>
-                            <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
-                            <tr class="incrementoAoVencer">
-                                <td>Aumenta a aposta em quantos porcento após <u>vencer</u>. Entre 0% e 9999%</td>
-                                <td><input type="text" value="100" data-digitos="0" />%</td>
-                            </tr>
-                            <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
-                            <tr class="perda">
-                                <td>Percentual de perda em relação ao saldo atual</td>
-                                <td><input type="text" value="20" data-digitos="1" />%</td>
-                            </tr>
-                            <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
-                        </table>
-                        <span class="info">
-                            Clica em Come&ccedil;ar vai iniciar as apostas imediatamente.
-                        </span>
-                        <button class="desativar btn">Parar</button>
-                        <button class="ativar btn">Come&ccedil;ar</button>
-                        <div class="estado"></div>
-                    `);
-
-        this.Js = function () {
-          _this.Instancia.Objetos.BtnStepUpEstado =
-            _this.Container.find(".estado");
-
-          _this.Instancia.Objetos.BtnStepUpAtivar =
-            _this.Container.find(".ativar");
-          _this.Instancia.Objetos.BtnStepUpAtivar.click(function () {
-            if (_this.Ativo()) {
-              return;
-            }
-
-            if (!_this.Parametros.Validar(true)) {
-              return;
-            }
-
-            _this.Ativo(true);
           });
-
-          _this.Instancia.Objetos.BtnStepUpDesativar =
-            _this.Container.find(".desativar");
-          _this.Instancia.Objetos.BtnStepUpDesativar.click(function () {
-            if (!_this.Ativo()) {
-              return;
-            }
-
-            _this.Ativo(false);
-          });
-
-          _this.Ativo(false);
-
-          const inputsText = this.Container.find('input[type="text"]');
-          inputsText.change(function () {
-            if (_this.Ativo() && !_this.Parametros.Validar(true)) {
-              _this.Ativo(false);
-            }
-          });
-          inputsText.blur(function () {
-            const inputText = $(this);
-
-            let digitosDecimais = parseInt(inputText.attr("data-digitos"));
-            digitosDecimais = isFinite(digitosDecimais)
-              ? digitosDecimais
-              : undefined;
-
-            const valor = _this.Instancia.Geral.NumericoTexto(
-              inputText.val(),
-              digitosDecimais
-            );
-            inputText.val(valor);
-          });
-          inputsText.blur();
-        };
-
-        this.Comecado = false;
-        this.EmExecucao = false;
-        this.Comecar = function (modo) {
-          _this.Comecado = !!modo;
-          if (!_this.Comecado) {
-            _this.Instancia.LuckygamesIo.PararApostas();
-            return;
-          }
-
-          const tempo = 1000;
-          const etapas = [
-            function AbrirJanelaDeApostaAutomatica(index) {
-              return new Promise(function (resolve, reject) {
-                if (!_this.Comecado) {
-                  resolve();
-                  return;
-                }
-
-                $(".betContainer .btn.popup-show").click();
-
-                if (index < etapas.length - 1) {
-                  setTimeout(function () {
-                    etapas[index + 1](index + 1).then(resolve);
-                  }, tempo);
-                } else {
-                  resolve();
-                }
-              });
-            },
-            function DefinirParametros(index) {
-              return new Promise(function (resolve, reject) {
-                if (!_this.Comecado) {
-                  resolve();
-                  return;
-                }
-
-                const prediction = _this.Parametros.ValorPrediction();
-                const saldoAtual = _this.Instancia.Geral.Numerico(
-                  $("#balance").val()
-                );
-                const alvoPercentual = _this.Parametros.ValorAlvo();
-                const alvoSaldo =
-                  saldoAtual + saldoAtual * (alvoPercentual / 100);
-                const incrementoAoPerder =
-                  _this.Parametros.ValorIncrementoAoPerder();
-                const incrementoAoVencer =
-                  _this.Parametros.ValorIncrementoAoVencer();
-                const perdaPercentual = _this.Parametros.ValorPerda();
-                const apostaPercentual = _this.Parametros.ValorAposta();
-
-                let aposta = saldoAtual * (apostaPercentual / 100);
-                aposta = aposta < 0.00000001 ? 0.00000001 : aposta;
-
-                const perda = saldoAtual - saldoAtual * (perdaPercentual / 100);
-
-                $("#prediction").val(prediction);
-                $("#betAmount").val(aposta);
-
-                $('select[name="on-loss-term"]').val(2);
-                $('input[name="on-loss-bets"]').val("1");
-                $(".radioBox.left.clearfix > ul li:nth-child(2) ins").click();
-                $('input[name="on-loss-inc"]').val(
-                  incrementoAoPerder.toFixed(0)
-                );
-                $('select[name="on-win-term"]').val(2);
-                $('input[name="on-win-bets"]').val("1");
-                $(".radioBox.right.clearfix > ul li:nth-child(2) ins").click();
-                $('input[name="on-win-inc"]').val(
-                  incrementoAoVencer.toFixed(0)
-                );
-                $('input[name="acceleration"]').val("3");
-                $('input[name="bets-limit"]').val("");
-                $('input[name="balance-under-limit"]').val(perda.toFixed(8));
-                $('input[name="balance-over-limit"]').val(alvoSaldo.toFixed(8));
-                $('input[name="bet-over-limit"]').val("");
-
-                if (index < etapas.length - 1) {
-                  setTimeout(function () {
-                    etapas[index + 1](index + 1).then(resolve);
-                  }, tempo);
-                } else {
-                  resolve();
-                }
-              });
-            },
-            function Rodar(index) {
-              return new Promise(function (resolve, reject) {
-                if (!_this.Comecado) {
-                  resolve();
-                  return;
-                }
-
-                $('button[onclick*="startAutoplay"]').click();
-
-                const checkFinal = function () {
-                  if (Game.autoPlayFlag) {
-                    setTimeout(checkFinal, 500);
-                    return;
-                  }
-
-                  if (index < etapas.length - 1) {
-                    setTimeout(function () {
-                      etapas[index + 1](index + 1).then(resolve);
-                    }, tempo);
-                  } else {
-                    resolve();
-                  }
-                };
-                checkFinal();
-              });
-            },
-          ];
-
-          if (!_this.EmExecucao) {
-            _this.EmExecucao = true;
-            etapas[0](0).then(function () {
-              _this.EmExecucao = false;
-              if (_this.Comecado) {
-                _this.Comecar(true);
-              }
-            });
-          }
         };
 
         this.OnAjaxRequest = null;
 
-        this.OnAjaxResponse = null;
+        this.OnAjaxResponse = function (response, request) {
+          _this.Instancia.Objetos.SecaoSeedRandomizeInput.val(
+            _this.Instancia.LuckygamesIo.ClientSeed()
+          );
 
-        this.Ativo = function (modo) {
-          const cssClass = "grey";
-
-          if (modo !== undefined) {
-            if (modo) {
-              _this.Instancia.Objetos.BtnStepUpDesativar.addClass(cssClass);
-              _this.Instancia.Objetos.BtnStepUpAtivar.removeClass(cssClass);
-              _this.Instancia.Objetos.BtnStepUpEstado.addClass("ativado").html(
-                "Ativado"
-              );
-              _this.Comecar(true);
-            } else {
-              _this.Instancia.Objetos.BtnStepUpDesativar.removeClass(cssClass);
-              _this.Instancia.Objetos.BtnStepUpAtivar.addClass(cssClass);
-              _this.Instancia.Objetos.BtnStepUpEstado.removeClass(
-                "ativado"
-              ).html("Desativado");
-              _this.Comecar(false);
-            }
-            if (_this.Instancia.Objetos.JanelaModal.isOpen) {
-              _this.Instancia.Geral.Toast(
-                _this.Instancia.Geral.FormatarString(
-                  "O {0} foi {1}.",
-                  _this.Titulo,
-                  modo ? "ativado" : "desativado"
-                )
-              );
-            }
+          if (request.game !== "dice") {
+            return;
+          }
+          if (response === null || !response.result) {
+            return;
+          }
+          if (
+            _this.Container.find(".botoes .btn.desativar").hasClass("ativo")
+          ) {
+            return;
           }
 
-          return _this.Instancia.Objetos.BtnStepUpEstado.hasClass("ativado");
+          _this.Dados.apostas++;
+          _this.Dados.apostasPerdidas =
+            response.gameResult === "lose"
+              ? _this.Dados.apostasPerdidas + 1
+              : 0;
+          _this.Dados.apostasVencidas =
+            response.gameResult === "win" ? _this.Dados.apostasVencidas + 1 : 0;
+
+          const apostas =
+            _this.Instancia.Objetos.SecaoSeedRandomizeInputApostas.get(
+              0
+            ).number();
+          const apostasPerdidas =
+            _this.Instancia.Objetos.SecaoSeedRandomizeInputApostasPerdidas.get(
+              0
+            ).number();
+          const apostasVencidas =
+            _this.Instancia.Objetos.SecaoSeedRandomizeInputApostasVencidas.get(
+              0
+            ).number();
+
+          let trocar = false;
+
+          if (apostas !== null && _this.Dados.apostas >= apostas) {
+            _this.Dados.apostas = 0;
+            trocar = true;
+          }
+          if (
+            apostasPerdidas !== null &&
+            _this.Dados.apostasPerdidas >= apostasPerdidas
+          ) {
+            _this.Dados.apostasPerdidas = 0;
+            trocar = true;
+          }
+          if (
+            apostasVencidas !== null &&
+            _this.Dados.apostasVencidas >= apostasVencidas
+          ) {
+            _this.Dados.apostasVencidas = 0;
+            trocar = true;
+          }
+
+          if (trocar) {
+            const customizado =
+              _this.Container.find(".botoes .btn.ativo").hasClass(
+                "trocarCustomizado"
+              );
+            _this.Instancia.Objetos.SecaoSeedRandomizeInput.val(
+              _this.Instancia.LuckygamesIo.ClientSeed(true, customizado)
+            );
+          }
         };
 
-        this.Parametros = {
-          Validar: function (exibirAlerta) {
-            const prediction = _this.Parametros.ValorPrediction();
-            const incrementoAoPerder =
-              _this.Parametros.ValorIncrementoAoPerder();
-            const incrementoAoVencer =
-              _this.Parametros.ValorIncrementoAoVencer();
+        this.Dados = {
+          apostas: 0,
+          apostasPerdidas: 0,
+          apostasVencidas: 0,
+        };
 
-            const result =
-              prediction >= 0 &&
-              prediction <= 98 &&
-              _this.Parametros.ValorAlvo() > 0 &&
-              _this.Parametros.ValorAposta() >= 0 &&
-              _this.Parametros.ValorPerda() >= 0 &&
-              incrementoAoPerder >= 0 &&
-              incrementoAoPerder <= 9999 &&
-              incrementoAoVencer >= 0 &&
-              incrementoAoVencer <= 9999;
+        this.validarParametrosEmExibicao = false;
+        this.ValidarParametros = function (exibirAlerta) {
+          const tempo =
+            _this.Instancia.Objetos.SecaoSeedRandomizeInputTempo.get(
+              0
+            ).number();
+          const apostas =
+            _this.Instancia.Objetos.SecaoSeedRandomizeInputApostas.get(
+              0
+            ).number();
+          const apostasPerdidas =
+            _this.Instancia.Objetos.SecaoSeedRandomizeInputApostasPerdidas.get(
+              0
+            ).number();
+          const apostasVencidas =
+            _this.Instancia.Objetos.SecaoSeedRandomizeInputApostasVencidas.get(
+              0
+            ).number();
 
-            if (!result && exibirAlerta) {
-              if (_this.Instancia.Objetos.JanelaModal.isOpen) {
-                _this.Instancia.Geral.Toast(
-                  "error",
-                  _this.Instancia.Geral.FormatarString(
-                    "O {0} tem um ou mais par&acirc;metros inv&aacute;lidos.",
-                    _this.Titulo
-                  )
+          const result =
+            tempo !== null ||
+            apostas !== null ||
+            apostasPerdidas !== null ||
+            apostasVencidas !== null;
+
+          if (!result && exibirAlerta && !_this.validarParametrosEmExibicao) {
+            _this.validarParametrosEmExibicao = true;
+            _this.Instancia.Geral.Toast(
+              "error",
+              _this.Instancia.Geral.FormatarString(
+                "O {0} tem um ou mais par&acirc;metros inv&aacute;lidos.",
+                _this.Titulo
+              )
+            );
+            setTimeout(function () {
+              _this.validarParametrosEmExibicao = false;
+            }, 1000);
+          }
+          return result;
+        };
+      })(this.Instancia),
+
+      new (function (instancia) {
+        this.Instancia = instancia;
+        const _this = this;
+
+        this.Titulo = "BOT Martingale";
+
+        this.Container;
+
+        this.Botoes = [
+          { id: "desativar", nome: "Desativado" },
+          { id: "ativar", nome: "Ativado" },
+        ];
+
+        this.ultimaAposta = null;
+
+        this.BotoesFunction = function (id, data) {
+          switch (id) {
+            case "desativar":
+              break;
+            case "ativar":
+              _this.ultimaAposta = null;
+
+              let apostaAtual = null;
+
+              const interval = 10;
+
+              const fProximoPasso = function (resolve, index) {
+                index = index !== undefined ? index : 0;
+                setTimeout(function () {
+                  if (index < passos.length) {
+                    passos[index](index).then(resolve);
+                  } else {
+                    resolve();
+                  }
+                }, interval);
+              };
+
+              const passos = [
+                function DefinirParametros(index) {
+                  return new Promise(function (resolve, reject) {
+                    const dados = {
+                      predicao: 50,
+                      aposta: 0.00000001,
+                      aoPerderTipo: "Streak of",
+                      aoPerderVezes: 1,
+                      aoPerderModo: "Increase bet by",
+                      aoPerderIncrementar: 100,
+                      aoPerderDecrementar: "",
+                      aoPerderReverter: false,
+                      aoPerderParar: false,
+                      aoVencerTipo: "Streak of",
+                      aoVencerVezes: 1,
+                      aoVencerModo: "Return to base",
+                      aoVencerIncrementar: "",
+                      aoVencerDecrementar: "",
+                      aoVencerReverter: false,
+                      aoVencerParar: false,
+                      velocidade: 0,
+                      apostaTotal: "",
+                      saldoMinimo: "",
+                      saldoMaximo: "",
+                      apostaMaxima: "",
+                    };
+
+                    if (_this.ultimaAposta) {
+                      if (_this.ultimaAposta.response.gameResult === "lose") {
+                        if (
+                          _this.ultimaAposta.estatisticas.sequenciaPerdendo <=
+                          _this.Instancia.Objetos.SecaoBotMartingaleInputSequenciasPerdendo.get(
+                            0
+                          ).number()
+                        ) {
+                          apostaAtual *= 2;
+                        }
+                      } else if (
+                        _this.ultimaAposta.response.gameResult === "win" &&
+                        parseFloat(_this.ultimaAposta.request.betAmount) >
+                          dados.aposta
+                      ) {
+                        apostaAtual = null;
+                      }
+                    }
+
+                    if (apostaAtual === null) {
+                      apostaAtual =
+                        _this.Instancia.Objetos.SecaoBotMartingaleInputApostaInicial.get(
+                          0
+                        ).number();
+                    }
+
+                    if (
+                      !_this.ultimaAposta ||
+                      _this.ultimaAposta.estatisticas.sequenciaPerdendo <
+                        _this.Instancia.Objetos.SecaoBotMartingaleInputSequenciasPerdendo.get(
+                          0
+                        ).number()
+                    ) {
+                      dados.aposta = apostaAtual;
+                    }
+
+                    _this.Instancia.LuckygamesIo.Definir(dados);
+
+                    fProximoPasso(resolve, index + 1);
+                  });
+                },
+                function EnviarAposta(index) {
+                  return new Promise(function Executar(resolve, reject) {
+                    _this.ultimaAposta = null;
+                    _this.Instancia.LuckygamesIo.Apostar();
+
+                    const fAguardarAposta = function () {
+                      if (
+                        _this.ultimaAposta === null ||
+                        _this.Instancia.LuckygamesIo.ApostaEmExecucao()
+                      ) {
+                        setTimeout(fAguardarAposta, interval);
+                      } else {
+                        fProximoPasso(resolve, index + 1);
+                      }
+                    };
+                    fAguardarAposta();
+                  });
+                },
+              ];
+
+              _this.Instancia.LuckygamesIo.Animacao(false);
+              const fComecar = function () {
+                fProximoPasso(function () {
+                  const saldoInsuficiente =
+                    _this.Instancia.LuckygamesIo.ValorSaldo() <
+                    _this.Instancia.LuckygamesIo.ValorAposta();
+                  if (
+                    !saldoInsuficiente &&
+                    !_this.Container.find(".botoes .btn.desativar").hasClass(
+                      "ativo"
+                    )
+                  ) {
+                    setTimeout(fComecar, interval);
+                  } else {
+                    _this.Instancia.LuckygamesIo.Animacao(true);
+                    if (saldoInsuficiente) {
+                      _this.Instancia.Geral.Toast(
+                        "error",
+                        _this.Instancia.Geral.FormatarString(
+                          "Seu saldo é insuficiente para prosseguir. O {0} foi interrompido.",
+                          _this.Titulo
+                        )
+                      );
+                    }
+                  }
+                });
+              };
+              fComecar();
+
+              break;
+          }
+        };
+
+        this.Css = `
+                    :host input {
+                        text-align: center;
+                    }
+                    :host td:last-child {
+                        width: 55%;
+                    }
+                    :host td div span {
+                        color: red;
+                    }
+                `;
+
+        this.Html = this.Instancia.Geral.FormatarString(`
+                        <span class="info">
+                            A estrat&eacute;gia Martingale consiste em dobrar a aposta sempre que perder.
+                            Dessa forma, quando ganhar se recupera todas as perdas e ganha mais um pouco.
+                            Mas &eacute; conhecido que se a sequ&ecirc;ncia perdendo for muito grande voc&ecirc; vai a fal&ecirc;ncia.
+                            <hr />
+                            Este BOT apenas aplica a t&eacute;cnica Martingale quando a sequ&ecirc;ncia perdendo
+                            n&atilde;o for muito grande. Isso reduz a chance de zerar seu saldo.
+                        </span>
+                        <table>
+                            <tr class="apostaInicial">
+                                <td>Aposta inicial</td>
+                                <td>
+                                    <input type="text" data-tipo="number" data-min="0,00000002" data-padrao="0,00000002" />
+                                    <div>Com esta aposta inicial a sequ&ecirc;ncia perdendo m&aacute;xima antes de zerar o saldo &eacute; de: <span>708</span></div>
+                                </td>
+                            </tr>
+                            <tr><td colspan="4"><div class='divisor'>&nbsp;</div></td></tr>
+                            <tr class="sequenciasPerdendo">
+                                <td>Aceitar sequ&ecirc;ncia perdendo</td>
+                                <td>
+                                    <input type="text" data-tipo="number" data-min="1" data-digitos="0" data-padrao="3" />
+                                    <div>
+                                        Aceita apostas apenas at&eacute; certo limite de sequ&ecirc;ncias perdendo.
+                                        Depois desse limite passa a apostar o valor m&iacute;nimo (0,00000001) e
+                                        n&atilde;o aplica a estrat&eacute;gia Martingale.
+                                        Fica esperando vencer para voltar com a estrat&eacute;gia.
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    `);
+
+        this.Js = function () {
+          _this.Instancia.Objetos.SecaoBotMartingaleInputApostaInicial =
+            this.Container.find(".apostaInicial input");
+          _this.Instancia.Objetos.SecaoBotMartingaleInputSequenciasPerdendo =
+            this.Container.find(".sequenciasPerdendo input");
+          _this.Instancia.Objetos.SecaoBotMartingaleDivMaximoSequenciasPerdendo =
+            this.Container.find(".apostaInicial div span");
+
+          _this.Instancia.Objetos.SecaoBotMartingaleInputApostaInicial.blur(
+            function () {
+              const apostaInicial = $(this).get(0).number();
+              const saldoInicial = _this.Instancia.LuckygamesIo.ValorSaldo();
+
+              if (
+                apostaInicial !== null &&
+                apostaInicial > 0 &&
+                saldoInicial !== null &&
+                saldoInicial > 0
+              ) {
+                let sequencias = 0;
+                let saldo = saldoInicial;
+                let aposta = apostaInicial;
+                while (saldo > 0 && aposta < saldo) {
+                  saldo -= aposta;
+                  aposta *= 2;
+                  sequencias++;
+                }
+                _this.Instancia.Objetos.SecaoBotMartingaleDivMaximoSequenciasPerdendo.html(
+                  sequencias
+                );
+              } else {
+                _this.Instancia.Objetos.SecaoBotMartingaleDivMaximoSequenciasPerdendo.html(
+                  "&dash; &dash; &dash;"
                 );
               }
             }
-            return result;
-          },
+          );
+          _this.Instancia.Objetos.SecaoBotMartingaleInputApostaInicial.blur();
+        };
 
-          ValorPrediction: function () {
-            return _this.Instancia.Geral.Numerico(
-              _this.Container.find(".prediction input").val(),
-              -1
-            );
-          },
+        this.OnAjaxRequest = null;
 
-          ValorAlvo: function () {
-            return _this.Instancia.Geral.Numerico(
-              _this.Container.find(".alvo input").val(),
-              -1
-            );
-          },
+        this.OnAjaxResponse = function (response, request) {
+          if (request.game !== "dice") {
+            return;
+          }
 
-          ValorIncrementoAoPerder: function () {
-            return _this.Instancia.Geral.Numerico(
-              _this.Container.find(".incrementoAoPerder input").val(),
-              -1
-            );
-          },
-
-          ValorIncrementoAoVencer: function () {
-            return _this.Instancia.Geral.Numerico(
-              _this.Container.find(".incrementoAoVencer input").val(),
-              -1
-            );
-          },
-
-          ValorAposta: function () {
-            return _this.Instancia.Geral.Numerico(
-              _this.Container.find(".aposta input").val(),
-              0
-            );
-          },
-
-          ValorPerda: function () {
-            return _this.Instancia.Geral.Numerico(
-              _this.Container.find(".perda input").val(),
-              0
-            );
-          },
+          _this.ultimaAposta = {
+            response: response,
+            request: request,
+            estatisticas: _this.Instancia.Regras.Estatisticas(),
+          };
         };
       })(this.Instancia),
     ];
