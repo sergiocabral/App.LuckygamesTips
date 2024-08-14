@@ -243,8 +243,8 @@ class LuckygamesTips {
           <input type="text" id="winMultiplier" value="+1.00" />
         </div>
         <div>
-          <label for="limitAmount">Limit Amount to Quit:</label>
-          <input type="text" id="limitAmount" value="" />
+          <label for="limitSequence">Limit Sequence to Reset:</label>
+          <input type="text" id="limitSequence" value="+10" />
         </div>
         <div>
           <button id="runBot">Start</button>
@@ -263,7 +263,7 @@ class LuckygamesTips {
       this._adjustInterfaceForInputNumber("#initialAmount");
       this._adjustInterfaceForInputNumber("#lossMultiplier", 2);
       this._adjustInterfaceForInputNumber("#winMultiplier", 2);
-      this._adjustInterfaceForInputNumber("#limitAmount");
+      this._adjustInterfaceForInputNumber("#limitSequence");
       this._adjustInterfaceForStartButton("#runBot");
       console.debug(`Added element for custom fields.`, element);
     }
@@ -283,8 +283,8 @@ class LuckygamesTips {
       winMultiplier: parseFloat(
         this._getParent.querySelector("#winMultiplier").value
       ),
-      limitAmount: parseFloat(
-        this._getParent.querySelector("#limitAmount").value
+      limitSequence: parseFloat(
+        this._getParent.querySelector("#limitSequence").value
       ),
       requestsPerMinute: parseFloat(
         this._getParent.querySelector("#requestsPerMinute").value
@@ -315,12 +315,12 @@ class LuckygamesTips {
         fields.winMultiplier
       ).toFixed(2);
     }
-    if (fields.limitAmount !== undefined) {
-      this._getParent.querySelector("#limitAmount").value = isNaN(
-        fields.limitAmount
+    if (fields.limitSequence !== undefined) {
+      this._getParent.querySelector("#limitSequence").value = isNaN(
+        fields.limitSequence
       )
         ? ""
-        : parseFloat(fields.limitAmount).toFixed(8);
+        : parseFloat(fields.limitSequence).toFixed(8);
     }
     if (fields.requestsPerMinute !== undefined) {
       this._getParent.querySelector("#requestsPerMinute").value = isNaN(
@@ -416,7 +416,7 @@ class LuckygamesTips {
       fields.initialAmount >= 0.00000001 &&
       fields.lossMultiplier > 0 &&
       fields.winMultiplier > 0 &&
-      (isNaN(fields.limitAmount) || fields.limitAmount > 0);
+      (isNaN(fields.limitSequence) || fields.limitSequence > 0);
     console.debug(`Checking if fields is valid: ${isValid}`);
     if (!isValid) {
       alert("Invalid fields.");
@@ -430,7 +430,7 @@ class LuckygamesTips {
       "#initialAmount",
       "#lossMultiplier",
       "#winMultiplier",
-      "#limitAmount",
+      "#limitSequence",
     ];
     fields.forEach((fieldSelector) => {
       const element = this._getParent.querySelector(fieldSelector);
@@ -535,36 +535,52 @@ class LuckygamesTips {
       this._betState.swap =
         this._betState.lastBetWin === undefined ||
         (this._betState.lastBetWin && response.lose > 0) ||
-        (!this._betState.lastBetWin && response.win > 0);
+        (!this._betState.lastBetWin && response.win > 0) ||
+        this._betState.sequence >= this._betState.fields.custom.limitSequence;
       this._betState.lastBetWin = response.win > 0;
+
+      if (
+        this._betState.sequence >= this._betState.fields.custom.limitSequence
+      ) {
+        console.info(`LIMIT SEQUENCE!`);
+      }
 
       this._betState.balance = parseFloat(response.balance);
 
       if (this._betState.swap) {
-        this._betState.amount = this._betState.fields.custom.initialAmount;
+        if (this._betState.lastBetWin) {
+          this._betState.amount = this._betState.fields.custom.initialAmount;
+        }
         this._betState.sequence = 1;
+        console.info(
+          `[${parseFloat(this._betState.balance).toFixed(8)}] Swap to ${
+            response.win > 0 ? "WIN" : "LOSE"
+          }`
+        );
       } else {
         this._betState.sequence++;
       }
 
-      if (response.win > 0) {
-        this._betState.amount *= this._betState.fields.custom.winMultiplier;
-        console.info(
-          `[${parseFloat(this._betState.balance).toFixed(8)}] Sequence ${
-            this._betState.sequence
-          } WIN. Multiply x${this._betState.fields.custom.winMultiplier.toFixed(
-            2
-          )}: ${this._betState.amount.toFixed(8)}`
-        );
-      } else if (response.lose > 0) {
-        this._betState.amount *= this._betState.fields.custom.lossMultiplier;
-        console.info(
-          `[${parseFloat(this._betState.balance).toFixed(8)}] Sequence ${
-            this._betState.sequence
-          } LOSE. Multiply x${this._betState.fields.custom.lossMultiplier.toFixed(
-            2
-          )}: ${this._betState.amount.toFixed(8)}`
-        );
+      if (this._betState.sequence > 1 || !this._betState.lastBetWin) {
+        if (response.win > 0) {
+          this._betState.amount *= this._betState.fields.custom.winMultiplier;
+          console.info(
+            `[${parseFloat(this._betState.balance).toFixed(8)}] Sequence ${
+              this._betState.sequence
+            } WIN. Multiply x${this._betState.fields.custom.winMultiplier.toFixed(
+              2
+            )}: ${this._betState.amount.toFixed(8)}`
+          );
+        } else if (response.lose > 0) {
+          this._betState.amount *= this._betState.fields.custom.lossMultiplier;
+          console.info(
+            `[${parseFloat(this._betState.balance).toFixed(8)}] Sequence ${
+              this._betState.sequence
+            } LOSE. Multiply x${this._betState.fields.custom.lossMultiplier.toFixed(
+              2
+            )}: ${this._betState.amount.toFixed(8)}`
+          );
+        }
       }
 
       this._betRequest();
