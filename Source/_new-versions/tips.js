@@ -394,6 +394,7 @@ class LuckygamesTips {
         this.innerHTML = "Stop";
         parentElement.classList.add("running");
         _this()._running = true;
+        delete _this()._betState.fields;
         if (!_this()._betRequest()) {
           console.debug("Rollback the Bot.");
           this.click();
@@ -488,8 +489,15 @@ class LuckygamesTips {
         custom: this._getCustomFields(),
       };
     }
+    this._betState.balance =
+      this._betState.balance ?? this._betState.fields.native.balance;
     this._betState.amount =
       this._betState.amount ?? this._betState.fields.custom.initialAmount;
+    console.info(
+      `[${this._betState.balance.toFixed(
+        8
+      )}] Bet: ${this._betState.amount.toFixed(8)}`
+    );
     this._betState.request = {
       bet: this._betState.amount.toFixed(8),
       clientSeed: this._captured.clientSeed,
@@ -527,17 +535,37 @@ class LuckygamesTips {
       this._betState.swap =
         (this._betState.lastBetWin && response.lose > 0) ||
         (!this._betState.lastBetWin && response.win > 0);
+      this._betState.lastBetWin = response.win > 0;
+
+      this._betState.balance = parseFloat(response.balance);
 
       if (this._betState.swap) {
-        this._betState.amount = this._betState.fields.custom.initialAmount;
-        console.info(`Swap. Now: ${response.win > 0 ? "WIN" : "LOSE"}`);
+        delete this._betState.amount;
+        console.info(
+          `[${parseFloat(this._betState.balance).toFixed(8)}] Swap. Now: ${
+            response.win > 0 ? "WIN" : "LOSE"
+          }`
+        );
       } else {
         if (response.win > 0) {
           this._betState.amount *= this._betState.fields.custom.winMultiplier;
+          console.info(
+            `[${parseFloat(this._betState.balance).toFixed(
+              8
+            )}] Sequence WIN. Multiply x${this._betState.fields.custom.winMultiplier.toFixed(
+              2
+            )}: ${this._betState.amount.toFixed(8)}`
+          );
         } else if (response.lose > 0) {
           this._betState.amount *= this._betState.fields.custom.lossMultiplier;
+          console.info(
+            `[${parseFloat(this._betState.balance).toFixed(
+              8
+            )}] Sequence LOSE. Multiply x${this._betState.fields.custom.lossMultiplier.toFixed(
+              2
+            )}: ${this._betState.amount.toFixed(8)}`
+          );
         }
-        console.info(`Sequence. Multiply: ${this._betState.amount.toFixed(8)}`);
       }
 
       this._betRequest();
