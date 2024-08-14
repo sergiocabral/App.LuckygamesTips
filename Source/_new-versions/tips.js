@@ -440,6 +440,9 @@ class LuckygamesTips {
   }
 
   _betRequest() {
+    if (!this._running) {
+      return false;
+    }
     if (
       this._captured.clientSeed === undefined ||
       this._captured.serverSeedHash === undefined ||
@@ -496,6 +499,9 @@ class LuckygamesTips {
     this._setNativeFields({
       balance: response.balance,
     });
+    if (this._running) {
+      this._betRequest()
+    }
   }
 }
 
