@@ -13,6 +13,10 @@ class LuckygamesTips {
     return `_${this.constructor.name}`;
   }
 
+  get _getParent() {
+    return document.querySelector(`div.${this._classKey}`);
+  }
+
   dispose() {
     console.debug(`Disposing.`, this);
     this._interceptRequests(false);
@@ -253,8 +257,9 @@ class LuckygamesTips {
   }
 
   _adjustInterfaceForInputNumber(element, digits = 8) {
-    if (typeof element === "string")
-      element = document.querySelector(`div.${this._classKey} ${element}`);
+    if (typeof element === "string") {
+      element = this._getParent.querySelector(element);
+    }
 
     element?.addEventListener("blur", function () {
       let value = parseFloat(element.value);
@@ -270,23 +275,35 @@ class LuckygamesTips {
   }
 
   _adjustInterfaceForStartButton(element) {
-    if (typeof element === "string")
-      element = document.querySelector(`div.${this._classKey} ${element}`);
+    if (typeof element === "string") {
+      element = this._getParent.querySelector(element);
+    }
 
     const _this = () => this;
     element?.addEventListener("click", function () {
-      const parentElement = this.closest(`div.${_this()._classKey}`);
+      const parentElement = _this()._getParent;
       if (_this()._running) {
+        _this()._interfaceLockFields(false);
         console.debug("Stopping the Bot.");
         this.innerHTML = "Start";
         parentElement.classList.remove("running");
-      } else {
+        _this()._running = false;
+      } else if (_this()._interfaceFieldsOk()) {
+        _this()._interfaceLockFields(true);
         console.debug("Starting the Bot.");
         this.innerHTML = "Stop";
         parentElement.classList.add("running");
+        _this()._running = true;
       }
-      _this()._running = !_this()._running;
     });
+  }
+
+  _interfaceFieldsOk() {
+
+  }
+
+  _interfaceLockFields() {
+
   }
 }
 
