@@ -12,6 +12,12 @@ class LuckygamesTips {
     token: undefined,
   };
 
+  _statistics = {
+    startedTime: 0,
+    requestsCount: 0,
+    requestsPerMinute: 0,
+  };
+
   constructor() {
     console.debug(`New instance.`, this);
     this._interceptRequests();
@@ -43,12 +49,14 @@ class LuckygamesTips {
 
   _setNativeFields(fields) {
     if (fields.balance !== undefined) {
-      document.querySelector("input[name=balance]").value =
-        parseFloat(fields.balance).toFixed(8);
+      document.querySelector("input[name=balance]").value = parseFloat(
+        fields.balance
+      ).toFixed(8);
     }
     if (fields.betAmount !== undefined) {
-      document.querySelector("input[name=bet]").value =
-        parseFloat(fields.betAmount).toFixed(8);
+      document.querySelector("input[name=bet]").value = parseFloat(
+        fields.betAmount
+      ).toFixed(8);
     }
     console.debug(`Setting native fields.`, fields);
     return fields;
@@ -287,24 +295,40 @@ class LuckygamesTips {
   }
 
   _setCustomFields(fields) {
-    this._getParent.querySelector("#prediction").value =
-      fields.prediction.toFixed(0);
-    this._getParent.querySelector("#initialAmount").value =
-      fields.initialAmount.toFixed(8);
-    this._getParent.querySelector("#lossMultiplier").value =
-      fields.lossMultiplier.toFixed(2);
-    this._getParent.querySelector("#winMultiplier").value =
-      fields.winMultiplier.toFixed(2);
-    this._getParent.querySelector("#limitAmount").value = isNaN(
-      fields.limitAmount
-    )
-      ? ""
-      : fields.limitAmount.toFixed(8);
-    this._getParent.querySelector("#requestsPerMinute").value = isNaN(
-      fields.requestsPerMinute
-    )
-      ? ""
-      : fields.requestsPerMinute.toFixed(2);
+    if (fields.prediction !== undefined) {
+      this._getParent.querySelector("#prediction").value = parseFloat(
+        fields.prediction
+      ).toFixed(0);
+    }
+    if (fields.initialAmount !== undefined) {
+      this._getParent.querySelector("#initialAmount").value = parseFloat(
+        fields.initialAmount
+      ).toFixed(8);
+    }
+    if (fields.lossMultiplier !== undefined) {
+      this._getParent.querySelector("#lossMultiplier").value = parseFloat(
+        fields.lossMultiplier
+      ).toFixed(2);
+    }
+    if (fields.winMultiplier !== undefined) {
+      this._getParent.querySelector("#winMultiplier").value = parseFloat(
+        fields.winMultiplier
+      ).toFixed(2);
+    }
+    if (fields.limitAmount !== undefined) {
+      this._getParent.querySelector("#limitAmount").value = isNaN(
+        fields.limitAmount
+      )
+        ? ""
+        : parseFloat(fields.limitAmount).toFixed(8);
+    }
+    if (fields.requestsPerMinute !== undefined) {
+      this._getParent.querySelector("#requestsPerMinute").value = isNaN(
+        fields.requestsPerMinute
+      )
+        ? ""
+        : parseFloat(fields.requestsPerMinute).toFixed(2);
+    }
     console.debug(`Setting native fields.`, fields);
     return fields;
   }
@@ -373,6 +397,11 @@ class LuckygamesTips {
         if (!_this()._betRequest()) {
           console.debug("Rollback the Bot.");
           this.click();
+        } else {
+          _this()._statistics = {
+            startedTime: Date.now(),
+            requestsCount: 0,
+          };
         }
       }
     });
@@ -496,11 +525,20 @@ class LuckygamesTips {
 
   _betResponse(response) {
     console.debug(`Updating fields from response`);
+
+    this._statistics.requestsCount++;
+    this._statistics.requestsPerMinute =
+      this._statistics.requestsCount /
+      ((Date.now() - this._statistics.startedTime) / 1000 / 60);
+
     this._setNativeFields({
       balance: response.balance,
     });
+    this._setCustomFields({
+      requestsPerMinute: this._statistics.requestsPerMinute,
+    });
     if (this._running) {
-      this._betRequest()
+      this._betRequest();
     }
   }
 }
