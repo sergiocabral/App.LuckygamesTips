@@ -86,11 +86,18 @@ class LuckygamesTips {
               request.response = JSON.parse(request.response);
             } catch (o_O) {}
             try {
-              request.headers = this.getAllResponseHeaders()
-                .split("\n")
-                .filter((line) => line);
+              request.responseHeaders = {};
+              this.getAllResponseHeaders()
+                .split(/\n|\r/)
+                .filter((line) => line)
+                .forEach(header => {
+                  const divider = header.indexOf(":");
+                  const name = header.substring(0, divider);
+                  const value = header.substring(divider + 2);
+                  request.responseHeaders[name] = value;
+                });
             } catch (o_O) {
-              request.headers = null;
+              request.responseHeaders = null;
             }
 
             console.debug("HTTP Request", request);
@@ -103,6 +110,13 @@ class LuckygamesTips {
             request.method = method;
             request.url = url;
             return originalOpen.apply(this, arguments);
+          };
+
+          const originalSetRequestHeader = instance.setRequestHeader;
+          instance.setRequestHeader = function (header, value) {
+            request.requestHeaders = request.requestHeaders ?? {};
+            request.requestHeaders[header] = value;
+            return originalSetRequestHeader.apply(this, arguments);
           };
 
           const originalSend = instance.send;
