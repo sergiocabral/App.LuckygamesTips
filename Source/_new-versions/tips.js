@@ -228,19 +228,19 @@ class LuckygamesTips {
       element.innerHTML = `
         <div>
           <label for="prediction">Prediction:</label>
-          <input type="text" id="prediction" value="50" />
+          <input type="text" id="prediction" value="+50" />
         </div>
         <div>
           <label for="initialAmount">Initial Amount:</label>
-          <input type="text" id="initialAmount" value="0.00000001" />
+          <input type="text" id="initialAmount" value="+0.00000001" />
         </div>
         <div>
           <label for="lossMultiplier">After Loss, Multiply by:</label>
-          <input type="text" id="lossMultiplier" value="2" />
+          <input type="text" id="lossMultiplier" value="+2.00" />
         </div>
         <div>
           <label for="winMultiplier">After Win, Multiply by:</label>
-          <input type="text" id="winMultiplier" value="1" />
+          <input type="text" id="winMultiplier" value="+1.00" />
         </div>
         <div>
           <label for="limitAmount">Limit Amount to Quit:</label>
