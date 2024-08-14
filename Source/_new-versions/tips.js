@@ -3,6 +3,14 @@ class LuckygamesTips {
 
   _requestHistory = [];
 
+  _betState = {};
+
+  _captured = {
+    clientSeed: undefined,
+    serverSeedHash: undefined,
+    paymentMethod: undefined,
+  };
+
   constructor() {
     console.debug(`New instance.`, this);
     this._interceptRequests();
@@ -25,8 +33,12 @@ class LuckygamesTips {
 
   _getNativeFields() {
     const fields = {
-      clientSeed: document.querySelector("#clientSeed")?.value,
-      serverSeedHash: document.querySelector("#serverSeedHash")?.value,
+      clientSeed:
+        document.querySelector("#clientSeed")?.value ??
+        this._captured.clientSeed,
+      serverSeedHash:
+        document.querySelector("#serverSeedHash")?.value ??
+        this._captured.serverSeedHash,
       balance: parseFloat(document.querySelector("input[name=balance]")?.value),
       betAmount: parseFloat(document.querySelector("input[name=bet]")?.value),
     };
@@ -46,7 +58,7 @@ class LuckygamesTips {
   }
 
   _interceptRequests(enable = true) {
-    const requestHistory = this._requestHistory;
+    const _this = () => this;
 
     const originalXMLHttpRequest = (window.originalXMLHttpRequest =
       window.originalXMLHttpRequest ?? window.XMLHttpRequest);
@@ -55,8 +67,9 @@ class LuckygamesTips {
       ? originalXMLHttpRequest
       : function () {
           const request = {};
-          while (requestHistory.length >= 100) requestHistory.shift();
-          requestHistory.push(request);
+          while (_this()._requestHistory.length >= 100)
+            _this()._requestHistory.shift();
+          _this()._requestHistory.push(request);
 
           const instance = new originalXMLHttpRequest(...Array.from(arguments));
           instance._request = request;
@@ -81,24 +94,24 @@ class LuckygamesTips {
             }
 
             console.debug("HTTP Request", request);
+
+            _this()._response(request);
           });
 
           const originalOpen = instance.open;
           instance.open = function (method, url) {
-            instance._request = {
-              ...instance._request,
-              method,
-              url,
-            };
+            request.method = method;
+            request.url = url;
             return originalOpen.apply(this, arguments);
           };
 
           const originalSend = instance.send;
           instance.send = function (body) {
-            instance._request = {
-              ...instance._request,
-              body,
-            };
+            try {
+              request.body = JSON.parse(body);
+            } catch (o_O) {
+              request.body = body;
+            }
             return originalSend.apply(this, arguments);
           };
 
@@ -193,23 +206,23 @@ class LuckygamesTips {
       element.innerHTML = `
         <div>
           <label for="prediction">Prediction:</label>
-          <input type="text" id="prediction" />
+          <input type="text" id="prediction" value="50" />
         </div>
         <div>
           <label for="initialAmount">Initial Amount:</label>
-          <input type="text" id="initialAmount" />
+          <input type="text" id="initialAmount" value="0.00000001" />
         </div>
         <div>
           <label for="lossMultiplier">After Loss, Multiply by:</label>
-          <input type="text" id="lossMultiplier" />
+          <input type="text" id="lossMultiplier" value="1" />
         </div>
         <div>
           <label for="winMultiplier">After Win, Multiply by:</label>
-          <input type="text" id="winMultiplier" />
+          <input type="text" id="winMultiplier" value="1" />
         </div>
         <div>
           <label for="limitAmount">Limit Amount to Quit:</label>
-          <input type="text" id="limitAmount" />
+          <input type="text" id="limitAmount" value="" />
         </div>
         <div>
           <button id="runBot">Start</button>
@@ -226,8 +239,8 @@ class LuckygamesTips {
       this._adjustInterfaceForDrag(element);
       this._adjustInterfaceForInputNumber("#prediction", 0);
       this._adjustInterfaceForInputNumber("#initialAmount");
-      this._adjustInterfaceForInputNumber("#lossMultiplier");
-      this._adjustInterfaceForInputNumber("#winMultiplier");
+      this._adjustInterfaceForInputNumber("#lossMultiplier", 2);
+      this._adjustInterfaceForInputNumber("#winMultiplier", 2);
       this._adjustInterfaceForInputNumber("#limitAmount");
       this._adjustInterfaceForStartButton("#runBot");
       console.debug(`Added element for custom fields.`, element);
@@ -260,16 +273,24 @@ class LuckygamesTips {
   }
 
   _setCustomFields(fields) {
-    this._getParent.querySelector("#prediction").value = fields.prediction;
+    this._getParent.querySelector("#prediction").value =
+      fields.prediction.toFixed(0);
     this._getParent.querySelector("#initialAmount").value =
-      fields.initialAmount;
+      fields.initialAmount.toFixed(8);
     this._getParent.querySelector("#lossMultiplier").value =
-      fields.lossMultiplier;
+      fields.lossMultiplier.toFixed(2);
     this._getParent.querySelector("#winMultiplier").value =
-      fields.winMultiplier;
-    this._getParent.querySelector("#limitAmount").value = fields.limitAmount;
-    this._getParent.querySelector("#requestsPerMinute").value =
-      fields.requestsPerMinute;
+      fields.winMultiplier.toFixed(2);
+    this._getParent.querySelector("#limitAmount").value = isNaN(
+      fields.limitAmount
+    )
+      ? ""
+      : fields.limitAmount.toFixed(8);
+    this._getParent.querySelector("#requestsPerMinute").value = isNaN(
+      fields.requestsPerMinute
+    )
+      ? ""
+      : fields.requestsPerMinute.toFixed(2);
     console.debug(`Setting native fields.`, fields);
     return fields;
   }
@@ -335,6 +356,10 @@ class LuckygamesTips {
         this.innerHTML = "Stop";
         parentElement.classList.add("running");
         _this()._running = true;
+        if (!_this()._betRequest()) {
+          console.debug("Rollback the Bot.");
+          this.click();
+        }
       }
     });
   }
@@ -344,11 +369,14 @@ class LuckygamesTips {
     const isValid =
       fields.prediction >= 2 &&
       fields.prediction <= 98 &&
-      fields.limitAmount > 0 &&
+      fields.initialAmount >= 0.00000001 &&
       fields.lossMultiplier > 0 &&
       fields.winMultiplier > 0 &&
-      fields.limitAmount > 0;
+      (isNaN(fields.limitAmount) || fields.limitAmount > 0);
     console.debug(`Checking if fields is valid: ${isValid}`);
+    if (!isValid) {
+      alert("Invalid fields.");
+    }
     return isValid;
   }
 
@@ -360,16 +388,74 @@ class LuckygamesTips {
       "#winMultiplier",
       "#limitAmount",
     ];
-    fields.forEach(fieldSelector => {
+    fields.forEach((fieldSelector) => {
       const element = this._getParent.querySelector(fieldSelector);
       if (lock) {
         element.setAttribute("readonly", true);
       } else {
         element.removeAttribute("readonly");
       }
-    })
+    });
     console.debug(`Locking fields mode: ${lock}`);
   }
+
+  _response(data) {
+    if (data?.body?.paymentMethod !== undefined) {
+      this._captured.clientSeed =
+        this._captured.clientSeed ?? data.body.clientSeed;
+      this._captured.serverSeedHash =
+        this._captured.serverSeedHash ?? data.body.serverSeedHash;
+      this._captured.paymentMethod = data.body.paymentMethod;
+      console.debug(
+        `Payment method and others captured: ${this._captured.paymentMethod}`,
+        this._captured
+      );
+      if (data.url.includes("/dices")) {
+        this._betResponse(data.body);
+      }
+    } else if (data.url) {
+      const paymentMethodRegex = /paymentMethod=(\d+)/;
+      const paymentMethodMatch = data.url.match(paymentMethodRegex);
+      if (paymentMethodMatch?.length > 0 && isFinite(paymentMethodMatch[1])) {
+        this._captured.paymentMethod = parseFloat(paymentMethodMatch[1]);
+        console.debug(
+          `Payment method captured: ${this._captured.paymentMethod}`
+        );
+      }
+    }
+  }
+
+  _betRequest() {
+    if (
+      this._captured.clientSeed === undefined ||
+      this._captured.serverSeedHash === undefined ||
+      this._captured.paymentMethod === undefined
+    ) {
+      alert("Cannot find the payment method and others params. Do one bet.");
+      return false;
+    }
+    if (!this._betState.fields) {
+      this._betState.fields = {
+        native: this._getNativeFields(),
+        custom: this._getCustomFields(),
+      };
+    }
+    this._betState.amount =
+      this._betState.amount ?? this._betState.fields.custom.initialAmount;
+    this._betState.request = {
+      bet: this._betState.amount.toFixed(8),
+      clientSeed: this._betState.fields.native.clientSeed,
+      isActiveStatistic: true,
+      paymentMethod: this._captured.paymentMethod,
+      serverSeedHash: this._betState.fields.native.serverSeedHash,
+      sign: this._betState.fields.custom.prediction > 0 ? 0 : 1,
+      suggestedNumbers: Math.abs(this._betState.fields.custom.prediction),
+    };
+    console.log(this._betState.request);
+    return true;
+  }
+
+  _betResponse() {}
 }
 
 new LuckygamesTips();
