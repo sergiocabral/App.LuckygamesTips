@@ -106,13 +106,14 @@ class LuckygamesTips {
         };
 
     console.debug(
-      `Intercepting requests mode:`,
-      window.originalXMLHttpRequest !== window.XMLHttpRequest
+      `Intercepting requests mode: ${
+        window.originalXMLHttpRequest !== window.XMLHttpRequest
+      }`
     );
   }
 
   _adjustInterface(enable = true) {
-    console.debug(`Adjusting interface mode:`, enable);
+    console.debug(`Adjusting interface mode: ${enable}`);
     this._adjustInterfaceForStyle(enable);
     this._adjustInterfaceForElements(enable);
   }
@@ -214,7 +215,7 @@ class LuckygamesTips {
           <button id="runBot">Start</button>
         </div>
         <div>
-          <label for="limitAmount">Requests per Minute:</label>
+          <label for="requestsPerMinute">Requests per Minute:</label>
           <input type="text" id="requestsPerMinute" readonly />
         </div>
       `;
@@ -231,6 +232,46 @@ class LuckygamesTips {
       this._adjustInterfaceForStartButton("#runBot");
       console.debug(`Added element for custom fields.`, element);
     }
+  }
+
+  _getCustomFields() {
+    const fields = {
+      prediction: parseFloat(
+        this._getParent.querySelector("#prediction").value
+      ),
+      initialAmount: parseFloat(
+        this._getParent.querySelector("#initialAmount").value
+      ),
+      lossMultiplier: parseFloat(
+        this._getParent.querySelector("#lossMultiplier").value
+      ),
+      winMultiplier: parseFloat(
+        this._getParent.querySelector("#winMultiplier").value
+      ),
+      limitAmount: parseFloat(
+        this._getParent.querySelector("#limitAmount").value
+      ),
+      requestsPerMinute: parseFloat(
+        this._getParent.querySelector("#requestsPerMinute").value
+      ),
+    };
+    console.debug(`Reading custom fields.`, fields);
+    return fields;
+  }
+
+  _setCustomFields(fields) {
+    this._getParent.querySelector("#prediction").value = fields.prediction;
+    this._getParent.querySelector("#initialAmount").value =
+      fields.initialAmount;
+    this._getParent.querySelector("#lossMultiplier").value =
+      fields.lossMultiplier;
+    this._getParent.querySelector("#winMultiplier").value =
+      fields.winMultiplier;
+    this._getParent.querySelector("#limitAmount").value = fields.limitAmount;
+    this._getParent.querySelector("#requestsPerMinute").value =
+      fields.requestsPerMinute;
+    console.debug(`Setting native fields.`, fields);
+    return fields;
   }
 
   _adjustInterfaceForDrag(element) {
@@ -283,13 +324,13 @@ class LuckygamesTips {
     element?.addEventListener("click", function () {
       const parentElement = _this()._getParent;
       if (_this()._running) {
-        _this()._interfaceLockFields(false);
+        _this()._interfaceFieldsLock(false);
         console.debug("Stopping the Bot.");
         this.innerHTML = "Start";
         parentElement.classList.remove("running");
         _this()._running = false;
-      } else if (_this()._interfaceFieldsOk()) {
-        _this()._interfaceLockFields(true);
+      } else if (_this()._interfaceFieldsIsValid()) {
+        _this()._interfaceFieldsLock(true);
         console.debug("Starting the Bot.");
         this.innerHTML = "Stop";
         parentElement.classList.add("running");
@@ -298,12 +339,36 @@ class LuckygamesTips {
     });
   }
 
-  _interfaceFieldsOk() {
-
+  _interfaceFieldsIsValid() {
+    const fields = this._getCustomFields();
+    const isValid =
+      fields.prediction >= 2 &&
+      fields.prediction <= 98 &&
+      fields.limitAmount > 0 &&
+      fields.lossMultiplier > 0 &&
+      fields.winMultiplier > 0 &&
+      fields.limitAmount > 0;
+    console.debug(`Checking if fields is valid: ${isValid}`);
+    return isValid;
   }
 
-  _interfaceLockFields() {
-
+  _interfaceFieldsLock(lock) {
+    const fields = [
+      "#prediction",
+      "#initialAmount",
+      "#lossMultiplier",
+      "#winMultiplier",
+      "#limitAmount",
+    ];
+    fields.forEach(fieldSelector => {
+      const element = this._getParent.querySelector(fieldSelector);
+      if (lock) {
+        element.setAttribute("readonly", true);
+      } else {
+        element.removeAttribute("readonly");
+      }
+    })
+    console.debug(`Locking fields mode: ${lock}`);
   }
 }
 
