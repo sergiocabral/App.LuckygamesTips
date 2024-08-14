@@ -107,11 +107,6 @@ class LuckygamesTips {
 
             console.debug("HTTP Request done.", request);
 
-            if (request.status >= 400) {
-              console.error("HTTP Request error. Stopping bot if necessary.", request);
-              _this()._running = false;
-            }
-
             _this()._response(request);
           });
 
@@ -460,7 +455,13 @@ class LuckygamesTips {
         this._captured
       );
       if (data.url.includes("/dices")) {
-        this._betResponse(data.response);
+        if (data.status >= 400) {
+          console.error("Bet request error. Stopping bot.", request);
+          _this()._running = false;
+          alert(`Bet response error. Bot stopped.`);
+        } else {
+          this._betResponse(data.response);
+        }
       }
     } else if (data.url) {
       const paymentMethodRegex = /paymentMethod=(\d+)/;
