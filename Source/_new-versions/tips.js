@@ -508,21 +508,6 @@ class LuckygamesTips {
     return true;
   }
 
-  _sendRequest(body, token) {
-    console.debug(`Sending a bet`);
-
-    const xhr = new XMLHttpRequest();
-    const url = "/api/dices";
-
-    xhr.open("POST", url, true);
-
-    xhr.setRequestHeader("Accept", "application/json");
-    xhr.setRequestHeader("Authorization", token);
-    xhr.setRequestHeader("Content-Type", "application/json");
-
-    xhr.send(JSON.stringify(body));
-  }
-
   _betResponse(response) {
     console.debug(`Updating fields from response`);
 
@@ -540,6 +525,21 @@ class LuckygamesTips {
     if (this._running) {
       this._betRequest();
     }
+  }
+
+  _sendRequest(body, token) {
+    console.debug(`Sending a bet`);
+
+    const xhr = new XMLHttpRequest();
+    const url = "/api/dices";
+
+    xhr.open("POST", url, true);
+
+    xhr.setRequestHeader("Accept", "application/json");
+    xhr.setRequestHeader("Authorization", token);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.send(JSON.stringify(body));
   }
 }
 
