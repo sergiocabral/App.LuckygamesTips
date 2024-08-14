@@ -120,12 +120,16 @@ class LuckygamesTips {
       console.debug(`Removed element for style.`, element);
     }
     if (enable) {
-      const width = 300;
+      const width = 350;
       element = document.createElement("style");
       element.className = this._classKey;
       element.innerHTML = `
-        ._LuckygamesTips {
+        ._LuckygamesTips, ._LuckygamesTips * {
+          font-family: monospace;
           font-size: 12px;
+        }
+
+        ._LuckygamesTips {
           position: absolute;
           top: 1em;
           left: calc(${document.body.clientWidth - width}px - 5em);
@@ -211,7 +215,15 @@ class LuckygamesTips {
         </div>
       `;
       document.body.appendChild(element);
+      element
+        .querySelectorAll("input")
+        .forEach((input) => input.setAttribute("autocomplete", "off"));
       this._adjustInterfaceForDrag(element);
+      this._adjustInterfaceForInputNumber("#prediction", 0);
+      this._adjustInterfaceForInputNumber("#initialAmount");
+      this._adjustInterfaceForInputNumber("#lossMultiplier");
+      this._adjustInterfaceForInputNumber("#winMultiplier");
+      this._adjustInterfaceForInputNumber("#limitAmount");
       console.debug(`Added element for custom fields.`, element);
     }
   }
@@ -236,6 +248,23 @@ class LuckygamesTips {
 
       document.addEventListener("mousemove", mouseMoveHandler);
       document.addEventListener("mouseup", mouseUpHandler);
+    });
+  }
+
+  _adjustInterfaceForInputNumber(element, digits = 8) {
+    if (typeof element === "string")
+      element = document.querySelector(`div.${this._classKey} ${element}`);
+
+    element?.addEventListener("blur", function () {
+      let value = parseFloat(element.value);
+      if (!isNaN(value)) {
+        element.value = value.toFixed(digits);
+        if (element.value[0] !== "-") {
+          element.value = `+${element.value}`;
+        }
+      } else {
+        element.value = "";
+      }
     });
   }
 }
