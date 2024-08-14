@@ -9,6 +9,7 @@ class LuckygamesTips {
     clientSeed: undefined,
     serverSeedHash: undefined,
     paymentMethod: undefined,
+    token: undefined,
   };
 
   constructor() {
@@ -90,7 +91,7 @@ class LuckygamesTips {
               this.getAllResponseHeaders()
                 .split(/\n|\r/)
                 .filter((line) => line)
-                .forEach(header => {
+                .forEach((header) => {
                   const divider = header.indexOf(":");
                   const name = header.substring(0, divider);
                   const value = header.substring(divider + 2);
@@ -116,6 +117,9 @@ class LuckygamesTips {
           instance.setRequestHeader = function (header, value) {
             request.requestHeaders = request.requestHeaders ?? {};
             request.requestHeaders[header] = value;
+            if (header === "Authorization") {
+              _this()._captured.token = value;
+            }
             return originalSetRequestHeader.apply(this, arguments);
           };
 
@@ -443,9 +447,11 @@ class LuckygamesTips {
     if (
       this._captured.clientSeed === undefined ||
       this._captured.serverSeedHash === undefined ||
-      this._captured.paymentMethod === undefined
+      this._captured.paymentMethod === undefined ||
+      this._captured.token === undefined
     ) {
       alert("Cannot find the payment method and others params. Do one bet.");
+      console.debug(`Missing params.`, this._captured);
       return false;
     }
     if (!this._betState.fields) {
@@ -463,10 +469,25 @@ class LuckygamesTips {
       paymentMethod: this._captured.paymentMethod,
       serverSeedHash: this._betState.fields.native.serverSeedHash,
       sign: this._betState.fields.custom.prediction > 0 ? 0 : 1,
-      suggestedNumbers: Math.abs(this._betState.fields.custom.prediction),
+      suggestedNumbers: Math.abs(this._betState.fields.custom.prediction).toFixed(0),
     };
-    console.log(this._betState.request);
+    this._sendRequest(this._betState.request, this._captured.token);
     return true;
+  }
+
+  _sendRequest(body, token) {
+    console.debug(`Sending a bet`);
+
+    const xhr = new XMLHttpRequest();
+    const url = '/api/dices';
+
+    xhr.open("POST", url, true);
+
+    xhr.setRequestHeader("Accept", "application/json");
+    xhr.setRequestHeader("Authorization", token);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.send(JSON.stringify(body));
   }
 
   _betResponse() {}
