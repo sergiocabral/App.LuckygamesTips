@@ -34,12 +34,6 @@ class LuckygamesTips {
 
   _getNativeFields() {
     const fields = {
-      clientSeed:
-        document.querySelector("#clientSeed")?.value ??
-        this._captured.clientSeed,
-      serverSeedHash:
-        document.querySelector("#serverSeedHash")?.value ??
-        this._captured.serverSeedHash,
       balance: parseFloat(document.querySelector("input[name=balance]")?.value),
       betAmount: parseFloat(document.querySelector("input[name=bet]")?.value),
     };
@@ -48,12 +42,14 @@ class LuckygamesTips {
   }
 
   _setNativeFields(fields) {
-    document.querySelector("#clientSeed").value = fields.clientSeed;
-    document.querySelector("#serverSeedHash").value = fields.serverSeedHash;
-    document.querySelector("input[name=balance]").value =
-      fields.balance.toFixed(8);
-    document.querySelector("input[name=bet]").value =
-      fields.betAmount.toFixed(8);
+    if (fields.balance !== undefined) {
+      document.querySelector("input[name=balance]").value =
+        parseFloat(fields.balance).toFixed(8);
+    }
+    if (fields.betAmount !== undefined) {
+      document.querySelector("input[name=bet]").value =
+        parseFloat(fields.betAmount).toFixed(8);
+    }
     console.debug(`Setting native fields.`, fields);
     return fields;
   }
@@ -101,7 +97,7 @@ class LuckygamesTips {
               request.responseHeaders = null;
             }
 
-            console.debug("HTTP Request", request);
+            console.debug("HTTP Request done.", request);
 
             _this()._response(request);
           });
@@ -429,7 +425,7 @@ class LuckygamesTips {
         this._captured
       );
       if (data.url.includes("/dices")) {
-        this._betResponse(data.body);
+        this._betResponse(data.response);
       }
     } else if (data.url) {
       const paymentMethodRegex = /paymentMethod=(\d+)/;
@@ -464,13 +460,18 @@ class LuckygamesTips {
       this._betState.amount ?? this._betState.fields.custom.initialAmount;
     this._betState.request = {
       bet: this._betState.amount.toFixed(8),
-      clientSeed: this._betState.fields.native.clientSeed,
+      clientSeed: this._captured.clientSeed,
       isActiveStatistic: true,
       paymentMethod: this._captured.paymentMethod,
-      serverSeedHash: this._betState.fields.native.serverSeedHash,
+      serverSeedHash: this._captured.serverSeedHash,
       sign: this._betState.fields.custom.prediction > 0 ? 0 : 1,
-      suggestedNumbers: Math.abs(this._betState.fields.custom.prediction).toFixed(0),
+      suggestedNumbers: Math.abs(
+        this._betState.fields.custom.prediction
+      ).toFixed(0),
     };
+    this._setNativeFields({
+      betAmount: this._betState.request.bet,
+    });
     this._sendRequest(this._betState.request, this._captured.token);
     return true;
   }
@@ -479,7 +480,7 @@ class LuckygamesTips {
     console.debug(`Sending a bet`);
 
     const xhr = new XMLHttpRequest();
-    const url = '/api/dices';
+    const url = "/api/dices";
 
     xhr.open("POST", url, true);
 
@@ -490,7 +491,12 @@ class LuckygamesTips {
     xhr.send(JSON.stringify(body));
   }
 
-  _betResponse() {}
+  _betResponse(response) {
+    console.debug(`Updating fields from response`);
+    this._setNativeFields({
+      balance: response.balance,
+    });
+  }
 }
 
 new LuckygamesTips();
