@@ -236,7 +236,7 @@ class LuckygamesTips {
         </div>
         <div>
           <label for="lossMultiplier">After Loss, Multiply by:</label>
-          <input type="text" id="lossMultiplier" value="1" />
+          <input type="text" id="lossMultiplier" value="2" />
         </div>
         <div>
           <label for="winMultiplier">After Win, Multiply by:</label>
@@ -511,18 +511,35 @@ class LuckygamesTips {
   _betResponse(response) {
     console.debug(`Updating fields from response`);
 
-    this._statistics.requestsCount++;
-    this._statistics.requestsPerMinute =
-      this._statistics.requestsCount /
-      ((Date.now() - this._statistics.startedTime) / 1000 / 60);
-
-    this._setNativeFields({
-      balance: response.balance,
-    });
-    this._setCustomFields({
-      requestsPerMinute: this._statistics.requestsPerMinute,
-    });
     if (this._running) {
+      this._statistics.requestsCount++;
+      this._statistics.requestsPerMinute =
+        this._statistics.requestsCount /
+        ((Date.now() - this._statistics.startedTime) / 1000 / 60);
+
+      this._setNativeFields({
+        balance: response.balance,
+      });
+      this._setCustomFields({
+        requestsPerMinute: this._statistics.requestsPerMinute,
+      });
+
+      this._betState.swap =
+        (this._betState.lastBetWin && response.lose > 0) ||
+        (!this._betState.lastBetWin && response.win > 0);
+
+      if (this._betState.swap) {
+        this._betState.amount = this._betState.fields.custom.initialAmount;
+        console.info(`Swap. Now: ${response.win > 0 ? "WIN" : "LOSE"}`);
+      } else {
+        if (response.win > 0) {
+          this._betState.amount *= this._betState.fields.custom.winMultiplier;
+        } else if (response.lose > 0) {
+          this._betState.amount *= this._betState.fields.custom.lossMultiplier;
+        }
+        console.info(`Sequence. Multiply: ${this._betState.amount.toFixed(8)}`);
+      }
+
       this._betRequest();
     }
   }
