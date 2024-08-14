@@ -107,6 +107,11 @@ class LuckygamesTips {
 
             console.debug("HTTP Request done.", request);
 
+            if (request.status >= 400) {
+              console.error("HTTP Request error. Stopping bot if necessary.", request);
+              _this()._running = false;
+            }
+
             _this()._response(request);
           });
 
