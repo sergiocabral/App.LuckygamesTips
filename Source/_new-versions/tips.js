@@ -76,7 +76,7 @@ class LuckygamesTips {
               request.headers = null;
             }
 
-            console.log("request", this, request);
+            console.debug("HTTP Request", request);
           });
 
           const originalOpen = instance.open;
@@ -224,6 +224,7 @@ class LuckygamesTips {
       this._adjustInterfaceForInputNumber("#lossMultiplier");
       this._adjustInterfaceForInputNumber("#winMultiplier");
       this._adjustInterfaceForInputNumber("#limitAmount");
+      this._adjustInterfaceForStartButton("#runBot");
       console.debug(`Added element for custom fields.`, element);
     }
   }
@@ -265,6 +266,26 @@ class LuckygamesTips {
       } else {
         element.value = "";
       }
+    });
+  }
+
+  _adjustInterfaceForStartButton(element) {
+    if (typeof element === "string")
+      element = document.querySelector(`div.${this._classKey} ${element}`);
+
+    const _this = () => this;
+    element?.addEventListener("click", function () {
+      const parentElement = this.closest(`div.${_this()._classKey}`);
+      if (_this()._running) {
+        console.debug("Stopping the Bot.");
+        this.innerHTML = "Start";
+        parentElement.classList.remove("running");
+      } else {
+        console.debug("Starting the Bot.");
+        this.innerHTML = "Stop";
+        parentElement.classList.add("running");
+      }
+      _this()._running = !_this()._running;
     });
   }
 }
