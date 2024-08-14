@@ -23,7 +23,7 @@ class LuckygamesTips {
     this._requestHistory.length = 0;
   }
 
-  _getFields() {
+  _getNativeFields() {
     const fields = {
       clientSeed: document.querySelector("#clientSeed")?.value,
       serverSeedHash: document.querySelector("#serverSeedHash")?.value,
@@ -34,7 +34,7 @@ class LuckygamesTips {
     return fields;
   }
 
-  _setFields(fields) {
+  _setNativeFields(fields) {
     document.querySelector("#clientSeed").value = fields.clientSeed;
     document.querySelector("#serverSeedHash").value = fields.serverSeedHash;
     document.querySelector("input[name=balance]").value =
