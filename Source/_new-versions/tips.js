@@ -487,13 +487,14 @@ class LuckygamesTips {
       this._betState.fields = {
         native: this._getNativeFields(),
         custom: this._getCustomFields(),
+        consoleLog: console.info,
       };
     }
     this._betState.balance =
       this._betState.balance ?? this._betState.fields.native.balance;
     this._betState.amount =
       this._betState.amount ?? this._betState.fields.custom.initialAmount;
-    console.info(
+    this._betState.fields.consoleLog(
       `[${this._betState.balance.toFixed(
         8
       )}] Bet: ${this._betState.amount.toFixed(8)}`
@@ -538,11 +539,14 @@ class LuckygamesTips {
         (!this._betState.lastBetWin && response.win > 0) ||
         this._betState.sequence >= this._betState.fields.custom.limitSequence;
       this._betState.lastBetWin = response.win > 0;
+      this._betState.fields.consoleLog = this._betState.lastBetWin
+        ? console.info
+        : console.warn;
 
       if (
         this._betState.sequence >= this._betState.fields.custom.limitSequence
       ) {
-        console.info(`LIMIT SEQUENCE!`);
+        this._betState.fields.consoleLog(`LIMIT SEQUENCE!`);
       }
 
       this._betState.balance = parseFloat(response.balance);
@@ -552,7 +556,7 @@ class LuckygamesTips {
           this._betState.amount = this._betState.fields.custom.initialAmount;
         }
         this._betState.sequence = 1;
-        console.info(
+        this._betState.fields.consoleLog(
           `[${parseFloat(this._betState.balance).toFixed(8)}] Swap to ${
             response.win > 0 ? "WIN" : "LOSE"
           }`
@@ -564,7 +568,7 @@ class LuckygamesTips {
       if (this._betState.sequence > 1 || !this._betState.lastBetWin) {
         if (response.win > 0) {
           this._betState.amount *= this._betState.fields.custom.winMultiplier;
-          console.info(
+          this._betState.fields.consoleLog(
             `[${parseFloat(this._betState.balance).toFixed(8)}] Sequence ${
               this._betState.sequence
             } WIN. Multiply x${this._betState.fields.custom.winMultiplier.toFixed(
@@ -573,7 +577,7 @@ class LuckygamesTips {
           );
         } else if (response.lose > 0) {
           this._betState.amount *= this._betState.fields.custom.lossMultiplier;
-          console.info(
+          this._betState.fields.consoleLog(
             `[${parseFloat(this._betState.balance).toFixed(8)}] Sequence ${
               this._betState.sequence
             } LOSE. Multiply x${this._betState.fields.custom.lossMultiplier.toFixed(
