@@ -235,7 +235,7 @@ class LuckygamesTips {
         </div>
         <div>
           <label for="initialAmount">Initial Amount:</label>
-          <input type="text" id="initialAmount" value="+0.00000001" />
+          <input type="text" id="initialAmount" value="+0.00000010" />
         </div>
         <div>
           <label for="lossMultiplier">After Loss, Multiply by:</label>
@@ -243,11 +243,11 @@ class LuckygamesTips {
         </div>
         <div>
           <label for="winMultiplier">After Win, Multiply by:</label>
-          <input type="text" id="winMultiplier" value="+1.00" />
+          <input type="text" id="winMultiplier" value="+2.00" />
         </div>
         <div>
           <label for="limitSequence">Limit Sequence to Reset:</label>
-          <input type="text" id="limitSequence" value="+10" />
+          <input type="text" id="limitSequence" value="+5" />
         </div>
         <div>
           <button id="runBot">Start</button>
