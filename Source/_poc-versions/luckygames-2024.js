@@ -16,6 +16,7 @@ class LuckygamesTips {
     startedTime: 0,
     requestsCount: 0,
     requestsPerMinute: 0,
+    requestError: 0,
   };
 
   constructor() {
@@ -457,8 +458,7 @@ class LuckygamesTips {
       if (data.url.includes("/dices")) {
         if (data.status >= 400) {
           console.error("Bet request error. Stopping bot.", request);
-          _this()._running = false;
-          alert(`Bet response error. Bot stopped.`);
+          this._betResponse(undefined);
         } else {
           this._betResponse(data.response);
         }
@@ -524,6 +524,16 @@ class LuckygamesTips {
   }
 
   _betResponse(response) {
+    if (!response) {
+      if (++this._statistics.requestError <= 3) {
+        setTimeout(() => this._betRequest(), 5000);
+      } else {
+        this._running = false;
+      }
+      return;
+    }
+    this._statistics.requestError = 0;
+
     console.debug(`Updating fields from response`);
 
     if (this._running) {
