@@ -19,6 +19,8 @@ class LuckygamesTips {
     requestError: 0,
   };
 
+  _betRequestTimeout;
+
   constructor() {
     console.debug(`New instance.`, this);
     this._interceptRequests();
@@ -476,6 +478,12 @@ class LuckygamesTips {
   }
 
   _betRequest() {
+    clearTimeout(this._betRequestTimeout);
+    this._betRequestTimeout = setTimeout(() => {
+      console.debug(`Ops! The response never came back. Trying again.`);
+      this._betRequest();
+    }, 30000);
+
     if (!this._running) {
       return false;
     }
