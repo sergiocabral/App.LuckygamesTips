@@ -527,7 +527,9 @@ class LuckygamesTips {
     if (!response) {
       if (++this._statistics.requestError <= 3) {
         setTimeout(() => this._betRequest(), 5000);
+        console.debug(`Request error: ${this._statistics.requestError}. Waiting...`);
       } else {
+        console.debug(`Multiple request errors: ${this._statistics.requestError}. Bot stopped.`);
         this._running = false;
       }
       return;
