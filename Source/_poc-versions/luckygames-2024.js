@@ -564,16 +564,20 @@ class LuckygamesTips {
         (this._betState.lastBetWin && response.lose > 0) ||
         (!this._betState.lastBetWin && response.win > 0) ||
         this._betState.sequence >= this._betState.fields.custom.limitSequence;
+
+      const isLimitSequence = this._betState.sequence >= this._betState.fields.custom.limitSequence;
+      if (isLimitSequence) {
+        this._betState.fields.consoleLog(`LIMIT SEQUENCE!`);
+        if (!this._betState.lastBetWin && response.lose > 0) {
+          // TODO: Este bloqueio impede zerar o saldo, mas com ele o saldo não sobe.
+          // this._betState.amount = this._betState.fields.custom.initialAmount / this._betState.fields.custom.lossMultiplier;
+        }
+      }
+
       this._betState.lastBetWin = response.win > 0;
       this._betState.fields.consoleLog = this._betState.lastBetWin
         ? console.info
         : console.warn;
-
-      if (
-        this._betState.sequence >= this._betState.fields.custom.limitSequence
-      ) {
-        this._betState.fields.consoleLog(`LIMIT SEQUENCE!`);
-      }
 
       this._betState.balance = parseFloat(response.balance);
 
