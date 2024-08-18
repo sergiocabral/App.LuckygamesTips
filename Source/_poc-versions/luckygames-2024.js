@@ -459,7 +459,7 @@ class LuckygamesTips {
       );
       if (data.url.includes("/dices")) {
         if (data.status >= 400) {
-          console.error("Bet request error. Stopping bot.", request);
+          console.error("Bet request error. Stopping bot.", data);
           this._betResponse(undefined);
         } else {
           this._betResponse(data.response);
