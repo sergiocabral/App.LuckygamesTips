@@ -621,7 +621,7 @@ class LuckygamesTips {
         ? console.info
         : console.warn;
 
-      this._betState.balance = parseFloat(response.balance);
+        this._betState.balance = !isNaN(response.balance) ? parseFloat(response.balance) : this._betState.balance;
 
       if (this._betState.swap) {
         if (this._betState.lastBetWin) {
