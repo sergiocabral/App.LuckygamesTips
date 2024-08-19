@@ -237,7 +237,7 @@ class LuckygamesTips {
         </div>
         <div>
           <label for="initialAmount">Initial Amount:</label>
-          <input type="text" id="initialAmount" value="+0.00000015" />
+          <input type="text" id="initialAmount" value="+0.00000025" />
         </div>
         <div>
           <label for="lossMultiplier">After Loss, Multiply by:</label>
