@@ -86,11 +86,11 @@ class LuckygamesTips {
 
           instance.addEventListener("readystatechange", function () {
             if (request.url.includes("/dice")) {
-              clearTimeout(this._betRequestTimeout);
+              clearTimeout(_this()._betRequestTimeout);
               if (_this()._running) {
-                this._betRequestTimeout = setTimeout(() => {
+                _this()._betRequestTimeout = setTimeout(() => {
                   console.debug(`Ops! The response never came back. Trying again.`);
-                  this._betRequest();
+                  _this()._betRequest();
                 }, 30000);
               }
             }
