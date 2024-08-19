@@ -17,7 +17,8 @@ class LuckygamesTips {
     requestsCount: 0,
     requestsPerMinute: 0,
     requestError: 0,
-    maxBet: 0
+    maxBet: 0,
+    minBalance: -1,
   };
 
   _betRequestTimeout;
@@ -258,6 +259,10 @@ class LuckygamesTips {
           <input type="text" id="maxBet" readonly />
         </div>
         <div>
+          <label for="minBalance">Minimum Balance:</label>
+          <input type="text" id="minBalance" readonly />
+        </div>
+        <div>
           <label for="requestsPerMinute">Requests per Minute:</label>
           <input type="text" id="requestsPerMinute" readonly />
         </div>
@@ -296,6 +301,9 @@ class LuckygamesTips {
       ),
       maxBet: parseFloat(
         this._getParent.querySelector("#maxBet").value
+      ),
+      minBalance: parseFloat(
+        this._getParent.querySelector("#minBalance").value
       ),
       requestsPerMinute: parseFloat(
         this._getParent.querySelector("#requestsPerMinute").value
@@ -339,6 +347,13 @@ class LuckygamesTips {
       )
         ? ""
         : parseFloat(fields.maxBet).toFixed(8);
+    }
+    if (fields.minBalance !== undefined) {
+      this._getParent.querySelector("#minBalance").value = isNaN(
+        fields.minBalance
+      )
+        ? ""
+        : parseFloat(fields.minBalance).toFixed(8);
     }
     if (fields.requestsPerMinute !== undefined) {
       this._getParent.querySelector("#requestsPerMinute").value = isNaN(
@@ -421,6 +436,7 @@ class LuckygamesTips {
             startedTime: Date.now(),
             requestsCount: 0,
             maxBet: 0,
+            minBalance: -1,
           };
         }
       }
@@ -565,7 +581,11 @@ class LuckygamesTips {
     if (this._running) {
       const maxBet = parseFloat(request.bet)
       if (maxBet > this._statistics.maxBet) {
-        this._statistics.maxBet = parseFloat(request.bet);
+        this._statistics.maxBet = maxBet;
+      }
+      const minBalance = parseFloat(response.balance)
+      if (this._statistics.minBalance < 0 || minBalance < this._statistics.minBalance) {
+        this._statistics.minBalance = minBalance;
       }
       this._statistics.requestsCount++;
       this._statistics.requestsPerMinute =
@@ -577,6 +597,7 @@ class LuckygamesTips {
       });
       this._setCustomFields({
         maxBet: this._statistics.maxBet,
+        minBalance: this._statistics.minBalance,
         requestsPerMinute: this._statistics.requestsPerMinute,
       });
 
