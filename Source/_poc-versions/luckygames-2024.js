@@ -85,17 +85,6 @@ class LuckygamesTips {
           instance._request = request;
 
           instance.addEventListener("readystatechange", function () {
-            if (request.url.includes("/dice")) {
-              clearTimeout(_this()._betRequestTimeout);
-              if (_this()._running) {
-                _this()._betRequestTimeout = setTimeout(() => {
-                  console.debug(`Ops! The response never came back. Trying again.`);
-                  console.debug(`_betRequest() #1`);
-                  _this()._betRequest();
-                }, 30000);
-              }
-            }
-
             if (this.readyState !== 4) return;
 
             request.responseURL = this.responseURL;
@@ -570,6 +559,13 @@ class LuckygamesTips {
   }
 
   _betResponse(response, request) {
+    clearTimeout(this._betRequestTimeout);
+    this._betRequestTimeout = setTimeout(() => {
+      console.info(`Ops! The response never came back. Trying again.`);
+      console.debug(`_betRequest() #1`);
+      this._betRequest();
+    }, 120000);
+
     if (!response) {
       if (++this._statistics.requestError <= 3) {
         console.debug(`_betRequest() #3`);
