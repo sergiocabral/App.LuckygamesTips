@@ -17,6 +17,7 @@ class LuckygamesTips {
     requestsCount: 0,
     requestsPerMinute: 0,
     requestError: 0,
+    maxBet: 0
   };
 
   _betRequestTimeout;
@@ -253,6 +254,10 @@ class LuckygamesTips {
           <button id="runBot">Start</button>
         </div>
         <div>
+          <label for="maxBet">Max Bet:</label>
+          <input type="text" id="maxBet" readonly />
+        </div>
+        <div>
           <label for="requestsPerMinute">Requests per Minute:</label>
           <input type="text" id="requestsPerMinute" readonly />
         </div>
@@ -289,6 +294,9 @@ class LuckygamesTips {
       limitSequence: parseFloat(
         this._getParent.querySelector("#limitSequence").value
       ),
+      maxBet: parseFloat(
+        this._getParent.querySelector("#maxBet").value
+      ),
       requestsPerMinute: parseFloat(
         this._getParent.querySelector("#requestsPerMinute").value
       ),
@@ -324,6 +332,13 @@ class LuckygamesTips {
       )
         ? ""
         : parseFloat(fields.limitSequence).toFixed(8);
+    }
+    if (fields.maxBet !== undefined) {
+      this._getParent.querySelector("#maxBet").value = isNaN(
+        fields.maxBet
+      )
+        ? ""
+        : parseFloat(fields.maxBet).toFixed(8);
     }
     if (fields.requestsPerMinute !== undefined) {
       this._getParent.querySelector("#requestsPerMinute").value = isNaN(
@@ -405,6 +420,7 @@ class LuckygamesTips {
           _this()._statistics = {
             startedTime: Date.now(),
             requestsCount: 0,
+            maxBet: 0,
           };
         }
       }
@@ -460,9 +476,9 @@ class LuckygamesTips {
       if (data.url.includes("/dices")) {
         if (data.status >= 400) {
           console.error("Bet request error. Stopping bot.", data);
-          this._betResponse(undefined);
+          this._betResponse(undefined, undefined);
         } else {
-          this._betResponse(data.response);
+          this._betResponse(data.response, data.body);
         }
       }
     } else if (data.url) {
@@ -531,7 +547,7 @@ class LuckygamesTips {
     return true;
   }
 
-  _betResponse(response) {
+  _betResponse(response, request) {
     if (!response) {
       if (++this._statistics.requestError <= 3) {
         setTimeout(() => this._betRequest(), 5000);
@@ -547,6 +563,10 @@ class LuckygamesTips {
     console.debug(`Updating fields from response`);
 
     if (this._running) {
+      const maxBet = parseFloat(request.bet)
+      if (maxBet > this._statistics.maxBet) {
+        this._statistics.maxBet = parseFloat(request.bet);
+      }
       this._statistics.requestsCount++;
       this._statistics.requestsPerMinute =
         this._statistics.requestsCount /
@@ -556,6 +576,7 @@ class LuckygamesTips {
         balance: response.balance,
       });
       this._setCustomFields({
+        maxBet: this._statistics.maxBet,
         requestsPerMinute: this._statistics.requestsPerMinute,
       });
 
