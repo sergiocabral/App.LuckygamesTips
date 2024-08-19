@@ -90,6 +90,7 @@ class LuckygamesTips {
               if (_this()._running) {
                 _this()._betRequestTimeout = setTimeout(() => {
                   console.debug(`Ops! The response never came back. Trying again.`);
+                  console.debug(`_betRequest() #1`);
                   _this()._betRequest();
                 }, 30000);
               }
@@ -438,6 +439,7 @@ class LuckygamesTips {
         parentElement.classList.add("running");
         _this()._running = true;
         delete _this()._betState.fields;
+        console.debug(`_betRequest() #2`);
         if (!_this()._betRequest()) {
           console.debug("Rollback the Bot.");
           this.click();
@@ -570,6 +572,7 @@ class LuckygamesTips {
   _betResponse(response, request) {
     if (!response) {
       if (++this._statistics.requestError <= 3) {
+        console.debug(`_betRequest() #3`);
         setTimeout(() => this._betRequest(), 5000);
         console.debug(`Request error: ${this._statistics.requestError}. Waiting...`);
       } else {
@@ -663,6 +666,7 @@ class LuckygamesTips {
         }
       }
 
+      console.debug(`_betRequest() #4`);
       this._betRequest();
     }
   }
