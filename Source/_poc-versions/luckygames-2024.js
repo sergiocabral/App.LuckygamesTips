@@ -237,7 +237,7 @@ class LuckygamesTips {
         </div>
         <div>
           <label for="initialAmount">Initial Amount:</label>
-          <input type="text" id="initialAmount" value="+0.00000025" />
+          <input type="text" id="initialAmount" value="+0.00000001" />
         </div>
         <div>
           <label for="lossMultiplier">After Loss, Multiply by:</label>
@@ -250,6 +250,10 @@ class LuckygamesTips {
         <div>
           <label for="limitSequence">Limit Sequence to Reset:</label>
           <input type="text" id="limitSequence" value="+5" />
+        </div>
+        <div>
+          <label for="limitBalance">Limit Balance (%):</label>
+          <input type="text" id="limitBalance" value="+90" />
         </div>
         <div>
           <button id="runBot">Start</button>
@@ -277,6 +281,7 @@ class LuckygamesTips {
       this._adjustInterfaceForInputNumber("#lossMultiplier", 2);
       this._adjustInterfaceForInputNumber("#winMultiplier", 2);
       this._adjustInterfaceForInputNumber("#limitSequence");
+      this._adjustInterfaceForInputNumber("#limitBalance");
       this._adjustInterfaceForStartButton("#runBot");
       console.debug(`Added element for custom fields.`, element);
     }
@@ -298,6 +303,9 @@ class LuckygamesTips {
       ),
       limitSequence: parseFloat(
         this._getParent.querySelector("#limitSequence").value
+      ),
+      limitBalance: parseFloat(
+        this._getParent.querySelector("#limitBalance").value
       ),
       maxBet: parseFloat(
         this._getParent.querySelector("#maxBet").value
@@ -340,6 +348,13 @@ class LuckygamesTips {
       )
         ? ""
         : parseFloat(fields.limitSequence).toFixed(8);
+    }
+    if (fields.limitBalance !== undefined) {
+      this._getParent.querySelector("#limitBalance").value = isNaN(
+        fields.limitBalance
+      )
+        ? ""
+        : parseFloat(fields.limitBalance).toFixed(8);
     }
     if (fields.maxBet !== undefined) {
       this._getParent.querySelector("#maxBet").value = isNaN(
@@ -452,7 +467,8 @@ class LuckygamesTips {
       fields.initialAmount >= 0.00000001 &&
       fields.lossMultiplier > 0 &&
       fields.winMultiplier > 0 &&
-      (isNaN(fields.limitSequence) || fields.limitSequence > 0);
+      (isNaN(fields.limitSequence) || fields.limitSequence > 0) &&
+      (isNaN(fields.limitBalance) || fields.limitBalance > 0);
     console.debug(`Checking if fields is valid: ${isValid}`);
     if (!isValid) {
       alert("Invalid fields.");
@@ -467,6 +483,7 @@ class LuckygamesTips {
       "#lossMultiplier",
       "#winMultiplier",
       "#limitSequence",
+      "#limitBalance",
     ];
     fields.forEach((fieldSelector) => {
       const element = this._getParent.querySelector(fieldSelector);
@@ -535,6 +552,21 @@ class LuckygamesTips {
       this._betState.balance ?? this._betState.fields.native.balance;
     this._betState.amount =
       this._betState.amount ?? this._betState.fields.custom.initialAmount;
+
+
+    if (this._betState.limitBalance === undefined && this._betState.fields.custom.limitBalance !== undefined) {
+      this._betState.limitBalance = this._betState.balance * (this._betState.fields.custom.limitBalance / 100)
+    } else {
+      this._betState.limitBalance = undefined
+    }
+
+    if (this._betState.limitBalance !== undefined) {
+      if (this._betState.balance - this._betState.amount < this._betState.limitBalance) {
+        console.info(`LIMIT BALANCE!`)
+        this._betState.amount = this._betState.fields.custom.initialAmount
+      }
+    }
+
     this._betState.fields.consoleLog(
       `[${this._betState.balance.toFixed(
         8
@@ -629,6 +661,7 @@ class LuckygamesTips {
       if (this._betState.swap) {
         if (this._betState.lastBetWin) {
           this._betState.amount = this._betState.fields.custom.initialAmount;
+          this._betState.limitBalance = undefined;
         }
         this._betState.sequence = 1;
         this._betState.fields.consoleLog(
