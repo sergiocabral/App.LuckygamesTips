@@ -574,7 +574,7 @@ class LuckygamesTips {
     );
     this._betState.request = {
       bet: this._betState.amount.toFixed(8),
-      clientSeed: this._captured.clientSeed,
+      clientSeed: Math.random().toString(16).substr(2, 16), //this._captured.clientSeed,
       isActiveStatistic: true,
       paymentMethod: this._captured.paymentMethod,
       serverSeedHash: this._captured.serverSeedHash,
