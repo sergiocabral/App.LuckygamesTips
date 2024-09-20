@@ -564,6 +564,8 @@ class LuckygamesTips {
       if (this._betState.balance - this._betState.amount < this._betState.limitBalance) {
         console.info(`LIMIT BALANCE!`)
         this._betState.amount = this._betState.fields.custom.initialAmount
+        this._betState.lastBetWin = true
+        this._betState.sequence = 1
       }
     }
 
