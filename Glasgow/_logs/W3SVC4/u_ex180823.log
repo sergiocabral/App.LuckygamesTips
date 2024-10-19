@@ -1,0 +1,16 @@
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-08-23 07:01:42
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-08-23 07:01:42 10.0.0.5 GET /robots.txt - 80 - 100.43.85.182 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 305
+2018-08-23 07:01:42 10.0.0.5 GET /robots.txt - 443 - 77.88.47.36 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 301 0 0 258
+2018-08-23 07:01:45 10.0.0.5 GET / - 443 - 77.88.47.36 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 200 0 0 221
+2018-08-23 07:01:45 10.0.0.5 GET / - 80 - 100.43.85.182 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 304
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-08-23 16:20:12
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-08-23 16:20:12 10.0.0.5 GET /robots.txt - 80 - 77.88.47.36 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 222
+2018-08-23 16:20:12 10.0.0.5 GET /robots.txt - 443 - 100.43.85.182 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 301 0 0 352
+2018-08-23 16:20:16 10.0.0.5 GET / - 80 - 77.88.47.36 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 222
+2018-08-23 16:20:16 10.0.0.5 GET / - 443 - 77.88.47.36 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 200 0 0 260

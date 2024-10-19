@@ -1,0 +1,22 @@
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-14 00:13:28
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-14 00:13:28 10.0.0.5 GET /robots.txt - 80 - 100.43.85.182 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 252
+2018-09-14 00:13:28 10.0.0.5 GET /robots.txt - 443 - 93.158.161.164 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 301 0 0 285
+2018-09-14 00:13:32 10.0.0.5 GET / - 80 - 100.43.85.182 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 249
+2018-09-14 00:13:32 10.0.0.5 GET / - 443 - 77.88.47.36 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 200 0 0 276
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-14 01:59:29
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-14 01:59:29 10.0.0.5 GET / - 80 - 138.219.199.250 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/67.0.3396.99+Safari/537.36 - 302 0 0 72
+2018-09-14 01:59:30 10.0.0.5 GET /favicon.ico - 443 - 138.219.199.250 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/67.0.3396.99+Safari/537.36 https://glasgow.splitz.com.br/ 200 0 0 31
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-14 23:57:11
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-14 23:57:11 10.0.0.5 GET /robots.txt - 80 - 100.43.85.182 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 256
+2018-09-14 23:57:11 10.0.0.5 GET /robots.txt - 443 - 77.88.47.36 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 301 0 0 271
+2018-09-14 23:57:15 10.0.0.5 GET / - 80 - 5.255.250.62 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 271
+2018-09-14 23:57:15 10.0.0.5 GET / - 443 - 5.255.250.62 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 200 0 0 343

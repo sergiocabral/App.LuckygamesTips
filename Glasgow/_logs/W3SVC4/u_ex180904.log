@@ -1,0 +1,22 @@
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-04 08:56:24
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-04 08:56:24 10.0.0.5 GET /robots.txt - 80 - 77.88.47.36 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 218
+2018-09-04 08:56:25 10.0.0.5 GET /robots.txt - 443 - 100.43.85.182 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 301 0 0 347
+2018-09-04 08:56:28 10.0.0.5 GET / - 80 - 77.88.47.36 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 215
+2018-09-04 08:56:28 10.0.0.5 GET / - 443 - 100.43.85.182 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 200 0 0 310
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-04 17:53:40
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-04 17:53:40 10.0.0.5 GET / - 80 - 54.186.24.155 Mozilla/5.0+(X11;+Ubuntu;+Linux+x86_64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/60.0.3112.101+Safari/537.36 - 302 0 0 197
+2018-09-04 17:53:45 10.0.0.5 GET / - 443 - 54.186.24.155 Mozilla/5.0+(X11;+Ubuntu;+Linux+x86_64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/60.0.3112.101+Safari/537.36 - 200 0 0 195
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-04 19:22:46
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-04 19:22:46 10.0.0.5 GET /robots.txt - 80 - 77.88.47.36 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 222
+2018-09-04 19:22:47 10.0.0.5 GET /robots.txt - 443 - 100.43.85.182 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 301 0 0 347
+2018-09-04 19:22:50 10.0.0.5 GET / - 80 - 77.88.47.36 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 219
+2018-09-04 19:22:50 10.0.0.5 GET / - 443 - 100.43.85.182 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 200 0 0 311

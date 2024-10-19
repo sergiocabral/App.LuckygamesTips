@@ -1,0 +1,145 @@
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-06 06:16:08
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-06 06:16:08 10.0.0.5 GET /robots.txt - 80 - 141.8.143.185 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 216
+2018-09-06 06:16:08 10.0.0.5 GET /robots.txt - 443 - 93.158.161.85 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 301 0 0 266
+2018-09-06 06:16:12 10.0.0.5 GET / - 443 - 93.158.161.85 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 200 0 0 231
+2018-09-06 06:16:12 10.0.0.5 GET / - 80 - 5.255.250.127 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 235
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-06 13:51:06
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-06 13:51:06 10.0.0.5 GET / - 80 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 - 302 0 0 65
+2018-09-06 13:51:06 10.0.0.5 GET / - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 - 200 0 0 24
+2018-09-06 13:51:06 10.0.0.5 GET /r2d2.jpg - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://glasgow.splitz.com.br/ 200 0 0 59
+2018-09-06 13:51:06 10.0.0.5 GET /favicon.ico - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://glasgow.splitz.com.br/ 200 0 0 105
+2018-09-06 13:53:57 10.0.0.5 GET /script _=1536242022946 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/ 200 0 0 39
+2018-09-06 13:53:58 10.0.0.5 GET /exec/link/js id=script&time=Thu%20Sep%2006%202018%2010:53:57%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536242022947 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/ 200 0 0 1214
+2018-09-06 13:54:01 10.0.0.5 POST /exec/Licenca/List/ - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/ 200 0 0 858
+2018-09-06 13:54:01 10.0.0.5 POST /exec/Acesso/Enter/ - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/ 200 0 0 1004
+2018-09-06 13:54:05 10.0.0.5 GET /r2d2.jpg - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/ 200 0 0 44
+2018-09-06 13:54:22 10.0.0.5 POST /exec/Licenca/List/ - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/ 200 0 0 1178
+2018-09-06 13:54:22 10.0.0.5 GET /exec/link/js id=OTFjZjg5OTU 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/ 200 0 0 927
+2018-09-06 13:54:24 10.0.0.5 GET /exec/link/js id=YWQxMTU5OTc 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/ 200 0 0 989
+2018-09-06 13:54:24 10.0.0.5 GET /exec/link/js id=ZWQwOTYwYzM 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/ 200 0 0 909
+2018-09-06 13:54:25 10.0.0.5 GET /exec/link/js id=ZjE5ZThiYTc 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/ 200 0 0 927
+2018-09-06 13:54:25 10.0.0.5 GET /exec/link/js id=ZjYyMTY3MjY 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/ 200 0 0 972
+2018-09-06 13:54:27 10.0.0.5 GET /exec/link/js id=ZDU2ZTUxMGE 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/ 200 0 0 926
+2018-09-06 14:01:00 10.0.0.5 GET / - 80 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 - 302 0 0 405
+2018-09-06 14:01:00 10.0.0.5 GET / - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 - 200 0 0 36
+2018-09-06 14:01:00 10.0.0.5 GET /r2d2.jpg - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://glasgow.splitz.com.br/ 200 0 0 61
+2018-09-06 14:01:00 10.0.0.5 GET /favicon.ico - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://glasgow.splitz.com.br/ 200 0 0 35
+2018-09-06 14:01:23 10.0.0.5 GET /script _=1536242478742 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/ 200 0 0 30
+2018-09-06 14:01:24 10.0.0.5 GET /exec/link/js id=script&time=Thu%20Sep%2006%202018%2011:01:24%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536242478743 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/ 200 0 0 1329
+2018-09-06 14:01:28 10.0.0.5 GET /script - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 - 200 0 0 75
+2018-09-06 14:01:28 10.0.0.5 POST /exec/Licenca/List/ - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/ 200 0 0 879
+2018-09-06 14:01:29 10.0.0.5 POST /exec/Acesso/Enter/ - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/ 200 0 0 956
+2018-09-06 14:01:37 10.0.0.5 GET /exec/link/js id=script&time= 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 - 200 0 0 1576
+2018-09-06 14:08:45 10.0.0.5 GET /script _=1536242923667 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/?user=c8fc111fc10729c8f351242c6c8db7c9f53aced8 200 0 0 190
+2018-09-06 14:08:47 10.0.0.5 GET /exec/link/js id=script&time=Thu%20Sep%2006%202018%2011:08:45%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536242923668 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/?user=c8fc111fc10729c8f351242c6c8db7c9f53aced8 200 0 0 1619
+2018-09-06 14:08:48 10.0.0.5 POST /exec/Acesso/Enter/ - 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/?user=c8fc111fc10729c8f351242c6c8db7c9f53aced8 200 0 0 1079
+2018-09-06 14:08:48 10.0.0.5 POST /exec/Licenca/List/ - 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/?user=c8fc111fc10729c8f351242c6c8db7c9f53aced8 200 0 0 1339
+2018-09-06 14:08:50 10.0.0.5 GET /exec/link/js id=NGI2ZjI1OWY 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/?user=c8fc111fc10729c8f351242c6c8db7c9f53aced8 200 0 0 1037
+2018-09-06 14:08:51 10.0.0.5 GET /exec/link/js id=M2M1MGMyMzk 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/?user=c8fc111fc10729c8f351242c6c8db7c9f53aced8 200 0 0 1030
+2018-09-06 14:08:52 10.0.0.5 GET /exec/link/js id=MDZlNGVkNTc 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/?user=c8fc111fc10729c8f351242c6c8db7c9f53aced8 200 0 0 1030
+2018-09-06 14:08:53 10.0.0.5 GET /exec/link/js id=NTU2MjdlM2E 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/?user=c8fc111fc10729c8f351242c6c8db7c9f53aced8 200 0 0 1037
+2018-09-06 14:08:54 10.0.0.5 GET /exec/link/js id=NmNiYzg1Nzk 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/?user=c8fc111fc10729c8f351242c6c8db7c9f53aced8 200 0 0 1033
+2018-09-06 14:08:55 10.0.0.5 GET /exec/link/js id=OTk1M2IzNzA 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/?user=c8fc111fc10729c8f351242c6c8db7c9f53aced8 200 0 0 1094
+2018-09-06 14:09:46 10.0.0.5 GET /cabot _=1536242967558 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/?coin=lucky 200 0 0 182
+2018-09-06 14:09:47 10.0.0.5 GET /exec/link/js id=cabot&time=Thu%20Sep%2006%202018%2011:09:46%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536242967559 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/?coin=lucky 200 0 0 1027
+2018-09-06 14:20:15 10.0.0.5 GET /cabot _=1536243583990 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/?coin=lucky 200 0 0 182
+2018-09-06 14:20:17 10.0.0.5 GET /exec/link/js id=cabot&time=Thu%20Sep%2006%202018%2011:20:15%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536243583991 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/?coin=lucky 200 0 0 1615
+2018-09-06 14:24:36 10.0.0.5 GET /cabot _=1536243760214 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 183
+2018-09-06 14:24:37 10.0.0.5 GET /exec/link/js id=cabot&time=Thu%20Sep%2006%202018%2011:24:35%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536243760215 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1565
+2018-09-06 14:26:00 10.0.0.5 GET /cabot _=1536243956137 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 183
+2018-09-06 14:26:02 10.0.0.5 GET /exec/link/js id=cabot&time=Thu%20Sep%2006%202018%2011:26:00%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536243956138 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1204
+2018-09-06 14:37:29 10.0.0.5 GET /SCRIPT _=1536244639524 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 196
+2018-09-06 14:37:30 10.0.0.5 GET /exec/link/js id=script&time=Thu%20Sep%2006%202018%2011:37:28%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536244639525 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1622
+2018-09-06 14:37:32 10.0.0.5 POST /exec/Acesso/Enter/ - 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1115
+2018-09-06 14:37:32 10.0.0.5 POST /exec/Licenca/List/ - 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1286
+2018-09-06 14:37:33 10.0.0.5 GET /exec/link/js id=NDZjOTMyMDY 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1036
+2018-09-06 14:37:34 10.0.0.5 GET /exec/link/js id=OTZmZjk0OWI 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1046
+2018-09-06 14:37:35 10.0.0.5 GET /exec/link/js id=OWQxNmNmMmI 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1034
+2018-09-06 14:37:36 10.0.0.5 GET /exec/link/js id=NjRhMDhmYjA 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1035
+2018-09-06 14:37:38 10.0.0.5 GET /exec/link/js id=YjQ2ZWVjZWQ 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1039
+2018-09-06 14:37:39 10.0.0.5 GET /exec/link/js id=NGY3NTQ0MmI 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1079
+2018-09-06 14:37:39 10.0.0.5 GET /r2d2.jpg - 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 183
+2018-09-06 14:38:24 10.0.0.5 GET /SCRIPT _=1536244697422 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 183
+2018-09-06 14:38:25 10.0.0.5 GET /exec/link/js id=script&time=Thu%20Sep%2006%202018%2011:38:24%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536244697423 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1022
+2018-09-06 14:38:26 10.0.0.5 POST /exec/Licenca/List/ - 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1070
+2018-09-06 14:38:26 10.0.0.5 POST /exec/Acesso/Enter/ - 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1080
+2018-09-06 14:38:32 10.0.0.5 GET /r2d2.jpg - 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 182
+2018-09-06 14:38:57 10.0.0.5 POST /exec/Licenca/List/ - 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1222
+2018-09-06 14:38:58 10.0.0.5 GET /exec/link/js id=YjJlMTlmNmY 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1032
+2018-09-06 14:38:58 10.0.0.5 POST /exec/Licenca/List/ - 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1175
+2018-09-06 14:38:59 10.0.0.5 GET /exec/link/js id=Nzc4MjUzNjc 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1030
+2018-09-06 14:38:59 10.0.0.5 GET /exec/link/js id=YzY1ZTBkNzc 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1028
+2018-09-06 14:39:00 10.0.0.5 GET /exec/link/js id=Y2Y5ZjM5MTE 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1025
+2018-09-06 14:39:00 10.0.0.5 GET /exec/link/js id=OTAwODUxMWM 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1033
+2018-09-06 14:39:02 10.0.0.5 GET /exec/link/js id=YzQzYjhiYjM 443 - 51.140.142.249 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1029
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-06 15:51:31
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-06 15:51:31 10.0.0.5 GET / - 80 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 - 302 0 0 156
+2018-09-06 15:51:31 10.0.0.5 GET / - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 - 200 0 0 59
+2018-09-06 15:51:31 10.0.0.5 GET /r2d2.jpg - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://glasgow.splitz.com.br/ 200 0 0 193
+2018-09-06 15:52:01 10.0.0.5 GET /script - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 - 200 0 0 39
+2018-09-06 15:52:10 10.0.0.5 GET /exec/link/js id=script 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 - 200 0 0 1254
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-06 16:30:30
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-06 16:30:30 10.0.0.5 GET / - 80 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 - 302 0 0 417
+2018-09-06 16:31:03 10.0.0.5 GET / - 443 - 66.249.88.62 Mozilla/5.0+(X11;+Linux+x86_64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/56.0.2924.87+Safari/537.36+Google+(+https://developers.google.com/+/web/snippet/) - 200 0 0 166
+2018-09-06 16:31:05 10.0.0.5 GET /favicon1.png - 443 - 66.249.88.63 Mozilla/5.0+(X11;+Linux+x86_64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/56.0.2924.87+Safari/537.36+Google+(+https://developers.google.com/+/web/snippet/) - 200 0 0 2208
+2018-09-06 16:32:42 10.0.0.5 GET / - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://www.google.com/url?q=https://glasgow.splitz.com.br/&sa=D&source=hangouts&ust=1536337862034000&usg=AFQjCNFXk0aExOM3DOFwdlYb9oKBE_Rf0A 200 0 0 33
+2018-09-06 16:32:42 10.0.0.5 GET /r2d2.jpg - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://glasgow.splitz.com.br/ 200 0 0 60
+2018-09-06 16:32:42 10.0.0.5 GET /favicon.ico - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://glasgow.splitz.com.br/ 200 0 0 63
+2018-09-06 16:38:49 10.0.0.5 GET /cabot _=1536251584208 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/ 200 0 0 38
+2018-09-06 16:38:51 10.0.0.5 GET /exec/link/js id=cabot&time=Thu%20Sep%2006%202018%2013:38:49%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536251584209 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/ 200 0 0 2493
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-06 17:34:11
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-06 17:34:11 10.0.0.5 GET /cabot _=1536255238770 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/?coin=eth 200 0 0 39
+2018-09-06 17:34:12 10.0.0.5 GET /exec/link/js id=cabot&time=Thu%20Sep%2006%202018%2014:34:11%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536255238771 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/?coin=eth 200 0 0 1094
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-06 18:09:54
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-06 18:09:54 10.0.0.5 GET /cabot _=1536257360953 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/?coin=eth 200 0 0 85
+2018-09-06 18:09:55 10.0.0.5 GET /exec/link/js id=cabot&time=Thu%20Sep%2006%202018%2015:09:55%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536257360954 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/?coin=eth 200 0 0 1133
+2018-09-06 18:12:12 10.0.0.5 GET /cabot _=1536257516642 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/?coin=eth 200 0 0 31
+2018-09-06 18:12:13 10.0.0.5 GET /exec/link/js id=cabot&time=Thu%20Sep%2006%202018%2015:12:12%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536257516643 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/?coin=eth 200 0 0 1043
+2018-09-06 18:19:29 10.0.0.5 GET /cabot _=1536257598103 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/?coin=eth 200 0 0 35
+2018-09-06 18:19:30 10.0.0.5 GET /exec/link/js id=cabot&time=Thu%20Sep%2006%202018%2015:19:29%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536257598104 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/?coin=eth 200 0 0 1109
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-06 18:58:48
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-06 18:58:48 10.0.0.5 GET /cabot _=1536260309659 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/?coin=eth 200 0 0 41
+2018-09-06 18:58:49 10.0.0.5 GET /exec/link/js id=cabot&time=Thu%20Sep%2006%202018%2015:58:48%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536260309660 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/?coin=eth 200 0 0 1096
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-06 21:10:02
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-06 21:10:02 10.0.0.5 GET /robots.txt - 80 - 77.88.47.36 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 218
+2018-09-06 21:10:02 10.0.0.5 GET /robots.txt - 443 - 77.88.47.36 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 301 0 0 254
+2018-09-06 21:10:06 10.0.0.5 GET / - 443 - 77.88.47.36 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 200 0 0 215
+2018-09-06 21:10:06 10.0.0.5 GET / - 80 - 100.43.85.182 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 313
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-06 22:54:00
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-06 22:54:00 10.0.0.5 GET / - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 - 200 0 0 37
+2018-09-06 22:54:00 10.0.0.5 GET /r2d2.jpg - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://glasgow.splitz.com.br/ 200 0 0 53
+2018-09-06 22:54:23 10.0.0.5 GET /script _=1536274453111 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/?coin=eth 200 0 0 37
+2018-09-06 22:54:24 10.0.0.5 GET /exec/link/js id=script&time=Thu%20Sep%2006%202018%2019:54:23%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536274453112 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/?coin=eth 200 0 0 1212
+2018-09-06 22:54:26 10.0.0.5 POST /exec/Licenca/List/ - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/?coin=eth 200 0 0 905
+2018-09-06 22:54:26 10.0.0.5 POST /exec/Acesso/Enter/ - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/?coin=eth 200 0 0 1007
+2018-09-06 22:55:38 10.0.0.5 POST /exec/Licenca/List/ - 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/?coin=eth 200 0 0 1146
+2018-09-06 22:55:39 10.0.0.5 GET /exec/link/js id=YWI4MTdlY2M 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/?coin=eth 200 0 0 1031
+2018-09-06 22:55:39 10.0.0.5 GET /exec/link/js id=Mzg5NDY4Yjg 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/?coin=eth 200 0 0 944
+2018-09-06 22:55:41 10.0.0.5 GET /exec/link/js id=ZmI0ZTM4ZWE 443 - 179.105.56.137 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/69.0.3497.81+Safari/537.36 https://luckygames.io/?coin=eth 200 0 0 945

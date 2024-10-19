@@ -1,0 +1,11 @@
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-07-07 11:26:39
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-07-07 11:26:39 10.0.0.5 GET /robots.txt - 443 - 100.43.91.100 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 301 0 0 406
+2018-07-07 11:26:42 10.0.0.5 GET / - 443 - 100.43.91.100 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 200 0 0 312
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-07-07 14:04:40
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-07-07 14:04:40 10.0.0.5 GET /exec/link/get id=Nzg5YzE0M2Y 443 - 95.84.154.127 Mozilla/4.0+(compatible;+MSIE+8.0;+Windows+NT+6.1;+Trident/4.0;+SLCC2;+.NET+CLR+2.0.50727;+.NET+CLR+3.5.30729;+.NET+CLR+3.0.30729;+Media+Center+PC+6.0;+.NET4.0C;+.NET4.0E) https://yandex.ru/clck/jsredir?from=yandex.ru%3Bsearch%3Bweb%3B%3B&text=&etext=1842.ouyBjpjeryoSVDbjbvj6Z9cTVaiUux8PdwHxpDlRaDbizibyS-d2at66e5L3q5GJ.4e86fcd42b5d15b5fc79591c61163a70f79a7349&uuid=&state=_BLhILn4SxNIvvL0W45KSic66uCIg23qh8iRG98qeIXmeppkgUc0YG-XUIUpxKrkaoPisARVvB8&data=UlNrNmk5WktYejY4cHFySjRXSWhXS1lxQU9ybGZiVm5FVmFSXzk4alNmVVN6eW96WXl3NDI4WDdpLVFHYUlOMU9ZSWFDcDZiNGowYktZdERoX0RfaWEyYXpLY0ZBTTE2Qm15bklYS3FuOXozeGxuaEdsekp2RFZhaWdhaFhRd0VRUnd4OWJ1Q0JCY3NxdzV4MXZiNkNZaDFLOXNrZTV3OQ&b64e=2&sign=2c7a53b37645a6a0134df0cbe1cb7312&keyno=0&cst=AiuY0DBWFJ7IXge4WdYJQULnoVAFacUfQbfIoapGCFIHCm1FwannO8kh2UHPY-awgOD40-R7HfijcQSuZSG0Fl-nJyET7WGMx2PMpJnI3kDSJTTB5H2WKdtiM020gx2kUaGcflJBZyrYICmyHsJ_g-2zcmvf2NJW&ref=orjY4mGPRjk5boDnW0uvlrrd71vZw9kp5uQozpMtKCW4RgmAu5ryJLr-x1XXr2bNn3nTbIV_irGRnevtSQ9OgqYrrp7KhpBNKPAFcjk02czCebUnt3fK25HbXW6w1pEg&l10n=ru&cts=1530971902506&mc=5.06005575904 200 0 0 793

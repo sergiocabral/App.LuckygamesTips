@@ -1,0 +1,61 @@
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-12 02:52:22
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-12 02:52:22 10.0.0.5 GET /cabot0 _=1536720740474 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/user/bilygo/ 200 0 0 259
+2018-09-12 02:52:23 10.0.0.5 GET /exec/link/js id=cabot&time=Tue%20Sep%2011%202018%2023:52:22%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536720740475 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/user/bilygo/ 200 0 64 1125
+2018-09-12 02:52:24 10.0.0.5 GET /cabot0 _=1536720743452 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/user/ops/ 200 0 0 223
+2018-09-12 02:52:26 10.0.0.5 GET /exec/link/js id=cabot&time=Tue%20Sep%2011%202018%2023:52:24%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536720743453 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/user/ops/ 200 0 0 1393
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-12 03:26:09
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-12 03:26:09 10.0.0.5 GET /robots.txt - 80 - 100.43.85.182 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 310
+2018-09-12 03:26:09 10.0.0.5 GET /robots.txt - 443 - 141.8.143.185 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 301 0 0 250
+2018-09-12 03:26:13 10.0.0.5 GET / - 80 - 100.43.85.182 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 311
+2018-09-12 03:26:13 10.0.0.5 GET / - 443 - 77.88.47.36 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 200 0 0 254
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-12 12:04:16
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-12 12:04:16 10.0.0.5 GET / - 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 - 200 0 0 271
+2018-09-12 12:04:16 10.0.0.5 GET /r2d2.jpg - 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://glasgow.splitz.com.br/ 200 0 0 379
+2018-09-12 12:04:16 10.0.0.5 GET /favicon.ico - 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://glasgow.splitz.com.br/ 200 0 0 182
+2018-09-12 12:04:28 10.0.0.5 GET /cabot0 _=1536753788703 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/?user=c8fc111fc10729c8f351242c6c8db7c9f53aced8 200 0 0 194
+2018-09-12 12:04:37 10.0.0.5 GET /exec/link/js id=cabot&time=Wed%20Sep%2012%202018%2009:04:28%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536753788704 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/?user=c8fc111fc10729c8f351242c6c8db7c9f53aced8 200 0 64 9264
+2018-09-12 12:04:47 10.0.0.5 GET /cabot0 _=1536753878037 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/?coin=btc 200 0 0 181
+2018-09-12 12:04:48 10.0.0.5 GET /exec/link/js id=cabot&time=Wed%20Sep%2012%202018%2009:04:47%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536753878038 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/?coin=btc 200 0 0 1211
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-12 15:37:36
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-12 15:37:36 10.0.0.5 GET /cabot0 _=1536766654375 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 275
+2018-09-12 15:37:38 10.0.0.5 GET /exec/link/js id=cabot&time=Wed%20Sep%2012%202018%2012:37:36%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536766654376 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 2025
+2018-09-12 15:37:51 10.0.0.5 GET /cabot0 _=1536766669845 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/user/bilygo/ 200 0 0 213
+2018-09-12 15:37:53 10.0.0.5 GET /exec/link/js id=cabot&time=Wed%20Sep%2012%202018%2012:37:52%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536766669846 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/user/bilygo/ 200 0 0 1271
+2018-09-12 15:38:21 10.0.0.5 GET /cabot0 _=1536766699650 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 214
+2018-09-12 15:38:22 10.0.0.5 GET /exec/link/js id=cabot&time=Wed%20Sep%2012%202018%2012:38:21%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536766699651 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1062
+2018-09-12 15:47:18 10.0.0.5 GET /cabot0 _=1536767236207 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 249
+2018-09-12 15:47:20 10.0.0.5 GET /exec/link/js id=cabot&time=Wed%20Sep%2012%202018%2012:47:18%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536767236208 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1724
+2018-09-12 15:51:30 10.0.0.5 GET /cabot0 _=1536767488322 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/user/ops/ 200 0 0 219
+2018-09-12 15:51:32 10.0.0.5 GET /exec/link/js id=cabot&time=Wed%20Sep%2012%202018%2012:51:30%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536767488323 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/user/ops/ 200 0 0 1689
+2018-09-12 15:52:01 10.0.0.5 GET /cabot0 _=1536767520084 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 209
+2018-09-12 15:52:03 10.0.0.5 GET /exec/link/js id=cabot&time=Wed%20Sep%2012%202018%2012:52:01%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536767520085 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1271
+2018-09-12 15:59:30 10.0.0.5 GET /cabot0 _=1536767969541 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/page/fair/ 200 0 0 214
+2018-09-12 15:59:32 10.0.0.5 GET /exec/link/js id=cabot&time=Wed%20Sep%2012%202018%2012:59:31%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536767969542 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/page/fair/ 200 0 0 1738
+2018-09-12 15:59:37 10.0.0.5 GET /cabot0 _=1536767974651 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 254
+2018-09-12 15:59:41 10.0.0.5 GET /exec/link/js id=cabot&time=Wed%20Sep%2012%202018%2012:59:37%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536767974652 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 4270
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-12 16:22:39
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-12 16:22:39 10.0.0.5 GET /cabot0 _=1536769357037 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 208
+2018-09-12 16:22:41 10.0.0.5 GET /exec/link/js id=cabot&time=Wed%20Sep%2012%202018%2013:22:39%20GMT-0300%20(Hor%C3%A1rio%20Padr%C3%A3o%20de%20Bras%C3%ADlia)&_=1536769357038 443 - 51.140.155.51 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/68.0.3440.106+Safari/537.36 https://luckygames.io/ 200 0 0 1681
+#Software: Microsoft Internet Information Services 10.0
+#Version: 1.0
+#Date: 2018-09-12 18:05:41
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) cs(Referer) sc-status sc-substatus sc-win32-status time-taken
+2018-09-12 18:05:41 10.0.0.5 GET /robots.txt - 80 - 77.88.47.36 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 304
+2018-09-12 18:05:43 10.0.0.5 GET /robots.txt - 443 - 100.43.85.182 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 301 0 0 382
+2018-09-12 18:05:45 10.0.0.5 GET / - 80 - 77.88.47.36 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 302 0 0 242
+2018-09-12 18:05:45 10.0.0.5 GET / - 443 - 100.43.85.182 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots) - 200 0 0 346
